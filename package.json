@@ -1,0 +1,36 @@
+{
+  "name": "extract-colors",
+  "version": "0.0.1",
+  "description": "Extract color palettes from images",
+  "main": "index.js",
+  "browser": "dist/extract-colors.umd.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Namide/extract-colors.git"
+  },
+  "keywords": [
+    "color",
+    "tool",
+    "extractor",
+    "palette",
+    "browser"
+  ],
+  "author": "damien@doussaud.fr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Namide/extract-colors/issues"
+  },
+  "homepage": "https://github.com/Namide/extract-colors#readme",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "rollup": "^1.27.14",
+    "rollup-plugin-uglify-es": "0.0.1"
+  }
+}
