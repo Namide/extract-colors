@@ -17,9 +17,11 @@
   "keywords": [
     "color",
     "tool",
-    "extractor",
+    "image",
+    "extract",
     "palette",
-    "browser"
+    "browser",
+    "rgb"
   ],
   "author": "damien@doussaud.fr",
   "license": "ISC",
