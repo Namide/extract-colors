@@ -5,7 +5,7 @@ const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => Number(val) 
 const isFunction = (label, val) => val && {}.toString.call(val) === '[object Function]' ? val : new Error(label + ' is invalid')
 
 export default class ColorsExtractor {
-  constructor (image, {
+  constructor ({
     pixels = ColorsExtractor.pixelsDefault,
     distance = ColorsExtractor.distanceDefault,
     saturationImportance = ColorsExtractor.saturationImportanceDefault,
