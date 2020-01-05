@@ -31,6 +31,7 @@ const src = 'my-image.jpg'
 
 extractColors(src)
   .then(console.log)
+  .catch(console.error)
 ```
 
 
@@ -40,10 +41,11 @@ extractColors(src)
 const path = require('path')
 const { extractColors } = require('extract-colors')
 
-const src = 'my-image.jpg'
+const src = './my-image.jpg'
 
-extractColors(src)
+extractColors(path.join(__dirname, src))
   .then(console.log)
+  .catch(console.log)
 ```
 
 

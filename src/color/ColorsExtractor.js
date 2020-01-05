@@ -4,7 +4,7 @@ const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   if (!Number.isInteger(val) || val < min || val > max) {
     throw new Error(label + ' is invalid')
   }
-  
+
   return parseInt(val)
 }
 
@@ -12,7 +12,7 @@ const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
   if (Number(val) != val || val < min || val > max) {
     throw new Error(label + ' is invalid')
   }
-  
+
   return Number(val)
 }
 
@@ -20,7 +20,7 @@ const testFunction = (label, val) => {
   if (!val || {}.toString.call(val) !== '[object Function]') {
     throw new Error(label + ' is invalid')
   }
-  
+
   return val
 }
 
