@@ -19,18 +19,26 @@ export default [
   {
     input: 'src/extractColorsModule.js',
     external: [ 'canvas' ],
-		output: [
-			{
-        name: 'extractColors',
-        file: pkg.main,
-        format: 'cjs'
-      },
-			{
-        name: 'extractColors',
-        file: pkg.module,
-        format: 'es'
-      }
-		],
+		output: {
+      name: 'extractColors',
+      file: pkg.main,
+      format: 'cjs'
+    },
+    plugins: [
+      resolve(),
+      commonjs(),
+      uglify()
+    ]
+  },
+
+  {
+    input: 'src/extractColorsModule.js',
+    external: [ 'canvas' ],
+		output: {
+      name: 'extractColors',
+      file: pkg.module,
+      format: 'es'
+    },
     plugins: [
       resolve(),
       commonjs(),

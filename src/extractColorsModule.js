@@ -1,5 +1,5 @@
 const { createCanvas, loadImage } = require('canvas')
-const ColorsExtractor = require('./color/ColorsExtractor')
+import ColorsExtractor from './color/ColorsExtractor'
 
 const getImageData = (image, pixels) => {
   const currentPixels = image.width * image.height
@@ -12,11 +12,36 @@ const getImageData = (image, pixels) => {
   return context.getImageData(0, 0, width, height)
 }
 
-module.exports = (src, options) => {
+const extractColorsFromImageData = (imageData, options) => {
+  const colorsExtractor = new ColorsExtractor(options)
+  return colorsExtractor.extract(imageData.data)
+}
+
+const extractColorsFromSrc = (src, options) => {
+  const image = new Image()
+  image.src = src
+  extractColorsFromImage(image, options)
+  
   return loadImage(src)
     .then(image => {
-      const colorsExtractor = new ColorsExtractor(options)
-      const data = getImageData(image, colorsExtractor.pixels).data
-      return colorsExtractor.extract(data)
+      const imageData = getImageData(image, ColorsExtractor.pixelsDefault)
+      return extractColorsFromImageData(imageData, options)
     })
 }
+
+const extractColors = (picture, options) => {
+  if (picture.width && picture.height && picture.data && picture.data.length) {
+    return new Promise(resolve => {
+      resolve(extractColorsFromImageData(picture, options))
+    })
+  } 
+
+  return extractColorsFromSrc(picture, options)
+}
+
+export {
+  extractColorsFromImageData,
+  extractColorsFromSrc
+}
+
+export default extractColors
