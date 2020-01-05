@@ -1,6 +1,6 @@
-const ColorsGroup = require('./ColorsGroup')
+import ColorsGroup from './ColorsGroup'
 
-module.exports = class ColorsExtractor {
+export default class ColorsExtractor {
   constructor (image, {
     pixels = 10000,
     distance = 150,

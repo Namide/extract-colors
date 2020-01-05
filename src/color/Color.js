@@ -1,4 +1,4 @@
-module.exports = class Color {
+export default class Color {
   constructor (red, green, blue, hex) {
     this.isColor = true
 

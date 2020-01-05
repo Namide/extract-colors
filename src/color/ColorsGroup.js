@@ -1,6 +1,6 @@
-const Color = require('./Color')
+import Color from './Color'
 
-module.exports = class ColorGroup {
+export default class ColorGroup {
   constructor () {
     this.count = 1
     this.children = { }
