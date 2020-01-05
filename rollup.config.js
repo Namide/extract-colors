@@ -12,7 +12,6 @@ export default [
       format: 'umd'
     },
     plugins: [
-      commonjs(),
       uglify()
     ]
   },
@@ -26,7 +25,8 @@ export default [
     },
     plugins: [
       resolve(),
-      commonjs()
+      commonjs(),
+      uglify()
     ]
   }
 ]
