@@ -39,9 +39,8 @@ const extractColors = (picture, options) => {
   return extractColorsFromSrc(picture, options)
 }
 
-export {
+module.exports = {
   extractColorsFromImageData,
-  extractColorsFromSrc
+  extractColorsFromSrc,
+  extractColors
 }
-
-export default extractColors
