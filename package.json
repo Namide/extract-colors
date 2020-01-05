@@ -4,6 +4,7 @@
   "description": "Extract color palettes from images",
   "main": "index.js",
   "browser": "dist/extract-colors.umd.js",
+  "module": "dist/extract-colors.cjs.js",
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c",
@@ -33,8 +34,13 @@
     "dist"
   ],
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.1",
+    "@rollup/plugin-node-resolve": "^6.1.0",
     "eslint": "^6.8.0",
     "rollup": "^1.27.14",
     "rollup-plugin-uglify-es": "0.0.1"
+  },
+  "dependencies": {
+    "canvas": "^2.6.1"
   }
 }

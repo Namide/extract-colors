@@ -1,7 +1,7 @@
 # Extract Colors
 
 Extract color palettes from images.
-Simple use, 3ko minified, no dependencies, browser only.
+Simple use, <4ko minified and no dependencies for browser.
 
 
 ## Install

@@ -1,6 +1,6 @@
-import ColorsGroup from './ColorsGroup'
+const ColorsGroup = require('./ColorsGroup')
 
-export default class ColorsExtractor {
+module.exports = class ColorsExtractor {
   constructor (image, {
     pixels = 10000,
     distance = 150,
@@ -40,21 +40,8 @@ export default class ColorsExtractor {
     return store.getColors(this.distance, this.saturationImportance)
   }
 
-  extract (image) {
-    const currentPixels = image.width * image.height
-    const width = currentPixels < this.pixels ? image.width : Math.round(image.width * Math.sqrt(this.pixels / currentPixels))
-    const height = currentPixels < this.pixels ? image.height : Math.round(image.height * Math.sqrt(this.pixels / currentPixels))
-
-    const canvas = document.createElement('canvas')
-    canvas.width = width
-    canvas.height = height
-
-    const context = canvas.getContext('2d')
-    context.drawImage(image, 0, 0, image.width, image.height, 0, 0, width, height)
-
-    const imageData = context.getImageData(0, 0, width, height)
-
-    return this.process(imageData.data)
+  extract (data) {
+    return this.process(data)
       .map(color => ({
         hex: '#' + '0'.repeat(6 - color.hex.toString(16).length) + color.hex.toString(16),
         red: color.red,
