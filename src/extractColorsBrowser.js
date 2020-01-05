@@ -24,7 +24,8 @@ export default (src, options) => {
       
       const colorsExtractor = new ColorsExtractor(options)
       const data = getImageData(image, colorsExtractor.pixels).data
-      return colorsExtractor.extract(data)
+
+      resolve(colorsExtractor.extract(data))
     }
 
     image.addEventListener('load', imageLoaded)
