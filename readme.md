@@ -6,24 +6,44 @@ Simple use, <4ko minified and no dependencies for browser.
 
 ## Install
 
+### For browser
+
 ```bash
 npm install 'extract-colors'
 ```
 
-For node only install `canvas`
+### For node.js
+
+Need to install dependency `canvas`
 
 ```bash
-npm install 'canvas'
+npm install 'extract-colors' 'canvas'
 ```
 
 ## Usage
+
+### Browser
 
 ```js
 import extractColors from 'extract-colors'
 
 const src = 'my-image.jpg'
 
-extractColors(src).then(console.log)
+extractColors(src)
+  .then(console.log)
+```
+
+
+### Node.js
+
+```js
+const path = require('path')
+const { extractColors } = require('extract-colors')
+
+const src = 'my-image.jpg'
+
+extractColors(src)
+  .then(console.log)
 ```
 
 
@@ -48,7 +68,7 @@ extractColors(src, options).then(console.log)
 | pixels | 10000 | Integer | Total pixel number of the resized picture for calculation |
 | distance | 150 | Integer | From 1 to 762 is the color distance to not have near colors |
 | saturationImportance | 5 | Number | Power of the saturation weight during the process |
-| splitPower | 10 | Integer | Approximation power in the first color splitting during process |
+| splitPower | 10 | Integer | Approximation power in the first color splitting during process (from 2 to 16) |
 | colorValidator | (red, green, blue, alpha = 255) => alpha > 250 | Function | Lamda function to disable some colors |
 
 

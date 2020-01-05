@@ -1,5 +1,9 @@
 import ColorsGroup from './ColorsGroup'
 
+const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isInteger(val) && val >= min && val <= max ? parseInt(val) : new Error(label + ' is invalid')
+const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => Number(val) == val && val >= min && val <= max ? Number(val) : new Error(label + ' is invalid')
+const isFunction = (label, val) => val && {}.toString.call(val) === '[object Function]' ? val : new Error(label + ' is invalid')
+
 export default class ColorsExtractor {
   constructor (image, {
     pixels = ColorsExtractor.pixelsDefault,
@@ -8,11 +12,11 @@ export default class ColorsExtractor {
     splitPower = ColorsExtractor.splitPowerDefault,
     colorValidator = ColorsExtractor.colorValidatorDefault
   } = {}) {
-    this.pixels = pixels
-    this.splitPower = splitPower
-    this.distance = distance
-    this.saturationImportance = saturationImportance
-    this.colorValidator = colorValidator
+    this.pixels = testUint('pixels', pixels, 1)
+    this.splitPower = testNumber('splitPower', splitPower, 2, 16)
+    this.distance = testUint('distance', distance, 1, 762)
+    this.saturationImportance = testNumber('saturationImportance', saturationImportance, 0)
+    this.colorValidator = isFunction('colorValidator', colorValidator)
   }
 
   process (data) {
