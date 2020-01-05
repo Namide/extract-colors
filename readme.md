@@ -13,8 +13,6 @@ npm install 'extract-colors'
 
 ## Usage
 
-Use only in browser because this lib use canvas and context.
-
 ```js
 import extractColors from 'extract-colors'
 
