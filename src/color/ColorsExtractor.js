@@ -2,11 +2,11 @@ import ColorsGroup from './ColorsGroup'
 
 export default class ColorsExtractor {
   constructor (image, {
-    pixels = 10000,
-    distance = 150,
-    saturationImportance = 5,
-    splitPower = 10,
-    colorValidator = (red, green, blue, alpha = 255) => alpha > 250
+    pixels = ColorsExtractor.pixelsDefault,
+    distance = ColorsExtractor.distanceDefault,
+    saturationImportance = ColorsExtractor.saturationImportanceDefault,
+    splitPower = ColorsExtractor.splitPowerDefault,
+    colorValidator = ColorsExtractor.colorValidatorDefault
   } = {}) {
     this.pixels = pixels
     this.splitPower = splitPower
@@ -52,3 +52,9 @@ export default class ColorsExtractor {
       }))
   }
 }
+
+ColorsExtractor.pixelsDefault = 10000,
+ColorsExtractor.distanceDefault = 150,
+ColorsExtractor.saturationImportanceDefault = 5,
+ColorsExtractor.splitPowerDefault = 10,
+ColorsExtractor.colorValidatorDefault = (red, green, blue, alpha = 255) => alpha > 250

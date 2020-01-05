@@ -15,14 +15,22 @@ export default [
       uglify()
     ]
   },
+
   {
     input: 'src/extractColorsModule.js',
     external: [ 'canvas' ],
-    output: {
-      name: 'extractColors',
-      file: pkg.module,
-      format: 'cjs'
-    },
+		output: [
+			{
+        name: 'extractColors',
+        file: pkg.main,
+        format: 'cjs'
+      },
+			{
+        name: 'extractColors',
+        file: pkg.module,
+        format: 'es'
+      }
+		],
     plugins: [
       resolve(),
       commonjs(),

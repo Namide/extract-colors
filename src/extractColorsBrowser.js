@@ -15,20 +15,56 @@ const getImageData = (image, pixels) => {
   return context.getImageData(0, 0, width, height)
 }
 
-export default (src, options) => {
-  return new Promise((resolve, reject) => {
-    const image = new Image()
-  
-    const imageLoaded = () => {
-      image.removeEventListener('load', imageLoaded)
-      
-      const colorsExtractor = new ColorsExtractor(options)
-      const data = getImageData(image, colorsExtractor.pixels).data
+const extractColorsFromImageData = (imageData, options) => {
+  const colorsExtractor = new ColorsExtractor(options)
+  return colorsExtractor.extract(imageData.data)
+}
 
-      resolve(colorsExtractor.extract(data))
+const extractColorsFromImage = (image, options) => {
+  new Promise(resolve => {
+
+    const extract = (image, options) => {
+      const imageData = getImageData(image, ColorsExtractor.pixelsDefault)
+      resolve(extractColorsFromImageData(imageData, options))
     }
 
-    image.addEventListener('load', imageLoaded)
-    image.src = src
+    if (image.complete) {
+      extract(image, options)
+    } else {
+      const imageLoaded = () => {
+        image.removeEventListener('load', imageLoaded)
+        extract(image, options)
+      }
+
+      image.addEventListener('load', imageLoaded)
+    }
   })
 }
+
+const extractColorsFromSrc = (src, options) => {
+  const image = new Image()
+  image.src = src
+  extractColorsFromImage(image, options)
+}
+
+const extractColors = (picture, options) => {
+  if (picture instanceof ImageData) {
+    return extractColorsFromImageData(picture, options)
+  } 
+
+  return new Promise(resolve => {
+    if (picture instanceof Image) {
+      resolve(extractColorsFromImage(picture, options))
+    }
+  
+    resolve(extractColorsFromSrc(picture, options))
+  })
+}
+
+export {
+  extractColorsFromImageData,
+  extractColorsFromImage,
+  extractColorsFromSrc
+}
+
+export default extractColors
