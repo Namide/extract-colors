@@ -45,7 +45,7 @@ const extractColorsFromImage = (image, options) => {
 const extractColorsFromSrc = (src, options) => {
   const image = new Image()
   image.src = src
-  extractColorsFromImage(image, options)
+  return extractColorsFromImage(image, options)
 }
 
 const extractColors = (picture, options) => {
