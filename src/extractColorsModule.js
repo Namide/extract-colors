@@ -18,10 +18,6 @@ const extractColorsFromImageData = (imageData, options) => {
 }
 
 const extractColorsFromSrc = (src, options) => {
-  const image = new Image()
-  image.src = src
-  extractColorsFromImage(image, options)
-  
   return loadImage(src)
     .then(image => {
       const imageData = getImageData(image, ColorsExtractor.pixelsDefault)
