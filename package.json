@@ -40,7 +40,5 @@
     "rollup": "^1.27.14",
     "rollup-plugin-uglify-es": "0.0.1"
   },
-  "dependencies": {
-    "canvas": "^2.6.1"
-  }
+  "dependencies": {}
 }

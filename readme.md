@@ -10,6 +10,11 @@ Simple use, <4ko minified and no dependencies for browser.
 npm install 'extract-colors'
 ```
 
+For node only install `canvas`
+
+```bash
+npm install 'canvas'
+```
 
 ## Usage
 
