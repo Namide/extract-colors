@@ -1,8 +1,28 @@
 import ColorsGroup from './ColorsGroup'
 
-const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => Number.isInteger(val) && val >= min && val <= max ? parseInt(val) : new Error(label + ' is invalid')
-const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => Number(val) == val && val >= min && val <= max ? Number(val) : new Error(label + ' is invalid')
-const isFunction = (label, val) => val && {}.toString.call(val) === '[object Function]' ? val : new Error(label + ' is invalid')
+const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
+  if (!Number.isInteger(val) || val < min || val > max) {
+    throw new Error(label + ' is invalid')
+  }
+  
+  return parseInt(val)
+}
+
+const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
+  if (Number(val) != val || val < min || val > max) {
+    throw new Error(label + ' is invalid')
+  }
+  
+  return Number(val)
+}
+
+const testFunction = (label, val) => {
+  if (!val || {}.toString.call(val) !== '[object Function]') {
+    throw new Error(label + ' is invalid')
+  }
+  
+  return val
+}
 
 export default class ColorsExtractor {
   constructor ({
@@ -16,7 +36,7 @@ export default class ColorsExtractor {
     this.splitPower = testNumber('splitPower', splitPower, 2, 16)
     this.distance = testUint('distance', distance, 1, 762)
     this.saturationImportance = testNumber('saturationImportance', saturationImportance, 0)
-    this.colorValidator = isFunction('colorValidator', colorValidator)
+    this.colorValidator = testFunction('colorValidator', colorValidator)
   }
 
   process (data) {
