@@ -7,6 +7,7 @@
   "module": "dist/extract-colors.cjs.js",
   "scripts": {
     "dev": "rollup -c -w",
+    "serve": "parcel sample/index.html -d cache",
     "build": "rollup -c",
     "lint": "eslint ./src/extractColorsBrowser.js ./src/extractColorsModule.js",
     "test": "jest"
@@ -48,6 +49,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^24.9.0",
+    "parcel": "^1.12.4",
     "rollup": "^1.27.14",
     "rollup-plugin-uglify-es": "0.0.1"
   },
