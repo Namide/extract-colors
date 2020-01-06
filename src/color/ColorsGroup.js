@@ -31,10 +31,10 @@ export default class ColorGroup {
       .map(key => this.children[key])
   }
 
-  getMaxWeight (saturationImportance) {
+  getMaxWeight (saturationImportance, count) {
     if (this.maxWeight === undefined) {
       const list = this.getList()
-        .map(child => child.isColor ? child.getWeight(saturationImportance) : child.getMaxWeight(saturationImportance))
+        .map(child => child.isColor ? child.getWeight(saturationImportance, count) : child.getMaxWeight(saturationImportance, count))
 
       list.sort((a, b) => b - a)
       this.maxWeight = list[0] || 0
@@ -43,28 +43,40 @@ export default class ColorGroup {
     return this.maxWeight
   }
 
-  getMaxWeightColor (saturationImportance) {
+  getMaxWeightColor (saturationImportance, count) {
     const list = this.getList()
     list.sort((a, b) => {
       if (a.isColor) {
-        return b.getWeight(saturationImportance) - a.getWeight(saturationImportance)
+        return b.getWeight(saturationImportance, count) - a.getWeight(saturationImportance, count)
       }
-      return b.getMaxWeight(saturationImportance) - a.getMaxWeight(saturationImportance)
+      return b.getMaxWeight(saturationImportance, count) - a.getMaxWeight(saturationImportance, count)
     })
 
-    return list[0].isColor ? list[0] : list[0].getMaxWeightColor(saturationImportance)
+    return list[0].isColor ? list[0] : list[0].getMaxWeightColor(saturationImportance, count)
   }
 
-  getColors (distance, saturationImportance) {
+  getMaxCountColor () {
+    const list = this.getList()
+    list.sort((a, b) => {
+      if (a.isColor) {
+        return b.count - a.count
+      }
+      return b.getMaxCountColor() - a.getMaxCountColor()
+    })
+
+    return list[0].isColor ? list[0] : list[0].getMaxCountColor()
+  }
+
+  getColors (distance, saturationImportance, count) {
     const list = this.getList()
       .map(child => {
         const count = child.count
-        const color = child.getMaxWeightColor(saturationImportance)
+        const color = child.getMaxCountColor()
         color.count = count
         return color
       })
 
-    list.sort((a, b) => b.getWeight(saturationImportance) - a.getWeight(saturationImportance))
+    list.sort((a, b) => b.getWeight(saturationImportance, count) - a.getWeight(saturationImportance, count))
 
     const newList = []
     list.forEach(color => {

@@ -1,5 +1,5 @@
 export default class Color {
-  constructor (red, green, blue, hex) {
+  constructor (red, green, blue, hex = red << 16 | green << 8 | blue) {
     this.isColor = true
 
     this.red = red
@@ -11,19 +11,19 @@ export default class Color {
   }
 
   distance (color) {
-    return Math.abs(color.red - this.red) + Math.abs(color.green - this.green) + Math.abs(color.blue - this.blue)
+    return (Math.abs(color.red - this.red) + Math.abs(color.green - this.green) + Math.abs(color.blue - this.blue)) / (3 * 0xFF)
   }
 
-  getWeight (saturationImportance) {
-    return this.count + this.getSaturation() * saturationImportance
+  getWeight (saturationImportance, maxCount) {
+    return this.count / maxCount + this.getSaturation() * saturationImportance
   }
 
   getSaturation () {
     if (this.saturation === undefined) {
       this.saturation = Math.max(
-        Math.abs(this.red - this.green),
-        Math.abs(this.red - this.blue),
-        Math.abs(this.green - this.blue)
+        Math.abs(this.red - this.green) / 0xFF,
+        Math.abs(this.red - this.blue) / 0xFF,
+        Math.abs(this.green - this.blue) / 0xFF
       )
     }
 

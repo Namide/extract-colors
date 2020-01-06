@@ -56,8 +56,8 @@ const src = 'my-image.jpg'
 
 const options = {
   pixels: 10000,
-  distance: 150,
-  saturationImportance: 5,
+  distance: 0.2,
+  saturationImportance: 0.2,
   splitPower: 10,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250
 }
@@ -68,10 +68,11 @@ extractColors(src, options).then(console.log)
 | Field | Default | Type | Description |
 |---|---|---|---|
 | pixels | 10000 | Integer | Total pixel number of the resized picture for calculation |
-| distance | 150 | Integer | From 1 to 762 is the color distance to not have near colors |
-| saturationImportance | 5 | Number | Power of the saturation weight during the process |
+| distance | 0.2 | Number | From 0 to 1 is the color distance to not have near colors (1 distance is between White and Black) |
+| saturationImportance | 0.2 | Number | Power of the saturation weight during the process (0 is not used, 1 is equal to the area and more is more important for the saturation) |
 | splitPower | 10 | Integer | Approximation power in the first color splitting during process (from 2 to 16) |
 | colorValidator | (red, green, blue, alpha = 255) => alpha > 250 | Function | Lamda function to disable some colors |
+| crossOrigin | null | Only for browser, can be 'Anonymous' to avoid CORS |
 
 
 ## Return of the promise

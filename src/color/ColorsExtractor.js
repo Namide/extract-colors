@@ -34,7 +34,7 @@ export default class ColorsExtractor {
   } = {}) {
     this.pixels = testUint('pixels', pixels, 1)
     this.splitPower = testNumber('splitPower', splitPower, 2, 16)
-    this.distance = testUint('distance', distance, 1, 762)
+    this.distance = testNumber('distance', distance, 0, 1)
     this.saturationImportance = testNumber('saturationImportance', saturationImportance, 0)
     this.colorValidator = testFunction('colorValidator', colorValidator)
   }
@@ -61,7 +61,7 @@ export default class ColorsExtractor {
       }
     }
 
-    return store.getColors(this.distance, this.saturationImportance)
+    return store.getColors(this.distance, this.saturationImportance, this.pixels)
   }
 
   extract (data) {
@@ -78,7 +78,7 @@ export default class ColorsExtractor {
 }
 
 ColorsExtractor.pixelsDefault = 10000,
-ColorsExtractor.distanceDefault = 150,
-ColorsExtractor.saturationImportanceDefault = 5,
+ColorsExtractor.distanceDefault = 0.2,
+ColorsExtractor.saturationImportanceDefault = 0.2,
 ColorsExtractor.splitPowerDefault = 10,
 ColorsExtractor.colorValidatorDefault = (red, green, blue, alpha = 255) => alpha > 250
