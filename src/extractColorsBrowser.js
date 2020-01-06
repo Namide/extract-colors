@@ -21,6 +21,7 @@ const extractColorsFromImageData = (imageData, options) => {
 }
 
 const extractColorsFromImage = (image, options) => {
+  image.crossOrigin = (options && options.crossOrigin) || null
   return new Promise(resolve => {
     const extract = (image, options) => {
       const colorsExtractor = new ColorsExtractor(options)
@@ -35,7 +36,6 @@ const extractColorsFromImage = (image, options) => {
         image.removeEventListener('load', imageLoaded)
         extract(image, options)
       }
-
       image.addEventListener('load', imageLoaded)
     }
   })
