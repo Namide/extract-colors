@@ -20,7 +20,6 @@ const display = (colors, src) => {
   loop: for (var r = 0; r < imageData.height; r++) {
     for (var c = 0; c < imageData.width; c++) {
       const i = Math.floor(r / canvas.width)
-
       const color = colors[i]
 
       if (!color) { break loop }
@@ -44,6 +43,16 @@ const display = (colors, src) => {
 ['test', 'jean', 'crayon', 'jumelle', 'journey', 'park'].forEach(seed => {
   const imgSrc = `https://picsum.photos/seed/${seed}/200/300`
   extractColors(imgSrc, { crossOrigin: 'anonymous' })
+    .then(colors => {
+      display(colors, imgSrc)
+      console.log(imgSrc)
+      console.log(colors)
+    })
+    .catch(console.log)
+})
+
+Object.values(require('./img/*.jpg')).forEach(imgSrc => {
+  extractColors(imgSrc)
     .then(colors => {
       display(colors, imgSrc)
       console.log(imgSrc)
