@@ -1,7 +1,7 @@
 # Extract Colors
 
 Extract color palettes from images.
-Simple use, <4ko minified and no dependencies for browser.
+Simple use, <5ko minified and no dependencies for browser. Dependency to canvas for node.js
 
 
 ## Install
@@ -65,14 +65,35 @@ const options = {
 extractColors(src, options).then(console.log)
 ```
 
-| Field | Default | Type | Description |
-|---|---|---|---|
-| pixels | 10000 | Integer | Total pixel number of the resized picture for calculation |
-| distance | 0.2 | Number | From 0 to 1 is the color distance to not have near colors (1 distance is between White and Black) |
-| saturationImportance | 0.2 | Number | Power of the saturation weight during the process (0 is not used, 1 is equal only saturaton and not area size) |
-| splitPower | 10 | Integer | Approximation power in the first color splitting during process (from 2 to 16) |
-| colorValidator | (red, green, blue, alpha = 255) => alpha > 250 | Function | Lamda function to disable some colors |
-| crossOrigin | null | Only for browser, can be 'Anonymous' to avoid CORS |
+`pixels`  
+_Total pixel number of the resized picture for calculation_  
+Type: `Integer`  
+Default: `10000`  
+
+`distance`  
+_From 0 to 1 is the color distance to not have near colors (1 distance is between White and Black)_  
+Type: `Number`  
+Default: `0.2`  
+
+`saturationImportance`  
+_Power of the saturation weight during the process (0 is not used, 1 is equal only saturaton and not area size)_  
+Type: `Number`  
+Default: `0.2`  
+
+`splitPower`  
+_Approximation power in the first color splitting during process (from 2 to 16)_  
+Type: `Integer`  
+Default: `10`  
+
+`colorValidator`  
+_Enable only some colors_  
+Type: `Function`  
+Default: `(red, green, blue, alpha = 255) => alpha > 250`  
+
+`crossOrigin`  
+_Only for browser, can be 'Anonymous' to avoid CORS_  
+Type: `String`  
+Default: `null`  
 
 
 ## Return of the promise
