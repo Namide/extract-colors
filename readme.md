@@ -65,32 +65,32 @@ const options = {
 extractColors(src, options).then(console.log)
 ```
 
-`pixels`  
+**pixels**  
 _Total pixel number of the resized picture for calculation_  
 Type: `Integer`  
 Default: `10000`  
 
-`distance`  
+**distance**  
 _From 0 to 1 is the color distance to not have near colors (1 distance is between White and Black)_  
 Type: `Number`  
 Default: `0.2`  
 
-`saturationImportance`  
+**saturationImportance**  
 _Power of the saturation weight during the process (0 is not used, 1 is equal only saturaton and not area size)_  
 Type: `Number`  
 Default: `0.2`  
 
-`splitPower`  
+**splitPower**  
 _Approximation power in the first color splitting during process (from 2 to 16)_  
 Type: `Integer`  
 Default: `10`  
 
-`colorValidator`  
+**colorValidator**  
 _Enable only some colors_  
 Type: `Function`  
 Default: `(red, green, blue, alpha = 255) => alpha > 250`  
 
-`crossOrigin`  
+**crossOrigin**  
 _Only for browser, can be 'Anonymous' to avoid CORS_  
 Type: `String`  
 Default: `null`  
