@@ -6,6 +6,7 @@ coverage
 
 # Parcel
 cache
+sample/img/*
 
 # Jest
 .cache
