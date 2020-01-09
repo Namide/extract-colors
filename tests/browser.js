@@ -5,14 +5,23 @@ import extractColors, { extractColorsFromImageData } from '../src/extractColorsB
 
 const open = jest.fn()
 Object.defineProperty(window, 'open', open)
-// global.document = jsdom('')
-// global.window = document.defaultView
-// global.Image = window.Image
 
 test('Extract from imageData', () => {
   const imageData = { data: [0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF] }
   return expect(extractColorsFromImageData(imageData).length).toBeGreaterThan(0)
 })
+
+// test('Extract from image', done => {
+//   const image = new Image()
+//   image.src = './tests/namide-world.jpg'
+//   image.onload = () => {
+//     extractColors(image)
+//       .then(data => {
+//         expect(data.length).toBeGreaterThan(0)
+//         done()
+//       })
+//   }
+// })
 
 // test('Check color init', () => {
 //   return extractColors('./namide-world.jpg')

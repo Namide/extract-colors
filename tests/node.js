@@ -12,6 +12,36 @@ test('Check color init', () => {
     })
 })
 
+test('Check bad pixels', () => {
+  const options = {
+    pixels: -1
+  }
+  return extractColors(path.join(__dirname, './namide-world.jpg'), options)
+    .catch(data => {
+      expect(2).toBeGreaterThan(0)
+    })
+})
+
+test('Check bad distance', () => {
+  const options = {
+    distance: 1.1
+  }
+  return extractColors(path.join(__dirname, './namide-world.jpg'), options)
+    .catch(data => {
+      expect(2).toBeGreaterThan(0)
+    })
+})
+
+test('Check bad colorValidator', () => {
+  const options = {
+    colorValidator: 'a'
+  }
+  return extractColors(path.join(__dirname, './namide-world.jpg'), options)
+    .catch(data => {
+      expect(2).toBeGreaterThan(0)
+    })
+})
+
 // extractColors(path.join(__dirname, './namide-world.jpg'))
 //   .then(data => data.length ? true : new Error('Data empty'))
 //   .then(() => console.log('✔\tSimple process'))
