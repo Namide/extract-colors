@@ -15,7 +15,7 @@ export default class Color {
   }
 
   getWeight (saturationImportance, maxCount) {
-    return this.count / maxCount + this.getSaturation() * saturationImportance
+    return (this.count / maxCount) * (1 - saturationImportance) + this.getSaturation() * saturationImportance
   }
 
   getSaturation () {

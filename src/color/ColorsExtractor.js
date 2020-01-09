@@ -35,7 +35,7 @@ export default class ColorsExtractor {
     this.pixels = testUint('pixels', pixels, 1)
     this.splitPower = testNumber('splitPower', splitPower, 2, 16)
     this.distance = testNumber('distance', distance, 0, 1)
-    this.saturationImportance = testNumber('saturationImportance', saturationImportance, 0)
+    this.saturationImportance = testNumber('saturationImportance', saturationImportance, 0, 1)
     this.colorValidator = testFunction('colorValidator', colorValidator)
   }
 
