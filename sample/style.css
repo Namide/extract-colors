@@ -1,0 +1,13 @@
+.block {
+  margin: 5px;
+  display: inline-block;
+  background-color: black;
+}
+
+img {
+  margin: 5px;
+}
+
+canvas {
+  margin: 5px 5px 5px 0;
+}
