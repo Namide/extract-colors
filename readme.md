@@ -1,15 +1,17 @@
 # Extract Colors
 
-Extract color palettes from images.
-Simple use, <5ko minified and no dependencies for browser. Dependency to canvas for node.js
+Extract color palettes from images.  
+Simple use, < 5ko minified, fast process and no dependencies for browser.  
+Dependency to canvas for node.js
 
+![3 examples of colors extraction](./doc/colors.jpg)
 
 ## Install
 
 ### For browser
 
 ```bash
-npm install 'extract-colors'
+npm install extract-colors
 ```
 
 ### For node.js
@@ -17,7 +19,7 @@ npm install 'extract-colors'
 Need to install dependency `canvas`
 
 ```bash
-npm install 'extract-colors' 'canvas'
+npm install extract-colors canvas
 ```
 
 ## Usage
@@ -41,9 +43,9 @@ extractColors(src)
 const path = require('path')
 const { extractColors } = require('extract-colors')
 
-const src = './my-image.jpg'
+const src = path.join(__dirname, './my-image.jpg')
 
-extractColors(path.join(__dirname, src))
+extractColors(src)
   .then(console.log)
   .catch(console.log)
 ```
@@ -62,7 +64,9 @@ const options = {
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250
 }
 
-extractColors(src, options).then(console.log)
+extractColors(src, options)
+  .then(console.log)
+  .catch(console.error)
 ```
 
 **pixels**  
@@ -71,12 +75,12 @@ Type: `Integer`
 Default: `10000`  
 
 **distance**  
-_From 0 to 1 is the color distance to not have near colors (1 distance is between White and Black)_  
+_From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)_  
 Type: `Number`  
 Default: `0.2`  
 
 **saturationImportance**  
-_Power of the saturation weight during the process (0 is not used, 1 is equal only saturaton and not area size)_  
+_Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size)_  
 Type: `Number`  
 Default: `0.2`  
 
