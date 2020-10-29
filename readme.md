@@ -6,6 +6,26 @@ Dependency to canvas for node.js
 
 ![3 examples of colors extraction](./doc/colors.jpg)
 
+
+## Requirements
+
+### Browsers
+
+- Firefox: 29+
+- Chrome: 33+
+- Edge: 12+
+- Opera: 19+
+- Safari: 8+
+- Webview Android: 4.4.3+
+- Samsung Internet: 2.0+
+- ~~Internet Explorer~~
+
+
+### Node
+
+- Node.js: 0.12+
+
+
 ## Install
 
 ### For browser
@@ -14,6 +34,7 @@ Dependency to canvas for node.js
 npm install extract-colors
 ```
 
+
 ### For node.js
 
 Need to install dependency `canvas`
@@ -21,6 +42,7 @@ Need to install dependency `canvas`
 ```bash
 npm install extract-colors canvas
 ```
+
 
 ## Usage
 
