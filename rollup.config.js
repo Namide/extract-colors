@@ -1,7 +1,7 @@
 import pkg from './package.json'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import uglify from 'rollup-plugin-uglify-es'
+import { terser } from 'rollup-plugin-terser'
 
 export default [
   {
@@ -12,7 +12,7 @@ export default [
       format: 'umd'
     },
     plugins: [
-      uglify()
+      terser()
     ]
   },
 
@@ -27,7 +27,7 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
-      uglify()
+      terser()
     ]
   },
 
@@ -42,7 +42,7 @@ export default [
     plugins: [
       resolve(),
       commonjs(),
-      uglify()
+      terser()
     ]
   }
 ]
