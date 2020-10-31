@@ -9,7 +9,7 @@
     "dev": "rollup -c -w",
     "serve": "parcel sample/index.html -d cache",
     "build": "rollup -c",
-    "lint": "eslint ./src/extractColorsBrowser.js ./src/extractColorsModule.js",
+    "lint": "eslint src --fix",
     "test": "jest"
   },
   "repository": {
@@ -29,7 +29,7 @@
     "node"
   ],
   "author": "damien@doussaud.fr",
-  "license": "ISC",
+  "license": "GNU GPL",
   "bugs": {
     "url": "https://github.com/Namide/extract-colors/issues"
   },
@@ -43,7 +43,7 @@
     "@rollup/plugin-node-resolve": "^10.0.0",
     "canvas": "^2.6.1",
     "eslint": "^7.12.1",
-    "eslint-config-standard": "^16.0.0",
+    "eslint-config-standard": "^16.0.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
