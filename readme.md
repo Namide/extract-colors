@@ -1,5 +1,14 @@
 # Extract Colors
 
+<img src="https://badge.fury.io/js/extract-colors.svg" alt="NPM package" />
+<img src="https://img.shields.io/badge/code_style-Standard-brightgreen.svg" alt="Standard JavaScript Style Guide" />
+<img src="https://david-dm.org/Namide/extract-colors.svg" alt="Dependencies" />
+<img alt="npm bundle size" src="https://img.shields.io/bundlephobia/min/extract-colors?style=flat">
+<img src="https://badgen.net/badge/coverage/78%25/green" alt="Coverage Status" />
+<img src="https://img.shields.io/github/issues/namide/extract-colors.svg" alt="Issues" />
+<img src="https://img.shields.io/badge/license-GNU_GPL-brightgreen.svg" alt="GNU GPL software License" />
+<img alt="npm" src="https://img.shields.io/npm/dw/extract-colors">
+
 Extract color palettes from images.  
 Simple use, < 5ko minified, fast process and no dependencies for browser.  
 Dependency to canvas for node.js
@@ -31,7 +40,7 @@ Dependency to canvas for node.js
 ### For browser
 
 ```bash
-npm install extract-colors
+npm install --save extract-colors
 ```
 
 
@@ -40,7 +49,7 @@ npm install extract-colors
 Need to install dependency `canvas`
 
 ```bash
-npm install extract-colors canvas
+npm install --save extract-colors canvas
 ```
 
 
@@ -58,6 +67,9 @@ extractColors(src)
   .catch(console.error)
 ```
 
+> You can use different types for `src` param (`String` for a path of image, `Image` or `ImageData`).  
+> If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
+
 
 ### Node.js
 
@@ -71,6 +83,9 @@ extractColors(src)
   .then(console.log)
   .catch(console.log)
 ```
+
+> You can use different types for `src` param (`String` for a path of image or `ImageData`).  
+> If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
 
 
 ### Options
