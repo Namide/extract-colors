@@ -127,7 +127,7 @@ Type: `Integer`
 Default: `10`  
 
 **colorValidator**  
-_Enable only some colors_  
+_Callback with test to enable only some colors_  
 Type: `Function`  
 Default: `(red, green, blue, alpha = 255) => alpha > 250`  
 
