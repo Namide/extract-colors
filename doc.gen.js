@@ -1,7 +1,10 @@
 const fs = require('fs')
 const jsdoc2md = require('jsdoc-to-markdown')
 
-jsdoc2md.render({ files: 'src/*.js' })
+jsdoc2md.render({
+  files: 'src/**/*.js',
+  'heading-depth': 3
+})
   .then(apiDoc => {
     return new Promise((resolve, reject) => {
       fs.readFile('readme.md', 'utf8', (error, data) => {
@@ -14,8 +17,8 @@ jsdoc2md.render({ files: 'src/*.js' })
     })
   })
   .then(({ initialDoc, apiDoc }) => {
-    return initialDoc.split(/(\n)*## Functions/gi).shift() +
-      '\n\n\n' + apiDoc
+    return initialDoc.split(/(\n)*## API doc/gi).shift() +
+      '\n\n\n## API doc\n\n' + apiDoc
   })
   .then(allDoc => {
     return new Promise((resolve, reject) => {

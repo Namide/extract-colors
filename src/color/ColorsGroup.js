@@ -1,5 +1,12 @@
 import Color from './Color'
 
+/**
+ * Group colors with algorithms to optimize and merge neighbors colors.
+ * 
+ * @module ColorGroup
+ * @memberof module:core
+ */
+
 /** 
  * @class
  * @classdesc Manage list of colors or groups.

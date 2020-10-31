@@ -1,6 +1,22 @@
 import ColorsExtractor from './color/ColorsExtractor'
 
 /**
+ * Browser exported functions.
+ * 
+ * @example
+ * import extractColors from 'extract-colors'
+ * 
+ * const src = 'my-image.jpg'
+ * 
+ * extractColors(src)
+ *   .then(console.log)
+ *   .catch(console.error)
+ * 
+ * @module Browser
+ * @memberof browser
+ */
+
+/**
  * Extract ImageData from image.
  * Reduce image to a pixel count.
  * 

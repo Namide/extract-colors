@@ -1,5 +1,31 @@
 import ColorsExtractor from './color/ColorsExtractor'
 
+/**
+ * Node exported functions.
+ * 
+ * @example
+ * const path = require('path')
+ * const { extractColors } = require('extract-colors')
+ * 
+ * const src = path.join(__dirname, './my-image.jpg')
+ * 
+ * extractColors(src)
+ *   .then(console.log)
+ *   .catch(console.log)
+ * 
+ * @example
+ * import { extractColorsFromImageData } from 'extract-colors'
+ * 
+ * const imageData = { data: [0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF] }
+ * 
+ * extractColorsFromImageData(imageData)
+ *   .then(console.log)
+ *   .catch(console.error)
+ * 
+ * @module Node
+ * @memberof node
+ */
+
 const { createCanvas, loadImage } = require('canvas')
 
 /**

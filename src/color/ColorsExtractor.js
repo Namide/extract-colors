@@ -1,6 +1,13 @@
 import ColorsGroup from './ColorsGroup'
 
 /**
+ * Process to extract main colors from list of colors. 
+ * 
+ * @module ColorsExtractor
+ * @memberof module:core
+ */
+
+/**
  * Test if value is an integer.
  * 
  * @param {String} label 
@@ -46,7 +53,20 @@ const testFunction = (label, val) => {
   return val
 }
 
+/**
+ * @class
+ * @classdesc Process to extract neighboring colors.
+ */
 export default class ColorsExtractor {
+
+  /**
+   * @param {Object=} options  Optional data
+   * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
+   * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
+   * @param {String=} options.saturationImportance  Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size)
+   * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 16)
+   * @param {String=} options.colorValidator  Callback with test to enable only some colors
+   */
   constructor ({
     pixels = ColorsExtractor.pixelsDefault,
     distance = ColorsExtractor.distanceDefault,
@@ -61,6 +81,12 @@ export default class ColorsExtractor {
     this.colorValidator = testFunction('colorValidator', colorValidator)
   }
 
+  /**
+   * Run extract process and get list of colors.
+   * 
+   * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
+   * @returns {Array<Color>}
+   */
   process (data) {
     const rootGroup = new ColorsGroup()
     const acc = this.splitPower
@@ -85,6 +111,12 @@ export default class ColorsExtractor {
     return rootGroup.getColors(this.distance, this.saturationImportance, this.pixels)
   }
 
+  /**
+   * Extract colors from data.
+   * 
+   * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
+   * @returns {Array<Object>} { hex, red, green, blue, area, saturation }
+   */
   extract (data) {
     return this.process(data)
       .map((color) => ({
