@@ -1,13 +1,10 @@
 # Extract Colors
 
-<img src="https://badge.fury.io/js/extract-colors.svg" alt="package version" />
-<img src="https://img.shields.io/badge/code_style-Standard-brightgreen.svg" alt="Standard JavaScript Style Guide" />
-<img src="https://david-dm.org/Namide/extract-colors.svg" alt="Dependencies" />
-<img src="https://img.shields.io/bundlephobia/min/extract-colors?style=flat"  alt="npm bundle size" />
-<img src="https://badgen.net/badge/coverage/78%25/green" alt="Coverage Status" />
-<img src="https://img.shields.io/github/issues/namide/extract-colors.svg" alt="Issues" />
-<img src="https://img.shields.io/badge/license-GNU_GPL-brightgreen.svg" alt="GNU GPL software License" />
-<img src="https://img.shields.io/npm/dw/extract-colors" alt="NPM downloads">
+![package version](https://badge.fury.io/js/extract-colors.svg)
+![npm bundle size](https://img.shields.io/bundlephobia/min/extract-colors?style=flat)
+![Statements](https://img.shields.io/badge/Coverage-78.48%25-red.svg)
+![Dependencies](https://david-dm.org/Namide/extract-colors.svg)
+![GNU GPL software License](https://img.shields.io/badge/license-GNU_GPL-brightgreen.svg)
 
 Extract color palettes from images.  
 Simple use, < 5ko minified, fast process and no dependencies for browser.  
@@ -55,7 +52,7 @@ npm install --save extract-colors canvas
 
 ## Usage
 
-### Browser
+### Browser example
 
 ```js
 import extractColors from 'extract-colors'
@@ -71,7 +68,7 @@ extractColors(src)
 > If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
 
 
-### Node.js
+### Node.js example
 
 ```js
 const path = require('path')
@@ -127,7 +124,7 @@ Type: `Integer`
 Default: `10`  
 
 **colorValidator**  
-_Callback with test to enable only some colors_  
+_Test function to enable only some colors_  
 Type: `Function`  
 Default: `(red, green, blue, alpha = 255) => alpha > 250`  
 
@@ -474,4 +471,3 @@ Extract colors from a picture.
 | [options.saturationImportance] | <code>String</code> | Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size) |
 | [options.splitPower] | <code>String</code> | Approximation power in the first color splitting during process (from 2 to 16) |
 | [options.colorValidator] | <code>String</code> | Callback with test to enable only some colors |
-

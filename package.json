@@ -13,6 +13,7 @@
     "postbuild": "node doc.gen.js",
     "lint": "eslint src --fix",
     "test": "jest",
+    "posttest": "istanbul-badges-readme",
     "doc": "node doc.gen.js"
   },
   "repository": {
@@ -51,6 +52,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.2",
+    "istanbul-badges-readme": "^1.0.5",
     "jest": "^26.6.1",
     "jsdoc-to-markdown": "^6.0.1",
     "parcel": "^1.12.4",
