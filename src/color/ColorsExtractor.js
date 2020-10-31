@@ -1,5 +1,13 @@
 import ColorsGroup from './ColorsGroup'
 
+/**
+ * Test if value is an integer.
+ * 
+ * @param {String} label 
+ * @param {Number} val 
+ * @param {Number} min 
+ * @param {Number} max 
+ */
 const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   if (!Number.isInteger(val) || val < min || val > max) {
     throw new Error(`${label} is invalid`)
@@ -8,6 +16,14 @@ const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   return parseInt(val)
 }
 
+/**
+ * Test if value is a number.
+ * 
+ * @param {String} label 
+ * @param {Number} val 
+ * @param {Number} min 
+ * @param {Number} max 
+ */
 const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
   if (Number(val) !== val || val < min || val > max) {
     throw new Error(`${label} is invalid`)
@@ -16,6 +32,12 @@ const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
   return Number(val)
 }
 
+/**
+ * Test if value is a function.
+ * 
+ * @param {String} label 
+ * @param {Function} val 
+ */
 const testFunction = (label, val) => {
   if (!val || {}.toString.call(val) !== '[object Function]') {
     throw new Error(`${label} is invalid`)
@@ -40,9 +62,8 @@ export default class ColorsExtractor {
   }
 
   process (data) {
-    const store = new ColorsGroup()
+    const rootGroup = new ColorsGroup()
     const acc = this.splitPower
-    let group
 
     for (let i = 0; i < data.length; i += 4) {
       const r = data[i] // 0 -> 255
@@ -55,13 +76,13 @@ export default class ColorsExtractor {
         const medium = (r >> 4 & 0xF) << 2 | (g >> 4 & 0xF) << 1 | (b >> 4 & 0xF)
         const small = Math.round(r * (acc - 1) / 255) * (acc * acc) + Math.round(g * (acc - 1) / 255) * acc + Math.round(b * (acc - 1) / 255)
 
-        group = store.addGroup(small)
-        group = group.addGroup(medium)
-        group.addColor(real, r, g, b)
+        const smallGroup = rootGroup.addGroup(small)
+        const mediumGroup = smallGroup.addGroup(medium)
+        mediumGroup.addColor(real, r, g, b)
       }
     }
 
-    return store.getColors(this.distance, this.saturationImportance, this.pixels)
+    return rootGroup.getColors(this.distance, this.saturationImportance, this.pixels)
   }
 
   extract (data) {
