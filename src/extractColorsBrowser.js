@@ -22,7 +22,7 @@ const extractColorsFromImageData = (imageData, options) => {
 
 const extractColorsFromImage = (image, options) => {
   image.crossOrigin = (options && options.crossOrigin) || null
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const extract = (image, options) => {
       const colorsExtractor = new ColorsExtractor(options)
       const imageData = getImageData(image, colorsExtractor.pixels)
@@ -49,7 +49,7 @@ const extractColorsFromSrc = (src, options) => {
 
 const extractColors = (picture, options) => {
   if (picture instanceof ImageData) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       resolve(extractColorsFromImageData(picture, options))
     })
   }

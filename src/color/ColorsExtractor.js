@@ -2,15 +2,15 @@ import ColorsGroup from './ColorsGroup'
 
 const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   if (!Number.isInteger(val) || val < min || val > max) {
-    throw new Error(label + ' is invalid')
+    throw new Error(`${label} is invalid`)
   }
 
   return parseInt(val)
 }
 
 const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
-  if (Number(val) != val || val < min || val > max) {
-    throw new Error(label + ' is invalid')
+  if (Number(val) !== val || val < min || val > max) {
+    throw new Error(`${label} is invalid`)
   }
 
   return Number(val)
@@ -18,7 +18,7 @@ const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
 
 const testFunction = (label, val) => {
   if (!val || {}.toString.call(val) !== '[object Function]') {
-    throw new Error(label + ' is invalid')
+    throw new Error(`${label} is invalid`)
   }
 
   return val
@@ -66,8 +66,8 @@ export default class ColorsExtractor {
 
   extract (data) {
     return this.process(data)
-      .map(color => ({
-        hex: '#' + '0'.repeat(6 - color.hex.toString(16).length) + color.hex.toString(16),
+      .map((color) => ({
+        hex: `#${'0'.repeat(6 - color.hex.toString(16).length)}${color.hex.toString(16)}`,
         red: color.red,
         green: color.green,
         blue: color.blue,
@@ -77,8 +77,8 @@ export default class ColorsExtractor {
   }
 }
 
-ColorsExtractor.pixelsDefault = 10000,
-ColorsExtractor.distanceDefault = 0.2,
-ColorsExtractor.saturationImportanceDefault = 0.2,
-ColorsExtractor.splitPowerDefault = 10,
+ColorsExtractor.pixelsDefault = 10000
+ColorsExtractor.distanceDefault = 0.2
+ColorsExtractor.saturationImportanceDefault = 0.2
+ColorsExtractor.splitPowerDefault = 10
 ColorsExtractor.colorValidatorDefault = (red, green, blue, alpha = 255) => alpha > 250

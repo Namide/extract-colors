@@ -1,4 +1,5 @@
 import ColorsExtractor from './color/ColorsExtractor'
+
 const { createCanvas, loadImage } = require('canvas')
 
 const getImageData = (image, pixels) => {
@@ -17,18 +18,16 @@ const extractColorsFromImageData = (imageData, options) => {
   return colorsExtractor.extract(imageData.data)
 }
 
-const extractColorsFromSrc = (src, options) => {
-  return loadImage(src)
-    .then(image => {
-      const colorsExtractor = new ColorsExtractor(options)
-      const imageData = getImageData(image, colorsExtractor.pixels)
-      return colorsExtractor.extract(imageData.data)
-    })
-}
+const extractColorsFromSrc = (src, options) => loadImage(src)
+  .then((image) => {
+    const colorsExtractor = new ColorsExtractor(options)
+    const imageData = getImageData(image, colorsExtractor.pixels)
+    return colorsExtractor.extract(imageData.data)
+  })
 
 const extractColors = (picture, options) => {
   if (picture.width && picture.height && picture.data && picture.data.length) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       resolve(extractColorsFromImageData(picture, options))
     })
   }
