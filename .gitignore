@@ -1,10 +1,6 @@
 # Node
 node_modules
 
-# Jest
-coverage/*
-!coverage/lcov.info
-
 # Parcel
 cache
 sample/img/*
