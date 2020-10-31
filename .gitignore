@@ -1,6 +1,9 @@
 # Node
 node_modules
 
+# Jest
+coverage
+
 # Parcel
 cache
 sample/img/*

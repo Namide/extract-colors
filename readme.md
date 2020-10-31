@@ -163,3 +163,188 @@ Array of colors with the followed properties:
 | blue | 43 | Integer | blue canal from 0 to 255 |
 | area | 0.5915 | Number | area of the color and his neighbouring colors from 0 to 1 |
 | saturation | 0.2156862 | Number | color saturation from 0 to 1 |
+
+
+## Functions
+
+<dl>
+<dt><a href="#getImageData">getImageData(image, pixels)</a> ⇒ <code>ImageData</code></dt>
+<dd><p>Extract ImageData from image.
+Reduce image to a pixel count.</p>
+</dd>
+<dt><a href="#extractColorsFromImageData">extractColorsFromImageData(imageData, [options])</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>Extract colors from an ImageData object.</p>
+</dd>
+<dt><a href="#extractColorsFromImage">extractColorsFromImage(image, [options])</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>Extract colors from an Image object.</p>
+</dd>
+<dt><a href="#extractColorsFromSrc">extractColorsFromSrc(src, [options])</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>Extract colors from a path.
+The image will be downloaded.</p>
+</dd>
+<dt><a href="#extractColors">extractColors(picture, [options])</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>Extract colors from a picture.</p>
+</dd>
+<dt><a href="#getImageData">getImageData(image, pixels)</a> ⇒ <code>ImageData</code></dt>
+<dd><p>Extract ImageData from image.
+Reduce image to a pixel count.</p>
+</dd>
+<dt><a href="#extractColorsFromImageData">extractColorsFromImageData(imageData, [options])</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>Extract colors from an ImageData object.</p>
+</dd>
+<dt><a href="#extractColorsFromSrc">extractColorsFromSrc(src, [options])</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>Extract colors from a path.
+The image will be downloaded.</p>
+</dd>
+<dt><a href="#extractColors">extractColors(picture, [options])</a> ⇒ <code>Array.&lt;Object&gt;</code></dt>
+<dd><p>Extract colors from a picture.</p>
+</dd>
+</dl>
+
+<a name="getImageData"></a>
+
+## getImageData(image, pixels) ⇒ <code>ImageData</code>
+Extract ImageData from image.
+Reduce image to a pixel count.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| image | <code>Image</code> | Source image |
+| pixels | <code>Number</code> | Maximum number of pixels for process |
+
+<a name="extractColorsFromImageData"></a>
+
+## extractColorsFromImageData(imageData, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
+Extract colors from an ImageData object.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| imageData | <code>ImageData</code> |  |
+| [options] | <code>Object</code> | Optional data |
+| [options.pixels] | <code>String</code> | Total pixel number of the resized picture for calculation |
+| [options.distance] | <code>String</code> | From 0 to 1 is the color distance to not have near colors (1 distance is between white and black) |
+| [options.saturationImportance] | <code>String</code> | Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size) |
+| [options.splitPower] | <code>String</code> | Approximation power in the first color splitting during process (from 2 to 16) |
+| [options.colorValidator] | <code>String</code> | Callback with test to enable only some colors |
+
+<a name="extractColorsFromImage"></a>
+
+## extractColorsFromImage(image, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
+Extract colors from an Image object.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| image | <code>Image</code> |  |
+| [options] | <code>Object</code> | Optional data |
+| [options.pixels] | <code>String</code> | Total pixel number of the resized picture for calculation |
+| [options.distance] | <code>String</code> | From 0 to 1 is the color distance to not have near colors (1 distance is between white and black) |
+| [options.saturationImportance] | <code>String</code> | Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size) |
+| [options.splitPower] | <code>String</code> | Approximation power in the first color splitting during process (from 2 to 16) |
+| [options.colorValidator] | <code>String</code> | Callback with test to enable only some colors |
+
+<a name="extractColorsFromSrc"></a>
+
+## extractColorsFromSrc(src, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
+Extract colors from a path.
+The image will be downloaded.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| src | <code>String</code> |  |
+| [options] | <code>Object</code> | Optional data |
+| [options.pixels] | <code>String</code> | Total pixel number of the resized picture for calculation |
+| [options.distance] | <code>String</code> | From 0 to 1 is the color distance to not have near colors (1 distance is between white and black) |
+| [options.saturationImportance] | <code>String</code> | Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size) |
+| [options.splitPower] | <code>String</code> | Approximation power in the first color splitting during process (from 2 to 16) |
+| [options.colorValidator] | <code>String</code> | Callback with test to enable only some colors |
+
+<a name="extractColors"></a>
+
+## extractColors(picture, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
+Extract colors from a picture.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| picture | <code>String</code> \| <code>Image</code> \| <code>ImageData</code> | Src, Image or ImageData |
+| [options] | <code>Object</code> | Optional data |
+| [options.pixels] | <code>String</code> | Total pixel number of the resized picture for calculation |
+| [options.distance] | <code>String</code> | From 0 to 1 is the color distance to not have near colors (1 distance is between white and black) |
+| [options.saturationImportance] | <code>String</code> | Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size) |
+| [options.splitPower] | <code>String</code> | Approximation power in the first color splitting during process (from 2 to 16) |
+| [options.colorValidator] | <code>String</code> | Callback with test to enable only some colors |
+
+<a name="getImageData"></a>
+
+## getImageData(image, pixels) ⇒ <code>ImageData</code>
+Extract ImageData from image.
+Reduce image to a pixel count.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| image | <code>Image</code> | Source image |
+| pixels | <code>Number</code> | Maximum number of pixels for process |
+
+<a name="extractColorsFromImageData"></a>
+
+## extractColorsFromImageData(imageData, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
+Extract colors from an ImageData object.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| imageData | <code>ImageData</code> |  |
+| [options] | <code>Object</code> | Optional data |
+| [options.pixels] | <code>String</code> | Total pixel number of the resized picture for calculation |
+| [options.distance] | <code>String</code> | From 0 to 1 is the color distance to not have near colors (1 distance is between white and black) |
+| [options.saturationImportance] | <code>String</code> | Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size) |
+| [options.splitPower] | <code>String</code> | Approximation power in the first color splitting during process (from 2 to 16) |
+| [options.colorValidator] | <code>String</code> | Callback with test to enable only some colors |
+
+<a name="extractColorsFromSrc"></a>
+
+## extractColorsFromSrc(src, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
+Extract colors from a path.
+The image will be downloaded.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| src | <code>String</code> |  |
+| [options] | <code>Object</code> | Optional data |
+| [options.pixels] | <code>String</code> | Total pixel number of the resized picture for calculation |
+| [options.distance] | <code>String</code> | From 0 to 1 is the color distance to not have near colors (1 distance is between white and black) |
+| [options.saturationImportance] | <code>String</code> | Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size) |
+| [options.splitPower] | <code>String</code> | Approximation power in the first color splitting during process (from 2 to 16) |
+| [options.colorValidator] | <code>String</code> | Callback with test to enable only some colors |
+
+<a name="extractColors"></a>
+
+## extractColors(picture, [options]) ⇒ <code>Array.&lt;Object&gt;</code>
+Extract colors from a picture.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| picture | <code>String</code> \| <code>Image</code> \| <code>ImageData</code> | Src, Image or ImageData |
+| [options] | <code>Object</code> | Optional data |
+| [options.pixels] | <code>String</code> | Total pixel number of the resized picture for calculation |
+| [options.distance] | <code>String</code> | From 0 to 1 is the color distance to not have near colors (1 distance is between white and black) |
+| [options.saturationImportance] | <code>String</code> | Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size) |
+| [options.splitPower] | <code>String</code> | Approximation power in the first color splitting during process (from 2 to 16) |
+| [options.colorValidator] | <code>String</code> | Callback with test to enable only some colors |
+
