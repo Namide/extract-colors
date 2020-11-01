@@ -3,6 +3,8 @@ node_modules
 
 # Jest
 coverage
+coverage.xml
+junit.xml
 
 # Parcel
 cache
@@ -10,3 +12,6 @@ sample/img/*
 
 # Jest
 .cache
+
+# Build
+dist

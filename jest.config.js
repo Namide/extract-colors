@@ -34,7 +34,8 @@ module.exports = {
   // ],
   // A list of reporter names that Jest uses when writing coverage reports
   coverageReporters: [
-    "json-summary",
+    // "json-summary",
+    // "jest-junit",
     // "json",
     // "text",
     // "lcov",
@@ -103,7 +104,9 @@ module.exports = {
   // projects: null,
 
   // Use this configuration option to add custom reporters to Jest
-  // reporters: undefined,
+  reporters: [
+    [ "jest-junit", { outputName: "coverage.xml" } ]
+  ],
 
   // Automatically reset mock state between every test
   // resetMocks: false,
@@ -160,7 +163,7 @@ module.exports = {
   // testRegex: [],
 
   // This option allows the use of a custom results processor
-  // testResultsProcessor: null,
+  testResultsProcessor: "jest-junit",
 
   // This option allows use of a custom test runner
   // testRunner: "jasmine2",
