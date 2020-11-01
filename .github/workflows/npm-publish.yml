@@ -25,6 +25,18 @@ jobs:
       - name: Test
         run: npm test
 
+  coverage:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/clover.xml
+          flags: e2e
+          verbose: true
+
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
