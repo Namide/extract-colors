@@ -34,7 +34,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           directory: ./coverage
-          file: ./clover.xml
+          file: clover.xml
           flags: unittests
           verbose: true
 
