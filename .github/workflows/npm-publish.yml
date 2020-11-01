@@ -23,7 +23,6 @@ jobs:
         run: npm test
 
   coverage:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -39,7 +38,6 @@ jobs:
           verbose: true
 
   publish:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -47,8 +45,12 @@ jobs:
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
-      - run: npm install
-      - run: npm test
+      - name: Install
+        run: npm install
+      - name: Test
+        run: npm test
+      - name: Build
+        run: npm run build
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
