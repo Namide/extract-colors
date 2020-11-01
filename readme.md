@@ -1,5 +1,6 @@
 # Extract Colors
 
+![CI](https://github.com/Namide/extract-colors/workflows/CI/badge.svg)
 ![package version](https://badge.fury.io/js/extract-colors.svg)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/extract-colors?style=flat)
 ![Statements](https://img.shields.io/badge/Coverage-78.48%25-red.svg)
