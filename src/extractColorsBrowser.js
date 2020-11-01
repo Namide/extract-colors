@@ -121,6 +121,7 @@ const extractColorsFromSrc = (src, options) => {
  * @returns {Array<Object>}
  */
 const extractColors = (picture, options) => {
+
   if (picture instanceof ImageData) {
     return new Promise((resolve) => {
       resolve(extractColorsFromImageData(picture, options))

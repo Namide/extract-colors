@@ -12,6 +12,19 @@ test('Check color init', () => {
     })
 })
 
+test('Check by color data', () => {
+  const imageData = {
+    width: 2,
+    height: 2,
+    data: [0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF]
+  }
+  return extractColors(imageData)
+    .then(data => {
+      expect(data.length).toBeGreaterThan(0)
+    })
+})
+
+
 test('Check bad pixels', () => {
   const options = {
     pixels: -1

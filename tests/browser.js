@@ -3,43 +3,105 @@
  */
 import extractColors, { extractColorsFromImageData } from '../src/extractColorsBrowser.js'
 
+// Mock Image
+class Image {
+  constructor () {
+    this.complete = true
+    this.width = 2
+    this.height = 2
+  }
+}
+
+class ImageLoadable extends Image {
+  constructor () {
+    super()
+    
+    this.complete = false
+    this._cb = () => 1
+
+    this.addEventListener = (_, cb) => this._cb = cb
+    this.removeEventListener = () => 1
+
+    setTimeout(() => {
+      this.complete = true
+      this._cb()
+    }, 500)
+  }
+}
+
+global.Image = Image
+
+// Mock ImageData
+class ImageData {
+  constructor () {
+    this.data = [0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF]
+    this.width = 2
+    this.height = 2
+  }
+}
+
+global.ImageData = ImageData
+
+// Mock createElement
+global.document.createElement = () => ({
+  width: 2,
+  height: 2,
+  getContext: () => ({
+    drawImage: () => 1,
+    getImageData: () => new ImageData()
+  })
+})
+
 const open = jest.fn()
 Object.defineProperty(window, 'open', open)
 
 test('Extract from imageData', () => {
-  const imageData = { data: [0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF] }
+  const imageData = new ImageData()
   return expect(extractColorsFromImageData(imageData).length).toBeGreaterThan(0)
 })
 
-// test('Extract from image', done => {
-//   const image = new Image()
-//   image.src = './tests/namide-world.jpg'
-//   image.onload = () => {
-//     extractColors(image)
-//       .then(data => {
-//         expect(data.length).toBeGreaterThan(0)
-//         done()
-//       })
-//   }
-// })
+test('Extract from imageData 2', done => {
+  return extractColors(new ImageData())
+    .then(data => {
+      expect(data.length).toBeGreaterThan(0)
+      done()
+    })
+})
 
-// test('Check color init', () => {
-//   return extractColors('./namide-world.jpg')
-//     .then(data => {
-//       console.log(data)
-//       expect(data.length).toBeGreaterThan(0)
-//     })
-// })
+test('Extract from image', done => {
+  return extractColors(new Image())
+    .then(data => {
+      expect(data.length).toBeGreaterThan(0)
+      done()
+    })
+})
 
-// extractColors(path.join(__dirname, './namide-world.jpg'))
-//   .then(data => data.length ? true : new Error('Data empty'))
-//   .then(() => console.log('✔\tSimple process'))
-//   .catch(error => console.log('✔\tInvalid data: "' + error.message + '"'))
+test('Extract from src', done => {
+  return extractColors('fakesrc.jpg')
+    .then(data => {
+      expect(data.length).toBeGreaterThan(0)
+      done()
+    })
+})
 
-// extractColors(path.join(__dirname, './namide-world.jpg'), { pixels: 1 })
-//   .then(() => console.log('✔\tLittle pixels'))
-//   .catch(error => console.log('✔\tInvalid little pixels: "' + error.message + '"'))
+test('Extract and reduce image', done => {
+  const options = {
+    pixels: 1
+  }
+  return extractColors(new Image(), options)
+    .then(data => {
+      expect(data.length).toBeGreaterThan(0)
+      done()
+    })
+})
 
-// extractColors(path.join(__dirname, './namide-world.jpg'), { pixels: 'bad' })
-//   .then(data => console.log('⚠\tBad type check for options.pixels'))
-//   .catch(error => console.log('✔\tBad pixels check: "' + error.message + '"'))
+test('Extract from loadable image', done => {
+  const options = {
+    pixels: 1
+  }
+  return extractColors(new ImageLoadable(), options)
+    .then(data => {
+      expect(data.length).toBeGreaterThan(0)
+      done()
+    })
+})
