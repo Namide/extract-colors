@@ -1,6 +1,6 @@
 {
   "name": "extract-colors",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "Extract color palettes from images",
   "main": "dist/extract-colors.cjs.js",
   "browser": "dist/extract-colors.umd.js",
