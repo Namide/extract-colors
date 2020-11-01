@@ -165,7 +165,7 @@ Array of colors with the followed properties:
 
 ## API doc
 
-Read the [API doc here](doc)
+Read the [API doc here](doc/index.md#api-doc)
 
 
 ## License
