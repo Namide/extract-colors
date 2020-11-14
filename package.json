@@ -32,7 +32,7 @@
     "node"
   ],
   "author": "damien@doussaud.fr",
-  "license": "GNU GPL",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/Namide/extract-colors/issues"
   },
