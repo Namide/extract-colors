@@ -19,12 +19,8 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
-      - name: Test
-        run: npm test
-      - name: "Build demo"
-        run: npm run demo
 
-  coverage:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -39,12 +35,7 @@ jobs:
           file: ./coverage/clover.xml
           flags: unittests
           verbose: true
-      - name: "Deploy demo"
-        uses: JamesIves/github-pages-deploy-action@3.7.1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: demo     # <- Branche sur laquelle seront commités les fichiers
-          FOLDER: demo/    # <- Dossier contenant notre documentation générée
+
   publish:
     runs-on: ubuntu-latest
     steps:
@@ -55,10 +46,16 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install
         run: npm install
-      - name: Test
-        run: npm test
       - name: Build
         run: npm run build
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+      - name: "Build demo"
+        run: npm run demo
+      - name: "Deploy demo"
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: demo     # <- Branche sur laquelle seront commités les fichiers
+          FOLDER: demo/    # <- Dossier contenant notre documentation générée
