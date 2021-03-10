@@ -9,19 +9,12 @@
 }
 
 .log {
+  font-size: 16px;
   white-space: pre-wrap;
   background-color: #111;
   color: #EEE;
-  padding: 1em;
-}
-
-.log .square {
-  width: 1em;
-  height: 1em;
-  border-radius: 1em;
-  display: inline-block;
-  vertical-align: -0.15em;
-  margin-right: 0.2em;
+  padding: 1em 1em 0;
+  border-radius: 0.5em;
 }
 
 img {
@@ -30,4 +23,30 @@ img {
 
 canvas {
   margin: 5px 5px 5px 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  padding: 20px 5px;
+  text-align: center;
+}
+
+h1 {
+  padding: 1em 0 0.5em;
+  margin: 0;
+  color: #0F7;
+  font-size: 40px;
+}
+
+a {
+  color: #F07;
+}
+
+p {
+  padding: 20px 5px;
+  text-align: right;
+  font-style: italic;
 }

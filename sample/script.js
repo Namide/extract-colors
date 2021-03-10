@@ -70,12 +70,12 @@ const displayImg = ({ colors, index, state, initTime }) => {
     return false
   }
 
-  displayLog(' -----')
+  displayLog(' ')
   displayLog('time: ' + (Date.now() - initTime) + 'ms' )
   displayLog('colors: ' + colors.map(color => {
-    return `<span class="square" style="background:${color.hex}"></span>`
+    return `<span class="square" style="color:${color.hex}">▮</span>`
   }).join(''))
-  displayLog('Image ' + (index + 1))
+  displayLog(`<strong>Image ${index + 1}</strong>`)
   
   const div = document.body.querySelectorAll('.list .block')[index]
   const canvas = div.querySelector('canvas')

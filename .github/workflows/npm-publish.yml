@@ -21,6 +21,8 @@ jobs:
         run: npm run build
       - name: Test
         run: npm test
+      - name: "Build demo"
+        run: npm run demo
 
   coverage:
     runs-on: ubuntu-latest
@@ -37,7 +39,12 @@ jobs:
           file: ./coverage/clover.xml
           flags: unittests
           verbose: true
-
+      - name: "Deploy demo"
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: demo     # <- Branche sur laquelle seront commités les fichiers
+          FOLDER: demo/    # <- Dossier contenant notre documentation générée
   publish:
     runs-on: ubuntu-latest
     steps:
