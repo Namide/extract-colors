@@ -4,6 +4,26 @@
   background-color: black;
 }
 
+#inputFile {
+  visibility: hidden;
+}
+
+.log {
+  white-space: pre-wrap;
+  background-color: #111;
+  color: #EEE;
+  padding: 1em;
+}
+
+.log .square {
+  width: 1em;
+  height: 1em;
+  border-radius: 1em;
+  display: inline-block;
+  vertical-align: -0.15em;
+  margin-right: 0.2em;
+}
+
 img {
   margin: 5px;
 }

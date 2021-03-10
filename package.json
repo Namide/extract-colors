@@ -8,9 +8,8 @@
   "scripts": {
     "dev": "rollup -c -w",
     "serve": "parcel sample/index.html -d cache",
-    "prebuild": "jest",
+    "demo": "parcel sample/index.html --out-dir demo",
     "build": "rollup -c",
-    "postbuild": "node doc.gen.js",
     "lint": "eslint src --fix",
     "test": "jest",
     "doc": "node doc.gen.js"

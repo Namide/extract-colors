@@ -1,24 +1,87 @@
 import extractColors from '../src/extractColorsBrowser'
 
+let realState = 0
+let imgs = []
+
+const options = {
+  pixels: 10000,
+  distance: 0.2,
+  saturationImportance: 0.2,
+  splitPower: 10,
+  uploadFile () {
+    imgs = []
+    const input = document.getElementById('inputFile')
+    input.onchange = function ({ target }) {
+      [...target.files].forEach(file => {
+        imgs.push(URL.createObjectURL(file))
+      })
+      process()
+    }
+    input.click()
+  },
+  randomFile () {
+    imgs = []
+    randomImgs()
+    process()
+  }
+}
+
 // Add image + colors in DOM
-const display = (colors, src) => {
-  const div = document.createElement('div')
-  div.classList.add('block')
-  document.body.appendChild(div)
+const resetDisplay = () => {
 
-  // display image
-  const image = new Image()
-  image.src = src
-  image.height = 200
-  image.style.width = 'auto'
-  div.appendChild(image)
+  const list = document.body.querySelector('.list')
+  list.innerHTML = ''
 
-  // display colors
-  {
+  imgs.forEach(src => {
+    const div = document.createElement('div')
+    div.classList.add('block')
+
+    // display image
+    const image = new Image()
+    image.src = src
+    image.height = 200
+    image.style.width = 'auto'
+    div.appendChild(image)
+
     const canvas = document.createElement('canvas')
     canvas.width = 20
     canvas.height = image.height
+    div.appendChild(canvas)
 
+    list.appendChild(div)  
+  })
+}
+
+const resetLog = () => {
+  document.body.querySelector('.log').innerHTML = ''
+}
+
+const displayLog = (infos) => {
+
+  const log = document.body.querySelector('.log')
+  const div = document.createElement('div')
+  div.innerHTML = infos
+  log.prepend(div)
+}
+
+const displayImg = ({ colors, index, state, initTime }) => {
+
+  if (state !== realState) {
+    return false
+  }
+
+  displayLog(' -----')
+  displayLog('time: ' + (Date.now() - initTime) + 'ms' )
+  displayLog('colors: ' + colors.map(color => {
+    return `<span class="square" style="background:${color.hex}"></span>`
+  }).join(''))
+  displayLog('Image ' + (index + 1))
+  
+  const div = document.body.querySelectorAll('.list .block')[index]
+  const canvas = div.querySelector('canvas')
+
+  // display colors
+  {
     const context = canvas.getContext('2d')
 
     const imageData = context.createImageData(canvas.width, canvas.height)
@@ -41,31 +104,68 @@ const display = (colors, src) => {
     }
 
     context.putImageData(imageData, 0, 0)
-    div.appendChild(canvas)
+  }
+
+  return true
+}
+
+const update = (data) => {
+  console.log(data, options)
+  process()
+}
+
+const randomImgs = ({ random = true, directory = false } = {}) => {
+  
+  if (random) {
+    // Some random tests
+    ['moon', 'water', 'sea', 'colors', 'sky'].forEach(seed => {
+      const index = Math.round(Math.random() * 20) + 5
+      imgs.push(`https://loremflickr.com/320/240/${seed}/?lock=${index}`)
+    })
+  } else if (directory) {
+    // Your tests in the img directory
+    Object.values(require('./img/*.jpg')).forEach(imgSrc => {
+      imgs.push(imgSrc)
+    })
   }
 }
 
-// Some random tests
-['test', 'jean', 'crayon', 'jumelle', 'journey', 'park', 'sun', 'moon', 'water', 'sea', 'colors', 'sky', 'unicorn'].forEach(seed => {
-  [6, 10, 15].forEach(index => {
-    const imgSrc = `https://loremflickr.com/320/240/${seed}/?lock=${index + 5}`
-    extractColors(imgSrc, { crossOrigin: 'anonymous' })
-      .then(colors => {
-        display(colors, imgSrc)
-        console.log(imgSrc)
-        console.log(colors)
-      })
-      .catch(console.log)
-  })
-})
+const process = () => {
+  realState++
+  let state = realState
 
-// Your tests in the img directory
-Object.values(require('./img/*.jpg')).forEach(imgSrc => {
-  extractColors(imgSrc)
-    .then(colors => {
-      display(colors, imgSrc)
-      console.log(imgSrc)
-      console.log(colors)
-    })
-    .catch(console.log)
-})
+  resetLog()
+  resetDisplay()
+
+  let promise
+  imgs.forEach((src, index) => {
+    if (!promise) {
+      const initTime = Date.now()
+      promise = extractColors(src, { ...options, crossOrigin: 'anonymous' })
+        .then(colors => displayImg({ colors, src, index, state, initTime }))
+    } else {
+      promise
+        .then(() => {
+          const initTime = Date.now()
+          return extractColors(src, { ...options, crossOrigin: 'anonymous' })
+            .then(colors => displayImg({ colors, src, index, state, initTime }))
+        })
+    }
+  })
+
+  if (promise) {
+    promise.catch(console.log)
+  }
+}
+
+
+const gui = new dat.GUI()
+gui.add(options, 'pixels', 1).step(1).name("pixels").onFinishChange(update)
+gui.add(options, 'distance', 0, 1).name("distance").onFinishChange(update)
+gui.add(options, 'saturationImportance', 0, 1).name("saturationImportance").onFinishChange(update)
+gui.add(options, 'splitPower', 2, 16).name("splitPower").onFinishChange(update)
+
+gui.add(options, 'uploadFile').name('Upload images')
+gui.add(options, 'randomFile').name('5 random images')
+
+options.randomFile()
