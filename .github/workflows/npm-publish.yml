@@ -48,11 +48,11 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: "Build demo"
+        run: npm run demo
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - name: "Build demo"
-        run: npm run demo
       - name: "Deploy demo"
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
