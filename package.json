@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "rollup -c -w",
     "serve": "parcel sample/index.html -d cache",
-    "demo": "parcel build sample/index.html --out-dir demo",
+    "demo": "parcel build sample/index.html --out-dir demo --public-url ./extract-colors/",
     "build": "rollup -c",
     "lint": "eslint src --fix",
     "test": "jest",
