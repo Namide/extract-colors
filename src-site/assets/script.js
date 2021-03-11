@@ -1,4 +1,4 @@
-import extractColors from '../src/extractColorsBrowser'
+import extractColors from '../../src/extractColorsBrowser'
 
 let realState = 0
 let imgs = []
@@ -52,33 +52,37 @@ const resetDisplay = () => {
   })
 }
 
-const resetLog = () => {
-  document.body.querySelector('.log').innerHTML = ''
+const displayLog = (index, ...logs) => {
+
+  const pre = document.createElement('pre')
+  pre.classList.add('log', 'hljs')
+  
+  logs.forEach(log => {
+    const div = document.createElement('div')
+    div.innerHTML = log
+    pre.append(div)
+  })
+
+  const block = document.body.querySelectorAll('.list .block')[index]
+  block.append(pre)
 }
 
-const displayLog = (infos) => {
-
-  const log = document.body.querySelector('.log')
-  const div = document.createElement('div')
-  div.innerHTML = infos
-  log.prepend(div)
-}
-
-const displayImg = ({ colors, index, state, initTime }) => {
+const displayImg = ({ colors, index, state, initTime, pixels }) => {
 
   if (state !== realState) {
     return false
   }
-
-  displayLog(' ')
-  displayLog('time: ' + (Date.now() - initTime) + 'ms' )
-  displayLog('colors: ' + colors.map(color => {
-    return `<span class="square" style="color:${color.hex}">▮</span>`
-  }).join(''))
-  displayLog(`<strong>Image ${index + 1}</strong>`)
   
   const div = document.body.querySelectorAll('.list .block')[index]
   const canvas = div.querySelector('canvas')
+  const img = div.querySelector('img')
+
+  displayLog(
+    index,
+    `${ colors.length } colors: `  + colors.map(color => `<span class="square" style="color:${color.hex}">▮</span>`).join(' '),
+    'pixels: ' + Math.min(pixels, img.naturalWidth * img.naturalHeight),
+    'time: ' + (Date.now() - initTime) + 'ms'
+  )
 
   // display colors
   {
@@ -134,7 +138,6 @@ const process = () => {
   realState++
   let state = realState
 
-  resetLog()
   resetDisplay()
 
   let promise
@@ -142,13 +145,13 @@ const process = () => {
     if (!promise) {
       const initTime = Date.now()
       promise = extractColors(src, { ...options, crossOrigin: 'anonymous' })
-        .then(colors => displayImg({ colors, src, index, state, initTime }))
+        .then(colors => displayImg({ colors, src, index, state, initTime, ...options }))
     } else {
       promise
         .then(() => {
           const initTime = Date.now()
           return extractColors(src, { ...options, crossOrigin: 'anonymous' })
-            .then(colors => displayImg({ colors, src, index, state, initTime }))
+            .then(colors => displayImg({ colors, src, index, state, initTime, ...options }))
         })
     }
   })

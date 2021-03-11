@@ -1,7 +1,15 @@
+@import '../../node_modules/milligram/dist/milligram.min.css';
+@import '../../node_modules/highlight.js/styles/gradient-light.css';
+
 .block {
+  width: 302px;
   margin: 5px;
   display: inline-block;
   background-color: black;
+}
+
+code {
+  background: transparent;
 }
 
 #inputFile {
@@ -9,12 +17,12 @@
 }
 
 .log {
-  font-size: 16px;
-  white-space: pre-wrap;
-  background-color: #111;
-  color: #EEE;
-  padding: 1em 1em 0;
-  border-radius: 0.5em;
+  margin: 0;
+  white-space: break-spaces;
+}
+
+.square {
+  margin-right: -0.7em;
 }
 
 img {
@@ -25,9 +33,9 @@ canvas {
   margin: 5px 5px 5px 0;
 }
 
-body {
+/* body {
   font-family: Arial, Helvetica, sans-serif;
-}
+} */
 
 header {
   padding: 20px 5px;

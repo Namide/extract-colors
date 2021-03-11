@@ -7,11 +7,11 @@ junit.xml
 
 # Parcel
 cache
-sample/img/*
 
 # Jest
 .cache
 
 # Build
 dist
-demo
+dist-doc
+dist-site

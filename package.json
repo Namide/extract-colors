@@ -7,12 +7,12 @@
   "module": "dist/extract-colors.es.js",
   "scripts": {
     "dev": "rollup -c -w",
-    "serve": "parcel sample/index.html -d cache",
-    "demo": "parcel build sample/index.html --out-dir demo --public-url /extract-colors/",
+    "serve-site": "npm run build-doc && parcel src-site/index.html src-site/doc/index.html src-site/demo/index.html -d cache --open",
+    "build-doc": "node doc.gen.js",
+    "build-site": "npm run build-doc && parcel build src-site/index.html src-site/doc/index.html src-site/demo/index.html --out-dir dist-site --public-url /extract-colors/",
     "build": "rollup -c",
     "lint": "eslint src --fix",
-    "test": "jest",
-    "doc": "node doc.gen.js"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -50,9 +50,13 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.2",
+    "highlight.js": "^10.6.0",
     "jest": "^26.6.1",
     "jsdoc-to-markdown": "^6.0.1",
+    "marked": "^2.0.1",
+    "milligram": "^1.4.1",
     "parcel": "^1.12.4",
+    "parcel-plugin-html-partials": "0.0.6",
     "rollup": "^2.32.1",
     "rollup-plugin-terser": "^7.0.2"
   },

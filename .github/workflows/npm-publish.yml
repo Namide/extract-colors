@@ -46,16 +46,18 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Install
         run: npm install
-      - name: Build
+      - name: "Build lib"
         run: npm run build
+      - name: "Build doc"
+        run: npm run build-doc
       - name: "Build demo"
-        run: npm run demo
+        run: npm run build-site
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - name: "Deploy demo"
+      - name: "Deploy site"
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: pages     # <- Branche sur laquelle seront commités les fichiers
-          FOLDER: demo/    # <- Dossier contenant notre documentation générée
+          FOLDER: dist-site/    # <- Dossier contenant notre documentation générée
