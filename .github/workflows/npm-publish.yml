@@ -51,13 +51,13 @@ jobs:
       - name: "Build doc"
         run: npm run build-doc
       - name: "Build demo"
-        run: npm run build-site
+        run: npm run build-website
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - name: "Deploy site"
+      - name: "Deploy website"
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: pages     # <- Branche sur laquelle seront commités les fichiers
-          FOLDER: dist-site/    # <- Dossier contenant notre documentation générée
+          BRANCH: website     # <- Branche sur laquelle seront commités les fichiers
+          FOLDER: dist-website/    # <- Dossier contenant notre documentation générée

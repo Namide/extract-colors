@@ -7,9 +7,9 @@
   "module": "dist/extract-colors.es.js",
   "scripts": {
     "dev": "rollup -c -w",
-    "serve-site": "npm run build-doc && parcel src-site/index.html src-site/doc/index.html src-site/demo/index.html -d cache --open",
+    "serve-website": "npm run build-doc && parcel src-website/index.html src-website/doc/index.html src-website/demo/index.html -d cache --open",
     "build-doc": "node doc.gen.js",
-    "build-site": "npm run build-doc && parcel build src-site/index.html src-site/doc/index.html src-site/demo/index.html --out-dir dist-site --public-url /extract-colors/",
+    "build-website": "npm run build-doc && parcel build src-website/index.html src-website/doc/index.html src-website/demo/index.html --out-dir dist-website --public-url /extract-colors/",
     "build": "rollup -c",
     "lint": "eslint src --fix",
     "test": "jest"
