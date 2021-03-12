@@ -48,10 +48,10 @@ jobs:
         run: npm install
       - name: "Build lib"
         run: npm run build
+      - name: "Build website"
+        run: npm run build-website
       - name: "Build doc"
         run: npm run build-doc
-      - name: "Build demo"
-        run: npm run build-website
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
