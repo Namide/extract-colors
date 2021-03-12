@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>module:ColorGroup - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module-core.module_Color.html">Color</a><ul class='methods'><li data-type='method'><a href="module-core.module_Color.html#distance">distance</a></li><li data-type='method'><a href="module-core.module_Color.html#getSaturation">getSaturation</a></li><li data-type='method'><a href="module-core.module_Color.html#getWeight">getWeight</a></li></ul></li><li><a href="module-core.module_ColorGroup.html">ColorGroup</a><ul class='methods'><li data-type='method'><a href="module-core.module_ColorGroup.html#addColor">addColor</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#addGroup">addGroup</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getColors">getColors</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getList">getList</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getMaxCountColor">getMaxCountColor</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getMaxWeight">getMaxWeight</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getMaxWeightColor">getMaxWeightColor</a></li></ul></li><li><a href="module-core.module_ColorsExtractor.html">ColorsExtractor</a><ul class='methods'><li data-type='method'><a href="module-core.module_ColorsExtractor.html#extract">extract</a></li><li data-type='method'><a href="module-core.module_ColorsExtractor.html#process">process</a></li><li data-type='method'><a href="module-core.module_ColorsExtractor.html#~testFunction">testFunction</a></li><li data-type='method'><a href="module-core.module_ColorsExtractor.html#~testNumber">testNumber</a></li><li data-type='method'><a href="module-core.module_ColorsExtractor.html#~testUint">testUint</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="browser.module_Browser.html">Browser</a><ul class='methods'><li data-type='method'><a href="browser.module_Browser.html#~extractColors">extractColors</a></li><li data-type='method'><a href="browser.module_Browser.html#~extractColorsFromImage">extractColorsFromImage</a></li><li data-type='method'><a href="browser.module_Browser.html#~extractColorsFromImageData">extractColorsFromImageData</a></li><li data-type='method'><a href="browser.module_Browser.html#~extractColorsFromSrc">extractColorsFromSrc</a></li><li data-type='method'><a href="browser.module_Browser.html#~getImageData">getImageData</a></li></ul></li><li><a href="module-core.module_Color.html">Color</a><ul class='methods'><li data-type='method'><a href="module-core.module_Color.html#distance">distance</a></li><li data-type='method'><a href="module-core.module_Color.html#getSaturation">getSaturation</a></li><li data-type='method'><a href="module-core.module_Color.html#getWeight">getWeight</a></li></ul></li><li><a href="module-core.module_ColorGroup.html">ColorGroup</a><ul class='methods'><li data-type='method'><a href="module-core.module_ColorGroup.html#addColor">addColor</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#addGroup">addGroup</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getColors">getColors</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getList">getList</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getMaxCountColor">getMaxCountColor</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getMaxWeight">getMaxWeight</a></li><li data-type='method'><a href="module-core.module_ColorGroup.html#getMaxWeightColor">getMaxWeightColor</a></li></ul></li><li><a href="module-core.module_ColorsExtractor.html">ColorsExtractor</a><ul class='methods'><li data-type='method'><a href="module-core.module_ColorsExtractor.html#extract">extract</a></li><li data-type='method'><a href="module-core.module_ColorsExtractor.html#process">process</a></li><li data-type='method'><a href="module-core.module_ColorsExtractor.html#~testFunction">testFunction</a></li><li data-type='method'><a href="module-core.module_ColorsExtractor.html#~testNumber">testNumber</a></li><li data-type='method'><a href="module-core.module_ColorsExtractor.html#~testUint">testUint</a></li></ul></li><li><a href="node.module_Node.html">Node</a><ul class='methods'><li data-type='method'><a href="node.module_Node.html#~extractColors">extractColors</a></li><li data-type='method'><a href="node.module_Node.html#~extractColorsFromImageData">extractColorsFromImageData</a></li><li data-type='method'><a href="node.module_Node.html#~extractColorsFromSrc">extractColorsFromSrc</a></li><li data-type='method'><a href="node.module_Node.html#~getImageData">getImageData</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">module:ColorGroup</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        module:ColorGroup
+        </h2>
+        
+            <div class="class-description usertext"><p>Manage list of colors or groups.</p></div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="module:ColorGroup"><span class="type-signature"></span>new (require("ColorGroup"))<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="color_ColorsGroup.js.html">color/ColorsGroup.js</a>, <a href="color_ColorsGroup.js.html#line14">line 14</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Store colors or groups and count similiar groups in the image.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="addColor"><span class="type-signature"></span>addColor<span class="signature">(hex, red, green, blue)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="color_ColorsGroup.js.html">color/ColorsGroup.js</a>, <a href="color_ColorsGroup.js.html#line47">line 47</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Add color to the group.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>hex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Hexadecimal color from 0x000000 to 0xFFFFFF</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>red</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Integer red chanel from 0 to 255</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>green</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Integer green chanel from 0 to 255</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>blue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Integer blue chanel from 0 to 255</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="addGroup"><span class="type-signature"></span>addGroup<span class="signature">(key)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="color_ColorsGroup.js.html">color/ColorsGroup.js</a>, <a href="color_ColorsGroup.js.html#line29">line 29</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Add a key for a color, this key is a simplification to find neighboring colors.
+Neighboring colors has same key.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Simplication of color</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getColors"><span class="type-signature"></span>getColors<span class="signature">(distance, saturationImportance, count)</span><span class="type-signature"> &rarr; {Array.&lt;Color>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="color_ColorsGroup.js.html">color/ColorsGroup.js</a>, <a href="color_ColorsGroup.js.html#line129">line 129</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>List of colors sorted by importance (neighboring hare calculated by distance and removed).
+Importance is calculated with the saturation and count of neighboring colors.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>distance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Minimum distance between colors (from 0 to 1)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>saturationImportance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determine the weight of the saturation for the calcul (from 0 to 1)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Total pixels of image</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;Color></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getList"><span class="type-signature"></span>getList<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="color_ColorsGroup.js.html">color/ColorsGroup.js</a>, <a href="color_ColorsGroup.js.html#line60">line 60</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Get list of groups of list of colors.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getMaxCountColor"><span class="type-signature"></span>getMaxCountColor<span class="signature">()</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="color_ColorsGroup.js.html">color/ColorsGroup.js</a>, <a href="color_ColorsGroup.js.html#line108">line 108</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Max count of colors for a group of colors.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getMaxWeight"><span class="type-signature"></span>getMaxWeight<span class="signature">(saturationImportance, count)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="color_ColorsGroup.js.html">color/ColorsGroup.js</a>, <a href="color_ColorsGroup.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Max color weight between the children colors, depends of his saturation and his count.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>saturationImportance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determine the weight of the saturation for the calcul (from 0 to 1)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Number of pixels in the image.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="getMaxWeightColor"><span class="type-signature"></span>getMaxWeightColor<span class="signature">(saturationImportance, count)</span><span class="type-signature"> &rarr; {Color}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="color_ColorsGroup.js.html">color/ColorsGroup.js</a>, <a href="color_ColorsGroup.js.html#line91">line 91</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>Color with the the max weight between the children colors, depends of his saturation and his count.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>saturationImportance</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Determine the weight of the saturation for the calcul (from 0 to 1)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>count</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Number of pixels in the image.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Color</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a> on Fri Mar 12 2021 08:06:59 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
