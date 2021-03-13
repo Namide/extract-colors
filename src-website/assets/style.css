@@ -88,8 +88,12 @@ header nav a:not(:last-child):after {
   opacity: 0.5;
 }
 
-p {
-  padding: 20px 5px;
+footer {
+  padding: 20px 10vw;
+  text-align: center;
+}
+
+footer p {
   text-align: right;
   font-style: italic;
 }
