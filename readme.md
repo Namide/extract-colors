@@ -13,7 +13,7 @@ Dependency to canvas for node.js
 
 ![3 examples of colors extraction](./doc/colors.jpg)
 
-Try the [demo](https://namide.github.io/extract-colors/demo/)
+Try the [demo](https://namide.github.io/extract-colors/)
 
 ## Requirements
 
