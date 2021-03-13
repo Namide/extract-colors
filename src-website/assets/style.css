@@ -1,6 +1,12 @@
 @import '../../node_modules/milligram/dist/milligram.min.css';
 @import '../../node_modules/highlight.js/styles/gradient-light.css';
 
+html {
+  background: linear-gradient(217deg, rgba(255,0,128,.3), rgba(255,0,0,0) 70.71%),
+    linear-gradient(127deg, rgba(255,128,0,.3), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(0,0,255,.3), rgba(0,0,255,0) 70.71%);
+}
+
 .block {
   width: 302px;
   margin: 5px;
@@ -43,14 +49,43 @@ header {
 }
 
 h1 {
-  padding: 1em 0 0.5em;
-  margin: 0;
-  color: #0F7;
+  margin: 1em 0 0.9em;
+  padding: 0.15em 0.7em;
+  display: inline-block;
   font-size: 40px;
+  font-style: italic;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: linear-gradient(217deg, rgba(255,0,128,.8), rgba(255,0,0,0) 70.71%),
+    linear-gradient(127deg, rgba(255,128,0,.8), rgba(0,255,0,0) 70.71%),
+    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+  border-radius: 1em;
 }
 
-a {
+a:hover {
+  text-decoration: underline;
+}
+
+h1 a, h1 a:hover {
+  color: #FFF;
+  text-decoration: none;
+}
+
+a, a:hover {
   color: #F07;
+}
+
+header nav a:not(:last-child) {
+  margin-right: 2em;
+  position: relative;
+}
+
+header nav a:not(:last-child):after {
+  content: " | ";
+  position: absolute;
+  right: -1.35em;
+  transform: rotate(20deg);
+  opacity: 0.5;
 }
 
 p {
