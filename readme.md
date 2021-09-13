@@ -164,6 +164,11 @@ Array of colors with the followed properties:
 | saturation | 0.2156862 | Number | color saturation from 0 to 1 |
 
 
+## API doc
+
+Read the [API doc here](https://namide.github.io/extract-colors/doc/)
+
+
 ## License
 
 Copyright (C) 2019  Damien Doussaud
