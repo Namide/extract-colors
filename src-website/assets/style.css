@@ -7,11 +7,22 @@ html {
     linear-gradient(336deg, rgba(0,0,255,.3), rgba(0,0,255,0) 70.71%);
 }
 
+.list {
+  grid: repeat(3, 80px) / auto-flow;
+}
+
 .block {
-  width: 302px;
+  /* width: 302px; */
   margin: 5px;
   display: inline-block;
   background-color: black;
+}
+
+.block-inputs {
+  margin: 5px;
+  padding: 10px;
+  display: inline-block;
+  background-color: white;
 }
 
 code {
@@ -33,15 +44,24 @@ code {
 
 img {
   margin: 5px;
+  max-width: calc(100% - 35px);
 }
 
 canvas {
   margin: 5px 5px 5px 0;
 }
 
-/* body {
-  font-family: Arial, Helvetica, sans-serif;
-} */
+.colors {
+  width: 20px;
+  display: inline-block;
+  margin: 0 5px 5px 0;
+}
+
+.color {
+  height: 20px;
+  width: 20px;
+  background-color: brown;
+}
 
 header {
   padding: 20px 5px;
