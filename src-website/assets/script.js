@@ -28,7 +28,6 @@ const options = {
 
 // Add image + colors in DOM
 const resetDisplay = () => {
-
   const list = document.body.querySelector('.list')
   list.innerHTML = ''
 
@@ -38,6 +37,7 @@ const resetDisplay = () => {
 
     // display image
     const image = new Image()
+    image.crossOrigin = 'anonymous'
     image.src = src
     image.height = 200
     image.style.width = 'auto'
@@ -48,15 +48,14 @@ const resetDisplay = () => {
     canvas.height = image.height
     div.appendChild(canvas)
 
-    list.appendChild(div)  
+    list.appendChild(div)
   })
 }
 
 const displayLog = (index, ...logs) => {
-
   const pre = document.createElement('pre')
   pre.classList.add('log', 'hljs')
-  
+
   logs.forEach(log => {
     const div = document.createElement('div')
     div.innerHTML = log
@@ -68,18 +67,17 @@ const displayLog = (index, ...logs) => {
 }
 
 const displayImg = ({ colors, index, state, initTime, pixels }) => {
-
   if (state !== realState) {
     return false
   }
-  
+
   const div = document.body.querySelectorAll('.list .block')[index]
   const canvas = div.querySelector('canvas')
   const img = div.querySelector('img')
 
   displayLog(
     index,
-    `${ colors.length } colors: `  + colors.map(color => `<span class="square" style="color:${color.hex}">▮</span>`).join(' '),
+    `${colors.length} colors: ` + colors.map(color => `<span class="square" style="color:${color.hex}">▮</span>`).join(' '),
     'pixels: ' + Math.min(pixels, img.naturalWidth * img.naturalHeight),
     'time: ' + (Date.now() - initTime) + 'ms'
   )
@@ -119,7 +117,6 @@ const update = (data) => {
 }
 
 const randomImgs = ({ random = true, directory = false } = {}) => {
-  
   if (random) {
     // Some random tests
     ['moon', 'water', 'sea', 'colors', 'sky'].forEach(seed => {
@@ -136,7 +133,7 @@ const randomImgs = ({ random = true, directory = false } = {}) => {
 
 const process = () => {
   realState++
-  let state = realState
+  const state = realState
 
   resetDisplay()
 
@@ -161,12 +158,11 @@ const process = () => {
   }
 }
 
-
 const gui = new dat.GUI()
-gui.add(options, 'pixels', 1).step(1).name("pixels").onFinishChange(update)
-gui.add(options, 'distance', 0, 1).name("distance").onFinishChange(update)
-gui.add(options, 'saturationImportance', 0, 1).name("saturationImportance").onFinishChange(update)
-gui.add(options, 'splitPower', 2, 16).name("splitPower").onFinishChange(update)
+gui.add(options, 'pixels', 1).step(1).name('pixels').onFinishChange(update)
+gui.add(options, 'distance', 0, 1).name('distance').onFinishChange(update)
+gui.add(options, 'saturationImportance', 0, 1).name('saturationImportance').onFinishChange(update)
+gui.add(options, 'splitPower', 2, 16).name('splitPower').onFinishChange(update)
 
 gui.add(options, 'uploadFile').name('Upload images')
 gui.add(options, 'randomFile').name('5 random images')
