@@ -2,16 +2,16 @@ import ColorsExtractor from './color/ColorsExtractor'
 
 /**
  * Browser exported functions.
- * 
+ *
  * @example
  * import extractColors from 'extract-colors'
- * 
+ *
  * const src = 'my-image.jpg'
- * 
+ *
  * extractColors(src)
  *   .then(console.log)
  *   .catch(console.error)
- * 
+ *
  * @module Browser
  * @memberof browser
  */
@@ -19,7 +19,7 @@ import ColorsExtractor from './color/ColorsExtractor'
 /**
  * Extract ImageData from image.
  * Reduce image to a pixel count.
- * 
+ *
  * @param {Image} image  Source image
  * @param {Number} pixels  Maximum number of pixels for process
  * @returns {ImageData}
@@ -41,8 +41,8 @@ const getImageData = (image, pixels) => {
 
 /**
  * Extract colors from an ImageData object.
- * 
- * @param {ImageData} imageData  
+ *
+ * @param {ImageData} imageData
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
@@ -58,8 +58,8 @@ const extractColorsFromImageData = (imageData, options) => {
 
 /**
  * Extract colors from an Image object.
- * 
- * @param {Image} image  
+ *
+ * @param {Image} image
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
@@ -92,8 +92,8 @@ const extractColorsFromImage = (image, options) => {
 /**
  * Extract colors from a path.
  * The image will be downloaded.
- * 
- * @param {String} src 
+ *
+ * @param {String} src
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
@@ -110,7 +110,7 @@ const extractColorsFromSrc = (src, options) => {
 
 /**
  * Extract colors from a picture.
- * 
+ *
  * @param {String|Image|ImageData} picture  Src, Image or ImageData
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
@@ -121,7 +121,6 @@ const extractColorsFromSrc = (src, options) => {
  * @returns {Array<Object>}
  */
 const extractColors = (picture, options) => {
-
   if (picture instanceof ImageData) {
     return new Promise((resolve) => {
       resolve(extractColorsFromImageData(picture, options))
