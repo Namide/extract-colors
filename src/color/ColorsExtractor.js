@@ -124,7 +124,7 @@ export default class ColorsExtractor {
         green: color.green,
         blue: color.blue,
         area: color.count / this.pixels,
-        saturation: color.saturation / 0xFF
+        saturation: color.saturation
       }))
   }
 }
