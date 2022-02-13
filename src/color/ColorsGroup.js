@@ -2,12 +2,12 @@ import Color from './Color'
 
 /**
  * Group colors with algorithms to optimize and merge neighbors colors.
- * 
+ *
  * @module ColorGroup
  * @memberof module:core
  */
 
-/** 
+/**
  * @class
  * @classdesc Manage list of colors or groups.
  */
@@ -23,7 +23,7 @@ export default class ColorGroup {
   /**
    * Add a key for a color, this key is a simplification to find neighboring colors.
    * Neighboring colors has same key.
-   * 
+   *
    * @param {Number} key  Simplication of color
    */
   addGroup (key) {
@@ -38,7 +38,7 @@ export default class ColorGroup {
 
   /**
    * Add color to the group.
-   * 
+   *
    * @param {Number} hex  Hexadecimal color from 0x000000 to 0xFFFFFF
    * @param {Number} red  Integer red chanel from 0 to 255
    * @param {Number} green  Integer green chanel from 0 to 255
@@ -55,7 +55,7 @@ export default class ColorGroup {
   }
 
   /**
-   * Get list of groups of list of colors. 
+   * Get list of groups of list of colors.
    */
   getList () {
     return Object.keys(this.children)
@@ -64,7 +64,7 @@ export default class ColorGroup {
 
   /**
    * Max color weight between the children colors, depends of his saturation and his count.
-   * 
+   *
    * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} count  Number of pixels in the image.
    * @returns {Number}
@@ -83,7 +83,7 @@ export default class ColorGroup {
 
   /**
    * Color with the the max weight between the children colors, depends of his saturation and his count.
-   * 
+   *
    * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} count  Number of pixels in the image.
    * @returns {Color}
@@ -102,7 +102,7 @@ export default class ColorGroup {
 
   /**
    * Max count of colors for a group of colors.
-   * 
+   *
    * @returns {Number}
    */
   getMaxCountColor () {
@@ -120,7 +120,7 @@ export default class ColorGroup {
   /**
    * List of colors sorted by importance (neighboring hare calculated by distance and removed).
    * Importance is calculated with the saturation and count of neighboring colors.
-   * 
+   *
    * @param {Number} distance  Minimum distance between colors (from 0 to 1)
    * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} count  Total pixels of image

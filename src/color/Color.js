@@ -1,6 +1,6 @@
 /**
  * Informations like saturation or count of pixels in image.
- * 
+ *
  * @module Color
  * @memberof module:core
  */
@@ -10,10 +10,9 @@
  * @classdesc Calculate some informations and store data about color.
  */
 export default class Color {
-
   /**
    * Set red, green and blue colors to create the Color object.
-   * 
+   *
    * @param {Number} red  Red channel integer from 0 to 255
    * @param {Number} green  Green channel integer from 0 to 255
    * @param {Number} blue  Blue channel integer from 0 to 255
@@ -35,7 +34,7 @@ export default class Color {
    * Distance between two colors.
    * - Minimum is 0 (between two same colors)
    * - Maximum is 1 (for example between black and white)
-   * 
+   *
    * @param {Color} color  Color to compare
    * @returns {Number}
    */
@@ -45,7 +44,7 @@ export default class Color {
 
   /**
    * Weight of the color depends of his saturation and his count.
-   * 
+   *
    * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} maxCount  Number of pixels in the image.
    * @returns {Number}
@@ -56,7 +55,7 @@ export default class Color {
 
   /**
    * Saturation of the color from 0 to 1.
-   * 
+   *
    * @returns {Number}
    */
   getSaturation () {

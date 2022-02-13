@@ -1,19 +1,19 @@
 import ColorsGroup from './ColorsGroup'
 
 /**
- * Process to extract main colors from list of colors. 
- * 
+ * Process to extract main colors from list of colors.
+ *
  * @module ColorsExtractor
  * @memberof module:core
  */
 
 /**
  * Test if value is an integer.
- * 
- * @param {String} label 
- * @param {Number} val 
- * @param {Number} min 
- * @param {Number} max 
+ *
+ * @param {String} label
+ * @param {Number} val
+ * @param {Number} min
+ * @param {Number} max
  */
 const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   if (!Number.isInteger(val) || val < min || val > max) {
@@ -25,11 +25,11 @@ const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
 
 /**
  * Test if value is a number.
- * 
- * @param {String} label 
- * @param {Number} val 
- * @param {Number} min 
- * @param {Number} max 
+ *
+ * @param {String} label
+ * @param {Number} val
+ * @param {Number} min
+ * @param {Number} max
  */
 const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
   if (Number(val) !== val || val < min || val > max) {
@@ -41,9 +41,9 @@ const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
 
 /**
  * Test if value is a function.
- * 
- * @param {String} label 
- * @param {Function} val 
+ *
+ * @param {String} label
+ * @param {Function} val
  */
 const testFunction = (label, val) => {
   if (!val || {}.toString.call(val) !== '[object Function]') {
@@ -58,7 +58,6 @@ const testFunction = (label, val) => {
  * @classdesc Process to extract neighboring colors.
  */
 export default class ColorsExtractor {
-
   /**
    * @param {Object=} options  Optional data
    * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
@@ -83,7 +82,7 @@ export default class ColorsExtractor {
 
   /**
    * Run extract process and get list of colors.
-   * 
+   *
    * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
    * @returns {Array<Color>}
    */
@@ -113,7 +112,7 @@ export default class ColorsExtractor {
 
   /**
    * Extract colors from data.
-   * 
+   *
    * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
    * @returns {Array<Object>} { hex, red, green, blue, area, saturation }
    */

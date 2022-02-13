@@ -2,26 +2,26 @@ import ColorsExtractor from './color/ColorsExtractor'
 
 /**
  * Node exported functions.
- * 
+ *
  * @example
  * const path = require('path')
  * const { extractColors } = require('extract-colors')
- * 
+ *
  * const src = path.join(__dirname, './my-image.jpg')
- * 
+ *
  * extractColors(src)
  *   .then(console.log)
  *   .catch(console.log)
- * 
+ *
  * @example
  * import { extractColorsFromImageData } from 'extract-colors'
- * 
+ *
  * const imageData = { data: [0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF] }
- * 
+ *
  * extractColorsFromImageData(imageData)
  *   .then(console.log)
  *   .catch(console.error)
- * 
+ *
  * @module Node
  * @memberof node
  */
@@ -31,7 +31,7 @@ const { createCanvas, loadImage } = require('canvas')
 /**
  * Extract ImageData from image.
  * Reduce image to a pixel count.
- * 
+ *
  * @param {Image} image  Source image
  * @param {Number} pixels  Maximum number of pixels for process
  * @returns {ImageData}
@@ -49,8 +49,8 @@ const getImageData = (image, pixels) => {
 
 /**
  * Extract colors from an ImageData object.
- * 
- * @param {ImageData} imageData  
+ *
+ * @param {ImageData} imageData
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
@@ -67,8 +67,8 @@ const extractColorsFromImageData = (imageData, options) => {
 /**
  * Extract colors from a path.
  * The image will be downloaded.
- * 
- * @param {String} src 
+ *
+ * @param {String} src
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
@@ -86,7 +86,7 @@ const extractColorsFromSrc = (src, options) => loadImage(src)
 
 /**
  * Extract colors from a picture.
- * 
+ *
  * @param {String|Image|ImageData} picture  Src, Image or ImageData
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
