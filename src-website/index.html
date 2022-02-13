@@ -3,14 +3,16 @@
   <template id="img-block">
     <img crossorigin="anonymous" :src="src" ref="img"><!--
     --><div class="colors">
-      <div class="color" v-for="color of colors" :style="`background-color: ${color}`"></div>
+      <div class="color" v-for="color of colors" :style="`background-color: ${ color.hex }`"></div>
     </div>
     <pre class="log hljs"><!--
       --><div><!--
-      -->{{ colors.length }} colors: <span v-for="color of colors" class="square" :style="`color:${ color }`">▮ </span> <!--
+      -->{{ colors.length }} colors: <span v-for="color of colors" class="square" :style="`color:${ color.hex }`">▮ </span> <!--
       --></div><!--
       --><div>pixels: {{ px }}</div><!--
       --><div>time: {{ time }}ms</div><!--
+      --><div>Colors:</div><!--
+      --><div v-for="color of colors">-<span class="square" :style="`color:${ color.hex }`">▮ </span> {{ color.hex }} area: {{ parseFloat((color.area * 100).toFixed(2)) }}% - sat: {{ parseFloat((color.saturation * 100).toFixed(2)) }}%</div><!--
     --></pre>
   </template>
 

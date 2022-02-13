@@ -62,8 +62,8 @@ function ImgBlock (props) {
           crossOrigin: 'anonymous'
         })
           .then(colors => {
-            this.colors = colors.map(color => color.hex)
             this.time = (Date.now() - initTime)
+            this.colors = colors
           })
           .finally(() => {
             process.shift()
