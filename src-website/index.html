@@ -81,7 +81,7 @@
         <button @click="randomFiles">Load 5 random images</button>
       </div>
 
-      <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, saturationImportance, splitPower })" class="block" @mounted="mounted" :key="id">
+      <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, saturationImportance, splitPower })" class="block" @vue:mounted="mounted" :key="id">
       </div>
     </div>
 
@@ -93,7 +93,7 @@
         By <a href="https://damien.doussaud.fr/" target="_blank" rel="author">Damien Doussaud</a>
       </p>
     </footer>
-    <script src="https://unpkg.com/petite-vue"></script>
+    <script src="https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.iife.js"></script>
     <script src="./assets/script.js"></script>
   </body>
 </html>
