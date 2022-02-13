@@ -15,7 +15,7 @@ class Image {
 class ImageLoadable extends Image {
   constructor () {
     super()
-    
+
     this.complete = false
     this._cb = () => 1
 
@@ -61,7 +61,7 @@ test('Extract from imageData', () => {
 })
 
 test('Extract from imageData 2', done => {
-  return extractColors(new ImageData())
+  extractColors(new ImageData())
     .then(data => {
       expect(data.length).toBeGreaterThan(0)
       done()
@@ -69,7 +69,7 @@ test('Extract from imageData 2', done => {
 })
 
 test('Extract from image', done => {
-  return extractColors(new Image())
+  extractColors(new Image())
     .then(data => {
       expect(data.length).toBeGreaterThan(0)
       done()
@@ -77,7 +77,7 @@ test('Extract from image', done => {
 })
 
 test('Extract from src', done => {
-  return extractColors('fakesrc.jpg')
+  extractColors('fakesrc.jpg')
     .then(data => {
       expect(data.length).toBeGreaterThan(0)
       done()
@@ -88,7 +88,7 @@ test('Extract and reduce image', done => {
   const options = {
     pixels: 1
   }
-  return extractColors(new Image(), options)
+  extractColors(new Image(), options)
     .then(data => {
       expect(data.length).toBeGreaterThan(0)
       done()
@@ -99,7 +99,7 @@ test('Extract from loadable image', done => {
   const options = {
     pixels: 1
   }
-  return extractColors(new ImageLoadable(), options)
+  extractColors(new ImageLoadable(), options)
     .then(data => {
       expect(data.length).toBeGreaterThan(0)
       done()
