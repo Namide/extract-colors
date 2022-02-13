@@ -23,6 +23,7 @@ html {
   padding: 10px;
   display: inline-block;
   background-color: white;
+  max-width: 355px;
 }
 
 code {

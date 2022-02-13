@@ -32,7 +32,11 @@
 
         <h2>Config</h2>
 
-        <label for="pixels">Pixels amount max</label>
+        <details>
+          <summary>Pixels amount max</summary>
+          <small>small enough to escape casual notice.</small>
+        </details>
+        
         <input
           id="pixels"
           type="number"
@@ -40,7 +44,11 @@
           v-model="pixels"
         />
 
-        <label for="distance">Color distance</label>
+        <details>
+          <summary>Color distance</summary>
+          <small>From 0 to 1 is the color distance to not have near colors (1 distance is between white and black).</small>
+        </details>
+
         <input
           id="distance"
           type="number"
@@ -50,7 +58,11 @@
           v-model="distance"
         />
 
-        <label for="saturationImportance">Color saturation weight</label>
+        <details>
+          <summary>Color saturation weight</summary>
+          <small>Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size).</small>
+        </details>
+        
         <input
           id="saturationImportance"
           type="number"
@@ -60,7 +72,12 @@
           v-model="saturationImportance"
         />
 
-        <label for="splitPower">Split color power</label>
+        <details>
+          <summary>Split color power</summary>
+          <small>Approximation power in the first color splitting during process (from 2 to 16).</small>
+        </details>
+
+        <label for="splitPower"></label>
         <input
           id="splitPower"
           type="number"
@@ -78,7 +95,7 @@
           @change="uploadFile"
           multiple
         />
-        <button @click="randomFiles">Load 5 random images</button>
+        <button @click="randomFiles">Extract from 5 random images</button>
       </div>
 
       <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, saturationImportance, splitPower })" class="block" @vue:mounted="mounted" :key="id">
