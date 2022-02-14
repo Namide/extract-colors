@@ -1,13 +1,14 @@
 # Extract Colors
 
 [![package version](https://badge.fury.io/js/extract-colors.svg)](https://www.npmjs.com/package/extract-colors)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/extract-colors?style=flat&color=brightgreen)](https://bundlephobia.com/result?p=extract-colors)
+[![npm min bundle size](https://img.shields.io/bundlephobia/min/extract-colors?style=flat&color=brightgreen)](https://bundlephobia.com/result?p=extract-colors)
+[![npm gzip bundle size](https://img.shields.io/bundlephobia/minzip/extract-colors?style=flat&color=brightgreen)](https://bundlephobia.com/result?p=extract-colors)
 ![Browser dependency](https://img.shields.io/badge/browser%20dependency-zero-brightgreen)
 ![Node dependency](https://img.shields.io/badge/node%20dependency-canvas-yellow)
 [![CI](https://github.com/Namide/extract-colors/workflows/CI/badge.svg)](https://github.com/Namide/extract-colors/actions)
 [![code coverage](https://codecov.io/gh/Namide/extract-colors/branch/master/graph/badge.svg?token=80PUQ24PW5)](https://codecov.io/gh/Namide/extract-colors)
 [![GNU GPL software License](https://img.shields.io/badge/license-GNU_GPL-brightgreen.svg)](#license)
-[![Downloaded](https://img.shields.io/npm/dt/extract-colors)
+[![Downloaded](https://img.shields.io/npm/dt/extract-colors)](https://www.npmjs.com/package/extract-colors)
 
 Extract color palettes from images.  
 Simple use, < 5ko minified, fast process and no dependencies for browser.  
