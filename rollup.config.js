@@ -18,8 +18,8 @@ export default [
 
   {
     input: 'src/extractColorsModule.js',
-    external: [ 'canvas' ],
-		output: {
+    external: ['canvas'],
+    output: {
       name: 'extractColors',
       file: pkg.main,
       format: 'cjs'
@@ -33,8 +33,8 @@ export default [
 
   {
     input: 'src/extractColorsModule.js',
-    external: [ 'canvas' ],
-		output: {
+    external: ['canvas'],
+    output: {
       name: 'extractColors',
       file: pkg.module,
       format: 'es'
