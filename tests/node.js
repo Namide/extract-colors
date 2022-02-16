@@ -53,3 +53,23 @@ test('Check bad colorValidator', () => {
       expect(2).toBeGreaterThan(0)
     })
 })
+
+test('Use image pixels', () => {
+  const options = {
+    pixels: 0xFFFFFFFF
+  }
+  return extractColors(path.join(__dirname, './namide-world.jpg'), options)
+    .then(data => {
+      expect(data.length).toBeGreaterThan(0)
+    })
+})
+
+test('Use custom pixels', () => {
+  const options = {
+    pixels: 1
+  }
+  return extractColors(path.join(__dirname, './namide-world.jpg'), options)
+    .then(data => {
+      expect(data.length).toBe(1)
+    })
+})

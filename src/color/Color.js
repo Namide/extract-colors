@@ -59,14 +59,14 @@ export default class Color {
    * @returns {Number}
    */
   getSaturation () {
-    if (this.saturation === undefined) {
-      this.saturation = Math.max(
+    if (this._saturation === undefined) {
+      this._saturation = Math.max(
         Math.abs(this.red - this.green) / 0xFF,
         Math.abs(this.red - this.blue) / 0xFF,
         Math.abs(this.green - this.blue) / 0xFF
       )
     }
 
-    return this.saturation
+    return this._saturation
   }
 }
