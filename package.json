@@ -7,8 +7,8 @@
   "module": "dist/extract-colors.es.js",
   "scripts": {
     "dev": "rollup -c -w",
-    "serve-website": "npm run build-doc && parcel src-website/index.html -d cache --open --public-url /extract-colors/",
-    "build-website": "npm run build-doc && parcel build src-website/index.html --out-dir dist-website --public-url /extract-colors/",
+    "serve-website": "npm run build-doc && vite",
+    "build-website": "npm run build-doc && vite build",
     "build-doc": "node_modules/.bin/jsdoc -c jsdoc.json",
     "build": "rollup -c",
     "lint": "eslint src --fix",
@@ -40,6 +40,7 @@
     "dist"
   ],
   "devDependencies": {
+    "@babel/core": "^7.17.5",
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
@@ -55,10 +56,10 @@
     "jest": "^27.5.1",
     "jsdoc": "^3.6.10",
     "milligram": "^1.4.1",
-    "parcel": "^1.12.4",
-    "parcel-plugin-html-partials": "0.0.6",
+    "parcel": "^2.3.1",
     "rollup": "^2.67.2",
-    "rollup-plugin-terser": "^7.0.2"
+    "rollup-plugin-terser": "^7.0.2",
+    "vite": "^2.8.3"
   },
   "dependencies": {}
 }
