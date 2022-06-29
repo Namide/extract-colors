@@ -134,7 +134,8 @@ Type: `Function`
 Default: `(red, green, blue, alpha = 255) => alpha > 250`  
 
 **crossOrigin**  
-_Only for browser, can be 'Anonymous' to avoid CORS_  
+_Only for browser, can be 'Anonymous' to avoid client side CORS_
+_(the server side images need authorizations too)_  
 Type: `String`  
 Default: `null`  
 
