@@ -69,6 +69,17 @@ extractColors(src)
   .catch(console.error)
 ```
 
+Module example (latest version of packager)
+```js
+import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+
+const src = 'my-image.jpg'
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.error)
+```
+
 > You can use different types for `src` param (`String` for a path of image, `Image` or `ImageData`).  
 > If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
 
@@ -78,6 +89,18 @@ extractColors(src)
 ```js
 const path = require('path')
 const { extractColors } = require('extract-colors')
+
+const src = path.join(__dirname, './my-image.jpg')
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.log)
+```
+
+Module example (latest version of npm)
+```js
+const path = require('path')
+const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
 
 const src = path.join(__dirname, './my-image.jpg')
 

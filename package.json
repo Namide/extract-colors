@@ -4,7 +4,6 @@
   "description": "Extract color palettes from images",
   "main": "dist/extract-colors.cjs.js",
   "browser": "dist/extract-colors.umd.js",
-  "module": "dist/extract-colors.es.js",
   "scripts": {
     "dev": "rollup -c -w",
     "serve-website": "npm run build-doc && vite --host --port 3000",

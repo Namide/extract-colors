@@ -32,11 +32,23 @@ export default [
   },
 
   {
+    input: 'src/extractColorsBrowser.js',
+    output: {
+      name: 'extractColors',
+      file: 'dist/extract-colors.browser.es.js',
+      format: 'es'
+    },
+    plugins: [
+      terser()
+    ]
+  },
+
+  {
     input: 'src/extractColorsModule.js',
     external: ['canvas'],
     output: {
       name: 'extractColors',
-      file: pkg.module,
+      file: 'dist/extract-colors.node.es.js',
       format: 'es'
     },
     plugins: [
