@@ -7,7 +7,7 @@
   "module": "dist/extract-colors.es.js",
   "scripts": {
     "dev": "rollup -c -w",
-    "serve-website": "npm run build-doc && vite",
+    "serve-website": "npm run build-doc && vite --host --port 3000",
     "build-website": "npm run build-doc && vite build",
     "build-doc": "node_modules/.bin/jsdoc -c jsdoc.json",
     "build": "rollup -c",
@@ -44,7 +44,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
-    "canvas": "^2.9.0",
+    "canvas": "^2.10.2",
     "docdash": "^1.2.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
@@ -53,13 +53,12 @@
     "eslint-plugin-promise": "^4.3.1",
     "eslint-plugin-standard": "^4.1.0",
     "highlight.js": "^10.7.3",
-    "jest": "^27.5.1",
+    "jest": "^29.2.2",
+    "jest-environment-jsdom": "^29.2.2",
     "jsdoc": "^3.6.10",
     "milligram": "^1.4.1",
-    "parcel": "^2.3.1",
     "rollup": "^2.67.2",
     "rollup-plugin-terser": "^7.0.2",
     "vite": "^2.8.3"
-  },
-  "dependencies": {}
+  }
 }
