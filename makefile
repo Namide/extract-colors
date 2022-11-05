@@ -38,6 +38,15 @@ dev-env:
 		node:slim \
 		bash
 
+build-website:
+	docker run -ti --rm \
+		--user $(id -u):$(id -g) \
+		-v $(shell pwd):/usr/src/app \
+		-w /usr/src/app \
+		-u "node" \
+		node:slim \
+		npm run build-website
+
 build:
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \
@@ -45,7 +54,7 @@ build:
 		-w /usr/src/app \
 		-u "node" \
 		node:slim \
-		npm run build-website; npm run build
+		npm run build
 
 lint:
 	docker run -ti --rm \
