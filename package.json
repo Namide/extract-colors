@@ -4,6 +4,7 @@
   "description": "Extract color palettes from images",
   "main": "lib/extract-colors.node.umd.js",
   "browser": "lib/extract-colors.browser.umd.js",
+  "types": "lib/extractColors.browser.d.ts",
   "scripts": {
     "serve-website": "npm run build && npm run build-doc && vite --host --port 3000 --config vite.config.website.ts",
     "prebuild-website": "rm -rf ./extract-colors",

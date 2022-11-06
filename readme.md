@@ -71,7 +71,7 @@ extractColors(src)
 
 Module example (latest version of packager)
 ```js
-import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+import extractColors from 'extract-colors/lib/extract-colors.browser.es.js'
 
 const src = 'my-image.jpg'
 
@@ -100,7 +100,7 @@ extractColors(src)
 Module example (latest version of npm)
 ```js
 const path = require('path')
-const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
+const { extractColors } = require('extract-colors/lib/extract-colors.node.es.js')
 
 const src = path.join(__dirname, './my-image.jpg')
 
