@@ -1,9 +1,10 @@
 import Color from './Color'
+import ColorGroup from './ColorGroup'
 
 /**
- * Group colors with algorithms to optimize and merge neighbors colors.
+ * GroupGroup colors with algorithms to optimize and merge neighbors colors.
  *
- * @module ColorGroup
+ * @module GroupGroup
  * @memberof module:core
  */
 
@@ -11,7 +12,13 @@ import Color from './Color'
  * @class
  * @classdesc Manage list of colors or groups.
  */
-export default class ColorGroup {
+export default class GroupGroup {
+
+  isColor = false
+  count: number
+  children: { [key: number]: GroupGroup | ColorGroup }
+  maxWeight: number | undefined
+
   /**
    * Store colors or groups and count similiar groups in the image.
    */
@@ -26,40 +33,38 @@ export default class ColorGroup {
    *
    * @param {Number} key  Simplication of color
    */
-  addGroup (key) {
+  addGroup (key: number) {
     if (this.children[key]) {
       this.children[key].count++
     } else {
-      this.children[key] = new ColorGroup()
+      this.children[key] = new GroupGroup()
     }
 
-    return this.children[key]
-  }
-
-  /**
-   * Add color to the group.
-   *
-   * @param {Number} hex  Hexadecimal color from 0x000000 to 0xFFFFFF
-   * @param {Number} red  Integer red chanel from 0 to 255
-   * @param {Number} green  Integer green chanel from 0 to 255
-   * @param {Number} blue  Integer blue chanel from 0 to 255
-   */
-  addColor (hex, red, green, blue) {
-    if (this.children[hex]) {
-      this.children[hex].count++
-    } else {
-      this.children[hex] = new Color(red, green, blue, hex)
-    }
-
-    return this.children[hex]
+    return this.children[key] as GroupGroup
   }
 
   /**
    * Get list of groups of list of colors.
    */
   getList () {
-    return Object.keys(this.children)
+    return (Object.keys(this.children) as unknown[] as number[])
       .map((key) => this.children[key])
+  }
+
+  /**
+   * Add a key for a color, this key is a simplification to find neighboring colors.
+   * Neighboring colors has same key.
+   *
+   * @param {Number} key  Simplication of color
+   */
+   addColorGroup (key: number) {
+    if (this.children[key]) {
+      this.children[key].count++
+    } else {
+      this.children[key] = new ColorGroup()
+    }
+
+    return this.children[key] as ColorGroup
   }
 
   /**
@@ -69,16 +74,18 @@ export default class ColorGroup {
    * @param {Number} count  Number of pixels in the image.
    * @returns {Number}
    */
-  getMaxWeight (saturationImportance, count) {
+  getMaxWeight (saturationImportance: number, count: number): number {
     if (this.maxWeight === undefined) {
       const list = this.getList()
-        .map((child) => (child.isColor ? child.getWeight(saturationImportance, count) : child.getMaxWeight(saturationImportance, count)))
+        .map((child) =>
+          child.getMaxWeight(saturationImportance, count)
+        )
 
       list.sort((a, b) => b - a)
       this.maxWeight = list[0] || 0
     }
 
-    return this.maxWeight
+    return this.maxWeight 
   }
 
   /**
@@ -88,33 +95,24 @@ export default class ColorGroup {
    * @param {Number} count  Number of pixels in the image.
    * @returns {Color}
    */
-  getMaxWeightColor (saturationImportance, count) {
+  getMaxWeightColor (saturationImportance: number, count: number): Color {
     const list = this.getList()
     list.sort((a, b) => {
-      if (a.isColor) {
-        return b.getWeight(saturationImportance, count) - a.getWeight(saturationImportance, count)
-      }
       return b.getMaxWeight(saturationImportance, count) - a.getMaxWeight(saturationImportance, count)
     })
 
-    return list[0].isColor ? list[0] : list[0].getMaxWeightColor(saturationImportance, count)
+    return list[0].getMaxWeightColor(saturationImportance, count)
   }
 
   /**
    * Max count of colors for a group of colors.
    *
-   * @returns {Number}
+   * @returns {Color}
    */
-  getMaxCountColor () {
+  getMaxCountColor (): Color {
     const list = this.getList()
-    list.sort((a, b) => {
-      if (a.isColor) {
-        return b.count - a.count
-      }
-      return b.getMaxCountColor() - a.getMaxCountColor()
-    })
-
-    return list[0].isColor ? list[0] : list[0].getMaxCountColor()
+    const biggest = list.reduce((a, b) => a.getMaxCountColor().count >= b.getMaxCountColor().count ? a : b)
+    return biggest.getMaxCountColor()
   }
 
   /**
@@ -126,7 +124,7 @@ export default class ColorGroup {
    * @param {Number} count  Total pixels of image
    * @returns {Array<Color>}
    */
-  getColors (distance, saturationImportance, count) {
+  getColors (distance: number, saturationImportance: number, count: number) {
     const list = this.getList()
       .map((child) => {
         const { count } = child
@@ -137,7 +135,7 @@ export default class ColorGroup {
 
     list.sort((a, b) => b.getWeight(saturationImportance, count) - a.getWeight(saturationImportance, count))
 
-    const newList = []
+    const newList: Color[] = []
     list.forEach((color) => {
       const near = newList.find((col) => col.distance(color) < distance)
       if (!near) {

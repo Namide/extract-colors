@@ -1,4 +1,6 @@
-import ColorsGroup from './ColorsGroup'
+import { Options } from '../types/Options'
+import type { Output } from '../types/Output'
+import GroupGroup from './GroupGroup'
 
 /**
  * Process to extract main colors from list of colors.
@@ -15,12 +17,12 @@ import ColorsGroup from './ColorsGroup'
  * @param {Number} min
  * @param {Number} max
  */
-const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
+const testUint = <T = number>(label: string, val: T, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   if (!Number.isInteger(val) || val < min || val > max) {
     throw new Error(`${label} is invalid`)
   }
 
-  return parseInt(val)
+  return val
 }
 
 /**
@@ -31,12 +33,12 @@ const testUint = (label, val, min = 0, max = Number.MAX_SAFE_INTEGER) => {
  * @param {Number} min
  * @param {Number} max
  */
-const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
+const testNumber = <T = number>(label: string, val: T, min = 0, max = Number.MAX_VALUE) => {
   if (Number(val) !== val || val < min || val > max) {
     throw new Error(`${label} is invalid`)
   }
 
-  return Number(val)
+  return val
 }
 
 /**
@@ -45,7 +47,7 @@ const testNumber = (label, val, min = 0, max = Number.MAX_VALUE) => {
  * @param {String} label
  * @param {Function} val
  */
-const testFunction = (label, val) => {
+const testFunction = <T = () => void>(label: string, val: T) => {
   if (!val || {}.toString.call(val) !== '[object Function]') {
     throw new Error(`${label} is invalid`)
   }
@@ -58,6 +60,19 @@ const testFunction = (label, val) => {
  * @classdesc Process to extract neighboring colors.
  */
 export default class ColorsExtractor {
+
+  pixels: number
+  splitPower: number 
+  distance: number 
+  saturationImportance: number 
+  colorValidator: (red: number, green: number, blue: number, alpha: number) => boolean
+
+  static pixelsDefault = 10000
+  static distanceDefault = 0.2
+  static saturationImportanceDefault = 0.2
+  static splitPowerDefault = 10
+  static colorValidatorDefault = (_red: number, _green: number, _blue: number, alpha?: number) => (alpha ?? 255) > 250
+
   /**
    * @param {Object=} options  Optional data
    * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
@@ -72,7 +87,7 @@ export default class ColorsExtractor {
     saturationImportance = ColorsExtractor.saturationImportanceDefault,
     splitPower = ColorsExtractor.splitPowerDefault,
     colorValidator = ColorsExtractor.colorValidatorDefault
-  } = {}) {
+  }: Options = {}) {
     this.pixels = testUint('pixels', pixels, 1)
     this.splitPower = testNumber('splitPower', splitPower, 2, 16)
     this.distance = testNumber('distance', distance, 0, 1)
@@ -86,8 +101,8 @@ export default class ColorsExtractor {
    * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
    * @returns {Array<Color>}
    */
-  process (data) {
-    const rootGroup = new ColorsGroup()
+  process (data: Uint8ClampedArray) {
+    const rootGroup = new GroupGroup()
     const acc = this.splitPower
 
     for (let i = 0; i < data.length; i += 4) {
@@ -102,7 +117,7 @@ export default class ColorsExtractor {
         const small = Math.round(r * (acc - 1) / 255) * (acc * acc) + Math.round(g * (acc - 1) / 255) * acc + Math.round(b * (acc - 1) / 255)
 
         const smallGroup = rootGroup.addGroup(small)
-        const mediumGroup = smallGroup.addGroup(medium)
+        const mediumGroup = smallGroup.addColorGroup(medium)
         mediumGroup.addColor(real, r, g, b)
       }
     }
@@ -116,7 +131,7 @@ export default class ColorsExtractor {
    * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
    * @returns {Array<Object>} { hex, red, green, blue, area, saturation }
    */
-  extract (data) {
+  extract (data: Uint8ClampedArray): Output[] {
     return this.process(data)
       .map((color) => ({
         hex: `#${'0'.repeat(6 - color.hex.toString(16).length)}${color.hex.toString(16)}`,
@@ -128,9 +143,3 @@ export default class ColorsExtractor {
       }))
   }
 }
-
-ColorsExtractor.pixelsDefault = 10000
-ColorsExtractor.distanceDefault = 0.2
-ColorsExtractor.saturationImportanceDefault = 0.2
-ColorsExtractor.splitPowerDefault = 10
-ColorsExtractor.colorValidatorDefault = (red, green, blue, alpha = 255) => alpha > 250

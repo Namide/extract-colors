@@ -17,17 +17,6 @@ serve:
 		node:slim \
 		npm run serve-website
 
-dev:
-	python3 -m webbrowser http://localhost:3000/
-	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
-		-v $(shell pwd):/usr/src/app \
-		-w /usr/src/app \
-		-p 3000\:3000 \
-		-u "node" \
-		node:slim \
-		npm run dev
-
 dev-env:
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \

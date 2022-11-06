@@ -12,7 +12,7 @@ cache
 .cache
 
 # Build
-dist
+lib
 dist-doc
 extract-colors
 

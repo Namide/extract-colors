@@ -10,6 +10,15 @@
  * @classdesc Calculate some informations and store data about color.
  */
 export default class Color {
+
+  red: number
+  green: number
+  blue: number
+  hex: number
+  count: number
+
+  private _saturation: number | undefined
+
   /**
    * Set red, green and blue colors to create the Color object.
    *
@@ -19,8 +28,7 @@ export default class Color {
    * @param {Number=} hex  Optional hexadecimal color from 0x000000 to 0xFFFFFF
    * @returns {Color}
    */
-  constructor (red, green, blue, hex = red << 16 | green << 8 | blue) {
-    this.isColor = true
+  constructor (red: number, green: number, blue: number, hex = red << 16 | green << 8 | blue) {
 
     this.red = red
     this.green = green
@@ -38,7 +46,7 @@ export default class Color {
    * @param {Color} color  Color to compare
    * @returns {Number}
    */
-  distance (color) {
+  distance (color: Color) {
     return (Math.abs(color.red - this.red) + Math.abs(color.green - this.green) + Math.abs(color.blue - this.blue)) / (3 * 0xFF)
   }
 
@@ -49,7 +57,7 @@ export default class Color {
    * @param {Number} maxCount  Number of pixels in the image.
    * @returns {Number}
    */
-  getWeight (saturationImportance, maxCount) {
+  getWeight (saturationImportance: number, maxCount: number) {
     return (this.count / maxCount) * (1 - saturationImportance) + this.getSaturation() * saturationImportance
   }
 

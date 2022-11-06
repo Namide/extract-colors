@@ -1,4 +1,4 @@
-import extractColors from '../../src/extractColorsBrowser'
+import extractColors from '../../lib/extract-colors.browser.es'
 
 const IMG_THEME = ['moon', 'water', 'sea', 'colors', 'sky']
 const process = []

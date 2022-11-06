@@ -1,4 +1,4 @@
-# Extract Colors
+# Extract ColorGroup
 
 [![package version](https://badge.fury.io/js/extract-colors.svg)](https://www.npmjs.com/package/extract-colors)
 [![npm min bundle size](https://img.shields.io/bundlephobia/min/extract-colors?style=flat&color=brightgreen)](https://bundlephobia.com/result?p=extract-colors)
