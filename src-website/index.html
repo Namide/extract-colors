@@ -11,7 +11,7 @@
       --></div><!--
       --><div>pixels: {{ px }}</div><!--
       --><div>time: {{ time }}ms</div><!--
-      --><div>ColorGroup:</div><!--
+      --><div>colors:</div><!--
       --><div v-for="color of colors">-<span class="square" :style="`color:${ color.hex }`">▮ </span> {{ color.hex }} area: {{ parseFloat((color.area * 100).toFixed(2)) }}% - sat: {{ parseFloat((color.saturation * 100).toFixed(2)) }}%</div><!--
     --></pre>
   </template>
@@ -21,7 +21,7 @@
     <link rel="stylesheet" type="text/css" href="./assets/style.css">
     <meta name="author" content="Damien Doussaud">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Extract ColorGroup</title>
+    <title>Extract colors</title>
   </head>
   <body v-scope="Input({})">
     <header>

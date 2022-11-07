@@ -1,6 +1,6 @@
 import { Options } from '../types/Options'
 import type { Output } from '../types/Output'
-import GroupGroup from './GroupGroup'
+import RootGroup from './RootGroup'
 
 /**
  * Process to extract main colors from list of colors.
@@ -101,8 +101,8 @@ export default class ColorsExtractor {
    * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
    * @returns {Array<Color>}
    */
-  process (data: Uint8ClampedArray) {
-    const rootGroup = new GroupGroup()
+  process (data: Uint8ClampedArray | number[]) {
+    const rootGroup = new RootGroup()
     const acc = this.splitPower
 
     for (let i = 0; i < data.length; i += 4) {
@@ -116,8 +116,8 @@ export default class ColorsExtractor {
         const medium = (r >> 4 & 0xF) << 2 | (g >> 4 & 0xF) << 1 | (b >> 4 & 0xF)
         const small = Math.round(r * (acc - 1) / 255) * (acc * acc) + Math.round(g * (acc - 1) / 255) * acc + Math.round(b * (acc - 1) / 255)
 
-        const smallGroup = rootGroup.addGroup(small)
-        const mediumGroup = smallGroup.addColorGroup(medium)
+        const smallGroup = rootGroup.addRootGroup(small)
+        const mediumGroup = smallGroup.addBudGroup(medium)
         mediumGroup.addColor(real, r, g, b)
       }
     }
@@ -131,7 +131,7 @@ export default class ColorsExtractor {
    * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
    * @returns {Array<Object>} { hex, red, green, blue, area, saturation }
    */
-  extract (data: Uint8ClampedArray): Output[] {
+  extract (data: Uint8ClampedArray | number[]): Output[] {
     return this.process(data)
       .map((color) => ({
         hex: `#${'0'.repeat(6 - color.hex.toString(16).length)}${color.hex.toString(16)}`,

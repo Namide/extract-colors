@@ -1,4 +1,5 @@
 import ColorsExtractor from './color/ColorsExtractor'
+import { NodeImageData } from './types/NodeImageData'
 import type { Options } from "./types/Options"
 import type { Output } from "./types/Output"
 
@@ -62,7 +63,7 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColorsFromImageData = (imageData: ImageData, options?: Options) => {
+const extractColorsFromImageData = (imageData: NodeImageData, options?: Options) => {
   const colorsExtractor = new ColorsExtractor(options)
   return colorsExtractor.extract(imageData.data)
 }
@@ -80,7 +81,7 @@ const extractColorsFromImageData = (imageData: ImageData, options?: Options) => 
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColorsFromSrc = (src: string, options?: Options) => loadImage(src)
+const extractColorsFromSrc = (src: string, options?: Options) => (loadImage(src) as Promise<HTMLImageElement>)
   .then((image: HTMLImageElement) => {
     const colorsExtractor = new ColorsExtractor(options)
     const imageData = getImageData(image, colorsExtractor.pixels)
@@ -99,11 +100,15 @@ const extractColorsFromSrc = (src: string, options?: Options) => loadImage(src)
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColors = (picture: string | ImageData, options?: Options) => {
-  const imageData = picture as ImageData
+const extractColors = (picture: string | NodeImageData, options?: Options) => {
+  const imageData = picture as NodeImageData
   if (imageData.width && imageData.height && imageData.data && imageData.data.length) {
-    return new Promise((resolve: (value: Output[]) => void) => {
-      resolve(extractColorsFromImageData(imageData, options))
+    return new Promise((resolve: (value: Output[]) => void, reject: (reason: Error) => void) => {
+      try {
+        resolve(extractColorsFromImageData(imageData, options))
+      } catch (error) {
+        reject(error as Error)
+      }
     })
   }
 

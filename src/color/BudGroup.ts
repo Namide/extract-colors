@@ -1,9 +1,9 @@
 import Color from './Color'
 
 /**
- * GroupGroup colors with algorithms to optimize and merge neighbors colors.
+ * RootGroup colors with algorithms to optimize and merge neighbors colors.
  *
- * @module ColorGroup
+ * @module BudGroup
  * @memberof module:core
  */
 
@@ -11,7 +11,7 @@ import Color from './Color'
  * @class
  * @classdesc Manage list of colors or groups.
  */
-export default class ColorGroup {
+export default class BudGroup {
 
   count: number
   children: { [key: number]: Color }

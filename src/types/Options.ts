@@ -3,7 +3,6 @@ export type Options = {
   distance?: number;
   saturationImportance?: number;
   splitPower?: number;
-  crossOrigin?: "anonymous" | "use-credentials" | "";
   colorValidator?: (red: number, green: number, blue: number, alpha: number) => boolean;
 }
 

@@ -1,10 +1,10 @@
 import Color from './Color'
-import ColorGroup from './ColorGroup'
+import BudGroup from './BudGroup'
 
 /**
- * GroupGroup colors with algorithms to optimize and merge neighbors colors.
+ * RootGroup colors with algorithms to optimize and merge neighbors colors.
  *
- * @module GroupGroup
+ * @module RootGroup
  * @memberof module:core
  */
 
@@ -12,11 +12,11 @@ import ColorGroup from './ColorGroup'
  * @class
  * @classdesc Manage list of colors or groups.
  */
-export default class GroupGroup {
+export default class RootGroup {
 
   isColor = false
   count: number
-  children: { [key: number]: GroupGroup | ColorGroup }
+  children: { [key: number]: RootGroup | BudGroup }
   maxWeight: number | undefined
 
   /**
@@ -33,14 +33,14 @@ export default class GroupGroup {
    *
    * @param {Number} key  Simplication of color
    */
-  addGroup (key: number) {
+  addRootGroup (key: number) {
     if (this.children[key]) {
       this.children[key].count++
     } else {
-      this.children[key] = new GroupGroup()
+      this.children[key] = new RootGroup()
     }
 
-    return this.children[key] as GroupGroup
+    return this.children[key] as RootGroup
   }
 
   /**
@@ -57,14 +57,14 @@ export default class GroupGroup {
    *
    * @param {Number} key  Simplication of color
    */
-   addColorGroup (key: number) {
+   addBudGroup (key: number) {
     if (this.children[key]) {
       this.children[key].count++
     } else {
-      this.children[key] = new ColorGroup()
+      this.children[key] = new BudGroup()
     }
 
-    return this.children[key] as ColorGroup
+    return this.children[key] as BudGroup
   }
 
   /**
