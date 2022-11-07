@@ -104,7 +104,7 @@ const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOption
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColorsFromSrc = (src: string, options: BrowserOptions) => {
+const extractColorsFromSrc = (src: string, options?: BrowserOptions) => {
   const image = new Image()
   image.src = src
   return extractColorsFromImage(image, options)
@@ -122,7 +122,7 @@ const extractColorsFromSrc = (src: string, options: BrowserOptions) => {
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColors = (picture: string | HTMLImageElement | ImageData, options: BrowserOptions) => {
+const extractColors = (picture: string | HTMLImageElement | ImageData, options?: BrowserOptions) => {
   if (picture instanceof ImageData) {
     return new Promise((resolve: (value: Output[]) => void) => {
       resolve(extractColorsFromImageData(picture, options))
@@ -139,7 +139,8 @@ const extractColors = (picture: string | HTMLImageElement | ImageData, options: 
 export {
   extractColorsFromImageData,
   extractColorsFromImage,
-  extractColorsFromSrc
+  extractColorsFromSrc,
+  extractColors
 }
 
 export default extractColors

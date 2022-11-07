@@ -2,9 +2,9 @@
   "name": "extract-colors",
   "version": "1.1.23",
   "description": "Extract color palettes from images",
-  "main": "lib/extract-colors.node.umd.js",
+  "main": "lib/extract-colors.node.cjs.js",
   "browser": "lib/extract-colors.browser.umd.js",
-  "types": "lib/extractColors.browser.d.ts",
+  "types": "lib/extract-colors.browser.es.d.ts",
   "scripts": {
     "serve-website": "npm run build && npm run build-doc && vite --host --port 3000 --config vite.config.website.ts",
     "prebuild-website": "rm -rf ./extract-colors",
@@ -14,6 +14,7 @@
     "postbuild-doc": "rm -rf ./dist",
     "prebuild": "rm -rf ./lib",
     "build": "tsc --project tsconfig.browser.type.json && vite build --config vite.config.browser.ts && tsc --project tsconfig.node.type.json && vite build --config vite.config.node.ts",
+    "postbuild": "cp lib/extractColors.browser.d.ts lib/extract-colors.browser.es.d.ts && mv lib/extractColors.browser.d.ts lib/extract-colors.browser.umd.d.ts &&  cp lib/extractColors.node.d.ts lib/extract-colors.node.es.d.ts && mv lib/extractColors.node.d.ts lib/extract-colors.node.cjs.d.ts",
     "lint": "eslint src --fix",
     "test": "jest",
     "loop": "for file in lib/*/*/*.js; do terser $file --compress --mangle --mangle-props --source-map includeSources --output $file; done"

@@ -28,17 +28,18 @@ import type { Output } from "./types/Output"
  * @memberof node
  */
 
-import { createCanvas, Image, loadImage } from 'canvas'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { createCanvas, loadImage } = require('canvas')
 
 /**
  * Extract ImageData from image.
  * Reduce image to a pixel count.
  *
- * @param {Image} image  Source image
+ * @param {HTMLImageElement} image  Source image
  * @param {Number} pixels  Maximum number of pixels for process
  * @returns {ImageData}
  */
-const getImageData = (image: Image, pixels: number) => {
+const getImageData = (image: HTMLImageElement, pixels: number) => {
   const currentPixels = image.width * image.height
   const width = currentPixels < pixels ? image.width : Math.round(image.width * Math.sqrt(pixels / currentPixels))
   const height = currentPixels < pixels ? image.height : Math.round(image.height * Math.sqrt(pixels / currentPixels))
@@ -61,7 +62,7 @@ const getImageData = (image: Image, pixels: number) => {
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColorsFromImageData = (imageData: ImageData, options: Options) => {
+const extractColorsFromImageData = (imageData: ImageData, options?: Options) => {
   const colorsExtractor = new ColorsExtractor(options)
   return colorsExtractor.extract(imageData.data)
 }
@@ -79,8 +80,8 @@ const extractColorsFromImageData = (imageData: ImageData, options: Options) => {
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColorsFromSrc = (src: string, options: Options) => loadImage(src)
-  .then((image) => {
+const extractColorsFromSrc = (src: string, options?: Options) => loadImage(src)
+  .then((image: HTMLImageElement) => {
     const colorsExtractor = new ColorsExtractor(options)
     const imageData = getImageData(image, colorsExtractor.pixels)
     return colorsExtractor.extract(imageData.data)
@@ -98,18 +99,21 @@ const extractColorsFromSrc = (src: string, options: Options) => loadImage(src)
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColors = (picture: string | ImageData, options: Options) => {
-  if (picture instanceof ImageData) {
+const extractColors = (picture: string | ImageData, options?: Options) => {
+  const imageData = picture as ImageData
+  if (imageData.width && imageData.height && imageData.data && imageData.data.length) {
     return new Promise((resolve: (value: Output[]) => void) => {
-      resolve(extractColorsFromImageData(picture, options))
+      resolve(extractColorsFromImageData(imageData, options))
     })
   }
 
-  return extractColorsFromSrc(picture, options)
+  return extractColorsFromSrc(picture as string, options)
 }
 
-export default {
+export {
   extractColorsFromImageData,
   extractColorsFromSrc,
   extractColors
 }
+
+export default extractColors
