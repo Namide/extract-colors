@@ -64,3 +64,13 @@ test:
 		-u "node" \
 		node:slim \
 		npm run test
+
+cov:
+	docker run -ti --rm \
+		--user $(id -u):$(id -g) \
+		-v $(shell pwd):/usr/src/app \
+		-w /usr/src/app \
+		-p 3000\:3000 \
+		-u "node" \
+		node:slim \
+		npm run coverage
