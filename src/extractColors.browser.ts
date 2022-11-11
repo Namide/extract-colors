@@ -1,4 +1,4 @@
-import ColorsExtractor from "./color/ColorsExtractor"
+import Extractor from "./extract/Extractor"
 import type { BrowserOptions, Options } from "./types/Options"
 import type { Output } from "./types/Output"
 
@@ -54,8 +54,8 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
  * @returns {Array<Object>}
  */
 const extractColorsFromImageData = (imageData: ImageData, options?: Options) => {
-  const colorsExtractor = new ColorsExtractor(options)
-  return colorsExtractor.extract(imageData.data)
+  const extractor = new Extractor(options)
+  return extractor.extract(imageData.data)
 }
 
 /**
@@ -74,9 +74,9 @@ const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOption
   image.crossOrigin = options?.crossOrigin || null
   return new Promise((resolve: (value: Output[]) => void) => {
     const extract = (image: HTMLImageElement, options?: BrowserOptions) => {
-      const colorsExtractor = new ColorsExtractor(options)
-      const imageData = getImageData(image, colorsExtractor.pixels)
-      resolve(colorsExtractor.extract(imageData.data))
+      const extractor = new Extractor(options)
+      const imageData = getImageData(image, extractor.pixels)
+      resolve(extractor.extract(imageData.data))
     }
 
     if (image.complete) {

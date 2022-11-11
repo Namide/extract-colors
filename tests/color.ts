@@ -32,17 +32,17 @@ describe('Color', () => {
   it('Color saturation 1', () => {
     const color1 = new Color(0xFF, 0x00, 0x00)
     const color2 = new Color(0xFF, 0xFF, 0x00)
-    expect(color1.getSaturation()).toBe(1)
-    expect(color2.getSaturation()).toBe(1)
+    expect(color1.saturation).toBe(1)
+    expect(color2.saturation).toBe(1)
   })
   
   it('Color saturation 0', () => {
     const color1 = new Color(0xFF, 0xFF, 0xFF)
     const color2 = new Color(0x00, 0x00, 0x00)
     const color3 = new Color(0x77, 0x77, 0x77)
-    expect(color1.getSaturation()).toBe(0)
-    expect(color2.getSaturation()).toBe(0)
-    expect(color3.getSaturation()).toBe(0)
+    expect(color1.saturation).toBe(0)
+    expect(color2.saturation).toBe(0)
+    expect(color3.saturation).toBe(0)
   })
   
   it('Color weight', () => {

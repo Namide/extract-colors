@@ -1,11 +1,11 @@
 import { Options } from '../types/Options'
 import type { Output } from '../types/Output'
-import RootGroup from './RootGroup'
+import RootGroup from '../color/RootGroup'
 
 /**
  * Process to extract main colors from list of colors.
  *
- * @module ColorsExtractor
+ * @module Extractor
  * @memberof module:core
  */
 
@@ -59,7 +59,7 @@ const testFunction = <T = () => void>(label: string, val: T) => {
  * @class
  * @classdesc Process to extract neighboring colors.
  */
-export default class ColorsExtractor {
+export default class Extractor {
 
   pixels: number
   splitPower: number 
@@ -82,11 +82,11 @@ export default class ColorsExtractor {
    * @param {String=} options.colorValidator  Callback with test to enable only some colors
    */
   constructor ({
-    pixels = ColorsExtractor.pixelsDefault,
-    distance = ColorsExtractor.distanceDefault,
-    saturationImportance = ColorsExtractor.saturationImportanceDefault,
-    splitPower = ColorsExtractor.splitPowerDefault,
-    colorValidator = ColorsExtractor.colorValidatorDefault
+    pixels = Extractor.pixelsDefault,
+    distance = Extractor.distanceDefault,
+    saturationImportance = Extractor.saturationImportanceDefault,
+    splitPower = Extractor.splitPowerDefault,
+    colorValidator = Extractor.colorValidatorDefault
   }: Options = {}) {
     this.pixels = testUint('pixels', pixels, 1)
     this.splitPower = testNumber('splitPower', splitPower, 2, 16)
@@ -139,7 +139,7 @@ export default class ColorsExtractor {
         green: color.green,
         blue: color.blue,
         area: color.count / this.pixels,
-        saturation: color.getSaturation()
+        saturation: color.saturation
       }))
   }
 }

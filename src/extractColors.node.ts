@@ -1,4 +1,4 @@
-import ColorsExtractor from './color/ColorsExtractor'
+import Extractor from './extract/Extractor'
 import { NodeImageData } from './types/NodeImageData'
 import type { Options } from "./types/Options"
 import type { Output } from "./types/Output"
@@ -64,8 +64,8 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
  * @returns {Array<Object>}
  */
 const extractColorsFromImageData = (imageData: NodeImageData, options?: Options) => {
-  const colorsExtractor = new ColorsExtractor(options)
-  return colorsExtractor.extract(imageData.data)
+  const extractor = new Extractor(options)
+  return extractor.extract(imageData.data)
 }
 
 /**
@@ -83,9 +83,9 @@ const extractColorsFromImageData = (imageData: NodeImageData, options?: Options)
  */
 const extractColorsFromSrc = (src: string, options?: Options) => (loadImage(src) as Promise<HTMLImageElement>)
   .then((image: HTMLImageElement) => {
-    const colorsExtractor = new ColorsExtractor(options)
-    const imageData = getImageData(image, colorsExtractor.pixels)
-    return colorsExtractor.extract(imageData.data)
+    const extractor = new Extractor(options)
+    const imageData = getImageData(image, extractor.pixels)
+    return extractor.extract(imageData.data)
   })
 
 /**

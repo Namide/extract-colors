@@ -58,7 +58,7 @@ export default class Color {
    * @returns {Number}
    */
   getWeight (saturationImportance: number, maxCount: number) {
-    return (this.count / maxCount) * (1 - saturationImportance) + this.getSaturation() * saturationImportance
+    return (this.count / maxCount) * (1 - saturationImportance) + this.saturation * saturationImportance
   }
 
   /**
@@ -66,7 +66,7 @@ export default class Color {
    *
    * @returns {Number}
    */
-  getSaturation () {
+  get saturation () {
     if (this._saturation === undefined) {
       this._saturation = Math.max(
         Math.abs(this.red - this.green) / 0xFF,
