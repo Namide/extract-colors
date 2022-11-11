@@ -7,7 +7,7 @@ install:
 		npm install
 
 serve:
-	python3 -m webbrowser http://localhost:3000/extract-colors/
+	python3 -m webbrowser http://localhost:3000/
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \
 		-v $(shell pwd):/usr/src/app \

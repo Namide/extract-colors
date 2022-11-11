@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 
   <template id="img-block">
     <img crossorigin="anonymous" :src="src" ref="img"><!--
@@ -23,129 +23,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Extract colors</title>
   </head>
+
   <body v-scope="Input({})">
-    <header>
-      <h1><a href="/extract-colors/">Extract colors</a></h1>
-      <nav>
-        <a href="/extract-colors/doc/">doc</a>
-      </nav>
+
+    <!-- HEADER -->
+    <header class="navbar bg-base-100">
+      <div class="navbar-start">
+        <h1 tabindex="0" class="btn btn-ghost normal-case text-xl">
+          <a href="/" class="text-primary">Extract colors</a>
+        </h1>
+      </div>
+      <div class="navbar-end">
+
+        <ul class="menu menu-horizontal p-0 hidden lg:flex">
+          <li>
+            <a href="/about/">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="/demo/">
+              Demo
+            </a>
+          </li>
+          <li>
+            <a href="https://www.npmjs.com/package/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+              NPM
+              <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/Namide/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+              GitHub
+              <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+            </a>
+          </li>
+        </ul>
+
+        <a href="/getting-started/" class="btn btn-accent hidden lg:flex mx-3">Get started</a>
+    
+        <div class="dropdown dropdown-end lg:hidden">
+          <label tabindex="0" class="btn btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" /></svg>
+          </label>
+          <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+            <li>
+              <a href="/about/">
+                About
+              </a>
+            </li>
+            <li>
+              <a href="/demo/">
+                Demo
+              </a>
+            </li>
+            <li>
+              <a href="https://www.npmjs.com/package/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+                NPM
+                <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Namide/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+                GitHub
+                <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+              </a>
+            </li>
+            <li>
+              <a href="/getting-started/" class="btn btn-accent">
+                Getting started
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </header>
 
-    <div class="list">
 
-      <div class="block-inputs">
-
-        <h2>Config</h2>
-
-        <details>
-          <summary>Pixels amount max</summary>
-          <small>small enough to escape casual notice.</small>
-        </details>
-        
-        <input
-          id="pixels"
-          type="number"
-          step="1"
-          v-model="pixels"
-        />
-
-        <details>
-          <summary>Color distance</summary>
-          <small>From 0 to 1 is the color distance to not have near colors (1 distance is between white and black).</small>
-        </details>
-
-        <input
-          id="distance"
-          type="number"
-          min="0"
-          max="1"
-          step="0.1"
-          v-model="distance"
-        />
-
-        <details>
-          <summary>Split color power</summary>
-          <small>Approximation power in the first color splitting during process (from 2 to 16).</small>
-        </details>
-
-        <label for="splitPower"></label>
-        <input
-          id="splitPower"
-          type="number"
-          min="2"
-          max="16"
-          step="1"
-          v-model="splitPower"
-        />
-
-        <details>
-          <summary>Hue distance</summary>
-          <small>from 0 to 1</small>
-        </details>
-
-        <label for="hueDistance"></label>
-        <input
-          id="hueDistance"
-          type="number"
-          min="2"
-          max="16"
-          step="1"
-          v-model="hueDistance"
-        />
-
-        <details>
-          <summary>Saturation distance</summary>
-          <small>from 0 to 1</small>
-        </details>
-
-        <label for="saturationDistance"></label>
-        <input
-          id="saturationDistance"
-          type="number"
-          min="2"
-          max="16"
-          step="1"
-          v-model="saturationDistance"
-        />
-
-        <details>
-          <summary>Lightness distance</summary>
-          <small>from 0 to 1</small>
-        </details>
-
-        <label for="lightnessDistance"></label>
-        <input
-          id="lightnessDistance"
-          type="number"
-          min="2"
-          max="16"
-          step="1"
-          v-model="lightnessDistance"
-        />
-
-        <label for="splitPower">Upload images</label>
-        <input
-          id="uploadFile"
-          type="file"
-          accept="image/*"
-          @change="uploadFile"
-          multiple
-        />
-        <button @click="randomFiles">Extract from 5 random images</button>
-      </div>
-
-      <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, splitPower, hueDistance, saturationDistance, lightnessDistance })" class="block" @vue:mounted="mounted" :key="id">
+    <!-- HERO -->
+    <div class="hero bg-base-200 from-primary to-accent text-primary-content min-h-screen bg-gradient-to-br">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <h1 class="text-5xl font-bold">Hello there</h1>
+          <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+          <a href="/getting-started/" class="btn btn-primary">Get Started</a>
+        </div>
       </div>
     </div>
 
-    <input id="inputFile" type="file" multiple accept="image/*"/>
     <footer>
-      <a href="https://www.npmjs.com/package/extract-colors" target="_blank">NPM</a>
-      <a href="https://github.com/Namide/extract-colors" target="_blank">GitHub</a>
-      <p>
-        By <a href="https://damien.doussaud.fr/" target="_blank" rel="author">Damien Doussaud</a>
-      </p>
+      
+      <nav>
+        <a href="https://www.npmjs.com/package/extract-colors" target="_blank">NPM</a>
+        <a href="https://github.com/Namide/extract-colors" target="_blank">GitHub</a>
+        <p>
+          By <a href="https://damien.doussaud.fr/" target="_blank" rel="author">Damien Doussaud</a>
+        </p>
+      </nav>
     </footer>
-    <script src="./assets/script.ts" type="module"></script>
+
+    <footer class="footer items-center p-4 bg-neutral text-neutral-content">
+      <div class="items-center grid-flow-col">
+        <p>By <a href="https://damien-doussaud.com/" target="_blank" rel="author">Damien Doussaud</a></p>
+      </div>
+    </footer>
+
   </body>
 </html>
