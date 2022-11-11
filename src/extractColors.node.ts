@@ -1,7 +1,7 @@
 import Color from './color/Color'
 import { createFinalColor } from './color/FinalColor'
 import Extractor from './extract/Extractor'
-import { Sorter } from './sort/Sorter'
+import sortColors from "./sort/sortColors"
 import { FinalColor } from './types/Color'
 import { NodeImageData } from './types/NodeImageData'
 import type { NodeOptions, SorterOptions } from "./types/Options"
@@ -54,9 +54,8 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
   return context.getImageData(0, 0, width, height)
 }
 
-const sortColors = (colors: Color[], pixels: number, options?: SorterOptions) => {
-  const sorter = new Sorter(options)
-  const list = sorter.process(colors, pixels)
+const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOptions) => {
+  const list = sortColors(colors, pixels, options)
   return list.map(color => createFinalColor(color, pixels))
 }
 
@@ -74,7 +73,7 @@ const sortColors = (colors: Color[], pixels: number, options?: SorterOptions) =>
 const extractColorsFromImageData = (imageData: NodeImageData, options?: NodeOptions) => {
   const extractor = new Extractor(options)
   const colors = extractor.extract(imageData.data)
-  return sortColors(colors, extractor.pixels, options)
+  return sortFinalColors(colors, extractor.pixels, options)
 }
 
 /**
@@ -94,7 +93,7 @@ const extractColorsFromSrc = (src: string, options?: NodeOptions) => (loadImage(
     const extractor = new Extractor(options)
     const imageData = getImageData(image, extractor.pixels)
     const colors = extractor.extract(imageData.data)
-    return sortColors(colors, extractor.pixels, options)
+    return sortFinalColors(colors, extractor.pixels, options)
   })
 
 /**

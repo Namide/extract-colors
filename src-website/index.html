@@ -64,11 +64,6 @@
         />
 
         <details>
-          <summary>Color saturation weight</summary>
-          <small>Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size).</small>
-        </details>
-
-        <details>
           <summary>Split color power</summary>
           <small>Approximation power in the first color splitting during process (from 2 to 16).</small>
         </details>
@@ -83,6 +78,51 @@
           v-model="splitPower"
         />
 
+        <details>
+          <summary>Hue distance</summary>
+          <small>from 0 to 1</small>
+        </details>
+
+        <label for="hueDistance"></label>
+        <input
+          id="hueDistance"
+          type="number"
+          min="2"
+          max="16"
+          step="1"
+          v-model="hueDistance"
+        />
+
+        <details>
+          <summary>Saturation distance</summary>
+          <small>from 0 to 1</small>
+        </details>
+
+        <label for="saturationDistance"></label>
+        <input
+          id="saturationDistance"
+          type="number"
+          min="2"
+          max="16"
+          step="1"
+          v-model="saturationDistance"
+        />
+
+        <details>
+          <summary>Lightness distance</summary>
+          <small>from 0 to 1</small>
+        </details>
+
+        <label for="lightnessDistance"></label>
+        <input
+          id="lightnessDistance"
+          type="number"
+          min="2"
+          max="16"
+          step="1"
+          v-model="lightnessDistance"
+        />
+
         <label for="splitPower">Upload images</label>
         <input
           id="uploadFile"
@@ -94,7 +134,7 @@
         <button @click="randomFiles">Extract from 5 random images</button>
       </div>
 
-      <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, splitPower })" class="block" @vue:mounted="mounted" :key="id">
+      <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, splitPower, hueDistance, saturationDistance, lightnessDistance })" class="block" @vue:mounted="mounted" :key="id">
       </div>
     </div>
 

@@ -1,9 +1,7 @@
 export type SorterOptions = {
-  saturation?: number;
-  luminosity?: number;
-  hue?: number;
-  abundance?: number;
-  uniqueness?: number;
+  saturationDistance?: number;
+  lightnessDistance?: number;
+  hueDistance?: number;
 }
 
 export type ExtractorOptions = {

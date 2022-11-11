@@ -13,13 +13,13 @@ export class AverageGroup {
     this._average = null
   }
 
-  isSamePalette(color: Color) {
+  isSamePalette(color: Color, hue: number, saturation: number, lightness: number) {
     for (let i = 0; i < this.colors.length; i++) {
       const currentColor = this.colors[i]
       const isSame = 
-        hueDistance(currentColor.hue, color.hue) < 1/12 &&              // 1/12 = ok
-        distance(currentColor.saturation, color.saturation) < 1/5 &&    // 1/5 = ok
-        distance(currentColor.lightness, color.lightness) < 1/5         // 1/5 = ok
+        hueDistance(currentColor.hue, color.hue) < hue &&              // 1/12 = ok
+        distance(currentColor.saturation, color.saturation) < saturation &&    // 1/5 = ok
+        distance(currentColor.lightness, color.lightness) < lightness        // 1/5 = ok
 
       if (!isSame) {
         return false

@@ -2,6 +2,7 @@ import Extractor from '../../src/extract/Extractor'
 import extractColors from '../../src/extractColors.browser'
 import { FinalColor } from '../../src/types/Color'
 import { createApp } from 'petite-vue'
+import { AverageManager } from '../../src/sort/AverageManager'
 
 const IMG_THEME = ['moon', 'water', 'sea', 'colors', 'sky']
 const process: (() => void)[] = []
@@ -19,12 +20,15 @@ function Input () {
     pixels: Extractor.pixelsDefault,
     distance: Extractor.distanceDefault,
     splitPower: Extractor.splitPowerDefault,
+    hueDistance: AverageManager.hueDefault,
+    saturationDistance: AverageManager.saturationDefault,
+    lightnessDistance: AverageManager.lightnessDefault,
     srcs: getRandImgs(5),
 
     get list () {
       return this.srcs.map(src => ({
         src,
-        id: src + this.pixels + this.distance + this.splitPower
+        id: src + this.pixels + this.distance + this.splitPower + this.hueDistance + this.saturationDistance + this.lightnessDistance
       }))
     },
 
@@ -60,6 +64,9 @@ function ImgBlock (props) {
           pixels: props.pixels,
           distance: props.distance,
           splitPower: props.splitPower,
+          hueDistance: props.hueDistance,
+          saturationDistance: props.saturationDistance,
+          lightnessDistance: props.lightnessDistance,
           crossOrigin: 'anonymous'
         })
           .then(colors => {
