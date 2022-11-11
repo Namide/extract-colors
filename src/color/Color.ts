@@ -15,9 +15,7 @@ export default class Color {
   green: number
   blue: number
   hex: number
-  count: number
-
-  private _saturation: number | undefined
+  count = 1
 
   /**
    * Set red, green and blue colors to create the Color object.
@@ -34,8 +32,6 @@ export default class Color {
     this.green = green
     this.blue = blue
     this.hex = hex
-
-    this.count = 1
   }
 
   /**
@@ -43,38 +39,11 @@ export default class Color {
    * - Minimum is 0 (between two same colors)
    * - Maximum is 1 (for example between black and white)
    *
-   * @param {Color} color  Color to compare
+   * @param {Color} colorA  Color to compare
+   * @param {Color} colorB  Color to compare
    * @returns {Number}
    */
-  distance (color: Color) {
-    return (Math.abs(color.red - this.red) + Math.abs(color.green - this.green) + Math.abs(color.blue - this.blue)) / (3 * 0xFF)
-  }
-
-  /**
-   * Weight of the color depends of his saturation and his count.
-   *
-   * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
-   * @param {Number} maxCount  Number of pixels in the image.
-   * @returns {Number}
-   */
-  getWeight (saturationImportance: number, maxCount: number) {
-    return (this.count / maxCount) * (1 - saturationImportance) + this.saturation * saturationImportance
-  }
-
-  /**
-   * Saturation of the color from 0 to 1.
-   *
-   * @returns {Number}
-   */
-  get saturation () {
-    if (this._saturation === undefined) {
-      this._saturation = Math.max(
-        Math.abs(this.red - this.green) / 0xFF,
-        Math.abs(this.red - this.blue) / 0xFF,
-        Math.abs(this.green - this.blue) / 0xFF
-      )
-    }
-
-    return this._saturation
+  static distance (colorA: Color, colorB: Color) {
+    return (Math.abs(colorB.red - colorA.red) + Math.abs(colorB.green - colorA.green) + Math.abs(colorB.blue - colorA.blue)) / (3 * 0xFF)
   }
 }

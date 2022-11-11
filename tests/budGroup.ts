@@ -15,7 +15,7 @@ describe('BudGroup', () => {
     group.addColor(0x777777, 0x77, 0x77, 0x77)
     group.addColor(0x777777, 0x77, 0x77, 0x77)
     expect(group.getList().length).toBe(2)
-    expect(group.getMaxWeightColor(1, 3).hex).toBe(0xFF0077)
+    expect(group.getMaxWeightColor(3).hex).toBe(0x777777)
   })
     
   it('Get max count color for 1 color', () => {
@@ -35,8 +35,8 @@ describe('BudGroup', () => {
     expect(color1.count).toBe(2)
     expect(group.getList().length).toBe(2)
     expect(color3.count).toBe(1)
-    expect(group.getMaxWeight(0, 3)).toBeCloseTo(2 / 3, 5)
-    expect(group.getMaxWeightColor(0, 3).hex).toBe(0xFF0077)
+    expect(group.getMaxWeight(3)).toBeCloseTo(2 / 3, 5)
+    expect(group.getMaxWeightColor(3).hex).toBe(0xFF0077)
   })
   
   it('Max weight', () => {
@@ -44,7 +44,7 @@ describe('BudGroup', () => {
     group.addColor(0x0000FF, 0x00, 0x00, 0x77)
     group.addColor(0x0000FF, 0x00, 0x00, 0x77)
     group.addColor(0xFF0000, 0xFF, 0x00, 0x00)
-    expect(group.getMaxWeight(0, 3)).toBe(2/3)
-    expect(group.getMaxWeight(1, 3)).toBe(2/3)
+    expect(group.getMaxWeight(3)).toBe(2/3)
+    expect(group.getMaxWeight(3)).toBe(2/3)
   })
 })

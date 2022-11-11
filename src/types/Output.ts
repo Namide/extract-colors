@@ -4,5 +4,4 @@ export type Output = {
   green: number;
   blue: number;
   area: number;
-  saturation: number;
 }

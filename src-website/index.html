@@ -12,7 +12,7 @@
       --><div>pixels: {{ px }}</div><!--
       --><div>time: {{ time }}ms</div><!--
       --><div>colors:</div><!--
-      --><div v-for="color of colors">-<span class="square" :style="`color:${ color.hex }`">▮ </span> {{ color.hex }} area: {{ parseFloat((color.area * 100).toFixed(2)) }}% - sat: {{ parseFloat((color.saturation * 100).toFixed(2)) }}%</div><!--
+      --><div v-for="color of colors">-<span class="square" :style="`color:${ color.hex }`">▮ </span> {{ color.hex }} area: {{ parseFloat((color.area * 100).toFixed(2)) }}%</div><!--
     --></pre>
   </template>
 
@@ -67,15 +67,6 @@
           <summary>Color saturation weight</summary>
           <small>Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size).</small>
         </details>
-        
-        <input
-          id="saturationImportance"
-          type="number"
-          min="0"
-          max="1"
-          step="0.1"
-          v-model="saturationImportance"
-        />
 
         <details>
           <summary>Split color power</summary>
@@ -103,7 +94,7 @@
         <button @click="randomFiles">Extract from 5 random images</button>
       </div>
 
-      <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, saturationImportance, splitPower })" class="block" @vue:mounted="mounted" :key="id">
+      <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, splitPower })" class="block" @vue:mounted="mounted" :key="id">
       </div>
     </div>
 

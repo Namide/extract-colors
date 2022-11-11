@@ -64,7 +64,6 @@ export default class Extractor {
   pixels: number
   splitPower: number 
   distance: number 
-  saturationImportance: number 
   colorValidator: (red: number, green: number, blue: number, alpha: number) => boolean
 
   static pixelsDefault = 10000
@@ -77,21 +76,18 @@ export default class Extractor {
    * @param {Object=} options  Optional data
    * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
    * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
-   * @param {String=} options.saturationImportance  Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size)
    * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 16)
    * @param {String=} options.colorValidator  Callback with test to enable only some colors
    */
   constructor ({
     pixels = Extractor.pixelsDefault,
     distance = Extractor.distanceDefault,
-    saturationImportance = Extractor.saturationImportanceDefault,
     splitPower = Extractor.splitPowerDefault,
     colorValidator = Extractor.colorValidatorDefault
   }: Options = {}) {
     this.pixels = testUint('pixels', pixels, 1)
     this.splitPower = testNumber('splitPower', splitPower, 2, 16)
     this.distance = testNumber('distance', distance, 0, 1)
-    this.saturationImportance = testNumber('saturationImportance', saturationImportance, 0, 1)
     this.colorValidator = testFunction('colorValidator', colorValidator)
   }
 
@@ -122,7 +118,7 @@ export default class Extractor {
       }
     }
 
-    return rootGroup.getColors(this.distance, this.saturationImportance, this.pixels)
+    return rootGroup.getColors(this.distance, this.pixels)
   }
 
   /**
@@ -138,8 +134,7 @@ export default class Extractor {
         red: color.red,
         green: color.green,
         blue: color.blue,
-        area: color.count / this.pixels,
-        saturation: color.saturation
+        area: color.count / this.pixels
       }))
   }
 }

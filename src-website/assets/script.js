@@ -15,14 +15,13 @@ function Input () {
   return {
     pixels: 10000,
     distance: 0.2,
-    saturationImportance: 0.2,
     splitPower: 10,
     srcs: getRandImgs(5),
 
     get list () {
       return this.srcs.map(src => ({
         src,
-        id: src + this.pixels + this.distance + this.saturationImportance + this.splitPower
+        id: src + this.pixels + this.distance + this.splitPower
       }))
     },
 
@@ -57,7 +56,6 @@ function ImgBlock (props) {
         extractColors(this.src, {
           pixels: props.pixels,
           distance: props.distance,
-          saturationImportance: props.saturationImportance,
           splitPower: props.splitPower,
           crossOrigin: 'anonymous'
         })

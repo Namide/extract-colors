@@ -54,16 +54,13 @@ export default class BudGroup {
   /**
    * Max color weight between the children colors, depends of his saturation and his count.
    *
-   * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} count  Number of pixels in the image.
    * @returns {Number}
    */
-   getMaxWeight (saturationImportance: number, count: number): number {
+   getMaxWeight (count: number): number {
     if (this.maxWeight === undefined) {
       const list = this.getList()
-        .map((child) =>
-          child.getWeight(saturationImportance, count)
-        )
+        .map((child) => child.count / count)
 
       list.sort((a, b) => b - a)
       this.maxWeight = list[0] || 0
@@ -75,14 +72,13 @@ export default class BudGroup {
   /**
    * Color with the the max weight between the children colors, depends of his saturation and his count.
    *
-   * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} count  Number of pixels in the image.
    * @returns {Number}
    */
-  getMaxWeightColor (saturationImportance: number, count: number) {
+  getMaxWeightColor (count: number) {
     const list = this.getList()
     list.sort((a, b) => {
-      return b.getWeight(saturationImportance, count) - a.getWeight(saturationImportance, count)
+      return (b.count / count) - (a.count / count)
     })
 
     return list[0]

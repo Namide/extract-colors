@@ -21,13 +21,13 @@ describe('RootGroup', () => {
     expect(group2.count).toBe(2)
     expect(group2 === group3).toBe(false)
     expect(group.getList().length).toBe(2)
-    expect(group.getMaxWeightColor(1, 3).hex).toBe(0xFF0077)
+    expect(group.getMaxWeightColor(3).hex).toBe(0x777777)
   })
   
   it('Get weight for empty group', () => {
     const group = new RootGroup()
     const group2 = group.addRootGroup(0xFF)
-    expect(group2.getMaxWeight(0, 1)).toBe(0)
+    expect(group2.getMaxWeight(1)).toBe(0)
   })
   
   it('Get max count color for 1 color', () => {
@@ -48,6 +48,6 @@ describe('RootGroup', () => {
     group4.addColor(0xFFFFFF, 0xFF, 0xFF, 0xFF)
     group4.addColor(0xF7F7F7, 0xF7, 0xF7, 0xF7)
     group4.addColor(0xF9F9F9, 0xF9, 0xF9, 0xF9)
-    expect(group.getMaxWeightColor(0, 4).hex).toBe(0xFFFFFF)
+    expect(group.getMaxWeightColor(4).hex).toBe(0xFFFFFF)
   })
 })

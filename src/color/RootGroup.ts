@@ -70,16 +70,13 @@ export default class RootGroup {
   /**
    * Max color weight between the children colors, depends of his saturation and his count.
    *
-   * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} count  Number of pixels in the image.
    * @returns {Number}
    */
-  getMaxWeight (saturationImportance: number, count: number): number {
+  getMaxWeight (count: number): number {
     if (this.maxWeight === undefined) {
       const list = this.getList()
-        .map((child) =>
-          child.getMaxWeight(saturationImportance, count)
-        )
+        .map((child) => child.count / count)
 
       list.sort((a, b) => b - a)
       this.maxWeight = list[0] || 0
@@ -91,17 +88,16 @@ export default class RootGroup {
   /**
    * Color with the the max weight between the children colors, depends of his saturation and his count.
    *
-   * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} count  Number of pixels in the image.
    * @returns {Color}
    */
-  getMaxWeightColor (saturationImportance: number, count: number): Color {
+  getMaxWeightColor (count: number): Color {
     const list = this.getList()
     list.sort((a, b) => {
-      return b.getMaxWeight(saturationImportance, count) - a.getMaxWeight(saturationImportance, count)
+      return (b.count / count) - (a.count / count)
     })
 
-    return list[0].getMaxWeightColor(saturationImportance, count)
+    return list[0].getMaxWeightColor(count)
   }
 
   /**
@@ -120,11 +116,10 @@ export default class RootGroup {
    * Importance is calculated with the saturation and count of neighboring colors.
    *
    * @param {Number} distance  Minimum distance between colors (from 0 to 1)
-   * @param {Number} saturationImportance  Determine the weight of the saturation for the calcul (from 0 to 1)
    * @param {Number} count  Total pixels of image
    * @returns {Array<Color>}
    */
-  getColors (distance: number, saturationImportance: number, count: number) {
+  getColors (distance: number, count: number) {
     const list = this.getList()
       .map((child) => {
         const { count } = child
@@ -133,11 +128,11 @@ export default class RootGroup {
         return color
       })
 
-    list.sort((a, b) => b.getWeight(saturationImportance, count) - a.getWeight(saturationImportance, count))
+    list.sort((a, b) => (b.count / count) - (a.count / count))
 
     const newList: Color[] = []
     list.forEach((color) => {
-      const near = newList.find((col) => col.distance(color) < distance)
+      const near = newList.find((col) => Color.distance(col, color) < distance)
       if (!near) {
         newList.push(color)
       } else {

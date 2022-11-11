@@ -121,7 +121,6 @@ const src = 'my-image.jpg'
 const options = {
   pixels: 10000,
   distance: 0.2,
-  saturationImportance: 0.2,
   splitPower: 10,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250
 }
@@ -138,11 +137,6 @@ Default: `10000`
 
 **distance**  
 _From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)_  
-Type: `Number`  
-Default: `0.2`  
-
-**saturationImportance**  
-_Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size)_  
 Type: `Number`  
 Default: `0.2`  
 
