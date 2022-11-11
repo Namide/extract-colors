@@ -1,6 +1,9 @@
+import Color from "./color/Color"
+import { createFinalColor } from "./color/FinalColor"
 import Extractor from "./extract/Extractor"
-import type { BrowserOptions, Options } from "./types/Options"
-import type { Output } from "./types/Output"
+import { Sorter } from "./sort/Sorter"
+import { FinalColor } from "./types/Color"
+import type { BrowserOptions, NodeOptions, SorterOptions } from "./types/Options"
 
 /**
  * Browser exported functions.
@@ -41,6 +44,12 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
   return context.getImageData(0, 0, width, height)
 }
 
+const sortColors = (colors: Color[], pixels: number, options?: SorterOptions) => {
+  const sorter = new Sorter(options)
+  const list = sorter.process(colors)
+  return list.map(color => createFinalColor(color, pixels))
+}
+
 /**
  * Extract colors from an ImageData object.
  *
@@ -52,9 +61,10 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColorsFromImageData = (imageData: ImageData, options?: Options) => {
+const extractColorsFromImageData = (imageData: ImageData, options?: NodeOptions) => {
   const extractor = new Extractor(options)
-  return extractor.extract(imageData.data)
+  const colors = extractor.extract(imageData.data)
+  return sortColors(colors, extractor.pixels, options)
 }
 
 /**
@@ -70,11 +80,12 @@ const extractColorsFromImageData = (imageData: ImageData, options?: Options) => 
  */
 const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOptions) => {
   image.crossOrigin = options?.crossOrigin || null
-  return new Promise((resolve: (value: Output[]) => void) => {
+  return new Promise((resolve: (value: FinalColor[]) => void) => {
     const extract = (image: HTMLImageElement, options?: BrowserOptions) => {
       const extractor = new Extractor(options)
       const imageData = getImageData(image, extractor.pixels)
-      resolve(extractor.extract(imageData.data))
+      const colors = extractor.extract(imageData.data)
+      resolve(sortColors(colors, extractor.pixels, options))
     }
 
     if (image.complete) {
@@ -120,7 +131,7 @@ const extractColorsFromSrc = (src: string, options?: BrowserOptions) => {
  */
 const extractColors = (picture: string | HTMLImageElement | ImageData, options?: BrowserOptions) => {
   if (picture instanceof ImageData) {
-    return new Promise((resolve: (value: Output[]) => void) => {
+    return new Promise((resolve: (value: FinalColor[]) => void) => {
       resolve(extractColorsFromImageData(picture, options))
     })
   }

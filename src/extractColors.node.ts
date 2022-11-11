@@ -1,7 +1,10 @@
+import Color from './color/Color'
+import { createFinalColor } from './color/FinalColor'
 import Extractor from './extract/Extractor'
+import { Sorter } from './sort/Sorter'
+import { FinalColor } from './types/Color'
 import { NodeImageData } from './types/NodeImageData'
-import type { Options } from "./types/Options"
-import type { Output } from "./types/Output"
+import type { NodeOptions, SorterOptions } from "./types/Options"
 
 /**
  * Node exported functions.
@@ -51,6 +54,12 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
   return context.getImageData(0, 0, width, height)
 }
 
+const sortColors = (colors: Color[], pixels: number, options?: SorterOptions) => {
+  const sorter = new Sorter(options)
+  const list = sorter.process(colors)
+  return list.map(color => createFinalColor(color, pixels))
+}
+
 /**
  * Extract colors from an ImageData object.
  *
@@ -62,9 +71,10 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColorsFromImageData = (imageData: NodeImageData, options?: Options) => {
+const extractColorsFromImageData = (imageData: NodeImageData, options?: NodeOptions) => {
   const extractor = new Extractor(options)
-  return extractor.extract(imageData.data)
+  const colors = extractor.extract(imageData.data)
+  return sortColors(colors, extractor.pixels, options)
 }
 
 /**
@@ -79,11 +89,12 @@ const extractColorsFromImageData = (imageData: NodeImageData, options?: Options)
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColorsFromSrc = (src: string, options?: Options) => (loadImage(src) as Promise<HTMLImageElement>)
+const extractColorsFromSrc = (src: string, options?: NodeOptions) => (loadImage(src) as Promise<HTMLImageElement>)
   .then((image: HTMLImageElement) => {
     const extractor = new Extractor(options)
     const imageData = getImageData(image, extractor.pixels)
-    return extractor.extract(imageData.data)
+    const colors = extractor.extract(imageData.data)
+    return sortColors(colors, extractor.pixels, options)
   })
 
 /**
@@ -97,10 +108,10 @@ const extractColorsFromSrc = (src: string, options?: Options) => (loadImage(src)
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
-const extractColors = (picture: string | NodeImageData, options?: Options) => {
+const extractColors = (picture: string | NodeImageData, options?: NodeOptions) => {
   const imageData = picture as NodeImageData
   if (imageData.width && imageData.height && imageData.data && imageData.data.length) {
-    return new Promise((resolve: (value: Output[]) => void, reject: (reason: Error) => void) => {
+    return new Promise((resolve: (value: FinalColor[]) => void, reject: (reason: Error) => void) => {
       try {
         resolve(extractColorsFromImageData(imageData, options))
       } catch (error) {

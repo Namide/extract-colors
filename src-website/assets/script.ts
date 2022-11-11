@@ -1,4 +1,5 @@
-import extractColors from '../../lib/extract-colors.browser.es'
+import extractColors from '../../src/extractColors.browser'
+import { FinalColor } from '../../src/types/Color'
 
 const IMG_THEME = ['moon', 'water', 'sea', 'colors', 'sky']
 const process = []
@@ -9,7 +10,7 @@ const getRandImg = (id) => {
   return `https://loremflickr.com/320/240/${seed}/?lock=${index}`
 }
 
-const getRandImgs = count => Array(count).fill().map((_, i) => getRandImg(i))
+const getRandImgs = (count: number) => Array(count).fill().map((_, i) => getRandImg(i))
 
 function Input () {
   return {
@@ -38,7 +39,7 @@ function Input () {
 function ImgBlock (props) {
   return {
     $template: '#img-block',
-    colors: [],
+    colors: [] as FinalColor[][],
     px: '-',
     time: '-',
 

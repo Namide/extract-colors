@@ -1,5 +1,4 @@
-import { Options } from '../types/Options'
-import type { Output } from '../types/Output'
+import { ExtractorOptions } from '../types/Options'
 import RootGroup from '../color/RootGroup'
 
 /**
@@ -67,8 +66,7 @@ export default class Extractor {
   colorValidator: (red: number, green: number, blue: number, alpha: number) => boolean
 
   static pixelsDefault = 10000
-  static distanceDefault = 0.2
-  static saturationImportanceDefault = 0.2
+  static distanceDefault = 0.12
   static splitPowerDefault = 10
   static colorValidatorDefault = (_red: number, _green: number, _blue: number, alpha?: number) => (alpha ?? 255) > 250
 
@@ -84,7 +82,7 @@ export default class Extractor {
     distance = Extractor.distanceDefault,
     splitPower = Extractor.splitPowerDefault,
     colorValidator = Extractor.colorValidatorDefault
-  }: Options = {}) {
+  }: ExtractorOptions = {}) {
     this.pixels = testUint('pixels', pixels, 1)
     this.splitPower = testNumber('splitPower', splitPower, 2, 16)
     this.distance = testNumber('distance', distance, 0, 1)
@@ -127,14 +125,14 @@ export default class Extractor {
    * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
    * @returns {Array<Object>} { hex, red, green, blue, area, saturation }
    */
-  extract (data: Uint8ClampedArray | number[]): Output[] {
+  extract (data: Uint8ClampedArray | number[]) {
     return this.process(data)
-      .map((color) => ({
-        hex: `#${'0'.repeat(6 - color.hex.toString(16).length)}${color.hex.toString(16)}`,
-        red: color.red,
-        green: color.green,
-        blue: color.blue,
-        area: color.count / this.pixels
-      }))
+      // .map((color) => ({
+      //   hex: `#${'0'.repeat(6 - color.hex.toString(16).length)}${color.hex.toString(16)}`,
+      //   red: color.red,
+      //   green: color.green,
+      //   blue: color.blue,
+      //   area: color.count / this.pixels
+      // }))
   }
 }

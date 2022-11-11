@@ -12,7 +12,7 @@
       --><div>pixels: {{ px }}</div><!--
       --><div>time: {{ time }}ms</div><!--
       --><div>colors:</div><!--
-      --><div v-for="color of colors">-<span class="square" :style="`color:${ color.hex }`">▮ </span> {{ color.hex }} area: {{ parseFloat((color.area * 100).toFixed(2)) }}%</div><!--
+      --><div v-for="color of colors">-<span class="square" :style="`color:${ color.hex }`">▮ </span> {{ color.hex }} area: {{ parseFloat((color.area * 100).toFixed(2)) }}% hue: {{ color.hue.toFixed(2) }} sat: {{ color.saturation.toFixed(2) }} light: {{ color.lightness.toFixed(2) }}</div><!--
     --></pre>
   </template>
 
@@ -107,6 +107,6 @@
       </p>
     </footer>
     <script src="https://unpkg.com/petite-vue@0.4.1/dist/petite-vue.iife.js"></script>
-    <script src="./assets/script.js" type="module"></script>
+    <script src="./assets/script.ts" type="module"></script>
   </body>
 </html>
