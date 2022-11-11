@@ -13,4 +13,5 @@ export type FinalColor = {
   hue: number,
   saturation: number,
   lightness: number,
+  intensity: number,
 }

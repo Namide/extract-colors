@@ -46,7 +46,7 @@ const getImageData = (image: HTMLImageElement, pixels: number) => {
 
 const sortColors = (colors: Color[], pixels: number, options?: SorterOptions) => {
   const sorter = new Sorter(options)
-  const list = sorter.process(colors)
+  const list = sorter.process(colors, pixels)
   return list.map(color => createFinalColor(color, pixels))
 }
 

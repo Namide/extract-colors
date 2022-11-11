@@ -24,9 +24,17 @@ export class Sorter {
     this.uniqueness = uniqueness
   }
 
-  process (list: Color[]) {
+  process (list: Color[], pixels: number) {
     const averageManager = new AverageManager()
     list.forEach(color => averageManager.addColor(color))
-    return averageManager.getGroups()
+
+    const sorted = averageManager.getGroups()
+
+    sorted.sort((a, b) => {
+      const bPower = (b.intensity + 0.1) * (0.9 - b.count / pixels)
+      const aPower = (a.intensity + 0.1) * (0.9 - a.count / pixels)
+      return bPower - aPower 
+    })
+    return sorted
   }
 }

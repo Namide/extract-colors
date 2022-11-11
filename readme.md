@@ -113,7 +113,7 @@ extractColors(src)
 > If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
 
 
-### Options
+### ExtractorOptions
 
 ```js
 const src = 'my-image.jpg'

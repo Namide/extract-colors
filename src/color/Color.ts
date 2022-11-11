@@ -20,6 +20,7 @@ export default class Color {
   private _saturation = -1
   private _hue = -1
   private _lightness = -1
+  private _intensity = -1
 
   /**
    * Set red, green and blue colors to create the Color object.
@@ -65,22 +66,25 @@ export default class Color {
     if (max === min) {
       this._hue = 0
       this._saturation = 0
+      this._intensity = 0
     } else {
       const distance = max - min;
       
-      this._saturation = this._lightness > 0.5 ? distance / (2 - max - min) : distance / (max + min);
+      this._saturation = this._lightness > 0.5 ? distance / (2 - max - min) : distance / (max + min)
+      this._intensity = this._saturation * ((0.5 - Math.abs(0.5 - this._lightness)) * 2)
       switch (max) {
         case red:
-          this._hue = ((green - blue) / distance + (green < blue ? 6 : 0)) / 6;
+          this._hue = ((green - blue) / distance + (green < blue ? 6 : 0)) / 6
           break;
         case green:
-          this._hue = ((blue - red) / distance + 2) / 6;
+          this._hue = ((blue - red) / distance + 2) / 6
           break;
         case blue:
-          this._hue = ((red - green) / distance + 4) / 6;
+          this._hue = ((red - green) / distance + 4) / 6
           break;
       }
     }
+
   }
 
   /**
@@ -111,5 +115,15 @@ export default class Color {
       this.updateHSL()
     }
     return this._lightness
+  }
+  
+  /**
+   * Color intensity from 0 to 1
+   */
+  get intensity () {
+    if (this._intensity === -1) {
+      this.updateHSL()
+    }
+    return this._intensity
   }
 }

@@ -1,8 +1,10 @@
+import Extractor from '../../src/extract/Extractor'
 import extractColors from '../../src/extractColors.browser'
 import { FinalColor } from '../../src/types/Color'
+import { createApp } from 'petite-vue'
 
 const IMG_THEME = ['moon', 'water', 'sea', 'colors', 'sky']
-const process = []
+const process: (() => void)[] = []
 
 const getRandImg = (id) => {
   const index = Math.round(Math.random() * 20) + 5
@@ -10,13 +12,13 @@ const getRandImg = (id) => {
   return `https://loremflickr.com/320/240/${seed}/?lock=${index}`
 }
 
-const getRandImgs = (count: number) => Array(count).fill().map((_, i) => getRandImg(i))
+const getRandImgs = (count: number) => Array(count).fill(1).map((_, i) => getRandImg(i))
 
 function Input () {
   return {
-    pixels: 10000,
-    distance: 0.2,
-    splitPower: 10,
+    pixels: Extractor.pixelsDefault,
+    distance: Extractor.distanceDefault,
+    splitPower: Extractor.splitPowerDefault,
     srcs: getRandImgs(5),
 
     get list () {
@@ -80,4 +82,4 @@ function ImgBlock (props) {
   }
 }
 
-window.PetiteVue.createApp({ ImgBlock, Input }).mount()
+createApp({ ImgBlock, Input }).mount()

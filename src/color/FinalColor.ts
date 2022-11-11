@@ -11,5 +11,6 @@ export const createFinalColor = (color: Color, pixels: number): FinalColor => {
     hue: color.hue,
     saturation: color.saturation,
     lightness: color.lightness,
+    intensity: color.intensity,
   }
 }
