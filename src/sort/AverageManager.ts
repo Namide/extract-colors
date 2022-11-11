@@ -35,11 +35,6 @@ export class AverageManager {
   }
 
   getGroups() {
-    this._groups.forEach(averageGroup => {
-      const colors = [averageGroup.average, ...averageGroup.colors].map(color => `#${'0'.repeat(6 - color.hex.toString(16).length)}${color.hex.toString(16)}`)
-      console.log(`%c ${colors.join(' %c ')}`, ...colors.map(color => `background: ${ color }; color: white`));
-    })
-
     return this._groups.map(averageGroup => averageGroup.average)
   }
 }
