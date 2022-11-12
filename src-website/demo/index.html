@@ -1,19 +1,46 @@
 <html>
 
+  <!-- IMAGE -->
   <template id="img-block">
-    <img crossorigin="anonymous" :src="src" ref="img"><!--
-    --><div class="colors">
-      <div class="color" v-for="color of colors" :style="`background-color: ${ color.hex }`"></div>
+
+    <figure><img crossorigin="anonymous" :src="src" ref="img" alt="image" class="w-full" /></figure>
+    <div class="card-body text-base-content">
+      <h2 class="card-title">
+        {{ colors.length }} colors
+        <div class="badge badge-accent">
+          {{ time }}ms
+        </div>
+      </h2>
+      <p>
+        {{ px }} pixels for calculation (original image is {{ naturalPx }} pixels)<br>
+      </p>
+      <div class="card-actions justify-start">
+        <div
+          v-for="color of colors"
+          class="tooltip"
+          :data-tip="`area: ${ parseFloat((color.area * 100).toFixed(2)) }% 
+          HSL: { ${ color.hue.toFixed(2) },
+          ${ color.saturation.toFixed(2) },
+          ${ color.lightness.toFixed(2) } }
+          intensity:${ color.intensity.toFixed(2) }`"
+        >
+          <div
+            class="badge border-0"
+            :style="`background-color: ${ color.hex }`"
+          >
+            <span
+              class="opacity-50"
+              :class="{
+                'text-black': color.lightness >= 0.5,
+                'text-white': color.lightness < 0.5
+              }"
+            >
+              {{ color.hex }}
+            </span>
+          </div> 
+        </div>
+      </div>
     </div>
-    <pre class="log hljs"><!--
-      --><div><!--
-      -->{{ colors.length }} colors: <span v-for="color of colors" class="square" :style="`color:${ color.hex }`">▮ </span> <!--
-      --></div><!--
-      --><div>pixels: {{ px }}</div><!--
-      --><div>time: {{ time }}ms</div><!--
-      --><div>colors:</div><!--
-      --><div v-for="color of colors">-<span class="square" :style="`color:${ color.hex }`">▮ </span> {{ color.hex }}<br>area: {{ parseFloat((color.area * 100).toFixed(2)) }}% hue: {{ color.hue.toFixed(2) }} sat: {{ color.saturation.toFixed(2) }} light: {{ color.lightness.toFixed(2) }} intensity: {{ color.intensity.toFixed(2) }}</div><!--
-    --></pre>
   </template>
 
   <head>
@@ -21,7 +48,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/style.css">
     <meta name="author" content="Damien Doussaud">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Extract colors</title>
+    <title>Extract colors | Demo</title>
   </head>
 
   <body v-scope="Input({})" class="bg-base-200 from-primary to-accent text-primary-content bg-gradient-to-br">
@@ -99,166 +126,125 @@
       </div>
     </header>
 
-    <div class="list">
+    <div class="flex items-start gap-5 m-10">
 
-
+      <!-- SETTINGS -->
       <div
-        class="bg-base-100 rounded-box col-span-3 row-span-3 mx-2 flex w-72 flex-shrink-0 flex-col justify-center gap-4 p-4 shadow-xl xl:mx-0 xl:w-full svelte-1n6ue57">
-        <div class="px-6 pt-6">
-          <div class="text-xl font-extrabold">Superpower settings</div>
-          <div class="text-base-content/70 my-4 text-xs">Enable your favorite superpowers. Terms and conditions apply</div>
-          <div class="dropdown w-full flex-1">
-            <div tabindex="0">
-              <div class="form-control"><label class="label cursor-pointer"><span class="label-text">Enable
-                    teleportation</span> <input type="checkbox" class="toggle toggle-primary"></label></div>
-              <div class="form-control"><label class="label cursor-pointer"><span class="label-text">Enable time travel</span>
-                  <input type="checkbox" class="toggle toggle-secondary"></label></div>
-              <div class="form-control"><label class="label cursor-pointer"><span class="label-text">Enable laser eyes</span>
-                  <input type="checkbox" class="toggle toggle-accent"></label></div>
-              <div class="form-control"><label class="label cursor-pointer"><span class="label-text">Enable immortality</span>
-                  <input type="checkbox" class="toggle"></label></div>
+        class="bg-base-100 text-base-content rounded-box col-span-3 row-span-3 flex w-72 flex-shrink-0 flex-col justify-center gap-4 p-4 shadow-xl">
+        <div class="p-6">
+
+          <div class="text-xl font-extrabold">Settings</div>
+          <div class="text-base-content/70 my-4 text-xs">You can test differents inputs to change time process or colors extracted.</div>
+  
+          <div class="divider">Config</div>
+
+          <!-- Pixels -->
+          <div class="form-control">
+            <div class="tooltip" data-tip="small enough to escape casual notice">
+              <label class="label">
+                <span class="label-text">Pixels amount max</span>
+              </label>
             </div>
-            <div tabindex="0" class="dropdown-content py-2">
-              <div class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl">
-                <div class="card-body">
-                  <h2 class="card-title font-extrabold capitalize">toggle component</h2>
-                  <p class="text-neutral-content text-sm text-opacity-80">Use toggle to switch between two states</p>
-                  <div class="mt-4 flex justify-end"><a href="/components/toggle" class="btn btn-primary btn-sm xl:btn-md">See
-                      component</a></div>
-                </div>
-              </div>
-            </div>
+            <label class="input-group">
+              <input type="number" step="1" v-model="pixels" class="input input-bordered w-full" />
+              <span>px</span>
+            </label>
           </div>
-        </div>
-        <div class="form-control">
-          <div class="dropdown dropdown-top dropdown-end">
-            <div tabindex="0"><button class="btn btn-secondary btn-block space-x-2"><svg xmlns="http://www.w3.org/2000/svg"
-                  fill="none" viewBox="0 0 24 24" class="h-6 w-6 stroke-current">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg> <span>Apply settings</span></button></div>
-            <div tabindex="0" class="dropdown-content py-2">
-              <div class="card compact bg-neutral-focus text-neutral-content rounded-box w-72 shadow-xl">
-                <div class="card-body">
-                  <h2 class="card-title font-extrabold capitalize">button component</h2>
-                  <p class="text-neutral-content text-sm text-opacity-80">Buttons come in various shapes, colors and sizes</p>
-                  <div class="mt-4 flex justify-end"><a href="/components/button" class="btn btn-primary btn-sm xl:btn-md">See
-                      component</a></div>
-                </div>
-              </div>
+  
+          <!-- Color distance -->
+          <div class="form-control">
+            <div class="tooltip" data-tip="From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)">
+              <label class="label">
+                <span class="label-text">Color distance</span>
+              </label>
             </div>
+            <input type="number" min="0" max="1" step="0.1" v-model="distance" class="input input-bordered w-full" />
           </div>
+  
+          <!-- Split color power -->
+          <div class="form-control">
+            <div class="tooltip" data-tip="Approximation power in the first color splitting during process (from 2 to 16).">
+              <label class="label">
+                <span class="label-text">Split color power</span>
+              </label>
+            </div>
+            <input type="number" step="1" min="2"
+              max="16" v-model="splitPower" class="input input-bordered w-full" />
+          </div>
+  
+          <!-- Hue distance -->
+          <div class="form-control">
+            <div class="tooltip" data-tip="from 0 to 1">
+              <label class="label">
+                <span class="label-text">Hue distance</span>
+              </label>
+            </div>
+            <input type="number" step="0.05" min="0"
+              max="1" v-model="hueDistance" class="input input-bordered w-full" />
+          </div>
+  
+          <!-- Saturation distance -->
+          <div class="form-control">
+            <div class="tooltip" data-tip="from 0 to 1">
+              <label class="label">
+                <span class="label-text">Saturation distance</span>
+              </label>
+            </div>
+            <input type="number" step="0.05" min="0"
+              max="1" v-model="saturationDistance" class="input input-bordered w-full" />
+          </div>
+  
+          <!-- Lightness distance -->
+          <div class="form-control">
+            <div class="tooltip" data-tip="from 0 to 1">
+              <label class="label">
+                <span class="label-text">Lightness distance</span>
+              </label>
+            </div>
+            <input type="number" step="0.05" min="0"
+            max="1" v-model="lightnessDistance" class="input input-bordered w-full" />
+          </div>
+
+          <div class="divider">Images</div>
+
+          <label class="btn btn-primary w-full">
+            Upload images
+            <input
+              type="file"
+              accept="image/*"
+              @change="uploadFile"
+              multiple
+              class="hidden"
+            />
+          </label>
+          
+          <!-- Random -->
+          <button @click="randomFiles" class="btn btn-secondary mt-2 w-full">
+            Random images
+          </button>
+
         </div>
       </div>
 
-
-      <div class="block-inputs">
-
-        <h2>Config</h2>
-
-        <details>
-          <summary>Pixels amount max</summary>
-          <small>small enough to escape casual notice.</small>
-        </details>
-        
-        <input
-          id="pixels"
-          type="number"
-          step="1"
-          v-model="pixels"
-        />
-
-        <details>
-          <summary>Color distance</summary>
-          <small>From 0 to 1 is the color distance to not have near colors (1 distance is between white and black).</small>
-        </details>
-
-        <input
-          id="distance"
-          type="number"
-          min="0"
-          max="1"
-          step="0.1"
-          v-model="distance"
-        />
-
-        <details>
-          <summary>Split color power</summary>
-          <small>Approximation power in the first color splitting during process (from 2 to 16).</small>
-        </details>
-
-        <label for="splitPower"></label>
-        <input
-          id="splitPower"
-          type="number"
-          min="2"
-          max="16"
-          step="1"
-          v-model="splitPower"
-        />
-
-        <details>
-          <summary>Hue distance</summary>
-          <small>from 0 to 1</small>
-        </details>
-
-        <label for="hueDistance"></label>
-        <input
-          id="hueDistance"
-          type="number"
-          min="2"
-          max="16"
-          step="1"
-          v-model="hueDistance"
-        />
-
-        <details>
-          <summary>Saturation distance</summary>
-          <small>from 0 to 1</small>
-        </details>
-
-        <label for="saturationDistance"></label>
-        <input
-          id="saturationDistance"
-          type="number"
-          min="2"
-          max="16"
-          step="1"
-          v-model="saturationDistance"
-        />
-
-        <details>
-          <summary>Lightness distance</summary>
-          <small>from 0 to 1</small>
-        </details>
-
-        <label for="lightnessDistance"></label>
-        <input
-          id="lightnessDistance"
-          type="number"
-          min="2"
-          max="16"
-          step="1"
-          v-model="lightnessDistance"
-        />
-
-        <label for="splitPower">Upload images</label>
-        <input
-          id="uploadFile"
-          type="file"
-          accept="image/*"
-          @change="uploadFile"
-          multiple
-        />
-        <button @click="randomFiles">Extract from 5 random images</button>
-      </div>
-
-      <div v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, splitPower, hueDistance, saturationDistance, lightnessDistance })" class="block" @vue:mounted="mounted" :key="id">
+      <div class="flex flex-wrap gap-5 ">
+        <div
+          v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, splitPower, hueDistance, saturationDistance, lightnessDistance })"
+          class="card w-96 bg-base-100 shadow-xl"
+          @vue:mounted="mounted" :key="id"
+        >
+        </div>
       </div>
 
     </div>
 
-    <input id="inputFile" type="file" multiple accept="image/*"/>
+    <!-- FOOTER -->
+    <footer class="footer items-center p-4 bg-neutral text-neutral-content justify-center">
+      <div class="items-center grid-flow-col">
+        <p>
+          Copyright (C) 2019 <a href="https://damien-doussaud.com/" target="_blank" rel="author" class="link">Damien Doussaud</a>
+        </p>
+      </div>
+    </footer>
 
     <script src="../assets/script.ts" type="module"></script>
   </body>

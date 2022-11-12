@@ -1,21 +1,5 @@
 <html lang="en">
 
-  <template id="img-block">
-    <img crossorigin="anonymous" :src="src" ref="img"><!--
-    --><div class="colors">
-      <div class="color" v-for="color of colors" :style="`background-color: ${ color.hex }`"></div>
-    </div>
-    <pre class="log hljs"><!--
-      --><div><!--
-      -->{{ colors.length }} colors: <span v-for="color of colors" class="square" :style="`color:${ color.hex }`">▮ </span> <!--
-      --></div><!--
-      --><div>pixels: {{ px }}</div><!--
-      --><div>time: {{ time }}ms</div><!--
-      --><div>colors:</div><!--
-      --><div v-for="color of colors">-<span class="square" :style="`color:${ color.hex }`">▮ </span> {{ color.hex }}<br>area: {{ parseFloat((color.area * 100).toFixed(2)) }}% hue: {{ color.hue.toFixed(2) }} sat: {{ color.saturation.toFixed(2) }} light: {{ color.lightness.toFixed(2) }} intensity: {{ color.intensity.toFixed(2) }}</div><!--
-    --></pre>
-  </template>
-
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="./assets/style.css">
@@ -103,23 +87,22 @@
     <div class="hero min-h-screen">
       <div class="hero-content text-center">
         <div class="max-w-md">
-          <h1 class="text-5xl font-bold">Hello there</h1>
-          <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-          <a href="/getting-started/" class="btn btn-primary">Get Started</a>
+          <h1 class="text-5xl font-bold">Extract color</h1>
+          <p class="py-6">
+            A Javascript library to extract colors palette from images.
+            <span class="badge badge-primary">simple</span>
+            <span class="badge badge-primary">fast</span>
+            <span class="badge badge-secondary">browser</span>
+            <span class="badge badge-secondary">Node.js</span>
+            <span class="badge badge-accent">lightweight</span>
+          </p>
+          <div class="flex gap-2 justify-center">
+            <a href="/demo/" class="btn btn-primary">Try it</a>
+            <a href="/getting-started/" class="btn btn-secondary">Get Started</a>
+          </div>
         </div>
       </div>
     </div>
-
-    <footer>
-      
-      <nav>
-        <a href="https://www.npmjs.com/package/extract-colors" target="_blank">NPM</a>
-        <a href="https://github.com/Namide/extract-colors" target="_blank">GitHub</a>
-        <p>
-          By <a href="https://damien.doussaud.fr/" target="_blank" rel="author">Damien Doussaud</a>
-        </p>
-      </nav>
-    </footer>
 
     <footer class="footer items-center p-4 bg-neutral text-neutral-content">
       <div class="items-center grid-flow-col">

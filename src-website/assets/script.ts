@@ -4,13 +4,13 @@ import { FinalColor } from '../../src/types/Color'
 import { createApp } from 'petite-vue'
 import { AverageManager } from '../../src/sort/AverageManager'
 
-const IMG_THEME = ['moon', 'water', 'sea', 'colors', 'sky']
+const IMG_THEME = [/* 'moon',*/ 'water', 'sea', 'colors', 'sky']
 const process: (() => void)[] = []
 
 const getRandImg = (id) => {
   const index = Math.round(Math.random() * 20) + 5
   const seed = IMG_THEME[id % IMG_THEME.length]
-  return `https://loremflickr.com/320/240/${seed}/?lock=${index}`
+  return `https://loremflickr.com/640/480/${seed}/?lock=${index}`
 }
 
 const getRandImgs = (count: number) => Array(count).fill(1).map((_, i) => getRandImg(i))
@@ -46,8 +46,9 @@ function ImgBlock (props) {
   return {
     $template: '#img-block',
     colors: [] as FinalColor[][],
-    px: '-',
-    time: '-',
+    px: 0,
+    time: 0,
+    naturalPx: 0,
 
     mounted () {
       const image = new Image()
@@ -56,6 +57,7 @@ function ImgBlock (props) {
       image.src = this.src
       image.onload = () => {
         this.px = Math.min(props.pixels, image.naturalWidth * image.naturalHeight)
+        this.naturalPx = image.naturalWidth * image.naturalHeight
       }
 
       const execProcess = () => {
