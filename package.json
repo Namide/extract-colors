@@ -6,10 +6,9 @@
   "browser": "lib/extract-colors.browser.umd.js",
   "types": "lib/extract-colors.browser.es.d.ts",
   "scripts": {
-    "serve-website-old": "vite --host --port 3000 --config vite.config.website.ts",
     "serve-website": "parcel ./src-website/index.html ./src-website/getting-started/index.html ./src-website/demo/index.html ./src-website/about/index.html --port 3000",
     "prebuild-website": "rm -rf ./dist-website",
-    "build-website": "vite build --config vite.config.website.ts",
+    "build-website": "parcel build ./src-website/index.html ./src-website/getting-started/index.html ./src-website/demo/index.html ./src-website/about/index.html",
     "prebuild": "rm -rf ./lib",
     "build": "tsc --project tsconfig.browser.type.json && vite build --config vite.config.browser.ts && tsc --project tsconfig.node.type.json && vite build --config vite.config.node.ts",
     "postbuild": "cp lib/extractColors.browser.d.ts lib/extract-colors.browser.es.d.ts && mv lib/extractColors.browser.d.ts lib/extract-colors.browser.umd.d.ts &&  cp lib/extractColors.node.d.ts lib/extract-colors.node.es.d.ts && mv lib/extractColors.node.d.ts lib/extract-colors.node.cjs.d.ts",
