@@ -5,17 +5,23 @@ install:
 		-w /usr/src/app \
 		node:slim \
 		npm install
+	docker run -ti --rm \
+		--user $(id -u):$(id -g) \
+		-v $(shell pwd):/usr/src/app \
+		-w /usr/src/app/website \
+		node:slim \
+		npm install
 
 serve:
 	python3 -m webbrowser http://localhost:3000/
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \
 		-v $(shell pwd):/usr/src/app \
-		-w /usr/src/app \
+		-w /usr/src/app/website \
 		-p 3000\:3000 \
 		-u "node" \
 		node:slim \
-		npm run serve-website
+		npm run serve
 
 dev-env:
 	docker run -ti --rm \
@@ -31,10 +37,10 @@ build-website:
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \
 		-v $(shell pwd):/usr/src/app \
-		-w /usr/src/app \
+		-w /usr/src/app/website \
 		-u "node" \
 		node:slim \
-		npm run build-website
+		npm run build
 
 build:
 	docker run -ti --rm \

@@ -1,8 +1,8 @@
-import Extractor from '../../src/extract/Extractor'
-import extractColors from '../../src/extractColors.browser'
-import { FinalColor } from '../../src/types/Color'
+import Extractor from '../../../src/extract/Extractor'
+import extractColors from '../../../src/extractColors.browser'
+import { FinalColor } from '../../../src/types/Color'
 import { createApp } from 'petite-vue'
-import { AverageManager } from '../../src/sort/AverageManager'
+import { AverageManager } from '../../../src/sort/AverageManager'
 
 const IMG_THEME = [/* 'moon',*/ 'water', 'sea', 'colors', 'sky']
 const process: (() => void)[] = []
