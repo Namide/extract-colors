@@ -1,12 +1,289 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  aaa
-</body>
+
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../assets/style.css">
+    <meta name="author" content="Damien Doussaud">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extract colors</title>
+  </head>
+
+  <body class="bg-primary from-primary to-accent bg-gradient-to-br">
+
+    <!-- HEADER -->
+    <header class="bg-base-100 text-base-content">
+      <div class="navbar max-w-7xl mx-auto">
+        <div class="navbar-start">
+          <h1 tabindex="0" class="btn btn-ghost normal-case text-xl">
+            <a href="/">
+              <span class="text-primary">Extract</span><!--
+              --><span class="text-base-content">Colors</span>
+            </a>
+          </h1>
+        </div>
+        <div class="navbar-end">
+  
+          <ul class="menu menu-horizontal p-0 hidden lg:flex">
+            <li>
+              <a href="/guide/">
+                Guide
+              </a>
+            </li>
+            <li>
+              <a href="https://www.npmjs.com/package/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+                NPM
+                <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Namide/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+                GitHub
+                <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+              </a>
+            </li>
+          </ul>
+  
+          <a href="/demo/" class="btn btn-accent hidden lg:flex mx-3">Demo</a>
+      
+          <div class="dropdown dropdown-end lg:hidden">
+            <label tabindex="0" class="btn btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" /></svg>
+            </label>
+            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <a href="/guide/">
+                  Guide
+                </a>
+              </li>
+              <li>
+                <a href="https://www.npmjs.com/package/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+                  NPM
+                  <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/Namide/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+                  GitHub
+                  <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+                </a>
+              </li>
+              <li>
+                <a href="/demo/" class="btn btn-accent">
+                  Demo
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="flex max-w-7xl mx-auto w-full">
+
+      <!-- NAV -->
+      <nav class="hidden lg:block bg-base-200">
+        <ul class="menu bg-base-200 w-56 my-10">
+          <li class="menu-title">
+            <span>Browser</span>
+          </li>
+          <li><a href="#browser-installation">Installation</a></li>
+          <li><a href="#browser-usage">Usage</a></li>
+          <li class="menu-title mt-5">
+            <span>Node.js</span>
+          </li>
+          <li><a href="#nodejs-installation">Installation</a></li>
+          <li><a href="#nodejs-usage">Usage</a></li>
+          <li class="menu-title mt-5">
+            <span>Advanced</span>
+          </li>
+          <li><a href="#options">Options</a></li>
+          <li><a href="#return">Return</a></li>
+        </ul>
+      </nav>
+
+      <!-- TEXT -->
+      <article class="flex-1 bg-base-100 px-6 py-12">
+
+        <h1 class="text-4xl font-bold">
+          Getting Started 
+        </h1>
+
+        <!-- <h1 class="text-4xl font-bold">
+          <span class="text-primary">Extract</span><span class="text-base-content">Colors</span>
+        </h1> -->
+
+        <div class="divider mt-16">on Browser</div>
+
+        <h2 id="browser-installation" class="text-2xl mt-8 mb-2">Installation</h2>
+        <!-- <h2  class="text-xl mt-4 mb-1">Installation (Browser)</h3> -->
+        <p class="mb-2 mt-5">Install Extract Colors on your project with NPM.</p>
+        <pre><code class="language-bash">npm install extract-colors</code></pre>
+
+        <h2 id="browser-usage" class="text-2xl mt-8 mb-2">Usage</h2>
+        <pre><code class="language-javascript">import extractColors from 'extract-colors'
+
+const src = 'my-image.jpg'
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.error)
+</code></pre>
+
+        <p class="mb-2 mt-5">Module example (latest version of packager)</p>
+        <pre><code class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+
+const src = 'my-image.jpg'
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.error)
+</code></pre>
+
+        <div class="divider mt-16">on Node.js</div>
+
+        <!-- <h2 class="text-2xl mt-8 mb-2">Node.js</h3> -->
+
+        <h2 id="nodejs-installation" class="text-2xl mt-8 mb-2">Installation</h2>
+        <p class="mb-2 mt-5">On Node.js, Extract Colors need canvas dependency to run.</p>
+        <pre><code class="language-bash">npm install extract-colors canvas</code></pre>
+
+        <h2 id="nodejs-usage" class="text-2xl mt-8 mb-2">Usage</h2>
+        <pre><code class="language-javascript">const path = require('path')
+const { extractColors } = require('extract-colors')
+
+const src = path.join(__dirname, './my-image.jpg')
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.log)
+</code></pre>
+
+<p class="mb-2 mt-5">Module example (latest version of npm)</p>
+<pre><code class="language-javascript">const path = require('path')
+const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
+
+const src = path.join(__dirname, './my-image.jpg')
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.log)</code></pre>
+
+        <div class="divider mt-16">advanced</div>
+
+        <h2 id="options" class="text-2xl mt-8 mb-2">Options</h2>
+        <div class="alert alert-info shadow-lg">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <p>You can use different types for src param (String for a path of image or ImageData).
+              If you use ImageData type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).</p>
+          </div>
+        </div>
+        <p class="mb-2 mt-5">Example of custom options</p>
+        <pre><code class="language-javascript">const src = 'my-image.jpg'
+
+const options = {
+  pixels: 10000,
+  distance: 0.2,
+  saturationImportance: 0.2,
+  splitPower: 10,
+  colorValidator: (red, green, blue, alpha = 255) => alpha > 250
+}
+
+extractColors(src, options)
+  .then(console.log)
+  .catch(console.error)</code></pre>
+        <p class="mt-5">
+          <strong>pixels</strong><br>
+          <em>Total pixel number of the resized picture for calculation</em><br>
+          Type: <code>Integer</code><br>
+          Default: <code>10000</code>
+        </p>
+        <p class="mt-5">
+          <strong>distance</strong><br>
+          <em>From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)</em><br>
+          Type: <code>Number</code><br>
+          Default: <code>0.2</code>
+        </p>
+        <p class="mt-5">
+          <strong>saturationImportance</strong><br>
+          <em>Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size)</em><br>
+          Type: <code>Number</code><br>
+          Default: <code>0.2</code>
+        </p>
+        <p class="mt-5">
+          <strong>splitPower</strong><br>
+          <em>Approximation power in the first color splitting during process (from 2 to 16)</em><br>
+          Type: <code>Integer</code><br>
+          Default: <code>10</code>
+        </p>
+        <p class="mt-5">
+          <strong>colorValidator</strong><br>
+          <em>Test function to enable only some colors</em><br>
+          Type: <code>Function</code><br>
+          Default: <code>(red, green, blue, alpha = 255) =&gt; alpha &gt; 250</code>
+        </p>
+        <p class="mt-5">
+          <strong>crossOrigin</strong><br>
+          <em>Only for browser, can be 'Anonymous' to avoid client side CORS</em>
+          <em>(the server side images need authorizations too)</em><br>
+          Type: <code>String</code><br>
+          Default: <code>null</code>
+        </p>
+
+        <h2 id="return" class="text-2xl mt-8 mb-2">Return</h2>
+        <p class="mb-2 mt-5">Array of colors with the followed properties</p>
+        <pre><code class="language-javascript">[
+  {
+    hex: '#62342b',
+    red: 98,
+    green: 52,
+    blue: 43,
+    area: 0.5915,
+    saturation: 0.2156862
+  },
+  ...
+]</code></pre>
+
+        <table class="table w-full my-5">
+          <thead>
+            <tr>
+              <th>Field</th><th>Example</th><th>Type</th><th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>hex</td><td>#62342b</td>  <td>String</td><td>color in hexadecimal string</td>
+            </tr>
+            <tr>
+              <td>red</td>  <td>98</td> <td>Integer</td><td>red canal from 0 to 255</td>
+            </tr>
+            <tr>
+              <td>green</td>  <td>52</td> <td>Integer</td><td>green canal from 0 to 255</td>
+            </tr>
+            <tr>
+              <td>blue</td> <td>43</td>  <td>Integer</td><td>blue canal from 0 to 255</td>
+            </tr>
+            <tr>
+              <td>area</td><td>0.5915</td>  <td>Number</td><td>area of the color and his neighbouring colors from 0 to 1</td>
+            </tr>
+            <tr>
+              <td>saturation</td><td>0.2156862</td> <td>Number</td><td>color saturation from 0 to 1</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </article>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="p-4 bg-neutral text-neutral-content text-sm">
+      <div class="items-center grid-flow-col">
+        <div class="text-center">
+          Released under the <a href="https://www.gnu.org/licenses/" target="_blank" rel="noopener noreferrer" class="link">GNU General Public v3 License</a>.<br>
+          Copyright © 2019 <a href="https://damien-doussaud.com/" target="_blank" rel="author" class="link">Damien Doussaud</a>
+        </div>
+      </div>
+    </footer>
+    <script src="../assets/hljs.ts" type="module"></script>
+  </body>
 </html>

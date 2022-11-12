@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+pre code {
+  @apply !bg-neutral;
+  @apply !from-neutral;
+  @apply !to-neutral-focus;
+  @apply !bg-gradient-to-br;
+  @apply rounded-3xl;
+  @apply !px-5;
+  @apply !py-7;
+}

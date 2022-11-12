@@ -48,7 +48,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/style.css">
     <meta name="author" content="Damien Doussaud">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Extract colors | Try it</title>
+    <title>Extract colors | Demo</title>
   </head>
 
   <body v-scope="Input({})" class="bg-base-200 from-primary to-accent text-primary-content bg-gradient-to-br">
@@ -73,11 +73,6 @@
               </a>
             </li>
             <li>
-              <a href="/demo/">
-                Try it
-              </a>
-            </li>
-            <li>
               <a href="https://www.npmjs.com/package/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
                 NPM
                 <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
@@ -91,7 +86,7 @@
             </li>
           </ul>
   
-          <a href="/getting-started/" class="btn btn-accent hidden lg:flex mx-3">Get started</a>
+          <a href="/demo/" class="btn btn-accent hidden lg:flex mx-3">Demo</a>
       
           <div class="dropdown dropdown-end lg:hidden">
             <label tabindex="0" class="btn btn-ghost">
@@ -101,11 +96,6 @@
               <li>
                 <a href="/guide/">
                   Guide
-                </a>
-              </li>
-              <li>
-                <a href="/demo/">
-                  Try it
                 </a>
               </li>
               <li>
@@ -121,8 +111,8 @@
                 </a>
               </li>
               <li>
-                <a href="/getting-started/" class="btn btn-accent">
-                  Getting started
+                <a href="/demo/" class="btn btn-accent">
+                  Demo
                 </a>
               </li>
             </ul>
@@ -131,86 +121,86 @@
       </div>
     </header>
 
-    <div class="flex items-start gap-5 my-10 w-11/12 max-w-7xl mx-auto">
+    <div class="flex flex-col sm:flex-row items-start gap-5 my-10 w-11/12 max-w-7xl mx-auto">
 
       <!-- SETTINGS -->
       <div
-        class="bg-base-100 text-base-content rounded-box col-span-3 row-span-3 flex w-72 flex-shrink-0 flex-col justify-center gap-4 p-4 shadow-xl">
-        <div class="p-6">
+        class="bg-base-100 text-base-content rounded-box col-span-3 row-span-3 flex w-full sm:w-72 flex-shrink-0 flex-col justify-center gap-4 p-4 shadow-xl">
+        <div class="p-2">
 
-          <div class="text-xl font-extrabold">Settings</div>
+          <div class="text-xl font-extrabold">Demo</div>
           <div class="text-base-content/70 my-4 text-xs">You can test differents inputs to change time process or colors extracted.</div>
   
-          <div class="divider">Config</div>
+          <div class="divider text-sm mt-8">Config</div>
 
           <!-- Pixels -->
-          <div class="form-control">
+          <div class="form-control mt-2">
             <div class="tooltip" data-tip="small enough to escape casual notice">
               <label class="label">
-                <span class="label-text">Pixels amount max</span>
+                <span class="label-text opacity-60">Pixels amount max</span>
               </label>
             </div>
             <label class="input-group">
-              <input type="number" step="1" v-model="pixels" class="input input-bordered w-full" />
+              <input type="number" step="1" v-model="pixels" class="input input-sm input-bordered w-full" />
               <span>px</span>
             </label>
           </div>
   
           <!-- Color distance -->
-          <div class="form-control">
+          <div class="form-control mt-2">
             <div class="tooltip" data-tip="From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)">
               <label class="label">
-                <span class="label-text">Color distance</span>
+                <span class="label-text opacity-60">Color distance</span>
               </label>
             </div>
-            <input type="number" min="0" max="1" step="0.1" v-model="distance" class="input input-bordered w-full" />
+            <input type="number" min="0" max="1" step="0.1" v-model="distance" class="input input-sm input-bordered w-full" />
           </div>
   
           <!-- Split color power -->
-          <div class="form-control">
+          <div class="form-control mt-2">
             <div class="tooltip" data-tip="Approximation power in the first color splitting during process (from 2 to 16).">
               <label class="label">
-                <span class="label-text">Split color power</span>
+                <span class="label-text opacity-60">Split color power</span>
               </label>
             </div>
             <input type="number" step="1" min="2"
-              max="16" v-model="splitPower" class="input input-bordered w-full" />
+              max="16" v-model="splitPower" class="input input-sm input-bordered w-full" />
           </div>
   
           <!-- Hue distance -->
-          <div class="form-control">
+          <div class="form-control mt-2">
             <div class="tooltip" data-tip="from 0 to 1">
               <label class="label">
-                <span class="label-text">Hue distance</span>
+                <span class="label-text opacity-60">Hue distance</span>
               </label>
             </div>
             <input type="number" step="0.05" min="0"
-              max="1" v-model="hueDistance" class="input input-bordered w-full" />
+              max="1" v-model="hueDistance" class="input input-sm input-bordered w-full" />
           </div>
   
           <!-- Saturation distance -->
-          <div class="form-control">
+          <div class="form-control mt-2">
             <div class="tooltip" data-tip="from 0 to 1">
               <label class="label">
-                <span class="label-text">Saturation distance</span>
+                <span class="label-text opacity-60">Saturation distance</span>
               </label>
             </div>
             <input type="number" step="0.05" min="0"
-              max="1" v-model="saturationDistance" class="input input-bordered w-full" />
+              max="1" v-model="saturationDistance" class="input input-sm input-bordered w-full" />
           </div>
   
           <!-- Lightness distance -->
-          <div class="form-control">
+          <div class="form-control mt-2">
             <div class="tooltip" data-tip="from 0 to 1">
               <label class="label">
-                <span class="label-text">Lightness distance</span>
+                <span class="label-text opacity-60">Lightness distance</span>
               </label>
             </div>
             <input type="number" step="0.05" min="0"
-            max="1" v-model="lightnessDistance" class="input input-bordered w-full" />
+            max="1" v-model="lightnessDistance" class="input input-sm input-bordered w-full" />
           </div>
 
-          <div class="divider">Images</div>
+          <div class="divider text-sm mt-8">Images</div>
 
           <label class="btn btn-primary w-full">
             Upload images
@@ -235,7 +225,7 @@
       <div class="flex flex-wrap gap-5">
         <div
           v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, splitPower, hueDistance, saturationDistance, lightnessDistance })"
-          class="card xl:w-[calc(33%-15px)] bg-base-100 shadow-xl"
+          class="card w-full lg:w-[calc(50%-15px)] xl:w-[calc(33%-15px)] bg-base-100 shadow-xl"
           @vue:mounted="mounted" :key="id"
         >
         </div>
