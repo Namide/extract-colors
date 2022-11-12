@@ -11,54 +11,27 @@
   <body class="bg-base-200 from-primary to-accent text-primary-content bg-gradient-to-br">
 
     <!-- HEADER -->
-    <header class="navbar bg-base-100 text-base-content">
-      <div class="navbar-start">
-        <h1 tabindex="0" class="btn btn-ghost normal-case text-xl">
-          <a href="/" class="text-primary">Extract colors</a>
-        </h1>
-      </div>
-      <div class="navbar-end">
-
-        <ul class="menu menu-horizontal p-0 hidden lg:flex">
-          <li>
-            <a href="/about/">
-              About
+    <header class="bg-base-100 text-base-content">
+      <div class="navbar max-w-7xl mx-auto">
+        <div class="navbar-start">
+          <h1 tabindex="0" class="btn btn-ghost normal-case text-xl">
+            <a href="/">
+              <span class="text-primary">Extract</span><!--
+              --><span class="text-base-content">Colors</span>
             </a>
-          </li>
-          <li>
-            <a href="/demo/">
-              Demo
-            </a>
-          </li>
-          <li>
-            <a href="https://www.npmjs.com/package/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
-              NPM
-              <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/Namide/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
-              GitHub
-              <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
-            </a>
-          </li>
-        </ul>
-
-        <a href="/getting-started/" class="btn btn-accent hidden lg:flex mx-3">Get started</a>
-    
-        <div class="dropdown dropdown-end lg:hidden">
-          <label tabindex="0" class="btn btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" /></svg>
-          </label>
-          <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+          </h1>
+        </div>
+        <div class="navbar-end">
+  
+          <ul class="menu menu-horizontal p-0 hidden lg:flex">
             <li>
-              <a href="/about/">
-                About
+              <a href="/guide/">
+                Guide
               </a>
             </li>
             <li>
               <a href="/demo/">
-                Demo
+                Try it
               </a>
             </li>
             <li>
@@ -73,40 +46,114 @@
                 <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
               </a>
             </li>
-            <li>
-              <a href="/getting-started/" class="btn btn-accent">
-                Getting started
-              </a>
-            </li>
           </ul>
+  
+          <a href="/getting-started/" class="btn btn-accent hidden lg:flex mx-3">Get started</a>
+      
+          <div class="dropdown dropdown-end lg:hidden">
+            <label tabindex="0" class="btn btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-16 6h16" /></svg>
+            </label>
+            <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <a href="/guide/">
+                  Guide
+                </a>
+              </li>
+              <li>
+                <a href="/demo/">
+                  Try it
+                </a>
+              </li>
+              <li>
+                <a href="https://www.npmjs.com/package/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+                  NPM
+                  <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+                </a>
+              </li>
+              <li>
+                <a href="https://github.com/Namide/extract-colors" target="_blank" rel="noopener noreferrer" class="gap-1">
+                  GitHub
+                  <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" data-v-7ad94a48=""><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg>
+                </a>
+              </li>
+              <li>
+                <a href="/getting-started/" class="btn btn-accent">
+                  Getting started
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </header>
 
     <!-- HERO -->
-    <div class="hero min-h-screen">
+    <div class="hero">
       <div class="hero-content text-center">
-        <div class="max-w-md">
-          <h1 class="text-5xl font-bold">Extract color</h1>
-          <p class="py-6">
-            A Javascript library to extract colors palette from images.
-            <span class="badge badge-primary">simple</span>
-            <span class="badge badge-primary">fast</span>
-            <span class="badge badge-secondary">browser</span>
-            <span class="badge badge-secondary">Node.js</span>
-            <span class="badge badge-accent">lightweight</span>
+        <div class="max-w-md my-20">
+          <h1 class="mb-2 text-4xl font-extrabold md:text-6xl">
+            Extract colors
+          </h1>
+          <p>
+            
+          </p>
+          <p class="py-6 leading-7">
+            Javascript library to extract color palette from images.
+            <span class="badge badge-ghost">simple</span>, 
+            <span class="badge badge-ghost">fast</span> and 
+            <span class="badge badge-ghost">lightweight</span>.<br>
+            Support
+            <span class="badge badge-ghost">browser</span> and
+            <span class="badge badge-ghost">Node.js</span>.
           </p>
           <div class="flex gap-2 justify-center">
-            <a href="/demo/" class="btn btn-primary">Try it</a>
-            <a href="/getting-started/" class="btn btn-secondary">Get Started</a>
+            <a href="/demo/" class="btn btn-outline text-white">Try it</a>
+            <a href="/getting-started/" class="btn btn-outline text-white">Get Started</a>
           </div>
         </div>
       </div>
     </div>
 
-    <footer class="footer items-center p-4 bg-neutral text-neutral-content">
+    <!-- GOOD THING -->
+    <section class="bg-base-100 py-20 text-base-content">
+      <div class="w-full px-5 mx-auto max-w-4xl flex flex-wrap gap-12 justify-center text-center">
+        <div class="max-w-sm w-full md:max-w-[calc(50%-30px)] xl:max-w-[calc(33%-30px)]">
+          <h3 class="text-2xl mb-3">Performant</h3>
+          <p class="text-sm opacity-60">
+            This script use two pass.
+            The first optimize calculation to reduce time.
+            The second sort colors with precise calculations.
+          </p>
+        </div>
+        <div class="max-w-sm w-full md:max-w-[calc(50%-30px)] xl:max-w-[calc(33%-30px)]">
+          <h3 class="text-2xl mb-3">Fine-grained control</h3>
+          <p class="text-sm opacity-60">
+            All the options allow you to precisely parameterize the calculations.
+          </p>
+        </div>
+        <div class="max-w-sm w-full md:max-w-[calc(50%-30px)] xl:max-w-[calc(33%-30px)]">
+          <h3 class="text-2xl mb-3">Typescript support</h3>
+          <p class="text-sm opacity-60">
+            Fully coded in Typescript to take advantage of typing.
+          </p>
+        </div>
+        <div class="max-w-sm w-full md:max-w-[calc(50%-30px)] xl:max-w-[calc(33%-30px)]">
+          <h3 class="text-2xl mb-3">Browser and NodeJs</h3>
+          <p class="text-sm opacity-60">
+            Core function are similar for NodeJs and browser.
+            Extract Colors expose multiple export: browser, NodeJs and ECMAScript Modules. 
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="p-4 bg-neutral text-neutral-content text-sm">
       <div class="items-center grid-flow-col">
-        <p>By <a href="https://damien-doussaud.com/" target="_blank" rel="author">Damien Doussaud</a></p>
+        <div class="text-center">
+          Released under the <a href="https://www.gnu.org/licenses/" target="_blank" rel="noopener noreferrer" class="link">GNU General Public v3 License</a>.<br>
+          Copyright © 2019 <a href="https://damien-doussaud.com/" target="_blank" rel="author" class="link">Damien Doussaud</a>
+        </div>
       </div>
     </footer>
 

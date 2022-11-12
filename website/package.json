@@ -3,9 +3,9 @@
   "version": "1.1.23",
   "description": "Extract color palettes from images",
   "scripts": {
-    "serve": "parcel ./src/index.html ./src/getting-started/index.html ./src/demo/index.html ./src/about/index.html --port 3000",
+    "serve": "parcel ./src/index.html ./src/getting-started/index.html ./src/demo/index.html ./src/guide/index.html --port 3000",
     "prebuild": "rm -rf ./dist",
-    "build": "parcel build ./src/index.html ./src/getting-started/index.html ./src/demo/index.html ./src/about/index.html"
+    "build": "parcel build ./src/index.html ./src/getting-started/index.html ./src/demo/index.html ./src/guide/index.html"
   },
   "author": "damien@doussaud.fr",
   "license": "GPL-3.0",
