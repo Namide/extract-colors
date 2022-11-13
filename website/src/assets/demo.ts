@@ -21,7 +21,7 @@ function Input () {
     pixels: Extractor.pixelsDefault,
     distance: Extractor.distanceDefault,
     splitPower: Extractor.splitPowerDefault,
-    hueDistance: AverageManager.hueDefault,
+    hueDistance: Math.round(AverageManager.hueDefault * 1000) / 1000,
     saturationDistance: AverageManager.saturationDefault,
     lightnessDistance: AverageManager.lightnessDefault,
     srcs: getRandImgs(5),

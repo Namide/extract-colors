@@ -160,7 +160,7 @@
             </div>
             <div class="flex items-center">
               <input type="range" min="0" max="1" step="0.01" v-model="distance" class="range range-xs w-full" />
-              <span class="w-16 text-right">{{ distance }}</span>
+              <input type="number" min="0" max="1" step="0.01" v-model="distance" class="number number-xs w-16 text-right" />
             </div>
           </div>
   
@@ -171,8 +171,10 @@
                 <span class="label-text opacity-60">Split color power</span>
               </label>
             </div>
-            <input type="number" step="1" min="2"
-              max="15" v-model="splitPower" class="input input-sm input-bordered w-full" />
+            <div class="flex items-center">
+              <input type="range" step="1" min="2" max="15" v-model="splitPower" class="range range-xs w-full" />
+              <input type="number" step="1" min="2" max="15" v-model="splitPower" class="number number-xs w-16 text-right" />
+            </div>
           </div>
   
           <!-- Hue distance -->
@@ -182,8 +184,10 @@
                 <span class="label-text opacity-60">Hue distance</span>
               </label>
             </div>
-            <input type="number" step="0.05" min="0"
-              max="1" v-model="hueDistance" class="input input-sm input-bordered w-full" />
+            <div class="flex items-center">
+              <input type="range" step="0.05" min="0" max="1" v-model="hueDistance" class="range range-xs w-full" />
+              <input type="number" step="0.05" min="0" max="1" v-model="hueDistance" class="number number-xs w-16 text-right" />
+            </div>
           </div>
   
           <!-- Saturation distance -->
@@ -193,8 +197,10 @@
                 <span class="label-text opacity-60">Saturation distance</span>
               </label>
             </div>
-            <input type="number" step="0.05" min="0"
-              max="1" v-model="saturationDistance" class="input input-sm input-bordered w-full" />
+            <div class="flex items-center">
+              <input type="range" step="0.05" min="0" max="1" v-model="saturationDistance" class="range range-xs w-full" />
+              <input type="number" step="0.05" min="0" max="1" v-model="saturationDistance" class="number number-xs w-16 text-right" />
+            </div>
           </div>
   
           <!-- Lightness distance -->
@@ -204,8 +210,10 @@
                 <span class="label-text opacity-60">Lightness distance</span>
               </label>
             </div>
-            <input type="number" step="0.05" min="0"
-            max="1" v-model="lightnessDistance" class="input input-sm input-bordered w-full" />
+            <div class="flex items-center">
+              <input type="range" step="0.05" min="0" max="1" v-model="lightnessDistance" class="range range-xs w-full" />
+              <input type="number" step="0.05" min="0" max="1" v-model="lightnessDistance" class="number number-xs w-16 text-right" />
+            </div>
           </div>
 
           <div class="divider text-sm mt-8">Images</div>
