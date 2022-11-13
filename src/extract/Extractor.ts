@@ -18,7 +18,8 @@ import RootGroup from '../color/RootGroup'
  */
 const testUint = <T = number>(label: string, val: T, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   if (!Number.isInteger(val) || val < min || val > max) {
-    throw new Error(`${label} is invalid`)
+    console.error(`${label} is invalid (${ val })`)
+    return undefined
   }
 
   return val
@@ -34,7 +35,8 @@ const testUint = <T = number>(label: string, val: T, min = 0, max = Number.MAX_S
  */
 const testNumber = <T = number>(label: string, val: T, min = 0, max = Number.MAX_VALUE) => {
   if (Number(val) !== val || val < min || val > max) {
-    throw new Error(`${label} is invalid`)
+    console.error(`${label} is invalid (${ val })`)
+    return undefined
   }
 
   return val
@@ -48,7 +50,8 @@ const testNumber = <T = number>(label: string, val: T, min = 0, max = Number.MAX
  */
 const testFunction = <T = () => void>(label: string, val: T) => {
   if (!val || {}.toString.call(val) !== '[object Function]') {
-    throw new Error(`${label} is invalid`)
+    console.error(`${label} is invalid (${ val })`)
+    return null
   }
 
   return val
@@ -83,10 +86,10 @@ export default class Extractor {
     splitPower = Extractor.splitPowerDefault,
     colorValidator = Extractor.colorValidatorDefault
   }: ExtractorOptions = {}) {
-    this.pixels = testUint('pixels', pixels, 1)
-    this.splitPower = testNumber('splitPower', splitPower, 2, 16)
-    this.distance = testNumber('distance', distance, 0, 1)
-    this.colorValidator = testFunction('colorValidator', colorValidator)
+    this.pixels = testUint('pixels', pixels, 1) ?? Extractor.pixelsDefault
+    this.splitPower = testNumber('splitPower', splitPower, 2, 16) ?? Extractor.splitPowerDefault
+    this.distance = testNumber('distance', distance, 0, 1) ?? Extractor.distanceDefault
+    this.colorValidator = testFunction('colorValidator', colorValidator) ?? Extractor.colorValidatorDefault
   }
 
   /**
