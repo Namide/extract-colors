@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-pre code {
-  @apply !bg-neutral;
-  @apply !from-neutral;
-  @apply !to-neutral-focus;
-  @apply !bg-gradient-to-br;
+.ec-code {
+  @apply bg-neutral;
+  @apply from-neutral;
+  @apply to-neutral-focus;
+  @apply bg-gradient-to-br;
   @apply rounded-3xl;
-  @apply !px-5;
-  @apply !py-7;
+  @apply px-5;
+  @apply py-7;
+
+}
+.ec-code pre code {
+  @apply bg-transparent;
+  @apply p-0;
 }

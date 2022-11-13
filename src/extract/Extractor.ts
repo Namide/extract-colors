@@ -77,7 +77,7 @@ export default class Extractor {
    * @param {Object=} options  Optional data
    * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
    * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
-   * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 16)
+   * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
    * @param {String=} options.colorValidator  Callback with test to enable only some colors
    */
   constructor ({
@@ -87,7 +87,7 @@ export default class Extractor {
     colorValidator = Extractor.colorValidatorDefault
   }: ExtractorOptions = {}) {
     this.pixels = testUint('pixels', pixels, 1) ?? Extractor.pixelsDefault
-    this.splitPower = testNumber('splitPower', splitPower, 2, 16) ?? Extractor.splitPowerDefault
+    this.splitPower = testNumber('splitPower', splitPower, 2, 15) ?? Extractor.splitPowerDefault
     this.distance = testNumber('distance', distance, 0, 1) ?? Extractor.distanceDefault
     this.colorValidator = testFunction('colorValidator', colorValidator) ?? Extractor.colorValidatorDefault
   }

@@ -96,59 +96,58 @@
           <li class="menu-title mt-5">
             <span>Advanced</span>
           </li>
-          <li><a href="#options">Options</a></li>
           <li><a href="#output">Output</a></li>
+          <li><a href="#options">Options</a></li>
+          <li><a href="#pixels">Pixels</a></li>
+          <li><a href="#distance">Distance</a></li>
         </ul>
       </nav>
 
       <!-- TEXT -->
-      <article class="flex-1 bg-base-100 px-6 py-12">
+      <article class="flex-1 bg-base-100 px-6 py-12 max-w-full">
 
         <h1 class="text-4xl font-bold">
           Getting Started 
         </h1>
 
-        <!-- <h1 class="text-4xl font-bold">
-          <span class="text-primary">Extract</span><span class="text-base-content">Colors</span>
-        </h1> -->
-
         <div class="divider mt-16">on Browser</div>
 
+        <!-- INSTALL - BROWSER -->
         <h2 id="browser-installation" class="text-2xl mt-8 mb-2">Installation</h2>
-        <!-- <h2  class="text-xl mt-4 mb-1">Installation (Browser)</h3> -->
         <p class="mb-2 mt-5">Install Extract Colors on your project with NPM.</p>
-        <pre><code class="language-bash">npm install extract-colors</code></pre>
+        <div class="ec-code"><pre><code class="language-bash">npm install extract-colors</code></pre></div>
 
+        <!-- USAGE - BROWSER -->
         <h2 id="browser-usage" class="text-2xl mt-8 mb-2">Usage</h2>
-        <pre><code class="language-javascript">import extractColors from 'extract-colors'
+        <div class="ec-code"><pre><code class="language-javascript">import extractColors from 'extract-colors'
 
 const src = 'my-image.jpg'
 
 extractColors(src)
   .then(console.log)
   .catch(console.error)
-</code></pre>
+</code></pre></div>
 
         <p class="mb-2 mt-5">Module example (latest version of packager)</p>
-        <pre><code class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+        <div class="ec-code"><pre><code class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
 
 const src = 'my-image.jpg'
 
 extractColors(src)
   .then(console.log)
   .catch(console.error)
-</code></pre>
+</code></pre></div>
 
         <div class="divider mt-16">on Node.js</div>
 
-        <!-- <h2 class="text-2xl mt-8 mb-2">Node.js</h3> -->
-
+        <!-- INSTALL - NODEJS -->
         <h2 id="nodejs-installation" class="text-2xl mt-8 mb-2">Installation</h2>
         <p class="mb-2 mt-5">On Node.js, Extract Colors need canvas dependency to run.</p>
-        <pre><code class="language-bash">npm install extract-colors canvas</code></pre>
+        <div class="ec-code"><pre><code class="language-bash">npm install extract-colors canvas</code></pre></div>
 
+        <!-- USAGE - NODEJS -->
         <h2 id="nodejs-usage" class="text-2xl mt-8 mb-2">Usage</h2>
-        <pre><code class="language-javascript">const path = require('path')
+        <div class="ec-code"><pre><code class="language-javascript">const path = require('path')
 const { extractColors } = require('extract-colors')
 
 const src = path.join(__dirname, './my-image.jpg')
@@ -166,73 +165,14 @@ const src = path.join(__dirname, './my-image.jpg')
 
 extractColors(src)
   .then(console.log)
-  .catch(console.log)</code></pre>
+  .catch(console.log)</code></pre></div>
 
         <div class="divider mt-16">advanced</div>
 
-        <h2 id="options" class="text-2xl mt-8 mb-2">Options</h2>
-        <div class="alert alert-info shadow-lg">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <p>You can use different types for src param (String for a path of image or ImageData).
-              If you use ImageData type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).</p>
-          </div>
-        </div>
-        <p class="mb-2 mt-5">Example of custom options</p>
-        <pre><code class="language-javascript">const src = 'my-image.jpg'
-
-const options = {
-  pixels: 10000,
-  distance: 0.2,
-  saturationImportance: 0.2,
-  splitPower: 10,
-  colorValidator: (red, green, blue, alpha = 255) => alpha > 250
-}
-
-extractColors(src, options)
-  .then(console.log)
-  .catch(console.error)</code></pre>
-        <p class="mt-5">
-          <strong>pixels</strong><br>
-          <em>Total pixel number of the resized picture for calculation</em><br>
-          Type: <code>Integer</code><br>
-          Default: <code>10000</code>
-        </p>
-        <p class="mt-5">
-          <strong>distance</strong><br>
-          <em>From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)</em><br>
-          Type: <code>Number</code><br>
-          Default: <code>0.2</code>
-        </p>
-        <p class="mt-5">
-          <strong>saturationImportance</strong><br>
-          <em>Power of the saturation weight during the process (0 is not used, 1 is only saturation and not area size)</em><br>
-          Type: <code>Number</code><br>
-          Default: <code>0.2</code>
-        </p>
-        <p class="mt-5">
-          <strong>splitPower</strong><br>
-          <em>Approximation power in the first color splitting during process (from 2 to 16)</em><br>
-          Type: <code>Integer</code><br>
-          Default: <code>10</code>
-        </p>
-        <p class="mt-5">
-          <strong>colorValidator</strong><br>
-          <em>Test function to enable only some colors</em><br>
-          Type: <code>Function</code><br>
-          Default: <code>(red, green, blue, alpha = 255) =&gt; alpha &gt; 250</code>
-        </p>
-        <p class="mt-5">
-          <strong>crossOrigin</strong><br>
-          <em>Only for browser, can be 'Anonymous' to avoid client side CORS</em>
-          <em>(the server side images need authorizations too)</em><br>
-          Type: <code>String</code><br>
-          Default: <code>null</code>
-        </p>
-
+        <!-- OUTPUT -->
         <h2 id="output" class="text-2xl mt-8 mb-2">Output</h2>
         <p class="mb-2 mt-5">Array of colors object with the followed properties</p>
-        <pre><code class="language-javascript">[
+        <div class="ec-code"><pre><code class="language-javascript">[
   {
     hex: '#62342b',
     red: 98,
@@ -242,7 +182,7 @@ extractColors(src, options)
     saturation: 0.2156862
   },
   ...
-]</code></pre>
+]</code></pre></div>
 
         <table class="table w-full my-5">
           <thead>
@@ -271,6 +211,161 @@ extractColors(src, options)
             </tr>
           </tbody>
         </table>
+
+        <!-- OPTIONS -->
+        <h2 id="options" class="text-2xl mt-8 mb-2">Options</h2>
+        <div class="alert alert-info shadow-lg">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <p>You can use different types for src param (String for a path of image or ImageData).
+              If you use ImageData type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).</p>
+          </div>
+        </div>
+        <p class="mb-2 mt-5">Example of custom options</p>
+        <div class="ec-code"><pre><code class="language-javascript">const src = 'my-image.jpg'
+
+const options = {
+  pixels: 10000,
+  distance: 0.2,
+  saturationImportance: 0.2,
+  splitPower: 10,
+  colorValidator: (red, green, blue, alpha = 255) => alpha > 250
+}
+
+extractColors(src, options)
+  .then(console.log)
+  .catch(console.error)</code></pre></div>
+
+        <h3 id="pixels" class="text-xl mt-6 mb-2 font-bold">pixels</h3>
+        <p class="my-5">
+          Total pixel number of the resized picture for calculation.
+          Fewer pixels will produce a rougher but faster result.
+          More pixels will produce a more accurate but slower result.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="table max-w-full">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Integer</td>
+                <td>1</td>
+                <td>2^53 - 1</td>
+                <td>10000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- <table class="table">
+          <tr>
+            <th class="block">Type</th>          
+            <td>Integer</td>            
+          </tr>
+          <tr>
+            <th class="block">Min</th>          
+            <td>1</td>    
+          </tr>
+          <tr>
+            <th class="block">Max</th>          
+            <td>2^53 - 1</td>    
+          </tr>
+          <tr>
+            <th class="block">Default</th>          
+            <td>10000</td>            
+          </tr>
+        </table> -->
+
+        <!-- <div class="stats">
+          <div class="stat">
+            <div class="stat-title">Type</div>
+            <div class="stat-value">Integer</div>
+          </div>
+          <div class="stat">
+            <div class="stat-title">Min</div>
+            <div class="stat-value">1</div>
+          </div>
+          <div class="stat">
+            <div class="stat-title">Max</div>
+            <div class="stat-value">2^53 - 1</div>
+          </div>
+          <div class="stat">
+            <div class="stat-title">Default</div>
+            <div class="stat-value">10000</div>
+          </div>
+        </div> -->
+
+        <h3 id="distance" class="text-xl mt-6 mb-2 font-bold">distance</h3>
+        <p class="my-5">
+          Color distance to not have near colors (1 distance is between white and black).
+          Less distance will produce a faster result with less colors.
+          More distance will produce more precise colors but slower result.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="table max-w-full">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Number</td>
+                <td>0</td>
+                <td>1</td>
+                <td>0.2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="split-power" class="text-xl mt-6 mb-2 font-bold">splitPower</h3>
+        <p class="my-5">
+          Approximation power in the first color splitting during process (from 2 to 16).
+        </p>
+        <div class="overflow-x-auto">
+          <table class="table max-w-full">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Integer</td>
+                <td>2</td>
+                <td>15</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="mt-5">
+          <strong>colorValidator</strong><br>
+          <em>Test function to enable only some colors</em><br>
+          Type: <code>Function</code><br>
+          Default: <code>(red, green, blue, alpha = 255) =&gt; alpha &gt; 250</code>
+        </p>
+        <p class="mt-5">
+          <strong>crossOrigin</strong><br>
+          <em>Only for browser, can be 'Anonymous' to avoid client side CORS</em>
+          <em>(the server side images need authorizations too)</em><br>
+          Type: <code>String</code><br>
+          Default: <code>null</code>
+        </p>
 
       </article>
     </div>

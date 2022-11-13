@@ -56,7 +56,7 @@ const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOption
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 16)
+ * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
@@ -73,7 +73,7 @@ const extractColorsFromImageData = (imageData: ImageData, options?: NodeOptions)
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 16)
+ * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
@@ -107,7 +107,7 @@ const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOption
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 16)
+ * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */
@@ -124,7 +124,7 @@ const extractColorsFromSrc = (src: string, options?: BrowserOptions) => {
  * @param {Object=} options  Optional data
  * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
  * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 16)
+ * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
  * @param {String=} options.colorValidator  Callback with test to enable only some colors
  * @returns {Array<Object>}
  */

@@ -4,6 +4,7 @@ import { FinalColor } from '../../../src/types/Color'
 import { createApp } from 'petite-vue'
 import { AverageManager } from '../../../src/sort/AverageManager'
 
+let processCurrentId = '' // To avoid old process calculations
 const IMG_THEME = [/* 'moon',*/ 'water', 'sea', 'colors', 'sky']
 const process: (() => void)[] = []
 
@@ -49,9 +50,12 @@ function ImgBlock (props) {
     px: 0,
     time: 0,
     naturalPx: 0,
+    loading: true,
 
     mounted () {
       const image = new Image()
+      const id = `${ this.pixels }${ this.distance }${ this.splitPower }${ this.hueDistance }${ this.saturationDistance }${ this.lightnessDistance }`
+      processCurrentId = id
 
       image.crossOrigin = 'anonymous'
       image.src = this.src
@@ -60,27 +64,34 @@ function ImgBlock (props) {
         this.naturalPx = image.naturalWidth * image.naturalHeight
       }
 
+      const nextProcess = () => {
+        process.shift()
+        if (process.length > 0) {
+          process[0]()
+        }
+      }
+
       const execProcess = () => {
+        // To avoid old process calculations
+        if (id !== processCurrentId) {
+          nextProcess()
+        }
         const initTime = Date.now()
         extractColors(this.src, {
-          pixels: props.pixels,
-          distance: props.distance,
-          splitPower: props.splitPower,
-          hueDistance: props.hueDistance,
-          saturationDistance: props.saturationDistance,
-          lightnessDistance: props.lightnessDistance,
+          pixels: Number(props.pixels),
+          distance: Number(props.distance),
+          splitPower: Number(props.splitPower),
+          hueDistance: Number(props.hueDistance),
+          saturationDistance: Number(props.saturationDistance),
+          lightnessDistance: Number(props.lightnessDistance),
           crossOrigin: 'anonymous'
         })
           .then(colors => {
             this.time = (Date.now() - initTime)
             this.colors = colors
+            this.loading = false
           })
-          .finally(() => {
-            process.shift()
-            if (process.length > 0) {
-              process[0]()
-            }
-          })
+          .finally(nextProcess)
       }
 
       process.push(execProcess)

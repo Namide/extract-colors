@@ -141,7 +141,7 @@ Type: `Number`
 Default: `0.2`  
 
 **splitPower**  
-_Approximation power in the first color splitting during process (from 2 to 16)_  
+_Approximation power in the first color splitting during process (from 2 to 15)_  
 Type: `Integer`  
 Default: `10`  
 
