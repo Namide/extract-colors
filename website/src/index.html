@@ -105,6 +105,49 @@
       </div>
     </div>
 
+    <!-- INSTALL -->
+    <section class="bg-base-100 py-20 text-base-content">
+      <div class="w-full px-5 mx-auto max-w-4xl">
+        <h3 class="text-4xl font-bold text-center">Getting starter</h3>
+
+        <!-- INSTALL - BROWSER -->
+        <h2 id="browser-installation" class="text-2xl mt-8 mb-2">Installation</h2>
+        <p class="mb-2 mt-5">Install Extract Colors on your project with NPM.</p>
+        <div class="tabs ml-5">
+          <button id="install-browser-btn" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button id="install-nodejs-btn" class="tab tab-bordered rounded-t-xl">Node.js</button>
+        </div>
+        <div class="ec-code"><pre><code id="install-browser-content" class="language-bash">npm install extract-colors</code><code id="install-nodejs-content" class="language-bash !hidden">npm install extract-colors canvas</code></pre></div>
+
+        <!-- USAGE - BROWSER -->
+        <h2 id="browser-usage" class="text-2xl mt-8 mb-2">Usage</h2>
+        <div class="tabs ml-5">
+          <button id="usage-browser-btn" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button id="usage-nodejs-btn" class="tab tab-bordered rounded-t-xl">Node.js</button>
+        </div>
+        <div class="ec-code"><pre><code id="usage-browser-content" class="language-javascript">import extractColors from 'extract-colors'
+
+const src = 'my-image.jpg'
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.error)
+</code><code id="usage-nodejs-content" class="language-javascript !hidden">const path = require('path')
+const { extractColors } = require('extract-colors')
+
+const src = path.join(__dirname, './my-image.jpg')
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.log)
+  </code></pre></div>
+      </div>
+
+      <div class="text-center my-10">
+        <a href="/guide/" class="btn btn-primary btn-lg">Guide <svg class="ml-2" fill="white" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" data-v-76d4cf95=""><path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path></svg></a>
+      </div>
+    </section>
+
     <!-- GOOD THING -->
     <section class="bg-base-100 py-20 text-base-content">
       <div class="w-full px-5 mx-auto max-w-4xl flex flex-wrap gap-12 justify-center text-center">
@@ -138,6 +181,26 @@
       </div>
     </section>
 
+    <!-- SUPPORT -->
+    <section class="bg-base-200 py-20 text-base-content">
+      <div class="w-full px-5 mx-auto max-w-4xl flex flex-wrap gap-12 justify-center text-center">
+        <div class="max-w-sm w-full">
+          <h2 class="mb-10 text-5xl">Support</h2>
+          <p class="text-2xl leading-10">
+            <span class="text-primary">Firefox</span> 29+<br>
+            <span class="text-primary">Chrome</span> 33+<br>
+            <span class="text-primary">Edge</span> 12+<br>
+            <span class="text-primary">Opera</span> 19+<br>
+            <span class="text-primary">Safari</span> 8+<br>
+            <span class="text-primary">Webview Android</span> 4.4.3+<br>
+            <span class="text-primary">Samsung Internet</span> 2.0+<br>
+            <span class="line-through opacity-60">Internet Explorer</span><br>
+            <span class="text-primary">Node.js</span> 0.12+
+          </p>
+        </div>
+      </div>
+    </section>
+
     <!-- FOOTER -->
     <footer class="p-4 bg-neutral text-neutral-content text-sm">
       <div class="items-center grid-flow-col">
@@ -147,6 +210,9 @@
         </div>
       </div>
     </footer>
+    
+    <script src="./assets/home.ts" type="module"></script>
+    <script src="./assets/hljs.ts" type="module"></script>
 
   </body>
 </html>

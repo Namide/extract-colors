@@ -82,25 +82,30 @@
 
       <!-- NAV -->
       <nav class="hidden lg:block bg-base-200">
-        <ul class="menu bg-base-200 w-56 my-10">
-          <li class="menu-title">
-            <span>Browser</span>
-          </li>
-          <li><a href="#browser-installation">Installation</a></li>
-          <li><a href="#browser-usage">Usage</a></li>
-          <li class="menu-title mt-5">
-            <span>Node.js</span>
-          </li>
-          <li><a href="#nodejs-installation">Installation</a></li>
-          <li><a href="#nodejs-usage">Usage</a></li>
-          <li class="menu-title mt-5">
-            <span>Advanced</span>
-          </li>
-          <li><a href="#output">Output</a></li>
-          <li><a href="#options">Options</a></li>
-          <li><a href="#pixels">Pixels</a></li>
-          <li><a href="#distance">Distance</a></li>
-        </ul>
+        <div class="top-0 overflow-y-scroll my-6 sticky max-h-screen">
+          <ul class="menu menu-compact bg-base-200 w-56 my-4">
+            <li class="menu-title">
+              <span>Browser</span>
+            </li>
+            <li><a href="#browser-installation">Installation</a></li>
+            <li><a href="#browser-usage">Usage</a></li>
+            <li class="menu-title mt-5">
+              <span>Node.js</span>
+            </li>
+            <li><a href="#nodejs-installation">Installation</a></li>
+            <li><a href="#nodejs-usage">Usage</a></li>
+            <li class="menu-title mt-5">
+              <span>Advanced</span>
+            </li>
+            <li><a href="#output">Output</a></li>
+            <li><a href="#options">Options</a></li>
+            <li><a href="#pixels" class="ml-2 text-xs leading-3">pixels</a></li>
+            <li><a href="#distance" class="ml-2 text-xs leading-3">distance</a></li>
+            <li><a href="#split-power" class="ml-2 text-xs leading-3">splitPower</a></li>
+            <li><a href="#color-validator" class="ml-2 text-xs leading-3">colorValidator</a></li>
+            <li><a href="#cross-origin" class="ml-2 text-xs leading-3">crossOrigin</a></li>
+          </ul>
+        </div>
       </nav>
 
       <!-- TEXT -->
@@ -353,19 +358,48 @@ extractColors(src, options)
           </table>
         </div>
 
-        <p class="mt-5">
-          <strong>colorValidator</strong><br>
-          <em>Test function to enable only some colors</em><br>
-          Type: <code>Function</code><br>
-          Default: <code>(red, green, blue, alpha = 255) =&gt; alpha &gt; 250</code>
+        <h3 id="color-validator" class="text-xl mt-6 mb-2 font-bold">colorValidator</h3>
+        <p class="my-5">
+          Test function to enable only some colors.
         </p>
-        <p class="mt-5">
-          <strong>crossOrigin</strong><br>
-          <em>Only for browser, can be 'Anonymous' to avoid client side CORS</em>
-          <em>(the server side images need authorizations too)</em><br>
-          Type: <code>String</code><br>
-          Default: <code>null</code>
+        <div class="overflow-x-auto">
+          <table class="table max-w-full">
+            <tr>
+              <th class="block">Type</th>
+              <td>Function</td>
+            </tr>
+            <tr>
+              <th class="block">Signature</th>
+              <td><code>(red: number, green: number, blue: number, alpha?: number) => boolean</code></td>
+            </tr>
+            <tr>
+              <th class="block">Default</th>
+              <td>(red, green, blue, alpha = 255) =&gt; alpha &gt; 250</td>
+            </tr>
+          </table>
+        </div>
+
+        <h3 id="cross-origin" class="text-xl mt-6 mb-2 font-bold">crossOrigin (browser)</h3>
+        <p class="my-5">
+          Only for browser, can be 'Anonymous' to avoid client side CORS.
+          (the server side images need authorizations too).
         </p>
+        <div class="overflow-x-auto">
+          <table class="table max-w-full">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>String</td>
+                <td>null</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
       </article>
     </div>
