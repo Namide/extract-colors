@@ -120,7 +120,7 @@
                   </svg>
                 </button>
               </div>
-              <ul id="ec-colors" class="flex justify-left flex-wrap gap-2">
+              <ul id="ec-colors" class="flex justify-left flex-wrap gap-2 invisible">
                 <li class="w-6 h-6 rounded-xl border border-black border-opacity-20"></li>
               </ul>
             </div>
@@ -142,25 +142,25 @@
         <h3 id="browser-installation" class="text-2xl mt-8 mb-2">Installation</h3>
         <p class="mb-2 mt-5">Install Extract Colors on your project with NPM.</p>
         <div class="tabs ml-5">
-          <button id="install-browser-btn" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
-          <button id="install-nodejs-btn" class="tab tab-bordered rounded-t-xl">Node.js</button>
+          <button data-tab="install" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button data-tab="install" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
         </div>
-        <div class="ec-code"><pre><code id="install-browser-content" class="language-bash">npm install extract-colors</code><code id="install-nodejs-content" class="language-bash !hidden">npm install extract-colors canvas</code></pre></div>
+        <div class="ec-code"><pre><code data-tab="install" data-tabcontent="1" class="language-bash">npm install extract-colors</code><code data-tab="install" data-tabcontent="2" class="language-bash !hidden">npm install extract-colors canvas</code></pre></div>
 
         <!-- USAGE - BROWSER -->
-        <h3 id="browser-usage" class="text-2xl mt-8 mb-2">Usage</h3>
+        <h3 class="text-2xl mt-8 mb-2">Usage</h3>
         <div class="tabs ml-5">
-          <button id="usage-browser-btn" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
-          <button id="usage-nodejs-btn" class="tab tab-bordered rounded-t-xl">Node.js</button>
+          <button data-tab="usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button data-tab="usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
         </div>
-        <div class="ec-code"><pre><code id="usage-browser-content" class="language-javascript">import extractColors from 'extract-colors'
+        <div class="ec-code"><pre><code data-tab="usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors'
 
 const src = 'my-image.jpg'
 
 extractColors(src)
   .then(console.log)
   .catch(console.error)
-</code><code id="usage-nodejs-content" class="language-javascript !hidden">const path = require('path')
+</code><code data-tab="usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
 const { extractColors } = require('extract-colors')
 
 const src = path.join(__dirname, './my-image.jpg')
