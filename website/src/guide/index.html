@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/style.css">
     <meta name="author" content="Damien Doussaud">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../assets/extract-color.svg" type="image/svg+xml">
     <title>Extract colors</title>
   </head>
 
@@ -85,19 +86,18 @@
         <div class="top-0 overflow-y-scroll my-6 sticky max-h-screen">
           <ul class="menu menu-compact bg-base-200 w-56 my-4">
             <li class="menu-title">
-              <span>Browser</span>
+              <span>Getting Started</span>
             </li>
-            <li><a href="#browser-installation">Installation</a></li>
-            <li><a href="#browser-usage">Usage</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#usage">Usage</a></li>
             <li class="menu-title mt-5">
-              <span>Node.js</span>
+              <span>Essentials</span>
             </li>
-            <li><a href="#nodejs-installation">Installation</a></li>
-            <li><a href="#nodejs-usage">Usage</a></li>
+            <li><a href="#output">Output</a></li>
             <li class="menu-title mt-5">
               <span>Advanced</span>
             </li>
-            <li><a href="#output">Output</a></li>
+            <li><a href="#module-usage">Module usage</a></li>
             <li><a href="#options">Options</a></li>
             <li><a href="#pixels" class="ml-2 text-xs leading-3">pixels</a></li>
             <li><a href="#distance" class="ml-2 text-xs leading-3">distance</a></li>
@@ -115,35 +115,38 @@
           Getting Started 
         </h1>
 
-        <div class="divider mt-16">on Browser</div>
-
-        <!-- INSTALL - BROWSER -->
-        <h2 id="browser-installation" class="text-2xl mt-8 mb-2">Installation</h2>
+        <!-- INSTALL -->
+        <h2 id="installation" class="text-2xl mt-8 mb-2">Installation</h2>
         <p class="mb-2 mt-5">Install Extract Colors on your project with NPM.</p>
-        <div class="ec-code"><pre><code class="language-bash">npm install extract-colors</code></pre></div>
+        <div class="tabs ml-5">
+          <button data-tab="install" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button data-tab="install" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
+        </div>
+        <div class="ec-code"><pre><code data-tab="install" data-tabcontent="1" class="language-bash">npm install extract-colors</code><code data-tab="install" data-tabcontent="2" class="language-bash !hidden">npm install extract-colors canvas</code></pre></div>
 
-        <!-- USAGE - BROWSER -->
-        <h2 id="browser-usage" class="text-2xl mt-8 mb-2">Usage</h2>
-        <div class="ec-code"><pre><code class="language-javascript">import extractColors from 'extract-colors'
-
-const src = 'my-image.jpg'
-
-extractColors(src)
-  .then(console.log)
-  .catch(console.error)
-</code></pre></div>
-
-        <p class="mb-2 mt-5">Module example (latest version of packager)</p>
-        <div class="ec-code"><pre><code class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+        <!-- SIMPLE USAGE -->
+        <h2 id="usage" class="text-2xl mt-8 mb-2">Usage</h2>
+        <div class="tabs ml-5">
+          <button data-tab="usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button data-tab="usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
+        </div>
+        <div class="ec-code"><pre><code data-tab="usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors'
 
 const src = 'my-image.jpg'
 
 extractColors(src)
   .then(console.log)
   .catch(console.error)
-</code></pre></div>
+</code><code data-tab="usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
+const { extractColors } = require('extract-colors')
 
-        <div class="divider mt-16">on Node.js</div>
+const src = path.join(__dirname, './my-image.jpg')
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.log)</code></pre></div>
+
+        <div class="divider mt-16">essentials</div>
 
         <!-- INSTALL - NODEJS -->
         <h2 id="nodejs-installation" class="text-2xl mt-8 mb-2">Installation</h2>
@@ -173,6 +176,27 @@ extractColors(src)
   .catch(console.log)</code></pre></div>
 
         <div class="divider mt-16">advanced</div>
+
+        <!-- MODULE USAGE -->
+        <h2 id="module-usage" class="text-2xl mt-8 mb-2">Module usage</h2>
+        <div class="tabs ml-5">
+          <button data-tab="module-usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button data-tab="module-usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
+        </div>
+        <div class="ec-code"><pre><code data-tab="module-usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+
+const src = 'my-image.jpg'
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.error)</code><code data-tab="module-usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
+const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
+
+const src = path.join(__dirname, './my-image.jpg')
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.log)</code></pre></div>
 
         <!-- OUTPUT -->
         <h2 id="output" class="text-2xl mt-8 mb-2">Output</h2>

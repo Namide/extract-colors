@@ -1,2 +1,2 @@
+import "./parts/tabs"
 import "./parts/hljs"
-console.log('LOADED')
