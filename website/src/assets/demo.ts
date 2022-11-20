@@ -25,6 +25,7 @@ function Input () {
     saturationDistance: AverageManager.saturationDefault,
     lightnessDistance: AverageManager.lightnessDefault,
     srcs: getRandImgs(5),
+    random: true,
 
     get list () {
       return this.srcs.map(src => ({
@@ -35,10 +36,12 @@ function Input () {
 
     randomFiles () {
       this.srcs = getRandImgs(5)
+      this.random = true
     },
 
     uploadFile (event) {
       this.srcs = [...event.target.files].map(file => URL.createObjectURL(file))
+      this.random = false
     }
   }
 }
@@ -51,11 +54,14 @@ function ImgBlock (props) {
     time: 0,
     naturalPx: 0,
     loading: true,
+    random: true,
 
     mounted () {
       const image = new Image()
       const id = `${ this.pixels }${ this.distance }${ this.splitPower }${ this.hueDistance }${ this.saturationDistance }${ this.lightnessDistance }`
       processCurrentId = id
+
+      this.random = props.random
 
       image.crossOrigin = 'anonymous'
       image.src = this.src

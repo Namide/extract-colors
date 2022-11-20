@@ -9,7 +9,8 @@
         Loading
       </h2>
     </div>
-    <div v-else class="card-body text-base-content">
+    <div v-else class="card-body text-base-content relative">
+      <p v-if="random" class="absolute -top-2 left-4 text-shadow text-white text-sm -translate-y-full">Random image from Unsplash</p>
       <h2 class="card-title">
         {{ colors.length }} colors
         <div class="badge badge-accent">
@@ -241,7 +242,7 @@
       <!-- IMAGES -->
       <div class="flex flex-wrap gap-5">
         <div
-          v-for="{ src, id } of list" v-scope="ImgBlock({ src, pixels, distance, splitPower, hueDistance, saturationDistance, lightnessDistance })"
+          v-for="{ src, id } of list" v-scope="ImgBlock({ random, src, pixels, distance, splitPower, hueDistance, saturationDistance, lightnessDistance })"
           class="card w-full lg:w-[calc(50%-15px)] xl:w-[calc(33%-15px)] bg-base-100 shadow-xl"
           @vue:mounted="mounted" :key="id"
         >
