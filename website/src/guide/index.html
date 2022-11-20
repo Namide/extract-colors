@@ -15,12 +15,12 @@
     <header class="bg-base-100 text-base-content">
       <div class="navbar max-w-7xl mx-auto">
         <div class="navbar-start">
-          <h1 tabindex="0" class="btn btn-ghost normal-case text-xl">
+          <div tabindex="0" class="btn btn-ghost normal-case text-xl">
             <a href="/">
               <span class="text-primary">Extract</span><!--
               --><span class="text-base-content">Colors</span>
             </a>
-          </h1>
+          </div>
         </div>
         <div class="navbar-end">
   
@@ -109,16 +109,18 @@
       </nav>
 
       <!-- TEXT -->
-      <article class="flex-1 bg-base-100 px-6 py-12 max-w-full">
+      <article class="flex-1 bg-base-100 px-6 py-12 max-w-full lg:max-w-[calc(100%-14rem)] relative">
 
-        <h1 class="text-4xl font-bold">
+        <div class="from-base-200 to-base-100 bg-gradient-to-b absolute top-0 left-0 w-full h-16 opacity-30"></div>
+
+        <h1 class="text-4xl font-bold relative">
           Getting Started 
         </h1>
 
         <!-- INSTALL -->
         <h2 id="installation" class="text-2xl mt-8 mb-2">Installation</h2>
         <p class="mb-2 mt-5">Install Extract Colors on your project with NPM.</p>
-        <div class="tabs ml-5">
+        <div class="tabs ml-5 mt-8">
           <button data-tab="install" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
           <button data-tab="install" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
         </div>
@@ -126,13 +128,13 @@
 
         <!-- SIMPLE USAGE -->
         <h2 id="usage" class="text-2xl mt-8 mb-2">Usage</h2>
-        <div class="tabs ml-5">
+        <div class="tabs ml-5 mt-8">
           <button data-tab="usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
           <button data-tab="usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
         </div>
         <div class="ec-code"><pre><code data-tab="usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors'
 
-const src = 'my-image.jpg'
+const src = "my-image.jpg"
 
 extractColors(src)
   .then(console.log)
@@ -147,56 +149,6 @@ extractColors(src)
   .catch(console.log)</code></pre></div>
 
         <div class="divider mt-16">essentials</div>
-
-        <!-- INSTALL - NODEJS -->
-        <h2 id="nodejs-installation" class="text-2xl mt-8 mb-2">Installation</h2>
-        <p class="mb-2 mt-5">On Node.js, Extract Colors need canvas dependency to run.</p>
-        <div class="ec-code"><pre><code class="language-bash">npm install extract-colors canvas</code></pre></div>
-
-        <!-- USAGE - NODEJS -->
-        <h2 id="nodejs-usage" class="text-2xl mt-8 mb-2">Usage</h2>
-        <div class="ec-code"><pre><code class="language-javascript">const path = require('path')
-const { extractColors } = require('extract-colors')
-
-const src = path.join(__dirname, './my-image.jpg')
-
-extractColors(src)
-  .then(console.log)
-  .catch(console.log)
-</code></pre>
-
-<p class="mb-2 mt-5">Module example (latest version of npm)</p>
-<pre><code class="language-javascript">const path = require('path')
-const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
-
-const src = path.join(__dirname, './my-image.jpg')
-
-extractColors(src)
-  .then(console.log)
-  .catch(console.log)</code></pre></div>
-
-        <div class="divider mt-16">advanced</div>
-
-        <!-- MODULE USAGE -->
-        <h2 id="module-usage" class="text-2xl mt-8 mb-2">Module usage</h2>
-        <div class="tabs ml-5">
-          <button data-tab="module-usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
-          <button data-tab="module-usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
-        </div>
-        <div class="ec-code"><pre><code data-tab="module-usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
-
-const src = 'my-image.jpg'
-
-extractColors(src)
-  .then(console.log)
-  .catch(console.error)</code><code data-tab="module-usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
-const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
-
-const src = path.join(__dirname, './my-image.jpg')
-
-extractColors(src)
-  .then(console.log)
-  .catch(console.log)</code></pre></div>
 
         <!-- OUTPUT -->
         <h2 id="output" class="text-2xl mt-8 mb-2">Output</h2>
@@ -241,6 +193,29 @@ extractColors(src)
           </tbody>
         </table>
 
+        <div class="divider mt-16">advanced</div>
+
+        <!-- MODULE USAGE -->
+        <h2 id="module-usage" class="text-2xl mt-8 mb-2">Module usage</h2>
+        <div class="tabs ml-5 mt-8">
+          <button data-tab="module-usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button data-tab="module-usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
+        </div>
+        <div class="ec-code"><pre><code data-tab="module-usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+
+const src = "my-image.jpg"
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.error)</code><code data-tab="module-usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
+const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
+
+const src = path.join(__dirname, './my-image.jpg')
+
+extractColors(src)
+  .then(console.log)
+  .catch(console.log)</code></pre></div>
+
         <!-- OPTIONS -->
         <h2 id="options" class="text-2xl mt-8 mb-2">Options</h2>
         <div class="alert alert-info shadow-lg">
@@ -251,7 +226,28 @@ extractColors(src)
           </div>
         </div>
         <p class="mb-2 mt-5">Example of custom options</p>
-        <div class="ec-code"><pre><code class="language-javascript">const src = 'my-image.jpg'
+        <div class="tabs ml-5 mt-8">
+          <button data-tab="options-usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
+          <button data-tab="options-usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
+        </div>
+        <div class="ec-code"><pre><code data-tab="options-usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+
+const src = "my-image.jpg"
+
+const options = {
+  pixels: 10000,
+  distance: 0.2,
+  saturationImportance: 0.2,
+  splitPower: 10,
+  colorValidator: (red, green, blue, alpha = 255) => alpha > 250
+}
+
+extractColors(src, options)
+  .then(console.log)
+  .catch(console.error)</code><code data-tab="options-usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
+const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
+
+const src = path.join(__dirname, './my-image.jpg')
 
 const options = {
   pixels: 10000,
@@ -437,6 +433,8 @@ extractColors(src, options)
         </div>
       </div>
     </footer>
+
     <script src="../assets/guide.ts" type="module"></script>
+    
   </body>
 </html>

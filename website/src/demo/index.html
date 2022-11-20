@@ -5,9 +5,9 @@
 
     <figure><img crossorigin="anonymous" :src="src" width="640" height="480" ref="img" alt="image" class="w-full" /></figure>
     <div v-if="loading" class="card-body text-base-content">
-      <h2 class="card-title">
+      <span class="card-title">
         Loading
-      </h2>
+      </span>
     </div>
     <div v-else class="card-body text-base-content relative">
       <p v-if="random" class="absolute -top-2 left-4 text-shadow text-white text-sm -translate-y-full">Random image from Unsplash</p>
@@ -64,12 +64,12 @@
     <header class="bg-base-100 text-base-content">
       <div class="navbar max-w-7xl mx-auto">
         <div class="navbar-start">
-          <h1 tabindex="0" class="btn btn-ghost normal-case text-xl">
+          <div tabindex="0" class="btn btn-ghost normal-case text-xl">
             <a href="/">
               <span class="text-primary">Extract</span><!--
               --><span class="text-base-content">Colors</span>
             </a>
-          </h1>
+          </div>
         </div>
         <div class="navbar-end">
   
@@ -253,11 +253,12 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="footer items-center p-4 bg-neutral text-neutral-content justify-center">
+    <footer class="p-4 bg-neutral text-neutral-content text-sm">
       <div class="items-center grid-flow-col">
-        <p>
-          Copyright (C) 2019 <a href="https://damien-doussaud.com/" target="_blank" rel="author" class="link">Damien Doussaud</a>
-        </p>
+        <div class="text-center">
+          Released under the <a href="https://www.gnu.org/licenses/" target="_blank" rel="noopener noreferrer" class="link">GNU General Public v3 License</a>.<br>
+          Copyright © 2019 <a href="https://damien-doussaud.com/" target="_blank" rel="author" class="link">Damien Doussaud</a>
+        </div>
       </div>
     </footer>
 
