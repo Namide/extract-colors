@@ -1,4 +1,5 @@
 import extractColors from '../../../src/extractColors.browser'
+import "./parts/hljs"
 
 addTab("#usage-browser-btn", "#usage-nodejs-btn", "#usage-browser-content", "#usage-nodejs-content")
 addTab("#usage-nodejs-btn", "#usage-browser-btn", "#usage-nodejs-content", "#usage-browser-content")
