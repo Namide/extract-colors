@@ -1,8 +1,9 @@
+import { createApp } from 'petite-vue'
 import Extractor from '../../../src/extract/Extractor'
 import extractColors from '../../../src/extractColors.browser'
 import { FinalColor } from '../../../src/types/Color'
-import { createApp } from 'petite-vue'
 import { AverageManager } from '../../../src/sort/AverageManager'
+import "./parts/track"
 
 let processCurrentId = '' // To avoid old process calculations
 const IMG_THEME = [/* 'moon',*/ 'water', 'sea', 'colors', 'sky']
