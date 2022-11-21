@@ -244,7 +244,10 @@ const options = {
   distance: 0.2,
   saturationImportance: 0.2,
   splitPower: 10,
-  colorValidator: (red, green, blue, alpha = 255) => alpha > 250
+  colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
+  saturationDistance: 0.2,
+  lightnessDistance: 0.2,
+  hueDistance: 0.083333333
 }
 
 extractColors(src, options)
@@ -259,7 +262,10 @@ const options = {
   distance: 0.2,
   saturationImportance: 0.2,
   splitPower: 10,
-  colorValidator: (red, green, blue, alpha = 255) => alpha > 250
+  colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
+  saturationDistance: 0.2,
+  lightnessDistance: 0.2,
+  hueDistance: 0.083333333
 }
 
 extractColors(src, options)
@@ -292,44 +298,6 @@ extractColors(src, options)
             </tbody>
           </table>
         </div>
-
-        <!-- <table class="table">
-          <tr>
-            <th class="block">Type</th>          
-            <td>Integer</td>            
-          </tr>
-          <tr>
-            <th class="block">Min</th>          
-            <td>1</td>    
-          </tr>
-          <tr>
-            <th class="block">Max</th>          
-            <td>2^53 - 1</td>    
-          </tr>
-          <tr>
-            <th class="block">Default</th>          
-            <td>10000</td>            
-          </tr>
-        </table> -->
-
-        <!-- <div class="stats">
-          <div class="stat">
-            <div class="stat-title">Type</div>
-            <div class="stat-value">Integer</div>
-          </div>
-          <div class="stat">
-            <div class="stat-title">Min</div>
-            <div class="stat-value">1</div>
-          </div>
-          <div class="stat">
-            <div class="stat-title">Max</div>
-            <div class="stat-value">2^53 - 1</div>
-          </div>
-          <div class="stat">
-            <div class="stat-title">Default</div>
-            <div class="stat-value">10000</div>
-          </div>
-        </div> -->
 
         <h3 id="distance" class="text-xl mt-6 mb-2 font-bold">distance</h3>
         <p class="my-5">
@@ -421,6 +389,81 @@ extractColors(src, options)
               <tr>
                 <td>String</td>
                 <td>null</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="cross-origin" class="text-xl mt-6 mb-2 font-bold">saturationDistance</h3>
+        <p class="my-5">
+          Minimum saturation value between two colors otherwise the colors will be merged.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="table max-w-full">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>String</td>
+                <th>0</th>
+                <th>1</th>
+                <td>0.2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="cross-origin" class="text-xl mt-6 mb-2 font-bold">lightnessDistance</h3>
+        <p class="my-5">
+          Minimum lightness value between two colors otherwise the colors will be merged.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="table max-w-full">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>String</td>
+                <th>0</th>
+                <th>1</th>
+                <td>0.2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="cross-origin" class="text-xl mt-6 mb-2 font-bold">hueDistance</h3>
+        <p class="my-5">
+          Minimum hue value between two colors otherwise the colors will be merged.
+        </p>
+        <div class="overflow-x-auto">
+          <table class="table max-w-full">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Min</th>
+                <th>Max</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>String</td>
+                <th>0</th>
+                <th>1</th>
+                <td>0.083333333</td>
               </tr>
             </tbody>
           </table>
