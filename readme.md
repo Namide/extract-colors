@@ -14,9 +14,9 @@ Extract color palettes from images.
 Simple use, < 7ko minified, fast process and no dependencies for browser.  
 Dependency to canvas for node.js
 
-![3 examples of colors extraction](./doc/colors-2.jpg)
+[Website](https://extract-colors.namide.com/) | [Demo](https://extract-colors.namide.com/demo/) | [Guide](https://extract-colors.namide.com/guide/)
 
-Try the [demo](https://namide.github.io/extract-colors/)
+![3 examples of colors extraction](./doc/colors-2.jpg)
 
 ## Requirements
 
@@ -183,11 +183,6 @@ Array of colors with the followed properties:
 | lightness | 0.2784 | Number | color lightness from 0 to 1 |
 | saturation | 0.8732 | Number | color saturation from 0 to 1 |
 | area | 0.0004 | Number | area of the color and his neighbouring colors from 0 to 1 |
-
-
-## API doc
-
-Read the [API doc here](https://namide.github.io/extract-colors/doc/)
 
 
 ## License
