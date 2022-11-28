@@ -163,12 +163,15 @@ extractColors(src)
         <p class="mb-2 mt-5">Array of colors object with the followed properties</p>
         <div class="ec-code"><pre><code class="language-javascript">[
   {
-    hex: '#62342b',
-    red: 98,
-    green: 52,
-    blue: 43,
-    area: 0.5915,
-    saturation: 0.2156862
+    hex: "#858409",
+    red: 133,
+    green: 132,
+    blue: 9,
+    hue: 0.16532258064516128,
+    intensity: 0.4862745098039216,
+    lightness: 0.2784313725490196,
+    saturation: 0.8732394366197184,
+    area: 0.0004
   },
   ...
 ]</code></pre></div>
@@ -181,22 +184,31 @@ extractColors(src)
           </thead>
           <tbody>
             <tr>
-              <td>hex</td><td>#62342b</td>  <td>String</td><td>Hexadecimal RGB string</td>
+              <td>hex</td><td>#858409</td><td>String</td><td>Hexadecimal RGB string</td>
             </tr>
             <tr>
-              <td>red</td>  <td>98</td> <td>Integer</td><td>red amount from 0 to 255</td>
+              <td>red</td><td>133</td><td>Integer</td><td>red amount from 0 to 255</td>
             </tr>
             <tr>
-              <td>green</td>  <td>52</td> <td>Integer</td><td>green amount from 0 to 255</td>
+              <td>green</td><td>132</td><td>Integer</td><td>green amount from 0 to 255</td>
             </tr>
             <tr>
-              <td>blue</td> <td>43</td>  <td>Integer</td><td>blue amount from 0 to 255</td>
+              <td>blue</td><td>9</td><td>Integer</td><td>blue amount from 0 to 255</td>
             </tr>
             <tr>
-              <td>area</td><td>0.5915</td>  <td>Number</td><td>Abundance of the color and his neighbouring colors from 0 to 1</td>
+              <td>hue</td><td>0.1653</td><td>Number</td><td>color tone from 0 to 1</td>
             </tr>
             <tr>
-              <td>saturation</td><td>0.2156862</td> <td>Number</td><td>color saturation from 0 to 1</td>
+              <td>intensity</td><td>0.4862</td><td>Number</td><td>color intensity from 0 to 1</td>
+            </tr>
+            <tr>
+              <td>lightness</td><td>0.2784</td><td>Number</td><td>color lightness from 0 to 1</td>
+            </tr>
+            <tr>
+              <td>saturation</td><td>0.8732</td><td>Number</td><td>color saturation from 0 to 1</td>
+            </tr>
+            <tr>
+              <td>area</td><td>0.0004</td><td>Number</td><td>Abundance of the color and his neighbouring colors from 0 to 1</td>
             </tr>
           </tbody>
         </table>

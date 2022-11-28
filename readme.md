@@ -11,10 +11,10 @@
 [![Downloaded](https://img.shields.io/npm/dt/extract-colors)](https://www.npmjs.com/package/extract-colors)
 
 Extract color palettes from images.  
-Simple use, < 5ko minified, fast process and no dependencies for browser.  
+Simple use, < 7ko minified, fast process and no dependencies for browser.  
 Dependency to canvas for node.js
 
-![3 examples of colors extraction](./doc/colors.jpg)
+![3 examples of colors extraction](./doc/colors-2.jpg)
 
 Try the [demo](https://namide.github.io/extract-colors/)
 
@@ -69,17 +69,6 @@ extractColors(src)
   .catch(console.error)
 ```
 
-Module example (latest version of packager)
-```js
-import extractColors from 'extract-colors/lib/extract-colors.browser.es.js'
-
-const src = 'my-image.jpg'
-
-extractColors(src)
-  .then(console.log)
-  .catch(console.error)
-```
-
 > You can use different types for `src` param (`String` for a path of image, `Image` or `ImageData`).  
 > If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
 
@@ -97,18 +86,6 @@ extractColors(src)
   .catch(console.log)
 ```
 
-Module example (latest version of npm)
-```js
-const path = require('path')
-const { extractColors } = require('extract-colors/lib/extract-colors.node.es.js')
-
-const src = path.join(__dirname, './my-image.jpg')
-
-extractColors(src)
-  .then(console.log)
-  .catch(console.log)
-```
-
 > You can use different types for `src` param (`String` for a path of image or `ImageData`).  
 > If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
 
@@ -116,13 +93,15 @@ extractColors(src)
 ### ExtractorOptions
 
 ```js
-const src = 'my-image.jpg'
-
 const options = {
   pixels: 10000,
   distance: 0.2,
+  saturationImportance: 0.2,
   splitPower: 10,
-  colorValidator: (red, green, blue, alpha = 255) => alpha > 250
+  colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
+  saturationDistance: 0.2,
+  lightnessDistance: 0.2,
+  hueDistance: 0.083333333
 }
 
 extractColors(src, options)
@@ -148,13 +127,28 @@ Default: `10`
 **colorValidator**  
 _Test function to enable only some colors_  
 Type: `Function`  
-Default: `(red, green, blue, alpha = 255) => alpha > 250`  
+Default: `(red, green, blue, alpha = 255) => alpha > 250`
 
 **crossOrigin**  
 _Only for browser, can be 'Anonymous' to avoid client side CORS_
 _(the server side images need authorizations too)_  
 Type: `String`  
-Default: `null`  
+Default: `null`
+
+**saturationDistance**  
+_Minimum saturation value between two colors otherwise the colors will be merged (from 0 to 1)_
+Type: `String`  
+Default: `0.2`
+
+**lightnessDistance**  
+_Minimum lightness value between two colors otherwise the colors will be merged (from 0 to 1)_
+Type: `String`  
+Default: `0.2`
+
+**hueDistance**  
+_Minimum hue value between two colors otherwise the colors will be merged (from 0 to 1)_
+Type: `String`  
+Default: `0.083333333`
 
 
 ## Return of the promise
@@ -164,12 +158,15 @@ Array of colors with the followed properties:
 ```js
 [
   {
-    hex: '#62342b',
-    red: 98,
-    green: 52,
-    blue: 43,
-    area: 0.5915,
-    saturation: 0.2156862
+    hex: "#858409",​​
+    red: 133,​​
+    green: 132,​​
+    blue: 9,​​
+    hue: 0.16532258064516128,​​
+    intensity: 0.4862745098039216,​​
+    lightness: 0.2784313725490196,​​
+    saturation: 0.8732394366197184,
+    area: 0.0004
   },
   ...
 ]
@@ -177,12 +174,15 @@ Array of colors with the followed properties:
 
 | Field | Example | Type | Description |
 |---|---|---|---|
-| hex | #62342b | String | color in hexadecimal string |
-| red | 98 | Integer | red canal from 0 to 255 |
-| green | 52 | Integer | green canal from 0 to 255 |
-| blue | 43 | Integer | blue canal from 0 to 255 |
-| area | 0.5915 | Number | area of the color and his neighbouring colors from 0 to 1 |
-| saturation | 0.2156862 | Number | color saturation from 0 to 1 |
+| hex | #858409 | String | color in hexadecimal string |
+| red | 133 | Integer | red canal from 0 to 255 |
+| green | 132 | Integer | green canal from 0 to 255 |
+| blue | 9 | Integer | blue canal from 0 to 255 |
+| hue | 0.1653 | Number | color tone from 0 to 1 |
+| intensity | 0.4862 | Number | color intensity from 0 to 1 |
+| lightness | 0.2784 | Number | color lightness from 0 to 1 |
+| saturation | 0.8732 | Number | color saturation from 0 to 1 |
+| area | 0.0004 | Number | area of the color and his neighbouring colors from 0 to 1 |
 
 
 ## API doc
