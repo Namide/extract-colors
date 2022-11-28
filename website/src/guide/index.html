@@ -221,14 +221,14 @@ extractColors(src)
           <button data-tab="module-usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
           <button data-tab="module-usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
         </div>
-        <div class="ec-code"><pre><code data-tab="module-usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+        <div class="ec-code"><pre><code data-tab="module-usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors/lib/extract-colors.browser.es.js'
 
 const src = "my-image.jpg"
 
 extractColors(src)
   .then(console.log)
   .catch(console.error)</code><code data-tab="module-usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
-const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
+const { extractColors } = require('extract-colors/lib/extract-colors.node.es.js')
 
 const src = path.join(__dirname, './my-image.jpg')
 
@@ -250,7 +250,7 @@ extractColors(src)
           <button data-tab="options-usage" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
           <button data-tab="options-usage" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
         </div>
-        <div class="ec-code"><pre><code data-tab="options-usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors/dist/extract-colors.browser.es.js'
+        <div class="ec-code"><pre><code data-tab="options-usage" data-tabcontent="1" class="language-javascript">import extractColors from 'extract-colors/lib/extract-colors.browser.es.js'
 
 const src = "my-image.jpg"
 
@@ -268,7 +268,7 @@ const options = {
 extractColors(src, options)
   .then(console.log)
   .catch(console.error)</code><code data-tab="options-usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
-const { extractColors } = require('extract-colors/dist/extract-colors.node.es.js')
+const { extractColors } = require('extract-colors/lib/extract-colors.node.es.js')
 
 const src = path.join(__dirname, './my-image.jpg')
 
