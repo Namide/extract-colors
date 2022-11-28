@@ -2,7 +2,7 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "emitDeclarationOnly": true
+    "noEmit": true
   },
-  "files": ["src/extractColors.node.ts"]
+  "files": ["../src/extractColors.browser.ts"]
 }

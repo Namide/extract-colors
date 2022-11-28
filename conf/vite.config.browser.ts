@@ -5,10 +5,9 @@ module.exports = defineConfig({
   build: {
     sourcemap: true,
     lib: {
-      entry: path.resolve(__dirname, 'src/extractColors.node.ts'),
+      entry: path.resolve(__dirname, '../src/extractColors.browser.ts'),
       name: 'ExtractColors',
-      fileName: (format) => `extract-colors.node.${format}.js`,
-      formats: ['cjs', 'es']
+      fileName: (format) => `extract-colors.browser.${format}.js`,
     },
     rollupOptions: {
       output: {

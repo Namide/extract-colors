@@ -4,5 +4,5 @@
     "lib": ["ESNext", "DOM"],
     "emitDeclarationOnly": true
   },
-  "files": ["src/extractColors.browser.ts"]
+  "files": ["../src/extractColors.browser.ts"]
 }
