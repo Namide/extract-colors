@@ -10,7 +10,7 @@ module.exports = {
     },
   },
   daisyui: {
-    themes: ["acid"],
+    themes: ["cmyk"],
   },
   plugins: [require("daisyui"), require('tailwind-highlightjs')],
 }
