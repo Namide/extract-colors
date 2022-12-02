@@ -98,11 +98,12 @@ export default class Extractor {
    * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
    * @returns {Array<Color>}
    */
-  process (data: Uint8ClampedArray | number[]) {
+  process ({ data, width, height }: ImageData | { data: Uint8ClampedArray | number[], width?: number, height?: number }) {
     const rootGroup = new RootGroup()
     const acc = this.splitPower
+    const reducer = (width && height) ? Math.floor(Math.sqrt(width * height) / this.pixels) || 1 : 1
 
-    for (let i = 0; i < data.length; i += 4) {
+    for (let i = 0; i < data.length; i += 4 * reducer) {
       const r = data[i] // 0 -> 255
       const g = data[i + 1]
       const b = data[i + 2]
@@ -120,22 +121,5 @@ export default class Extractor {
     }
 
     return rootGroup.getColors(this.distance, this.pixels)
-  }
-
-  /**
-   * Extract colors from data.
-   *
-   * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
-   * @returns {Array<Object>} { hex, red, green, blue, area, saturation }
-   */
-  extract (data: Uint8ClampedArray | number[]) {
-    return this.process(data)
-      // .map((color) => ({
-      //   hex: `#${'0'.repeat(6 - color.hex.toString(16).length)}${color.hex.toString(16)}`,
-      //   red: color.red,
-      //   green: color.green,
-      //   blue: color.blue,
-      //   area: color.count / this.pixels
-      // }))
   }
 }

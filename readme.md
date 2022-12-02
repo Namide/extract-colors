@@ -12,7 +12,7 @@
 
 Extract color palettes from images.  
 Simple use, < 7ko minified, fast process and no dependencies for browser.  
-Dependency to canvas for node.js
+Need image reader for node.js
 
 [Website](https://extract-colors.namide.com/) | [Demo](https://extract-colors.namide.com/demo/) | [Guide](https://extract-colors.namide.com/guide/)
 
@@ -48,10 +48,10 @@ npm install --save extract-colors
 
 ### For node.js
 
-Need to install dependency `canvas`
+Need to install an ImageData extractor like `get-pixels`
 
 ```bash
-npm install --save extract-colors canvas
+npm install --save extract-colors get-pixels
 ```
 
 
@@ -69,25 +69,28 @@ extractColors(src)
   .catch(console.error)
 ```
 
-> You can use different types for `src` param (`String` for a path of image, `Image` or `ImageData`).  
-> If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
+> You can use different types for `src` param (`String` for a path of image, `Image` or `ImageData`).
 
 
 ### Node.js example
 
 ```js
 const path = require('path')
-const { extractColors } = require('extract-colors')
+const getPixels = require("get-pixels")
+const extractColors = require('extract-colors')
 
 const src = path.join(__dirname, './my-image.jpg')
 
-extractColors(src)
-  .then(console.log)
-  .catch(console.log)
+getPixels(src, (err, pixels) => {
+  if(!err) {
+    extractColors(pixels)
+      .then(console.log)
+      .catch(console.log)
+  }
+})
 ```
 
-> You can use different types for `src` param (`String` for a path of image or `ImageData`).  
-> If you use `ImageData` type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).
+> You can use different types for `src` param (`String` for a path of image or `ImageData`).
 
 
 ### ExtractorOptions

@@ -23,7 +23,7 @@ serve:
 		node:slim \
 		npm run serve
 
-dev-env:
+code:
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \
 		-v $(shell pwd):/usr/src/app \
@@ -33,7 +33,7 @@ dev-env:
 		node:slim \
 		bash
 
-build-website:
+website:
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \
 		-v $(shell pwd):/usr/src/app \

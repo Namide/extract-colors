@@ -150,7 +150,7 @@
           <button data-tab="install" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
           <button data-tab="install" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
         </div>
-        <div class="ec-code"><pre><code data-tab="install" data-tabcontent="1" class="language-bash">npm install extract-colors</code><code data-tab="install" data-tabcontent="2" class="language-bash !hidden">npm install extract-colors canvas</code></pre></div>
+        <div class="ec-code"><pre><code data-tab="install" data-tabcontent="1" class="language-bash">npm install extract-colors</code><code data-tab="install" data-tabcontent="2" class="language-bash !hidden">npm install extract-colors get-pixels</code></pre></div>
 
         <!-- USAGE - BROWSER -->
         <p class="mb-2 mt-16">Extract color palette with the followed code</p>
@@ -166,13 +166,18 @@ extractColors(src)
   .then(console.log)
   .catch(console.error)
 </code><code data-tab="usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
-const { extractColors } = require('extract-colors')
+const getPixels = require("get-pixels")
+const extractColors = require('extract-colors')
 
 const src = path.join(__dirname, './my-image.jpg')
 
-extractColors(src)
-  .then(console.log)
-  .catch(console.log)</code></pre></div>
+getPixels(src, (err, pixels) => {
+  if(!err) {
+    extractColors(pixels)
+      .then(console.log)
+      .catch(console.log)
+  }
+})</code></pre></div>
       </div>
 
       <div class="text-center my-10">

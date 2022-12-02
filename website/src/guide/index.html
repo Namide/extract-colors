@@ -132,7 +132,7 @@
           <button data-tab="install" data-tabbtn="1" class="tab tab-bordered rounded-t-xl tab-active !bg-neutral !text-neutral-content">Browser</button> 
           <button data-tab="install" data-tabbtn="2" class="tab tab-bordered rounded-t-xl">Node.js</button>
         </div>
-        <div class="ec-code"><pre><code data-tab="install" data-tabcontent="1" class="language-bash">npm install extract-colors</code><code data-tab="install" data-tabcontent="2" class="language-bash !hidden">npm install extract-colors canvas</code></pre></div>
+        <div class="ec-code"><pre><code data-tab="install" data-tabcontent="1" class="language-bash">npm install extract-colors</code><code data-tab="install" data-tabcontent="2" class="language-bash !hidden">npm install extract-colors get-pixels</code></pre></div>
 
         <!-- SIMPLE USAGE -->
         <h2 id="usage" class="text-2xl mt-8 mb-2">Usage</h2>
@@ -148,13 +148,18 @@ extractColors(src)
   .then(console.log)
   .catch(console.error)
 </code><code data-tab="usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
-const { extractColors } = require('extract-colors')
-
-const src = path.join(__dirname, './my-image.jpg')
-
-extractColors(src)
-  .then(console.log)
-  .catch(console.log)</code></pre></div>
+  const getPixels = require("get-pixels")
+  const extractColors = require('extract-colors')
+  
+  const src = path.join(__dirname, './my-image.jpg')
+  
+  getPixels(src, (err, pixels) => {
+    if(!err) {
+      extractColors(pixels)
+        .then(console.log)
+        .catch(console.log)
+    }
+  })</code></pre></div>
 
         <div class="divider mt-16">essentials</div>
 
@@ -229,20 +234,24 @@ extractColors(src)
   .then(console.log)
   .catch(console.error)</code><code data-tab="module-usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
 const { extractColors } = require('extract-colors/lib/extract-colors.node.es.js')
+const getPixels = require('get-pixels')
 
 const src = path.join(__dirname, './my-image.jpg')
 
-extractColors(src)
-  .then(console.log)
-  .catch(console.log)</code></pre></div>
+getPixels(src, (err, pixels) => {
+  if(!err) {
+    extractColors(pixels)
+      .then(console.log)
+      .catch(console.log)
+  }
+})</code></pre></div>
 
         <!-- OPTIONS -->
         <h2 id="options" class="text-2xl mt-8 mb-2">Options</h2>
         <div class="alert alert-info shadow-lg">
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <p>You can use different types for src param (String for a path of image or ImageData).
-              If you use ImageData type, be carrefull because the extractor will not optimize the process (it will not reduce the count of pixels).</p>
+            <p>You can use different types for src param (String for a path of image or ImageData).</p>
           </div>
         </div>
         <p class="mb-2 mt-5">Example of custom options</p>
@@ -269,6 +278,7 @@ extractColors(src, options)
   .then(console.log)
   .catch(console.error)</code><code data-tab="options-usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
 const { extractColors } = require('extract-colors/lib/extract-colors.node.es.js')
+const getPixels = require("get-pixels")
 
 const src = path.join(__dirname, './my-image.jpg')
 
@@ -283,9 +293,13 @@ const options = {
   hueDistance: 0.083333333
 }
 
-extractColors(src, options)
-  .then(console.log)
-  .catch(console.error)</code></pre></div>
+getPixels(src, (err, pixels) => {
+  if(!err) {
+    extractColors(pixels)
+      .then(console.log)
+      .catch(console.log)
+  }
+})</code></pre></div>
 
         <h3 id="pixels" class="text-xl mt-6 mb-2 font-bold">pixels</h3>
         <p class="my-5">

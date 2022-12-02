@@ -62,7 +62,7 @@ const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOption
  */
 const extractColorsFromImageData = (imageData: ImageData, options?: NodeOptions) => {
   const extractor = new Extractor(options)
-  const colors = extractor.extract(imageData.data)
+  const colors = extractor.process(imageData)
   return sortFinalColors(colors, extractor.pixels, options)
 }
 
@@ -83,7 +83,7 @@ const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOption
     const extract = (image: HTMLImageElement, options?: BrowserOptions) => {
       const extractor = new Extractor(options)
       const imageData = getImageData(image, extractor.pixels)
-      const colors = extractor.extract(imageData.data)
+      const colors = extractor.process(imageData)
       resolve(sortFinalColors(colors, extractor.pixels, options))
     }
 
