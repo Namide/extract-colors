@@ -1,11 +1,11 @@
 /**
  * @vitest-environment node
  */
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { extractColors } from '../src/extractColors.node'
 
 describe('Node', () => {  
-  it('Check by color data', () => {
+  it('Check by color data', () => new Promise(done => {
     
     const imageData = {
       width: 2,
@@ -16,10 +16,11 @@ describe('Node', () => {
     return extractColors(imageData as unknown as ImageData)
       .then(data => {
         expect(data.length).toBeGreaterThan(0)
+        done()
       })
-  })
+  }))
     
-  it('Check bad distance', () => {
+  it('Check bad distance', () => new Promise(done => {
     const imageData = {
       width: 2,
       height: 2,
@@ -31,12 +32,13 @@ describe('Node', () => {
     }
 
     return extractColors(imageData as unknown as ImageData, options)
-      .catch(() => {
-        expect(2).toBeGreaterThan(0)
+      .catch((error) => {
+        expect(error.message).toBe("distance is invalid (1.1)")
+        done()
       })
-  })
+  }))
   
-  it('Use custom pixels', () => {
+  it('Use custom pixels', () => new Promise(done => {
     const imageData = {
       width: 2,
       height: 2,
@@ -50,6 +52,7 @@ describe('Node', () => {
     return extractColors(imageData as unknown as ImageData, options)
       .then(data => {
         expect(data.length).toBe(1)
+        done()
       })
-  })
+  }))
 })

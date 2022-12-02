@@ -18,8 +18,7 @@ import RootGroup from '../color/RootGroup'
  */
 const testUint = <T = number>(label: string, val: T, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   if (!Number.isInteger(val) || val < min || val > max) {
-    console.error(`${label} is invalid (${ val })`)
-    return undefined
+    throw new Error(`${label} is invalid (${ val })`)
   }
 
   return val
@@ -35,8 +34,7 @@ const testUint = <T = number>(label: string, val: T, min = 0, max = Number.MAX_S
  */
 const testNumber = <T = number>(label: string, val: T, min = 0, max = Number.MAX_VALUE) => {
   if (Number(val) !== val || val < min || val > max) {
-    console.error(`${label} is invalid (${ val })`)
-    return undefined
+    throw new Error(`${label} is invalid (${ val })`)
   }
 
   return val
@@ -50,8 +48,7 @@ const testNumber = <T = number>(label: string, val: T, min = 0, max = Number.MAX
  */
 const testFunction = <T = () => void>(label: string, val: T) => {
   if (!val || {}.toString.call(val) !== '[object Function]') {
-    console.error(`${label} is invalid (${ val })`)
-    return null
+    throw new Error(`${label} is invalid (${ val })`)
   }
 
   return val
