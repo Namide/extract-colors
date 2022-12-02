@@ -81,6 +81,8 @@ describe('Color', () => {
     expect(extractor.process(imageData).length).toBe(4)
   })
 
+  type Cb = (red: number, green: number, blue: number, alpha: number) => boolean
+
   throwTest('Little pixels', { pixels: -1 }, "pixels is invalid (-1)")
   throwTest('Float pixels', { pixels: 1.2 }, "pixels is invalid (1.2)")
   throwTest('Large pixels', { pixels: Number.POSITIVE_INFINITY }, "pixels is invalid (Infinity)")
@@ -88,6 +90,6 @@ describe('Color', () => {
   throwTest('Large splitPower', { splitPower: 16 }, "splitPower is invalid (16)")
   throwTest('Little distance', { distance: -0.1 }, "distance is invalid (-0.1)")
   throwTest('Large distance', { distance: 1.0001 }, "distance is invalid (1.0001)")
-  throwTest('Number colorValidator', { colorValidator: 1 as unknown as (red: number, green: number, blue: number, alpha: number) => boolean }, "colorValidator is invalid (1)")
-  throwTest('String colorValidator', { colorValidator: "a" as unknown as (red: number, green: number, blue: number, alpha: number) => boolean }, "colorValidator is invalid (a)")
+  throwTest('Number colorValidator', { colorValidator: 1 as unknown as Cb }, "colorValidator is invalid (1)")
+  throwTest('String colorValidator', { colorValidator: "a" as unknown as Cb }, "colorValidator is invalid (a)")
 })

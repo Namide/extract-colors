@@ -75,9 +75,6 @@ describe("Browser", () => {
   }))
   
   it('Extract from image', () => new Promise(done => {
-    // const image = document.createElement("img");
-    // image.setAttribute("src", rgbw);
-    // const image = dom.window.document.querySelector('img')
     const image = new Image()
     extractColors(image as any)
       .then(data => {
