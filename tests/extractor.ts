@@ -25,7 +25,7 @@ const throwTest = async (testName: string, options: ExtractorOptions, errorMessa
       })
       .catch((error) => {
         expect(error.message).toBe(errorMessage)
-        done()
+        done(undefined)
       })
   }))
 }

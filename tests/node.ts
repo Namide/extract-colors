@@ -16,7 +16,7 @@ describe('Node', () => {
     return extractColors(imageData as unknown as ImageData)
       .then(data => {
         expect(data.length).toBeGreaterThan(0)
-        done()
+        done(undefined)
       })
   }))
     
@@ -34,7 +34,7 @@ describe('Node', () => {
     return extractColors(imageData as unknown as ImageData, options)
       .catch((error) => {
         expect(error.message).toBe("distance is invalid (1.1)")
-        done()
+        done(undefined)
       })
   }))
   
@@ -52,7 +52,7 @@ describe('Node', () => {
     return extractColors(imageData as unknown as ImageData, options)
       .then(data => {
         expect(data.length).toBe(1)
-        done()
+        done(undefined)
       })
   }))
 })

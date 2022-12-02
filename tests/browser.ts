@@ -70,7 +70,7 @@ describe("Browser", () => {
     return extractColors(imageData as any)
       .then(data => {
         expect(data.length).toBeGreaterThan(0)
-        done()
+        done(undefined)
       })
   }))
   
@@ -82,7 +82,7 @@ describe("Browser", () => {
     extractColors(image as any)
       .then(data => {
         expect(data.length).toBeGreaterThan(0)
-        done()
+        done(undefined)
       })
   }))
   
@@ -90,7 +90,7 @@ describe("Browser", () => {
     extractColors('fakesrc.jpg')
       .then(data => {
         expect(data.length).toBeGreaterThan(0)
-        done()
+        done(undefined)
       })
   }))
   
@@ -101,7 +101,7 @@ describe("Browser", () => {
     extractColors(new Image() as any, options)
       .then(data => {
         expect(data.length).toBeGreaterThan(0)
-        done()
+        done(undefined)
       })
   }))
   
@@ -112,7 +112,7 @@ describe("Browser", () => {
     extractColors(new ImageLoadable() as any, options)
       .then(data => {
         expect(data.length).toBeGreaterThan(0)
-        done()
+        done(undefined)
       })
   }))
 })
