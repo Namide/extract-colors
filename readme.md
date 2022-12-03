@@ -94,7 +94,8 @@ getPixels(src, (err, pixels) => {
 })
 ```
 
-> You can use different types for `src` param (`String` for a path of image or `ImageData`).
+> This example use `get-pixels` but you can change the lib.
+> Just send and ImageData object to `extractColors(imageData)`.
 
 
 ### ExtractorOptions
