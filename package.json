@@ -35,7 +35,7 @@
   "bugs": {
     "url": "https://github.com/Namide/extract-colors/issues"
   },
-  "homepage": "https://extract-colors.namide.com/",
+  "homepage": "https://extract-colors.namide.com",
   "files": [
     "lib"
   ],
