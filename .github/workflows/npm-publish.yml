@@ -27,7 +27,7 @@ jobs:
       - name: Install
         run: npm install
       - name: Test
-        run: npm coverage
+        run: npm run coverage
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -48,10 +48,6 @@ jobs:
         run: npm install
       - name: "Build lib"
         run: npm run build
-      - name: "Build website"
-        run: npm run build-website
-      - name: "Build doc"
-        run: npm run build-doc
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
