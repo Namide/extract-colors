@@ -3,11 +3,7 @@ import BudGroup from './BudGroup'
 
 /**
  * RootGroup colors with algorithms to optimize and merge neighbors colors.
- *
- * @module RootGroup
- */
-
-/**
+ * 
  * @class
  * @classdesc Manage list of colors or groups.
  */

@@ -6,21 +6,6 @@ import { FinalColor } from "./types/Color"
 import type { BrowserOptions, NodeOptions, SorterOptions } from "./types/Options"
 
 /**
- * Browser exported functions.
- *
- * @example
- * import extractColors from 'extract-colors'
- *
- * const src = 'my-image.jpg'
- *
- * extractColors(src)
- *   .then(console.log)
- *   .catch(console.error)
- *
- * @module Browser
- */
-
-/**
  * Extract ImageData from image.
  * Reduce image to a pixel count.
  */
@@ -47,7 +32,7 @@ const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOption
 /**
  * Extract colors from an ImageData object.
  */
-const extractColorsFromImageData = (imageData: ImageData, options?: NodeOptions) => {
+const extractColorsFromImageData = (imageData: ImageData | { data: Uint8ClampedArray | number[], width?: number, height?: number }, options?: NodeOptions) => {
   const extractor = new Extractor(options)
   const colors = extractor.process(imageData)
   return sortFinalColors(colors, extractor.pixels, options)
@@ -91,18 +76,23 @@ const extractColorsFromSrc = (src: string, options?: BrowserOptions) => {
 /**
  * Extract colors from a picture.
  */
-const extractColors = (picture: string | HTMLImageElement | ImageData, options?: BrowserOptions) => {
-  if (picture instanceof ImageData) {
-    return new Promise((resolve: (value: FinalColor[]) => void) => {
-      resolve(extractColorsFromImageData(picture, options))
-    })
-  }
+const extractColors = (picture: string | HTMLImageElement | ImageData | { data: Uint8ClampedArray | number[], width?: number, height?: number }, options?: BrowserOptions) => {
 
   if (picture instanceof Image) {
     return extractColorsFromImage(picture, options)
   }
 
-  return extractColorsFromSrc(picture, options)
+  if (picture instanceof ImageData || (picture instanceof Object && picture.data)) {
+    return new Promise((resolve: (value: FinalColor[]) => void) => {
+      resolve(extractColorsFromImageData(picture, options))
+    })
+  }
+
+  if (typeof picture === "string") {
+    return extractColorsFromSrc(picture, options)
+  }
+
+  throw new Error(`Can not analyse picture`)
 }
 
 export {

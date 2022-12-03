@@ -83,7 +83,11 @@ const src = path.join(__dirname, './my-image.jpg')
 
 getPixels(src, (err, pixels) => {
   if(!err) {
-    extractColors(pixels)
+    const data = [...pixels.data]
+    const width = Math.round(Math.sqrt(data.length / 4))
+    const height = width
+
+    extractColors({ data, width, height })
       .then(console.log)
       .catch(console.log)
   }

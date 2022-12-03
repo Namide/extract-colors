@@ -6,27 +6,6 @@ import { FinalColor } from './types/Color'
 import type { NodeOptions, SorterOptions } from "./types/Options"
 
 /**
- * Node exported functions.
- *
- * @example
- * const path = require('path')
- * const getPixels = require("get-pixels")
- * const extractColors = require('extract-colors')
- * 
- * const src = path.join(__dirname, './my-image.jpg')
- * 
- * getPixels(src, (err, pixels) => {
- *  if(!err) {
- *     extractColors(pixels)
- *       .then(console.log)
- *       .catch(console.log)
- *   }
- * })
- *
- * @module Node
- */
-
-/**
  * Sort colors and generate standard list of colors.
  */
 const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOptions) => {
@@ -46,7 +25,7 @@ const extractColorsFromImageData = ({ data, width = Number.MAX_SAFE_INTEGER, hei
 /**
  * Extract colors from an imageData.
  */
-const extractColors = (imageData: ImageData, options?: NodeOptions) => {
+const extractColors = (imageData: ImageData | { data: Uint8ClampedArray | number[], width?: number, height?: number }, options?: NodeOptions) => {
   if (imageData.data) {
     return new Promise((resolve: (value: FinalColor[]) => void) => {
       resolve(extractColorsFromImageData(imageData, options))

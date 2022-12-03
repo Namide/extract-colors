@@ -1,10 +1,6 @@
 /**
  * Informations like saturation or count of pixels in image.
- *
- * @module Color
- */
-
-/**
+ * 
  * @class
  * @classdesc Calculate some informations and store data about color.
  */
