@@ -4,7 +4,7 @@
   "description": "Extract color palettes from images",
   "main": "lib/extract-colors.node.cjs.js",
   "browser": "lib/extract-colors.browser.umd.js",
-  "types": "lib/extract-colors.browser.es.d.t",
+  "types": "lib/extract-colors.browser.es.d.ts",
   "scripts": {
     "prebuild": "rm -rf ./lib",
     "build": "tsc --project conf/tsconfig.browser.type.json && vite build --config conf/vite.config.browser.ts && tsc --project conf/tsconfig.node.type.json && vite build --config conf/vite.config.node.ts",
