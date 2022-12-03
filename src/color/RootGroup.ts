@@ -5,7 +5,6 @@ import BudGroup from './BudGroup'
  * RootGroup colors with algorithms to optimize and merge neighbors colors.
  *
  * @module RootGroup
- * @memberof module:core
  */
 
 /**
@@ -30,8 +29,6 @@ export default class RootGroup {
   /**
    * Add a key for a color, this key is a simplification to find neighboring colors.
    * Neighboring colors has same key.
-   *
-   * @param {Number} key  Simplication of color
    */
   addRootGroup (key: number) {
     if (this.children[key]) {
@@ -54,8 +51,6 @@ export default class RootGroup {
   /**
    * Add a key for a color, this key is a simplification to find neighboring colors.
    * Neighboring colors has same key.
-   *
-   * @param {Number} key  Simplication of color
    */
    addBudGroup (key: number) {
     if (this.children[key]) {
@@ -69,9 +64,6 @@ export default class RootGroup {
 
   /**
    * Max color weight between the children colors, depends of his saturation and his count.
-   *
-   * @param {Number} count  Number of pixels in the image.
-   * @returns {Number}
    */
   getMaxWeight (count: number): number {
     if (this.maxWeight === undefined) {
@@ -87,9 +79,6 @@ export default class RootGroup {
 
   /**
    * Color with the the max weight between the children colors, depends of his saturation and his count.
-   *
-   * @param {Number} count  Number of pixels in the image.
-   * @returns {Color}
    */
   getMaxWeightColor (count: number): Color {
     const list = this.getList()
@@ -102,8 +91,6 @@ export default class RootGroup {
 
   /**
    * Max count of colors for a group of colors.
-   *
-   * @returns {Color}
    */
   getMaxCountColor (): Color {
     const list = this.getList()
@@ -114,10 +101,6 @@ export default class RootGroup {
   /**
    * List of colors sorted by importance (neighboring hare calculated by distance and removed).
    * Importance is calculated with the saturation and count of neighboring colors.
-   *
-   * @param {Number} distance  Minimum distance between colors (from 0 to 1)
-   * @param {Number} count  Total pixels of image
-   * @returns {Array<Color>}
    */
   getColors (distance: number, count: number) {
     const list = this.getList()

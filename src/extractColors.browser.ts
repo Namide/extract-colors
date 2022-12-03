@@ -18,16 +18,11 @@ import type { BrowserOptions, NodeOptions, SorterOptions } from "./types/Options
  *   .catch(console.error)
  *
  * @module Browser
- * @memberof browser
  */
 
 /**
  * Extract ImageData from image.
  * Reduce image to a pixel count.
- *
- * @param {Image} image  Source image
- * @param {Number} pixels  Maximum number of pixels for process
- * @returns {ImageData}
  */
 const getImageData = (image: HTMLImageElement, pixels: number) => {
   const currentPixels = image.width * image.height
@@ -51,14 +46,6 @@ const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOption
 
 /**
  * Extract colors from an ImageData object.
- *
- * @param {ImageData} imageData
- * @param {Object=} options  Optional data
- * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
- * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
- * @param {String=} options.colorValidator  Callback with test to enable only some colors
- * @returns {Array<Object>}
  */
 const extractColorsFromImageData = (imageData: ImageData, options?: NodeOptions) => {
   const extractor = new Extractor(options)
@@ -67,15 +54,7 @@ const extractColorsFromImageData = (imageData: ImageData, options?: NodeOptions)
 }
 
 /**
- * Extract colors from an Image object.
- *
- * @param {Image} image
- * @param {Object=} options  Optional data
- * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
- * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
- * @param {String=} options.colorValidator  Callback with test to enable only some colors
- * @returns {Array<Object>}
+ * Extract colors from an HTMLImageElement.
  */
 const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOptions) => {
   image.crossOrigin = options?.crossOrigin || null
@@ -102,14 +81,6 @@ const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOption
 /**
  * Extract colors from a path.
  * The image will be downloaded.
- *
- * @param {String} src
- * @param {Object=} options  Optional data
- * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
- * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
- * @param {String=} options.colorValidator  Callback with test to enable only some colors
- * @returns {Array<Object>}
  */
 const extractColorsFromSrc = (src: string, options?: BrowserOptions) => {
   const image = new Image()
@@ -119,14 +90,6 @@ const extractColorsFromSrc = (src: string, options?: BrowserOptions) => {
 
 /**
  * Extract colors from a picture.
- *
- * @param {String|Image|ImageData} picture  Src, Image or ImageData
- * @param {Object=} options  Optional data
- * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
- * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
- * @param {String=} options.colorValidator  Callback with test to enable only some colors
- * @returns {Array<Object>}
  */
 const extractColors = (picture: string | HTMLImageElement | ImageData, options?: BrowserOptions) => {
   if (picture instanceof ImageData) {

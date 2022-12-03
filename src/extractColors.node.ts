@@ -5,6 +5,30 @@ import sortColors from "./sort/sortColors"
 import { FinalColor } from './types/Color'
 import type { NodeOptions, SorterOptions } from "./types/Options"
 
+/**
+ * Node exported functions.
+ *
+ * @example
+ * const path = require('path')
+ * const getPixels = require("get-pixels")
+ * const extractColors = require('extract-colors')
+ * 
+ * const src = path.join(__dirname, './my-image.jpg')
+ * 
+ * getPixels(src, (err, pixels) => {
+ *  if(!err) {
+ *     extractColors(pixels)
+ *       .then(console.log)
+ *       .catch(console.log)
+ *   }
+ * })
+ *
+ * @module Node
+ */
+
+/**
+ * Sort colors and generate standard list of colors.
+ */
 const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOptions) => {
   const list = sortColors(colors, pixels, options)
   return list.map(color => createFinalColor(color, pixels))
@@ -12,14 +36,6 @@ const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOption
 
 /**
  * Extract colors from an ImageData object.
- *
- * @param {Array<Number>} imageData
- * @param {Object=} options  Optional data
- * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
- * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
- * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
- * @param {String=} options.colorValidator  Callback with test to enable only some colors
- * @returns {Array<Object>}
  */
 const extractColorsFromImageData = ({ data, width = Number.MAX_SAFE_INTEGER, height = Number.MAX_SAFE_INTEGER }: { data: Uint8ClampedArray | number[], width?: number, height?: number }, options?: NodeOptions) => {
   const extractor = new Extractor(options)
@@ -27,6 +43,9 @@ const extractColorsFromImageData = ({ data, width = Number.MAX_SAFE_INTEGER, hei
   return sortFinalColors(colors, extractor.pixels, options)
 }
 
+/**
+ * Extract colors from an imageData.
+ */
 const extractColors = (imageData: ImageData, options?: NodeOptions) => {
   if (imageData.data) {
     return new Promise((resolve: (value: FinalColor[]) => void) => {

@@ -1,15 +1,10 @@
 import Color from './Color'
 
 /**
- * RootGroup colors with algorithms to optimize and merge neighbors colors.
+ * Manage list of colors to optimize and merge neighbors colors.
  *
- * @module BudGroup
- * @memberof module:core
- */
-
-/**
- * @class
- * @classdesc Manage list of colors or groups.
+ * @export
+ * @class BudGroup
  */
 export default class BudGroup {
 
@@ -27,11 +22,6 @@ export default class BudGroup {
 
   /**
    * Add color to the group.
-   *
-   * @param {Number} hex  Hexadecimal color from 0x000000 to 0xFFFFFF
-   * @param {Number} red  Integer red chanel from 0 to 255
-   * @param {Number} green  Integer green chanel from 0 to 255
-   * @param {Number} blue  Integer blue chanel from 0 to 255
    */
   addColor (hex: number, red: number, green: number, blue: number) {
     if (this.children[hex]) {
@@ -53,9 +43,6 @@ export default class BudGroup {
 
   /**
    * Max color weight between the children colors, depends of his saturation and his count.
-   *
-   * @param {Number} count  Number of pixels in the image.
-   * @returns {Number}
    */
    getMaxWeight (count: number): number {
     if (this.maxWeight === undefined) {
@@ -71,9 +58,6 @@ export default class BudGroup {
 
   /**
    * Color with the the max weight between the children colors, depends of his saturation and his count.
-   *
-   * @param {Number} count  Number of pixels in the image.
-   * @returns {Number}
    */
   getMaxWeightColor (count: number) {
     const list = this.getList()
@@ -86,8 +70,6 @@ export default class BudGroup {
 
   /**
    * Max count of colors for a group of colors.
-   *
-   * @returns {Number}
    */
   getMaxCountColor () {
     const list = this.getList()

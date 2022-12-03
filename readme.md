@@ -69,7 +69,7 @@ extractColors(src)
   .catch(console.error)
 ```
 
-> You can use different types for `src` param (`String` for a path of image, `Image` or `ImageData`).
+> You can use different types for `src` param (`String` for a path of image, `HTMLImageElement` or `ImageData`).
 
 
 ### Node.js example

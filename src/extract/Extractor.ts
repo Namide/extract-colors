@@ -2,19 +2,7 @@ import { ExtractorOptions } from '../types/Options'
 import RootGroup from '../color/RootGroup'
 
 /**
- * Process to extract main colors from list of colors.
- *
- * @module Extractor
- * @memberof module:core
- */
-
-/**
  * Test if value is an integer.
- *
- * @param {String} label
- * @param {Number} val
- * @param {Number} min
- * @param {Number} max
  */
 const testUint = <T = number>(label: string, val: T, min = 0, max = Number.MAX_SAFE_INTEGER) => {
   if (!Number.isInteger(val) || val < min || val > max) {
@@ -26,11 +14,6 @@ const testUint = <T = number>(label: string, val: T, min = 0, max = Number.MAX_S
 
 /**
  * Test if value is a number.
- *
- * @param {String} label
- * @param {Number} val
- * @param {Number} min
- * @param {Number} max
  */
 const testNumber = <T = number>(label: string, val: T, min = 0, max = Number.MAX_VALUE) => {
   if (Number(val) !== val || val < min || val > max) {
@@ -42,9 +25,6 @@ const testNumber = <T = number>(label: string, val: T, min = 0, max = Number.MAX
 
 /**
  * Test if value is a function.
- *
- * @param {String} label
- * @param {Function} val
  */
 const testFunction = <T = () => void>(label: string, val: T) => {
   if (!val || {}.toString.call(val) !== '[object Function]') {
@@ -55,6 +35,8 @@ const testFunction = <T = () => void>(label: string, val: T) => {
 }
 
 /**
+ * Process to extract main colors from list of colors.
+ * 
  * @class
  * @classdesc Process to extract neighboring colors.
  */
@@ -70,13 +52,6 @@ export default class Extractor {
   static splitPowerDefault = 10
   static colorValidatorDefault = (_red: number, _green: number, _blue: number, alpha?: number) => (alpha ?? 255) > 250
 
-  /**
-   * @param {Object=} options  Optional data
-   * @param {String=} options.pixels  Total pixel number of the resized picture for calculation
-   * @param {String=} options.distance  From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
-   * @param {String=} options.splitPower  Approximation power in the first color splitting during process (from 2 to 15)
-   * @param {String=} options.colorValidator  Callback with test to enable only some colors
-   */
   constructor ({
     pixels = Extractor.pixelsDefault,
     distance = Extractor.distanceDefault,
@@ -91,9 +66,6 @@ export default class Extractor {
 
   /**
    * Run extract process and get list of colors.
-   *
-   * @param {Array<Number>} data  List of colors with an array of flat colors by chanels with 0 to 255 per chanel (red, green, blue, alpha)
-   * @returns {Array<Color>}
    */
   process ({ data, width, height }: ImageData | { data: Uint8ClampedArray | number[], width?: number, height?: number }) {
     const rootGroup = new RootGroup()
