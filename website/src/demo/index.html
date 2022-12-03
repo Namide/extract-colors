@@ -22,30 +22,24 @@
         {{ px }} pixels for calculation (original image is {{ naturalPx }} pixels)<br>
       </p>
       <div class="card-actions justify-start">
-        <div
-          v-for="color of colors"
-          class="tooltip"
-          :data-tip="`area: ${ parseFloat((color.area * 100).toFixed(2)) }% 
-          HSL: { ${ color.hue.toFixed(2) },
-          ${ color.saturation.toFixed(2) },
-          ${ color.lightness.toFixed(2) } }
-          intensity:${ color.intensity.toFixed(2) }`"
-        >
-          <div
-            class="badge border-0"
-            :style="`background-color: ${ color.hex }`"
+
+        <ul class="flex justify-left flex-wrap gap-2">
+          <li
+            v-for="color of colors"
+            class="leading-[0]"
           >
             <span
-              class="opacity-50"
-              :class="{
-                'text-black': color.lightness >= 0.5,
-                'text-white': color.lightness < 0.5
-              }"
+              class="tooltip"
+              :data-tip="`${ parseFloat((color.area * 100).toFixed(2)) }%`"
             >
-              {{ color.hex }}
+              <span
+                class="w-6 h-6 rounded-xl block border border-black border-opacity-20"
+                :style="`background-color: ${ color.hex }`"
+              ></span>
             </span>
-          </div> 
-        </div>
+          </li>
+        </ul>
+
       </div>
     </div>
   </template>

@@ -44,14 +44,21 @@ function getColors () {
     crossOrigin: 'anonymous'
   })
     .then(colors => {
-      // container.innerHTML = colors.toString()
       const el = container.children[0] as HTMLLIElement
       container.innerHTML = ""
       container.classList.remove("invisible")
       container.append(...colors.map(color => {
-        const colEl = el.cloneNode() as HTMLLIElement
-        colEl.classList.remove("bg-white")
-        colEl.style.backgroundColor = color.hex
+        const colEl = el.cloneNode(true) as HTMLLIElement
+        const tooltip = colEl.querySelector('.tooltip') as HTMLSpanElement
+        const span = colEl.querySelector('span>span') as HTMLSpanElement
+
+        if (tooltip) {
+          tooltip.dataset.tip = `${ (color.area * 100).toFixed(2) }%`
+        }
+        if (span) {
+          span.style.backgroundColor = color.hex
+        }
+
         return colEl
       }))
 

@@ -33,7 +33,7 @@ code:
 		node:slim \
 		bash
 
-website:
+site:
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \
 		-v $(shell pwd):/usr/src/app \
