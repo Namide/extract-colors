@@ -14,9 +14,16 @@
       <p v-if="random" class="absolute -top-2 left-4 text-shadow text-white text-sm -translate-y-full">Random image from Unsplash</p>
       <h2 class="card-title">
         {{ colors.length }} colors
-        <div class="badge badge-accent">
-          {{ time }}ms
-        </div>
+        <span
+          class="tooltip font-normal"
+          data-tip="Calculation time (image loading excluded)"
+        >
+          <div
+            class="badge badge-accent align-text-top font-bold"
+          >
+            {{ time }}ms
+          </div>
+        </span>
       </h2>
       <p>
         {{ px }} pixels for calculation (original image is {{ naturalPx }} pixels)<br>

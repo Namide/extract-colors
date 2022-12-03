@@ -66,10 +66,10 @@ function ImgBlock (props) {
 
       image.crossOrigin = 'anonymous'
       image.src = this.src
-      image.onload = () => {
+      image.addEventListener("load", () => {
         this.px = Math.min(props.pixels, image.naturalWidth * image.naturalHeight)
         this.naturalPx = image.naturalWidth * image.naturalHeight
-      }
+      })
 
       const nextProcess = () => {
         process.shift()
@@ -83,22 +83,31 @@ function ImgBlock (props) {
         if (id !== processCurrentId) {
           nextProcess()
         }
-        const initTime = Date.now()
-        extractColors(this.src, {
-          pixels: Number(props.pixels),
-          distance: Number(props.distance),
-          splitPower: Number(props.splitPower),
-          hueDistance: Number(props.hueDistance),
-          saturationDistance: Number(props.saturationDistance),
-          lightnessDistance: Number(props.lightnessDistance),
-          crossOrigin: 'anonymous'
-        })
-          .then(colors => {
-            this.time = (Date.now() - initTime)
-            this.colors = colors
-            this.loading = false
+
+        const run = () => {
+          const initTime = Date.now()
+          extractColors(image, {
+            pixels: Number(props.pixels),
+            distance: Number(props.distance),
+            splitPower: Number(props.splitPower),
+            hueDistance: Number(props.hueDistance),
+            saturationDistance: Number(props.saturationDistance),
+            lightnessDistance: Number(props.lightnessDistance),
+            crossOrigin: 'anonymous'
           })
-          .finally(nextProcess)
+            .then(colors => {
+              this.time = (Date.now() - initTime)
+              this.colors = colors
+              this.loading = false
+            })
+            .finally(nextProcess)
+        }
+
+        if (image.complete) {
+          run()
+        } else {
+          image.addEventListener("load", run)
+        }
       }
 
       process.push(execProcess)
