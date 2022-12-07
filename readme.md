@@ -34,7 +34,7 @@ Need image reader for node.js
 
 ### Node
 
-- Node.js: 0.12+
+- Node.js: 6.0+
 
 
 ## Install
