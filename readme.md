@@ -11,7 +11,7 @@
 [![Downloaded](https://img.shields.io/npm/dt/extract-colors)](https://www.npmjs.com/package/extract-colors)
 
 Extract color palettes from images.  
-Simple use, < 7ko minified, fast process and no dependencies for browser.  
+Simple use, < 6ko minified, fast process and no dependencies for browser.  
 Need image reader for node.js
 
 [Website](https://extract-colors.namide.com/) | [Demo](https://extract-colors.namide.com/demo/) | [Guide](https://extract-colors.namide.com/guide/)
