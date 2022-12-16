@@ -10,6 +10,7 @@
     "build": "tsc --project conf/tsconfig.browser.type.json && vite build --config conf/vite.config.browser.ts && tsc --project conf/tsconfig.node.type.json && vite build --config conf/vite.config.node.ts",
     "postbuild": "cp lib/extractColors.browser.d.ts lib/extract-colors.browser.es.d.ts && mv lib/extractColors.browser.d.ts lib/extract-colors.browser.umd.d.ts &&  cp lib/extractColors.node.d.ts lib/extract-colors.node.es.d.ts && mv lib/extractColors.node.d.ts lib/extract-colors.node.cjs.d.ts",
     "lint": "eslint src --fix",
+    "pretest": "npm run build",
     "test": "vitest --config conf/vite.config.test.ts",
     "coverage": "vitest run --coverage --config conf/vite.config.test.ts",
     "loop": "for file in lib/*/*/*.js; do terser $file --compress --mangle --mangle-props --source-map includeSources --output $file; done"

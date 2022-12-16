@@ -1,30 +1,27 @@
 import Color from "../color/Color";
 import { AverageGroup } from "./AverageGroup";
 
+
 export class AverageManager {
 
-  hue:number
-  saturation:number
-  lightness:number
+  _hue:number
+  _saturation:number
+  _lightness:number
 
   private _groups: AverageGroup[] = []
 
-  static hueDefault = 1/12
-  static saturationDefault = 1/5
-  static lightnessDefault = 1/5
-
-  constructor ({
-    hue = AverageManager.hueDefault,
-    saturation= AverageManager.saturationDefault,
-    lightness = AverageManager.lightnessDefault
-  } = {}) {
-    this.hue = hue
-    this.saturation = saturation
-    this.lightness = lightness
+  constructor (
+    hue: number,
+    saturation: number,
+    lightness: number
+  ) {
+    this._hue = hue
+    this._saturation = saturation
+    this._lightness = lightness
   }
 
   addColor(color: Color) {
-    const samePalette = this._groups.find(averageGroup => averageGroup.isSamePalette(color, this.hue, this.saturation, this.lightness))
+    const samePalette = this._groups.find(averageGroup => averageGroup.isSamePalette(color, this._hue, this._saturation, this._lightness))
     if (samePalette) {
       samePalette.addColor(color)
     } else {

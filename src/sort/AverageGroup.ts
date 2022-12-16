@@ -17,9 +17,9 @@ export class AverageGroup {
     for (let i = 0; i < this.colors.length; i++) {
       const currentColor = this.colors[i]
       const isSame = 
-        hueDistance(currentColor.hue, color.hue) < hue &&
-        distance(currentColor.saturation, color.saturation) < saturation &&
-        distance(currentColor.lightness, color.lightness) < lightness
+        hueDistance(currentColor._hue, color._hue) < hue &&
+        distance(currentColor._saturation, color._saturation) < saturation &&
+        distance(currentColor._lightness, color._lightness) < lightness
 
       if (!isSame) {
         return false
@@ -30,20 +30,20 @@ export class AverageGroup {
 
   get average () {
     if (!this._average) {
-      const { red, green, blue } = this.colors.reduce((total, color) => {
-        total.red += color.red
-        total.green += color.green
-        total.blue += color.blue
+      const { r, g, b } = this.colors.reduce((total, color) => {
+        total.r += color._red
+        total.g += color._green
+        total.b += color._blue
         return total
-      }, { red: 0, green: 0, blue: 0 })
+      }, { r: 0, g: 0, b: 0 })
 
-      const total = this.colors.reduce((count, color) => count + color.count, 0)
+      const total = this.colors.reduce((_count, color) => _count + color._count, 0)
       this._average = new Color(
-        Math.round(red / this.colors.length),
-        Math.round(green / this.colors.length),
-        Math.round(blue / this.colors.length)
+        Math.round(r / this.colors.length),
+        Math.round(g / this.colors.length),
+        Math.round(b / this.colors.length)
       )
-      this._average.count = total
+      this._average._count = total
     }
     return this._average
   } 

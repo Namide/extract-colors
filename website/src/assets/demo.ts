@@ -1,8 +1,8 @@
 import { createApp } from 'petite-vue'
-import Extractor from '../../../src/extract/Extractor'
+import { EXTRACTOR_DEFAULT } from '../../../src/extract/Extractor'
 import extractColors from '../../../src/extractColors.browser'
 import { FinalColor } from '../../../src/types/Color'
-import { AverageManager } from '../../../src/sort/AverageManager'
+import { AVERAGE_DEFAULT } from '../../../src/sort/AverageManager'
 import "./parts/track"
 
 let processCurrentId = '' // To avoid old process calculations
@@ -19,12 +19,12 @@ const getRandImgs = (count: number) => Array(count).fill(1).map((_, i) => getRan
 
 function Input () {
   return {
-    pixels: Extractor.pixelsDefault,
-    distance: Extractor.distanceDefault,
-    splitPower: Extractor.splitPowerDefault,
-    hueDistance: Math.round(AverageManager.hueDefault * 1000) / 1000,
-    saturationDistance: AverageManager.saturationDefault,
-    lightnessDistance: AverageManager.lightnessDefault,
+    pixels: EXTRACTOR_DEFAULT.PIXELS,
+    distance: EXTRACTOR_DEFAULT.DISTANCE,
+    splitPower: EXTRACTOR_DEFAULT.SPLIT_POWER,
+    hueDistance: Math.round(AVERAGE_DEFAULT.HUE * 1000) / 1000,
+    saturationDistance: AVERAGE_DEFAULT.SATURATION,
+    lightnessDistance: AVERAGE_DEFAULT.LIGHTNESS,
     srcs: getRandImgs(5),
     random: true,
 

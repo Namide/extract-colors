@@ -77,7 +77,7 @@ extractColors(src)
 ```js
 const path = require('path')
 const getPixels = require("get-pixels")
-const extractColors = require('extract-colors')
+const { extractColors } = require('extract-colors')
 
 const src = path.join(__dirname, './my-image.jpg')
 
@@ -104,7 +104,6 @@ getPixels(src, (err, pixels) => {
 const options = {
   pixels: 10000,
   distance: 0.2,
-  saturationImportance: 0.2,
   splitPower: 10,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
   saturationDistance: 0.2,

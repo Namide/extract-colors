@@ -3,14 +3,14 @@ import Color from "./Color";
 
 export const createFinalColor = (color: Color, pixels: number): FinalColor => {
   return {
-    hex: `#${'0'.repeat(6 - color.hex.toString(16).length)}${color.hex.toString(16)}`,
-    red: color.red,
-    green: color.green,
-    blue: color.blue,
-    area: color.count / pixels,
-    hue: color.hue,
-    saturation: color.saturation,
-    lightness: color.lightness,
-    intensity: color.intensity,
+    hex: `#${'0'.repeat(6 - color._hex.toString(16).length)}${color._hex.toString(16)}`,
+    red: color._red,
+    green: color._green,
+    blue: color._blue,
+    area: color._count / pixels,
+    hue: color._hue,
+    saturation: color._saturation,
+    lightness: color._lightness,
+    intensity: color._intensity,
   }
 }

@@ -8,11 +8,11 @@ describe('Color', () => {
     const blue = 0x01
     const hex = 0xF77801
     const color = new Color(red, green, blue)
-    expect(color.red).toBe(red)
-    expect(color.green).toBe(green)
-    expect(color.blue).toBe(blue)
-    expect(color.hex).toBe(hex)
-    expect(color.count).toBe(1)
+    expect(color._red).toBe(red)
+    expect(color._green).toBe(green)
+    expect(color._blue).toBe(blue)
+    expect(color._hex).toBe(hex)
+    expect(color._count).toBe(1)
   })
   
   it('Color distance far', () => {

@@ -10,6 +10,36 @@ module.exports = defineConfig({
       fileName: (format) => `extract-colors.node.${format}.js`,
       formats: ['cjs', 'es']
     },
+    minify: "terser",
+    terserOptions: {
+      mangle: {
+        properties: {
+          reserved: [
+            "pixels",
+            "distance",
+            "splitPower",
+            "colorValidator",
+            "hueDistance",
+            "saturationDistance",
+            "lightnessDistance",
+            "crossOrigin",
+            "hex",
+            "red",
+            "green",
+            "blue",
+            "area",
+            "hue",
+            "saturation",
+            "lightness",
+            "intensity",
+            "extractColors",
+            "extractColorsFromImage",
+            "extractColorsFromImageData",
+            "extractColorsFromSrc"
+          ],
+        }
+      }
+    },
     rollupOptions: {
       output: {
         dir: './lib'

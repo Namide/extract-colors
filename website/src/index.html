@@ -175,7 +175,7 @@ extractColors(src)
   .catch(console.error)
 </code><code data-tab="usage" data-tabcontent="2" class="language-javascript !hidden">const path = require('path')
 const getPixels = require("get-pixels")
-const extractColors = require('extract-colors')
+const { extractColors } = require('extract-colors')
 
 const src = path.join(__dirname, './my-image.jpg')
 

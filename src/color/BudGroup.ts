@@ -8,72 +8,72 @@ import Color from './Color'
  */
 export default class BudGroup {
 
-  count: number
-  children: { [key: number]: Color }
-  maxWeight: number | undefined
+  _count: number
+  _children: { [key: number]: Color }
+  _maxWeight: number | undefined
 
   /**
-   * Store colors or groups and count similiar groups in the image.
+   * Store colors or groups and _count similiar groups in the image.
    */
   constructor () {
-    this.count = 1
-    this.children = { }
+    this._count = 1
+    this._children = { }
   }
 
   /**
    * Add color to the group.
    */
-  addColor (hex: number, red: number, green: number, blue: number) {
-    if (this.children[hex]) {
-      this.children[hex].count++
+  addColor (_hex: number, _red: number, _green: number, _blue: number) {
+    if (this._children[_hex]) {
+      this._children[_hex]._count++
     } else {
-      this.children[hex] = new Color(red, green, blue, hex)
+      this._children[_hex] = new Color(_red, _green, _blue, _hex)
     }
 
-    return this.children[hex]
+    return this._children[_hex]
   }
 
   /**
    * Get list of groups of list of colors.
    */
   getList () {
-    return (Object.keys(this.children) as unknown[] as number[])
-      .map((key) => this.children[key])
+    return (Object.keys(this._children) as unknown[] as number[])
+      .map((key) => this._children[key])
   }
 
   /**
-   * Max color weight between the children colors, depends of his saturation and his count.
+   * Max color weight between the list colors, depends of his saturation and his _count.
    */
-   getMaxWeight (count: number): number {
-    if (this.maxWeight === undefined) {
+   getMaxWeight (_count: number): number {
+    if (this._maxWeight === undefined) {
       const list = this.getList()
-        .map((child) => child.count / count)
+        .map((child) => child._count / _count)
 
       list.sort((a, b) => b - a)
-      this.maxWeight = list[0] || 0
+      this._maxWeight = list[0] || 0
     }
 
-    return this.maxWeight 
+    return this._maxWeight 
   }
 
   /**
-   * Color with the the max weight between the children colors, depends of his saturation and his count.
+   * Color with the the max weight between the list colors, depends of his saturation and his _count.
    */
-  getMaxWeightColor (count: number) {
+  getMaxWeightColor (_count: number) {
     const list = this.getList()
     list.sort((a, b) => {
-      return (b.count / count) - (a.count / count)
+      return (b._count / _count) - (a._count / _count)
     })
 
     return list[0]
   }
 
   /**
-   * Max count of colors for a group of colors.
+   * Max _count of colors for a group of colors.
    */
   getMaxCountColor () {
     const list = this.getList()
-    const biggest = list.reduce((a, b) => a.count >= b.count ? a : b)
+    const biggest = list.reduce((a, b) => a._count >= b._count ? a : b)
     return biggest
   }
 }

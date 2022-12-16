@@ -7,18 +7,18 @@ describe('Average group', () => {
     const av = new AverageGroup()
     av.addColor(new Color(0xFF, 0xFF, 0xFF))
     av.addColor(new Color(0xFD, 0xFD, 0xFD))
-    expect(av.average.red).toBe(0xFE)
-    expect(av.average.green).toBe(0xFE)
-    expect(av.average.blue).toBe(0xFE)
+    expect(av.average._red).toBe(0xFE)
+    expect(av.average._green).toBe(0xFE)
+    expect(av.average._blue).toBe(0xFE)
   })
 
   it('Extreme average', () => {
     const av = new AverageGroup()
     av.addColor(new Color(0xFF, 0xFF, 0xFF))
     av.addColor(new Color(0x00, 0x00, 0x00))
-    expect(av.average.red).toBe(0x80)
-    expect(av.average.green).toBe(0x80)
-    expect(av.average.blue).toBe(0x80)
+    expect(av.average._red).toBe(0x80)
+    expect(av.average._green).toBe(0x80)
+    expect(av.average._blue).toBe(0x80)
   })
 
   it('Extreme 3 average', () => {
@@ -26,9 +26,9 @@ describe('Average group', () => {
     av.addColor(new Color(0xFF, 0xFF, 0xFF))
     av.addColor(new Color(0x80, 0x80, 0x80))
     av.addColor(new Color(0x00, 0x00, 0x00))
-    expect(av.average.red).toBe(0x80)
-    expect(av.average.green).toBe(0x80)
-    expect(av.average.blue).toBe(0x80)
+    expect(av.average._red).toBe(0x80)
+    expect(av.average._green).toBe(0x80)
+    expect(av.average._blue).toBe(0x80)
   })
 
   it('Same palette', () => {

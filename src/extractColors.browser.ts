@@ -1,62 +1,48 @@
-import Color from "./color/Color"
-import { createFinalColor } from "./color/FinalColor"
-import Extractor from "./extract/Extractor"
-import sortColors from "./sort/sortColors"
+import { extractColorsFromImageData } from "./extractColors"
+import { sortFinalColors } from "./extractColors"
+import cleanInputs from "./extract/cleanInputs"
+import extractor from "./extract/extractor"
 import { FinalColor } from "./types/Color"
-import type { BrowserOptions, NodeOptions, SorterOptions } from "./types/Options"
+import type { BrowserOptions } from "./types/Options"
 
 /**
  * Extract ImageData from image.
  * Reduce image to a pixel count.
  */
-const getImageData = (image: HTMLImageElement, pixels: number) => {
-  const currentPixels = image.width * image.height
-  const width = currentPixels < pixels ? image.width : Math.round(image.width * Math.sqrt(pixels / currentPixels))
-  const height = currentPixels < pixels ? image.height : Math.round(image.height * Math.sqrt(pixels / currentPixels))
+const getImageData = (_image: HTMLImageElement, _pixels: number) => {
+  const currentPixels = _image.width * _image.height
+  const width = currentPixels < _pixels ? _image.width : Math.round(_image.width * Math.sqrt(_pixels / currentPixels))
+  const height = currentPixels < _pixels ? _image.height : Math.round(_image.height * Math.sqrt(_pixels / currentPixels))
 
   const canvas = document.createElement('canvas')
   canvas.width = width
   canvas.height = height
 
   const context = canvas.getContext('2d') as CanvasRenderingContext2D
-  context.drawImage(image, 0, 0, image.width, image.height, 0, 0, width, height)
+  context.drawImage(_image, 0, 0, _image.width, _image.height, 0, 0, width, height)
 
   return context.getImageData(0, 0, width, height)
-}
-
-const sortFinalColors = (colors: Color[], pixels: number, options?: SorterOptions) => {
-  const list = sortColors(colors, pixels, options)
-  return list.map(color => createFinalColor(color, pixels))
-}
-
-/**
- * Extract colors from an ImageData object.
- */
-const extractColorsFromImageData = (imageData: ImageData | { data: Uint8ClampedArray | number[], width?: number, height?: number }, options?: NodeOptions) => {
-  const extractor = new Extractor(options)
-  const colors = extractor.process(imageData)
-  return sortFinalColors(colors, extractor.pixels, options)
 }
 
 /**
  * Extract colors from an HTMLImageElement.
  */
-const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOptions) => {
-  image.crossOrigin = options?.crossOrigin || null
+const extractColorsFromImage = (image: HTMLImageElement, options: BrowserOptions = {}) => {
+  const [_pixels, _distance, _splitPower, _colorValidator, _hueDistance, _saturationDistance, _lightnessDistance, _crossOrigin] = cleanInputs(options)
+  image.crossOrigin = _crossOrigin
   return new Promise((resolve: (value: FinalColor[]) => void) => {
-    const extract = (image: HTMLImageElement, options?: BrowserOptions) => {
-      const extractor = new Extractor(options)
-      const imageData = getImageData(image, extractor.pixels)
-      const colors = extractor.process(imageData)
-      resolve(sortFinalColors(colors, extractor.pixels, options))
+    const extract = (image: HTMLImageElement) => {
+      const imageData = getImageData(image, _pixels)
+      const _colors = extractor(imageData, _pixels, _distance, _splitPower, _colorValidator)
+      resolve(sortFinalColors(_colors, _pixels, _hueDistance, _saturationDistance, _lightnessDistance))
     }
 
     if (image.complete) {
-      extract(image, options)
+      extract(image)
     } else {
       const imageLoaded = () => {
         image.removeEventListener('load', imageLoaded)
-        extract(image, options)
+        extract(image)
       }
       image.addEventListener('load', imageLoaded)
     }
@@ -67,7 +53,7 @@ const extractColorsFromImage = (image: HTMLImageElement, options?: BrowserOption
  * Extract colors from a path.
  * The image will be downloaded.
  */
-const extractColorsFromSrc = (src: string, options?: BrowserOptions) => {
+const extractColorsFromSrc = (src: string, options: BrowserOptions = {}) => {
   const image = new Image()
   image.src = src
   return extractColorsFromImage(image, options)

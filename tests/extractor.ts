@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import Extractor from '../src/extract/Extractor'
+import cleanInputs from '../src/extract/cleanInputs'
+import extractor from '../src/extract/extractor'
 import { ExtractorOptions } from '../src/types/Options'
 
 const imageData4 = {
@@ -17,7 +18,8 @@ const throwTest = async (testName: string, options: ExtractorOptions, errorMessa
   it(testName, () => new Promise(done => {
     return new Promise((resolve, reject) => {
         try {
-          const out = new Extractor(options).process(imageData4)
+          const [pixels, distance, splitPower, colorValidator] = cleanInputs(options)
+          const out = extractor(imageData4, pixels, distance, splitPower, colorValidator)
           resolve(out)
         } catch (error) {
           reject(error)
@@ -39,21 +41,13 @@ describe('Color', () => {
       data: [0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF]
     }
 
-    const options = {
-      pixels: 1
-    }
-
-    const extractor = new Extractor(options)
-    expect(extractor.process(imageData).length).toBe(1)
+    const [pixels, distance, splitPower, colorValidator] = cleanInputs({ pixels: 1 })
+    expect(extractor(imageData, pixels, distance, splitPower, colorValidator).length).toBe(1)
   })
 
   it('No reducer', () => {
-    const options = {
-      pixels: 4
-    }
-
-    const extractor = new Extractor(options)
-    expect(extractor.process(imageData4).length).toBe(4)
+    const [pixels, distance, splitPower, colorValidator] = cleanInputs({ pixels: 4 })
+    expect(extractor(imageData4, pixels, distance, splitPower, colorValidator).length).toBe(4)
   })
 
   it('Merge colors', () => {
@@ -73,12 +67,8 @@ describe('Color', () => {
       ]
     }
 
-    const options = {
-      pixels: 4
-    }
-
-    const extractor = new Extractor(options)
-    expect(extractor.process(imageData).length).toBe(4)
+    const [pixels, distance, splitPower, colorValidator] = cleanInputs({ pixels: 8 })
+    expect(extractor(imageData, pixels, distance, splitPower, colorValidator).length).toBe(4)
   })
 
   type Cb = (red: number, green: number, blue: number, alpha: number) => boolean
