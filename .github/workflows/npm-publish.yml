@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@master
       - name: Install
         run: npm install
+      - name: Build
+        run: npm run build
       - name: Test
         run: npm run coverage
       - uses: codecov/codecov-action@v1
