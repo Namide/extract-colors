@@ -1,8 +1,7 @@
 import { createApp } from 'petite-vue'
-import { EXTRACTOR_DEFAULT } from '../../../src/extract/Extractor'
+import { AVERAGE_DEFAULT, EXTRACTOR_DEFAULT } from '../../../src/extract/cleanInputs'
 import extractColors from '../../../src/extractColors.browser'
 import { FinalColor } from '../../../src/types/Color'
-import { AVERAGE_DEFAULT } from '../../../src/sort/AverageManager'
 import "./parts/track"
 
 let processCurrentId = '' // To avoid old process calculations
