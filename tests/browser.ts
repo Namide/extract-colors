@@ -112,4 +112,19 @@ describe("Browser", () => {
         done(undefined)
       })
   }))
+  
+  it("Bad arg", () => new Promise(done => {
+    return new Promise((resolve, reject) => {
+        try {
+          const out = extractColors(123 as unknown as string)
+          resolve(out)
+        } catch (error) {
+          reject(error)
+        }
+      })
+      .catch((error) => {
+        expect(error.message).toBe('Can not analyse picture')
+        done(undefined)
+      })
+  }))
 })

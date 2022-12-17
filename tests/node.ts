@@ -2,7 +2,7 @@
  * @vitest-environment node
  */
 import { describe, it, expect } from 'vitest'
-import { extractColors } from '../src/extractColors.node'
+import { extractColors, extractColorsFromImage, extractColorsFromSrc } from '../src/extractColors.node'
 
 describe('Node', () => {  
   it('Check by color data', () => new Promise(done => {
@@ -52,6 +52,51 @@ describe('Node', () => {
     return extractColors(imageData as unknown as ImageData, options)
       .then(data => {
         expect(data.length).toBe(1)
+        done(undefined)
+      })
+  }))
+  
+  it("Bad imageData", () => new Promise(done => {
+    return new Promise((resolve, reject) => {
+        try {
+          const out = extractColors({  } as ImageData)
+          resolve(out)
+        } catch (error) {
+          reject(error)
+        }
+      })
+      .catch((error) => {
+        expect(error.message).toBe('Send imageData to extractColors')
+        done(undefined)
+      })
+  }))
+  
+  it("Can not open extractColorsFromImage", () => new Promise(done => {
+    return new Promise((resolve, reject) => {
+        try {
+          const out = extractColorsFromImage()
+          resolve(out)
+        } catch (error) {
+          reject(error)
+        }
+      })
+      .catch((error) => {
+        expect(error.message).toBe('Can not use extractColorsFromImage for Node.js')
+        done(undefined)
+      })
+  }))
+  
+  it("Can not open extractColorsFromSrc", () => new Promise(done => {
+    return new Promise((resolve, reject) => {
+        try {
+          const out = extractColorsFromSrc()
+          resolve(out)
+        } catch (error) {
+          reject(error)
+        }
+      })
+      .catch((error) => {
+        expect(error.message).toBe('Can not use extractColorsFromSrc for Node.js')
         done(undefined)
       })
   }))
