@@ -107,7 +107,13 @@
           <div>
             <div class="relative">
               <div class="relative">
-                <img width="640" height="480" id="ec-img" alt="Image example" class="rounded-xl mb-2">
+                <div class="relative rounded-xl mb-2 overflow-hidden">
+                  <img id="ec-img" width="640" height="480" alt="Image example">
+                  <div id="ec-noimg" class="absolute flex justify-center items-center top-0 left-0 w-full h-full transition-opacity bg-primary">
+                    <span class="text-white text-2xl font-bold">Loading image</span>
+                  </div>
+                </div>
+                
                 <p class="absolute bottom-2 left-4 text-shadow text-white text-sm">Random image from Unsplash</p>
                 <button id="ec-restart" class="hover:rotate-[360deg] absolute top-4 right-4 btn btn-accent btn-circle loading" aria-label="Load a new image">
                   <svg class="top-1/2 absolute left-1/2 -translate-x-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 303.597 303.597" xmlns="http://www.w3.org/2000/svg" xml:space="preserve">

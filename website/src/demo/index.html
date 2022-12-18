@@ -4,7 +4,16 @@
   <!-- IMAGE -->
   <template id="img-block">
 
-    <figure><img crossorigin="anonymous" :src="src" width="640" height="480" ref="img" alt="image" class="w-full" /></figure>
+
+    <div class="relative rounded-xl mb-2 overflow-hidden">
+      <figure>
+        <img crossorigin="anonymous" :src="src" width="640" height="480" alt="image" class="w-full" />
+      </figure>
+      <div :style="{ opacity: loading ? 1 : 0 }" class="absolute flex justify-center items-center top-0 left-0 w-full h-full transition-opacity bg-primary">
+        <span class="text-white text-2xl font-bold">Loading image</span>
+      </div>
+    </div>
+    
     <div v-if="loading" class="card-body text-base-content">
       <span class="card-title">
         Loading

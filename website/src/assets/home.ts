@@ -7,11 +7,12 @@ getColors()
 
 function getColors () {
   const imgEl = document.body.querySelector("#ec-img") as HTMLImageElement | null
+  const noimgEl = document.body.querySelector("#ec-noimg") as HTMLDivElement | null
   const container = document.body.querySelector("#ec-colors")
   const restartEl = document.body.querySelector("#ec-restart")
   const reloadEl = restartEl?.children[0] as SVGElement | undefined
   
-  if (!imgEl || !container || !restartEl || !reloadEl) {
+  if (!imgEl || !container || !restartEl || !reloadEl || !noimgEl) {
     return
   }
 
@@ -28,6 +29,7 @@ function getColors () {
   restartEl.classList.add("loading")
   restartEl.removeEventListener("click", getColors)
   reloadEl.style.display = "none"
+  noimgEl.style.opacity = "1"
   
   const src = getRandImg()
   imgEl.src = src
@@ -65,6 +67,7 @@ function getColors () {
       restartEl.classList.remove("loading")
       restartEl.addEventListener("click", getColors)
       reloadEl.style.display = ""
+      noimgEl.style.opacity = "0"
     })
     .finally(nextProcess)
 }
