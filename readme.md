@@ -60,7 +60,7 @@ npm install --save extract-colors get-pixels
 ### Browser example
 
 ```js
-import extractColors from 'extract-colors'
+import { extractColors } from 'extract-colors'
 
 const src = 'my-image.jpg'
 

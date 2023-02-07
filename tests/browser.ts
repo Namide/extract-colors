@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi } from 'vitest'
-import extractColors, { extractColorsFromImageData } from '../src/extractColors.browser'
+import { extractColors, extractColorsFromImageData } from '../src/extractColors.browser'
 
 // Mock Image
 class Image {

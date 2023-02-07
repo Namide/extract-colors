@@ -1,4 +1,4 @@
-import extractColors from '../../../src/extractColors.browser'
+import { extractColors } from '../../../src/extractColors.browser'
 import "./parts/hljs"
 import "./parts/tabs"
 import "./parts/track"

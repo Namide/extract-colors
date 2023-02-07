@@ -1,6 +1,6 @@
 import { createApp } from 'petite-vue'
 import { AVERAGE_DEFAULT, EXTRACTOR_DEFAULT } from '../../../src/extract/cleanInputs'
-import extractColors from '../../../src/extractColors.browser'
+import { extractColors } from '../../../src/extractColors.browser'
 import { FinalColor } from '../../../src/types/Color'
 import "./parts/track"
 
