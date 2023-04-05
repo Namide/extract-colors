@@ -21,7 +21,7 @@ export default (
 
     if (_colorValidator(r, g, b, a)) {
       const real = r << 16 | g << 8 | b
-      const medium = (r >> 4 & 0xF) << 2 | (g >> 4 & 0xF) << 1 | (b >> 4 & 0xF)
+      const medium = (r >> 4 & 0xF) << 8 | (g >> 4 & 0xF) << 4 | (b >> 4 & 0xF)
       const small = Math.round(r * (_splitPower - 1) / 255) * (_splitPower * _splitPower) + Math.round(g * (_splitPower - 1) / 255) * _splitPower + Math.round(b * (_splitPower - 1) / 255)
 
       const smallGroup = rootGroup.addRootGroup(small)
