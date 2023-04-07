@@ -11,7 +11,7 @@ export default (
 ) => {
   const rootGroup = new RootGroup()
   const reducer = (width && height) ? Math.floor(width * height / _pixels) || 1 : 1
-  console.log(789)
+
   for (let i = 0; i < data.length; i += 4 * reducer) {
     const r = data[i] // 0 -> 255
     const g = data[i + 1]

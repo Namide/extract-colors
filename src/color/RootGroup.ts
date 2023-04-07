@@ -9,7 +9,7 @@ import LeafGroup from './LeafGroup'
  */
 export default class RootGroup {
   _count: number
-  _children: { [key: number]: RootGroup | LeafGroup }
+  _children: { [key: number]: LeafGroup }
   _maxWeight: number | undefined
 
   /**
@@ -18,20 +18,6 @@ export default class RootGroup {
   constructor () {
     this._count = 1
     this._children = { }
-  }
-
-  /**
-   * Add a key for a color, this key is a simplification to find neighboring colors.
-   * Neighboring colors has same key.
-   */
-  addRootGroup (key: number) {
-    if (this._children[key]) {
-      this._children[key]._count++
-    } else {
-      this._children[key] = new RootGroup()
-    }
-
-    return this._children[key] as RootGroup
   }
 
   /**
@@ -54,42 +40,6 @@ export default class RootGroup {
     }
 
     return this._children[key] as LeafGroup
-  }
-
-  /**
-   * Max color weight between the list colors, depends of his saturation and his _count.
-   */
-  getMaxWeight (_count: number): number {
-    if (this._maxWeight === undefined) {
-      const list = this.getList()
-        .map((child) => child._count / _count)
-
-      list.sort((a, b) => b - a)
-      this._maxWeight = list[0] || 0
-    }
-
-    return this._maxWeight 
-  }
-
-  /**
-   * Color with the the max weight between the list colors, depends of his saturation and his _count.
-   */
-  getMaxWeightColor (_count: number): Color {
-    const list = this.getList()
-    list.sort((a, b) => {
-      return (b._count / _count) - (a._count / _count)
-    })
-
-    return list[0].getMaxWeightColor(_count)
-  }
-
-  /**
-   * Max _count of colors for a group of colors.
-   */
-  getMaxCountColor (): Color {
-    const list = this.getList()
-    const biggest = list.reduce((a, b) => a.getMaxCountColor()._count >= b.getMaxCountColor()._count ? a : b)
-    return biggest.getMaxCountColor()
   }
 
   /**

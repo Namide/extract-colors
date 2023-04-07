@@ -23,13 +23,7 @@ describe('RootGroup', () => {
     expect(group.getList().length).toBe(2)
     expect(group.getMaxWeightColor(3)._hex).toBe(0x777777)
   })
-  
-  it('Get weight for empty group', () => {
-    const group = new RootGroup()
-    const group2 = group.addRootGroup(0xFF)
-    expect(group2.getMaxWeight(1)).toBe(0)
-  })
-  
+    
   it('Get max _count color for 1 color', () => {
     const group = new RootGroup()
     const group2 = group.addLeafGroup(0xFF)
@@ -41,9 +35,7 @@ describe('RootGroup', () => {
   
   it('Add deep group', () => {
     const group = new RootGroup()
-    const group2 = group.addRootGroup(0xF)
-    const group3 = group2.addRootGroup(0xFF)
-    const group4 = group3.addLeafGroup(0xFFFF)
+    const group4 = group.addLeafGroup(0xFFFF)
     group4.addColor(0xFFFFFF, 0xFF, 0xFF, 0xFF)
     group4.addColor(0xFFFFFF, 0xFF, 0xFF, 0xFF)
     group4.addColor(0xF7F7F7, 0xF7, 0xF7, 0xF7)
