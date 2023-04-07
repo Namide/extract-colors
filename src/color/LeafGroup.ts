@@ -4,9 +4,9 @@ import Color from './Color'
  * Manage list of colors to optimize and merge neighbors colors.
  *
  * @export
- * @class BudGroup
+ * @class LeafGroup
  */
-export default class BudGroup {
+export default class LeafGroup {
 
   _count: number
   _children: { [key: number]: Color }

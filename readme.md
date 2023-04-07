@@ -104,7 +104,6 @@ getPixels(src, (err, pixels) => {
 const options = {
   pixels: 10000,
   distance: 0.2,
-  splitPower: 10,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
   saturationDistance: 0.2,
   lightnessDistance: 0.2,
@@ -125,11 +124,6 @@ Default: `10000`
 _From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)_  
 Type: `Number`  
 Default: `0.2`  
-
-**splitPower**  
-_Approximation power in the first color splitting during process (from 2 to 15)_  
-Type: `Integer`  
-Default: `10`  
 
 **colorValidator**  
 _Test function to enable only some colors_  

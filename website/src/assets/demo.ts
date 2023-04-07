@@ -20,7 +20,6 @@ function Input () {
   return {
     pixels: EXTRACTOR_DEFAULT.PIXELS,
     distance: EXTRACTOR_DEFAULT.DISTANCE,
-    splitPower: EXTRACTOR_DEFAULT.SPLIT_POWER,
     hueDistance: Math.round(AVERAGE_DEFAULT.HUE * 1000) / 1000,
     saturationDistance: AVERAGE_DEFAULT.SATURATION,
     lightnessDistance: AVERAGE_DEFAULT.LIGHTNESS,
@@ -30,7 +29,7 @@ function Input () {
     get list () {
       return this.srcs.map(src => ({
         src,
-        id: src + this.pixels + this.distance + this.splitPower + this.hueDistance + this.saturationDistance + this.lightnessDistance
+        id: src + this.pixels + this.distance + this.hueDistance + this.saturationDistance + this.lightnessDistance
       }))
     },
 
@@ -58,7 +57,7 @@ function ImgBlock (props) {
 
     mounted () {
       const image = new Image()
-      const id = `${ this.pixels }${ this.distance }${ this.splitPower }${ this.hueDistance }${ this.saturationDistance }${ this.lightnessDistance }`
+      const id = `${ this.pixels }${ this.distance }${ this.hueDistance }${ this.saturationDistance }${ this.lightnessDistance }`
       processCurrentId = id
 
       this.random = props.random
@@ -88,7 +87,6 @@ function ImgBlock (props) {
           extractColors(image, {
             pixels: Number(props.pixels),
             distance: Number(props.distance),
-            splitPower: Number(props.splitPower),
             hueDistance: Number(props.hueDistance),
             saturationDistance: Number(props.saturationDistance),
             lightnessDistance: Number(props.lightnessDistance),

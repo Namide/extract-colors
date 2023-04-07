@@ -10,9 +10,9 @@ describe('RootGroup', () => {
   
   it('Add group', () => {
     const group = new RootGroup()
-    const group2 = group.addBudGroup(0xFF)
-    const group2b = group.addBudGroup(0xFF)
-    const group3 = group.addBudGroup(0xF1)
+    const group2 = group.addLeafGroup(0xFF)
+    const group2b = group.addLeafGroup(0xFF)
+    const group3 = group.addLeafGroup(0xF1)
     group2.addColor(0xFF0077, 0xFF, 0x00, 0x77)
     group2b.addColor(0x777777, 0x77, 0x77, 0x77)
     group3.addColor(0x777777, 0x77, 0x77, 0x77)
@@ -32,7 +32,7 @@ describe('RootGroup', () => {
   
   it('Get max _count color for 1 color', () => {
     const group = new RootGroup()
-    const group2 = group.addBudGroup(0xFF)
+    const group2 = group.addLeafGroup(0xFF)
     group2.addColor(0xFFFFFF, 0xFF, 0xFF, 0xFF)
     group2.addColor(0xFFFFFF, 0xFF, 0xFF, 0xFF)
     group2.addColor(0x000000, 0x00, 0x00, 0x00)
@@ -43,7 +43,7 @@ describe('RootGroup', () => {
     const group = new RootGroup()
     const group2 = group.addRootGroup(0xF)
     const group3 = group2.addRootGroup(0xFF)
-    const group4 = group3.addBudGroup(0xFFFF)
+    const group4 = group3.addLeafGroup(0xFFFF)
     group4.addColor(0xFFFFFF, 0xFF, 0xFF, 0xFF)
     group4.addColor(0xFFFFFF, 0xFF, 0xFF, 0xFF)
     group4.addColor(0xF7F7F7, 0xF7, 0xF7, 0xF7)

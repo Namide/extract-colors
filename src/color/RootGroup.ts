@@ -1,5 +1,5 @@
 import Color from './Color'
-import BudGroup from './BudGroup'
+import LeafGroup from './LeafGroup'
 
 /**
  * RootGroup colors with algorithms to optimize and merge neighbors colors.
@@ -9,7 +9,7 @@ import BudGroup from './BudGroup'
  */
 export default class RootGroup {
   _count: number
-  _children: { [key: number]: RootGroup | BudGroup }
+  _children: { [key: number]: RootGroup | LeafGroup }
   _maxWeight: number | undefined
 
   /**
@@ -46,14 +46,14 @@ export default class RootGroup {
    * Add a key for a color, this key is a simplification to find neighboring colors.
    * Neighboring colors has same key.
    */
-   addBudGroup (key: number) {
+   addLeafGroup (key: number) {
     if (this._children[key]) {
       this._children[key]._count++
     } else {
-      this._children[key] = new BudGroup()
+      this._children[key] = new LeafGroup()
     }
 
-    return this._children[key] as BudGroup
+    return this._children[key] as LeafGroup
   }
 
   /**

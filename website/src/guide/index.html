@@ -106,7 +106,6 @@
             <li><a href="#options">Options</a></li>
             <li><a href="#pixels" class="ml-2 text-xs leading-3">pixels</a></li>
             <li><a href="#distance" class="ml-2 text-xs leading-3">distance</a></li>
-            <li><a href="#split-power" class="ml-2 text-xs leading-3">splitPower</a></li>
             <li><a href="#color-validator" class="ml-2 text-xs leading-3">colorValidator</a></li>
             <li><a href="#cross-origin" class="ml-2 text-xs leading-3">crossOrigin</a></li>
             <li><a href="#saturation-distance" class="ml-2 text-xs leading-3">saturationDistance</a></li>
@@ -277,7 +276,6 @@ const src = "my-image.jpg"
 const options = {
   pixels: 10000,
   distance: 0.2,
-  splitPower: 10,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
   saturationDistance: 0.2,
   lightnessDistance: 0.2,
@@ -295,7 +293,6 @@ const src = path.join(__dirname, './my-image.jpg')
 const options = {
   pixels: 10000,
   distance: 0.2,
-  splitPower: 10,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
   saturationDistance: 0.2,
   lightnessDistance: 0.2,
@@ -372,31 +369,6 @@ getPixels(src, (err, pixels) => {
                 <td>0</td>
                 <td>1</td>
                 <td>0.2</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3 id="split-power" class="text-xl mt-6 mb-2 font-bold">splitPower</h3>
-        <p class="my-5">
-          Approximation power in the first color splitting during process (from 2 to 16).
-        </p>
-        <div class="overflow-x-auto">
-          <table class="table max-w-full">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Min</th>
-                <th>Max</th>
-                <th>Default</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Integer</td>
-                <td>2</td>
-                <td>15</td>
-                <td>10</td>
               </tr>
             </tbody>
           </table>

@@ -28,12 +28,12 @@ const getImageData = (_image: HTMLImageElement, _pixels: number) => {
  * Extract colors from an HTMLImageElement.
  */
 const extractColorsFromImage = (image: HTMLImageElement, options: BrowserOptions = {}) => {
-  const [_pixels, _distance, _splitPower, _colorValidator, _hueDistance, _saturationDistance, _lightnessDistance, _crossOrigin] = cleanInputs(options)
+  const [_pixels, _distance, _colorValidator, _hueDistance, _saturationDistance, _lightnessDistance, _crossOrigin] = cleanInputs(options)
   image.crossOrigin = _crossOrigin
   return new Promise((resolve: (value: FinalColor[]) => void) => {
     const extract = (image: HTMLImageElement) => {
       const imageData = getImageData(image, _pixels)
-      const _colors = extractor(imageData, _pixels, _distance, _splitPower, _colorValidator)
+      const _colors = extractor(imageData, _pixels, _distance, _colorValidator)
       resolve(sortFinalColors(_colors, _pixels, _hueDistance, _saturationDistance, _lightnessDistance))
     }
 

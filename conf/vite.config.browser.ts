@@ -16,7 +16,6 @@ module.exports = defineConfig({
           reserved: [
             "pixels",
             "distance",
-            "splitPower",
             "colorValidator",
             "hueDistance",
             "saturationDistance",

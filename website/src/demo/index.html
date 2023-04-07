@@ -180,20 +180,7 @@
               <input type="number" min="0" max="1" step="0.01" v-model="distance" class="number number-xs w-16 text-right" />
             </div>
           </div>
-  
-          <!-- Split color power -->
-          <div class="form-control mt-2">
-            <div class="tooltip" data-tip="Approximation power in the first color splitting during process (from 2 to 16).">
-              <label class="label">
-                <span class="label-text opacity-60">Split color power</span>
-              </label>
-            </div>
-            <div class="flex items-center">
-              <input type="range" step="1" min="2" max="15" v-model="splitPower" class="range range-xs w-full" />
-              <input type="number" step="1" min="2" max="15" v-model="splitPower" class="number number-xs w-16 text-right" />
-            </div>
-          </div>
-  
+    
           <!-- Hue distance -->
           <div class="form-control mt-2">
             <div class="tooltip" data-tip="from 0 to 1">
@@ -258,7 +245,7 @@
       <!-- IMAGES -->
       <div class="flex flex-wrap gap-5">
         <div
-          v-for="{ src, id } of list" v-scope="ImgBlock({ random, src, pixels, distance, splitPower, hueDistance, saturationDistance, lightnessDistance })"
+          v-for="{ src, id } of list" v-scope="ImgBlock({ random, src, pixels, distance, hueDistance, saturationDistance, lightnessDistance })"
           class="card w-full lg:w-[calc(50%-15px)] xl:w-[calc(33%-15px)] bg-base-100 shadow-xl"
           @vue:mounted="mounted" :key="id"
         >
