@@ -10,13 +10,12 @@ import LeafGroup from './LeafGroup'
 export default class RootGroup {
   _count: number
   _children: { [key: number]: LeafGroup }
-  _maxWeight: number | undefined
 
   /**
    * Store colors or groups and _count similiar groups in the image.
    */
   constructor () {
-    this._count = 1
+    this._count = 0
     this._children = { }
   }
 
@@ -28,17 +27,21 @@ export default class RootGroup {
       .map((key) => this._children[key])
   }
 
+  addColor(r: number, g: number, b: number) {
+    const full = r << 16 | g << 8 | b
+    const loss = (r >> 4 & 0xF) << 8 | (g >> 4 & 0xF) << 4 | (b >> 4 & 0xF)
+    this._count++
+    return this.getLeafGroup(loss).addColor(full, r, g, b)
+  }
+
   /**
    * Add a key for a color, this key is a simplification to find neighboring colors.
    * Neighboring colors has same key.
    */
-   addLeafGroup (key: number) {
-    if (this._children[key]) {
-      this._children[key]._count++
-    } else {
+  getLeafGroup (key: number) {
+    if (!this._children[key]) {
       this._children[key] = new LeafGroup()
     }
-
     return this._children[key] as LeafGroup
   }
 
@@ -46,26 +49,25 @@ export default class RootGroup {
    * List of colors sorted by importance (neighboring hare calculated by distance and removed).
    * Importance is calculated with the saturation and _count of neighboring colors.
    */
-  getColors (_distance: number, _count: number) {
+  getColors (_distance: number) {
     const list = this.getList()
-      .map((child) => {
-        const { _count } = child
-        const color = child.getMaxCountColor()
-        color._count = _count
-        return color
-      })
+      .map((child) => child.createMainColor())
 
-    list.sort((a, b) => (b._count / _count) - (a._count / _count))
+    list.sort((a, b) => b._count - a._count)
 
     const newList: Color[] = []
-    list.forEach((color) => {
-      const near = newList.find((col) => Color.distance(col, color) < _distance)
-      if (!near) {
-        newList.push(color)
-      } else {
-        near._count += color._count
-      }
-    })
+    while (list.length) {
+      const current = list.shift() as Color
+      list
+        .filter((color) => Color.distance(current, color) < _distance)
+        .forEach(near => {
+          current._count += near._count
+          const i = list.findIndex(color => color === near) 
+          list.splice(i, 1)
+        })
+      
+      newList.push(current)
+    }
 
     return newList
   }

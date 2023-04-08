@@ -21,7 +21,6 @@ export default class Color {
    * Set red, green and blue colors to create the Color object.
    */
   constructor (red: number, green: number, blue: number, hex = red << 16 | green << 8 | blue) {
-
     this._red = red
     this._green = green
     this._blue = blue
@@ -35,7 +34,13 @@ export default class Color {
    */
   static distance (colorA: Color, colorB: Color) {
     return (Math.abs(colorB._red - colorA._red) + Math.abs(colorB._green - colorA._green) + Math.abs(colorB._blue - colorA._blue)) / (3 * 0xFF)
-  }  
+  }
+
+  clone() {
+    const color = new Color(this._red, this._green, this._blue, this._hex)
+    color._count = this._count
+    return color
+  }
 
   updateHSL () {
     const red = this._red / 255
