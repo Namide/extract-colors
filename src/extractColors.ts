@@ -10,6 +10,9 @@ import extractor from "./extract/extractor"
  */
 export const sortFinalColors = (_colors: Color[], _pixels: number, _hueDistance: number, _saturationDistance: number, _lightnessDistance: number) => {
   const list = sortColors(_colors, _pixels, _hueDistance, _saturationDistance, _lightnessDistance)
+  console.log(_colors)
+  console.log('total', _colors.reduce((tot, col) => tot + col._count, 0))
+  console.log('pixels', _pixels)
   return list.map(color => createFinalColor(color, _pixels))
 }
 
@@ -18,7 +21,6 @@ export const sortFinalColors = (_colors: Color[], _pixels: number, _hueDistance:
  */
 export const extractColorsFromImageData = (imageData: ImageData | { data: Uint8ClampedArray | number[], width?: number, height?: number }, options: NodeOptions | BrowserOptions = {}) => {
   const [_pixels, _distance, _colorValidator, _hueDistance, _saturationDistance, _lightnessDistance] = cleanInputs(options)
-  const colors = extractor(imageData, _pixels, _distance, _colorValidator)
-  const px = (imageData.width && imageData.height) ? Math.min(imageData.width * imageData.height, _pixels) : _pixels
-  return sortFinalColors(colors, px, _hueDistance, _saturationDistance, _lightnessDistance)
+  const { colors, count } = extractor(imageData, _pixels, _distance, _colorValidator)
+  return sortFinalColors(colors, count, _hueDistance, _saturationDistance, _lightnessDistance)
 }

@@ -11,6 +11,7 @@ export default (
 ) => {
   const colorGroup = new RootGroup()
   const reducer = (width && height) ? Math.floor(width * height / _pixels) || 1 : 1
+  let ignoredColorsCount = 0
 
   for (let i = 0; i < data.length; i += 4 * reducer) {
     const r = data[i] // 0 -> 255
@@ -20,8 +21,14 @@ export default (
 
     if (_colorValidator(r, g, b, a)) {
       colorGroup.addColor(r, g, b)
+    } else {
+      ignoredColorsCount++
     }
   }
   
-  return colorGroup.getColors(_distance)
+  console.log('total', colorGroup._count, data.length / 4)
+  return {
+    colors: colorGroup.getColors(_distance),
+    count: colorGroup._count + ignoredColorsCount
+  }
 }

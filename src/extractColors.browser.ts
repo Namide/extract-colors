@@ -33,8 +33,8 @@ const extractColorsFromImage = (image: HTMLImageElement, options: BrowserOptions
   return new Promise((resolve: (value: FinalColor[]) => void) => {
     const extract = (image: HTMLImageElement) => {
       const imageData = getImageData(image, _pixels)
-      const _colors = extractor(imageData, _pixels, _distance, _colorValidator)
-      resolve(sortFinalColors(_colors, _pixels, _hueDistance, _saturationDistance, _lightnessDistance))
+      const { colors, count } = extractor(imageData, _pixels, _distance, _colorValidator)
+      resolve(sortFinalColors(colors, count, _hueDistance, _saturationDistance, _lightnessDistance))
     }
 
     if (image.complete) {

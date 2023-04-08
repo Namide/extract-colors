@@ -19,8 +19,8 @@ const throwTest = async (testName: string, options: ExtractorOptions, errorMessa
     return new Promise((resolve, reject) => {
         try {
           const [pixels, distance, colorValidator] = cleanInputs(options)
-          const out = extractor(imageData4, pixels, distance, colorValidator)
-          resolve(out)
+          const { colors } = extractor(imageData4, pixels, distance, colorValidator)
+          resolve(colors)
         } catch (error) {
           reject(error)
         }
@@ -42,12 +42,12 @@ describe('Color', () => {
     }
 
     const [pixels, distance, colorValidator] = cleanInputs({ pixels: 1 })
-    expect(extractor(imageData, pixels, distance, colorValidator).length).toBe(1)
+    expect(extractor(imageData, pixels, distance, colorValidator).colors.length).toBe(1)
   })
 
   it('No reducer', () => {
     const [pixels, distance, colorValidator] = cleanInputs({ pixels: 4 })
-    expect(extractor(imageData4, pixels, distance, colorValidator).length).toBe(4)
+    expect(extractor(imageData4, pixels, distance, colorValidator).colors.length).toBe(4)
   })
 
   it('Merge colors', () => {
@@ -68,7 +68,7 @@ describe('Color', () => {
     }
 
     const [pixels, distance, colorValidator] = cleanInputs({ pixels: 8 })
-    expect(extractor(imageData, pixels, distance, colorValidator).length).toBe(4)
+    expect(extractor(imageData, pixels, distance, colorValidator).colors.length).toBe(4)
   })
 
   type Cb = (red: number, green: number, blue: number, alpha: number) => boolean
