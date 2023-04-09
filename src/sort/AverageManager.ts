@@ -1,7 +1,6 @@
 import Color from "../color/Color";
 import { AverageGroup } from "./AverageGroup";
 
-
 export class AverageManager {
 
   _hue:number

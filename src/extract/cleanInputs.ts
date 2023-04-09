@@ -40,22 +40,38 @@ export default ({
      * Test if value is an integer.
      */
     const testUint = (label: string, val: number, min = 0, max = Number.MAX_SAFE_INTEGER) => {
-      if (!Number.isInteger(val) || val < min || val > max) {
-        throw new Error(`${label} is invalid (${ val })`)
+      if (!Number.isInteger(val)) {
+        throw new Error(`${label} is not a valid number (${ val })`)
       }
 
-      return val
+      if (val < min) {
+        console.warn(`${label} can not be less than ${min} (it's ${val})`)
+      }
+
+      if (val > max) {
+        console.warn(`${label} can not be more than ${max} (it's ${val})`)
+      }
+
+      return Math.min(Math.max(val, min), max)
     }
 
     /**
      * Test if value is a number.
      */
     const testNumber = (label: string, val: number, min = 0, max = Number.MAX_VALUE) => {
-      if (Number(val) !== val || val < min || val > max) {
-        throw new Error(`${label} is invalid (${ val })`)
+      if (Number(val) !== val) {
+        throw new Error(`${label} is not a valid number (${ val })`)
       }
 
-      return val
+      if (val < min) {
+        console.warn(`${label} can not be less than ${min} (it's ${val})`)
+      }
+
+      if (val > max) {
+        console.warn(`${label} can not be more than ${max} (it's ${val})`)
+      }
+
+      return Math.min(Math.max(val, min), max)
     }
 
     /**
@@ -63,7 +79,7 @@ export default ({
      */
     const testFunction = <T = () => void>(label: string, val: T) => {
       if (!val || {}.toString.call(val) !== '[object Function]') {
-        throw new Error(`${label} is invalid (${ val })`)
+        throw new Error(`${label} is not a function (${ val })`)
       }
 
       return val
