@@ -26,7 +26,6 @@ export default (
     }
   }
   
-  console.log('total', colorGroup._count, data.length / 4)
   return {
     colors: colorGroup.getColors(_distance),
     count: colorGroup._count + ignoredColorsCount

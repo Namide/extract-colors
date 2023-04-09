@@ -55,7 +55,7 @@ function getColors () {
         const span = colEl.querySelector('span>span') as HTMLSpanElement
 
         if (tooltip) {
-          tooltip.dataset.tip = `${ (color.area * 100).toFixed(2) }%`
+          tooltip.dataset.tip = `${ (color.area * 100).toFixed(2) }% - ${ color.hex }`
         }
         if (span) {
           span.style.backgroundColor = color.hex

@@ -10,9 +10,6 @@ import extractor from "./extract/extractor"
  */
 export const sortFinalColors = (_colors: Color[], _pixels: number, _hueDistance: number, _saturationDistance: number, _lightnessDistance: number) => {
   const list = sortColors(_colors, _pixels, _hueDistance, _saturationDistance, _lightnessDistance)
-  console.log(_colors)
-  console.log('total', _colors.reduce((tot, col) => tot + col._count, 0))
-  console.log('pixels', _pixels)
   return list.map(color => createFinalColor(color, _pixels))
 }
 
