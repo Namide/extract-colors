@@ -1,0 +1,44 @@
+# Node
+node_modules
+
+# Jest
+coverage
+junit.xml
+
+# Parcel
+.parcel-cache
+
+# Jest
+.cache
+
+# Build
+.github
+conf
+tests
+website
+.editorconfig
+.eslintrc.cjs
+codecov.yml
+makefile
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
