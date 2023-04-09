@@ -11,7 +11,10 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "declaration": true,
-    "outDir": "../lib",
+    "outDir": "../lib"
   },
+  "include": [
+    "../src/**.d.ts"
+  ],
   "exclude": ["node_modules"]
 }

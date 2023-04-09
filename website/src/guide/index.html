@@ -274,8 +274,8 @@ getPixels(src, (err, pixels) => {
 const src = "my-image.jpg"
 
 const options = {
-  pixels: 10000,
-  distance: 0.2,
+  pixels: 64000,
+  distance: 0.22,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
   saturationDistance: 0.2,
   lightnessDistance: 0.2,
@@ -291,8 +291,8 @@ const getPixels = require("get-pixels")
 const src = path.join(__dirname, './my-image.jpg')
 
 const options = {
-  pixels: 10000,
-  distance: 0.2,
+  pixels: 64000,
+  distance: 0.22,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
   saturationDistance: 0.2,
   lightnessDistance: 0.2,
@@ -368,7 +368,7 @@ getPixels(src, (err, pixels) => {
                 <td>Number</td>
                 <td>0</td>
                 <td>1</td>
-                <td>0.2</td>
+                <td>0.22</td>
               </tr>
             </tbody>
           </table>

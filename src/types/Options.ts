@@ -11,7 +11,7 @@ export type ExtractorOptions = {
 }
 
 export type BrowserOptions = ExtractorOptions & {
-  crossOrigin?: "anonymous" | "use-credentials" | "";
+  crossOrigin?: "anonymous" | "use-credentials" | "" | null;
 } & SorterOptions
 
 export type NodeOptions = ExtractorOptions & SorterOptions

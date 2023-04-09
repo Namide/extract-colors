@@ -2,7 +2,11 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "emitDeclarationOnly": true
+    "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outFile": "../lib/extractColors.browser.d.ts",
+    "isolatedModules": false
   },
   "files": ["../src/extractColors.browser.ts"]
 }

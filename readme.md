@@ -102,8 +102,8 @@ getPixels(src, (err, pixels) => {
 
 ```js
 const options = {
-  pixels: 10000,
-  distance: 0.2,
+  pixels: 64000,
+  distance: 0.22,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
   saturationDistance: 0.2,
   lightnessDistance: 0.2,
@@ -118,12 +118,12 @@ extractColors(src, options)
 **pixels**  
 _Total pixel number of the resized picture for calculation_  
 Type: `Integer`  
-Default: `10000`  
+Default: `64000`  
 
 **distance**  
 _From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)_  
 Type: `Number`  
-Default: `0.2`  
+Default: `0.22`  
 
 **colorValidator**  
 _Test function to enable only some colors_  
