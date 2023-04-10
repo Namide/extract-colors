@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import cleanInputs from '../src/extract/cleanInputs'
 import extractor from '../src/extract/extractor'
 import { ExtractorOptions } from '../src/types/Options'
@@ -27,6 +27,26 @@ const throwTest = async (testName: string, options: ExtractorOptions, errorMessa
       })
       .catch((error) => {
         expect(error.message).toBe(errorMessage)
+        done(undefined)
+      })
+  }))
+}
+
+const warns: string[] = []
+
+vi.spyOn(global.console, 'warn').mockImplementation((message) => {
+  warns.push(message)
+})
+
+const testWarn = async (testName: string, options: ExtractorOptions, errorMessage: string) => {
+  it(testName, () => new Promise(done => {
+    return new Promise((resolve) => {
+        const [pixels, distance, colorValidator] = cleanInputs(options)
+        const { colors } = extractor(imageData4, pixels, distance, colorValidator)
+        resolve(colors)
+      })
+      .then(() => {
+        expect(warns.pop()).toBe(errorMessage)
         done(undefined)
       })
   }))
@@ -73,11 +93,12 @@ describe('Color', () => {
 
   type Cb = (red: number, green: number, blue: number, alpha: number) => boolean
 
-  throwTest('Little pixels', { pixels: -1 }, "pixels is invalid (-1)")
-  throwTest('Float pixels', { pixels: 1.2 }, "pixels is invalid (1.2)")
-  throwTest('Large pixels', { pixels: Number.POSITIVE_INFINITY }, "pixels is invalid (Infinity)")
-  throwTest('Little distance', { distance: -0.1 }, "distance is invalid (-0.1)")
-  throwTest('Large distance', { distance: 1.0001 }, "distance is invalid (1.0001)")
-  throwTest('Number colorValidator', { colorValidator: 1 as unknown as Cb }, "colorValidator is invalid (1)")
-  throwTest('String colorValidator', { colorValidator: "a" as unknown as Cb }, "colorValidator is invalid (a)")
+  testWarn('Little pixels', { pixels: -1 }, "pixels can not be less than 1 (it's -1)")
+  throwTest('Float pixels', { pixels: 1.2 }, "pixels is not a valid number (1.2)")
+  throwTest('Large pixels', { pixels: Number.POSITIVE_INFINITY }, "pixels is not a valid number (Infinity)")
+  testWarn('Little distance', { distance: -0.1 }, "distance can not be less than 0 (it's -0.1)")
+  testWarn('Bad distance', { distance: 1.0001 }, "distance can not be more than 1 (it's 1.0001)")
+  testWarn('Large distance', { distance: 2 }, "distance can not be more than 1 (it's 2)")
+  throwTest('Number colorValidator', { colorValidator: 1 as unknown as Cb }, "colorValidator is not a function (1)")
+  throwTest('String colorValidator', { colorValidator: "a" as unknown as Cb }, "colorValidator is not a function (a)")
 })

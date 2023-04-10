@@ -1,8 +1,14 @@
 /**
  * @vitest-environment node
  */
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { extractColors, extractColorsFromImage, extractColorsFromSrc } from '../src/extractColors.node'
+
+const warns: string[] = []
+
+vi.spyOn(global.console, 'warn').mockImplementation((message) => {
+  warns.push(message)
+})
 
 describe('Node', () => {  
   it('Check by color data', () => new Promise(done => {
@@ -32,8 +38,8 @@ describe('Node', () => {
     }
 
     return extractColors(imageData as unknown as ImageData, options)
-      .catch((error) => {
-        expect(error.message).toBe("distance is invalid (1.1)")
+      .then(() => {
+        expect(warns.pop()).toBe("distance can not be more than 1 (it's 1.1)")
         done(undefined)
       })
   }))

@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config';
 
 module.exports = defineConfig({
   define: {
-    __DEV__: `process.env.NODE_ENV !== "production"`,
+    __DEV__: `true`,
     __BROWSER__: 'true'
   },
   test: {

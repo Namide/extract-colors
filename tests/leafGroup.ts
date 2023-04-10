@@ -6,7 +6,7 @@ describe('LeafGroup', () => {
   it('Init', () => {
     const group = new LeafGroup()
     expect(typeof group._children).toBe('object')
-    expect(group._count).toBe(1)
+    expect(group._count).toBe(0)
   })
   
   it('Group colors', () => {
@@ -15,6 +15,7 @@ describe('LeafGroup', () => {
     group.addColor(0x777777, 0x77, 0x77, 0x77)
     group.addColor(0x777777, 0x77, 0x77, 0x77)
     expect(group.getList().length).toBe(2)
+    expect(group._count).toBe(3)
     // expect(group.getMaxWeightColor()._hex).toBe(0x777777)
   })
     
