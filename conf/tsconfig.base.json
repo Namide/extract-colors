@@ -14,7 +14,7 @@
     "outDir": "../lib"
   },
   "include": [
-    "../src/**.d.ts"
+    "../src/global.d.ts"
   ],
   "exclude": ["node_modules"]
 }

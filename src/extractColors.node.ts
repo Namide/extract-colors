@@ -1,3 +1,4 @@
+import './global.d.ts'
 import { extractColorsFromImageData } from './extractColors'
 import { FinalColor } from './types/Color'
 import type { NodeOptions } from "./types/Options"
