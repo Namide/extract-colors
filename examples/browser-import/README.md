@@ -1,6 +1,6 @@
 # Getting Started with Create React App
 
-React (browser cjs test)
+React (browser esm test)
 
 ```bash
 make rootcode
@@ -8,12 +8,12 @@ make rootcode
 # init
 npm run build
 npm link
-cd examples/browser-require
+cd examples/browser-import
 npm link extract-colors
 npm install
 
 # dev
-npm start
+npm run dev
 
 # build
 npm run build

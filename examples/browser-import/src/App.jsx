@@ -1,33 +1,27 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import ExtractColors from "extract-colors"
+import Colors from "./Colors"
+
+const src = `https://loremflickr.com/640/480?lock=${ Math.floor(Math.random() * 0xFFFFFF) }`
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [colors, setColors] = useState([]);
+
+  const onLoad = async (event) => {
+    const list = await ExtractColors(event.target, { crossOrigin: 'anonymous' })
+    setColors(list)
+  }
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+      <header className="App-header">
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Extract colors with random image
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+        <img src={ src } width="640" height="480" alt="Random" onLoad={onLoad} />
+        <Colors colors={colors} />
+      </header>
     </div>
   )
 }
