@@ -3,13 +3,11 @@
 React (browser cjs test)
 
 ```bash
-make rootcode
+make code
 
 # init
 npm run build
-npm link
 cd examples/browser-require
-npm link extract-colors
 npm install
 
 # dev

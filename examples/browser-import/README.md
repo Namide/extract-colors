@@ -3,13 +3,11 @@
 React (browser esm test)
 
 ```bash
-make rootcode
+make code
 
 # init
 npm run build
-npm link
 cd examples/browser-import
-npm link extract-colors
 npm install
 
 # dev
