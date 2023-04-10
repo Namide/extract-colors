@@ -6,7 +6,7 @@ React (browser esm test)
 # init
 npm run build
 npm link
-cd examples/browser/import
+cd examples/browser-import
 npm link extract-colors
 npm install
 
