@@ -1,8 +1,21 @@
 import { createApp } from 'petite-vue'
-import { AVERAGE_DEFAULT, EXTRACTOR_DEFAULT } from '../../../src/extract/cleanInputs'
-import { extractColors } from '../../../src/extractColors.browser'
-import { FinalColor } from '../../../src/types/Color'
+import { extractColors } from 'extract-colors'
+import { FinalColor } from 'extract-colors'
 import "./parts/track"
+
+const enum EXTRACTOR_DEFAULT {
+  PIXELS = 64000,
+  DISTANCE = 0.22
+}
+
+/**
+ * Default average values
+ */
+const enum AVERAGE_DEFAULT {
+  HUE = 1/12,
+  SATURATION = 1/5,
+  LIGHTNESS = 1/5,
+}
 
 let processCurrentId = '' // To avoid old process calculations
 const IMG_THEME = [/* 'moon',*/ 'water', 'sea', 'colors', 'sky']

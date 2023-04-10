@@ -16,12 +16,12 @@ serve:
 	python3 -m webbrowser http://localhost:3000/
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \
-		-v $(shell pwd):/usr/src/app \
-		-w /usr/src/app/website \
+		-v $(shell pwd):/usr/src/app/extract-colors \
+		-w /usr/src/app/extract-colors \
 		-p 3000\:3000 \
-		-u "node" \
+		-u "root" \
 		node:slim \
-		npm run serve
+		bash -c "npm i ; npm run build ; npm link ; cd website ; npm i ; npm link extract-colors ; npm run serve"
 
 code:
 	docker run -ti --rm \
@@ -32,6 +32,16 @@ code:
 		-u "node" \
 		node:slim \
 		bash
+
+links:
+	docker run -ti --rm \
+		--user $(id -u):$(id -g) \
+		-v $(shell pwd):/usr/src/app/extract-colors \
+		-w /usr/src/app/extract-colors \
+		-p 3001\:3001 \
+		-u "root" \
+		node:slim \
+		bash -c "npm i ; npm run build ; npm link ; cd website ; npm i ; npm link extract-colors ; cd ../examples/browser-import ; npm i ; npm link extract-colors ; cd ../browser-require ; npm i ; npm link extract-colors ; cd ../node-require ; npm link extract-colors"
 
 rootcode:
 	docker run -ti --rm \

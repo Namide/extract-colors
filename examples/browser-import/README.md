@@ -3,6 +3,7 @@
 React (browser esm test)
 
 ```bash
+make links
 make rootcode
 
 # init

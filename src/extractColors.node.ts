@@ -31,6 +31,10 @@ if (__DEV__) {
   }
 }
 
+export * from "./types/Color"
+export * from "./types/NodeImageData"
+export * from "./types/Options"
+
 export {
   extractColorsFromImageData,
   extractColorsFromImage,

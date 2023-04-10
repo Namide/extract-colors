@@ -2,7 +2,7 @@ import { extractColorsFromImageData } from "./extractColors"
 import { sortFinalColors } from "./extractColors"
 import cleanInputs from "./extract/cleanInputs"
 import extractor from "./extract/extractor"
-import { FinalColor } from "./types/Color"
+import type { FinalColor } from "./types/Color"
 import type { BrowserOptions } from "./types/Options"
 
 /**
@@ -80,6 +80,10 @@ const extractColors = (picture: string | HTMLImageElement | ImageData | { data: 
 
   throw new Error(`Can not analyse picture`)
 }
+
+export * from "./types/Color"
+export * from "./types/NodeImageData"
+export * from "./types/Options"
 
 export {
   extractColorsFromImageData,

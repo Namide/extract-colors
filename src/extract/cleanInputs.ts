@@ -3,7 +3,7 @@ import { BrowserOptions } from "../types/Options"
 /**
  * Default extractor values
  */
-export const enum EXTRACTOR_DEFAULT {
+const enum EXTRACTOR_DEFAULT {
   PIXELS = 64000,
   DISTANCE = 0.22
 }
@@ -11,7 +11,7 @@ export const enum EXTRACTOR_DEFAULT {
 /**
  * Default average values
  */
-export const enum AVERAGE_DEFAULT {
+const enum AVERAGE_DEFAULT {
   HUE = 1/12,
   SATURATION = 1/5,
   LIGHTNESS = 1/5,
