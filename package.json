@@ -5,6 +5,7 @@
   "main": "lib/extract-colors.node.cjs.js",
   "browser": "lib/extract-colors.browser.umd.js",
   "types": "lib/extract-colors.browser.umd.d.ts",
+  "type": "module",
   "exports": {
     "node": {
       "import": "./lib/extract-colors.node.es.js",
