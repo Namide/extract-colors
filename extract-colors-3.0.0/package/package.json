@@ -1,0 +1,54 @@
+{
+  "name": "extract-colors",
+  "version": "3.0.0",
+  "description": "Extract color palettes from images",
+  "main": "lib/extract-colors.cjs.js",
+  "module": "lib/extract-colors.es.js",
+  "types": "lib/extract-colors.d.ts",
+  "scripts": {
+    "prebuild": "rm -rf ./lib",
+    "build": "vite build --config conf/vite.config.ts && tsc --project conf/tsconfig.type.json",
+    "postbuild": "mv lib/extractColors.d.ts lib/extract-colors.d.ts",
+    "lint": "eslint src --fix",
+    "pretest": "npm run build",
+    "test": "vitest --config conf/vite.config.test.ts",
+    "precoverage": "npm run build",
+    "coverage": "vitest run --coverage --config conf/vite.config.test.ts",
+    "loop": "for file in lib/*/*/*.js; do terser $file --compress --mangle --mangle-props --source-map includeSources --output $file; done"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Namide/extract-colors.git"
+  },
+  "keywords": [
+    "color",
+    "tool",
+    "image",
+    "extract",
+    "palette",
+    "browser",
+    "rgb",
+    "front-end",
+    "back-end",
+    "node"
+  ],
+  "author": "damien@doussaud.fr",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Namide/extract-colors/issues"
+  },
+  "homepage": "https://extract-colors.namide.com",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "@vitest/coverage-c8": "^0.25.0",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.27.0",
+    "typescript": "^4.8.4",
+    "vite": "^2.8.3",
+    "vitest": "^0.25.0"
+  }
+}

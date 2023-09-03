@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const getPixels = require("get-pixels")
-const { extractColors } = require('extract-colors')
+import getPixels from "get-pixels"
+import { extractColors } from 'extract-colors'
 
 const src = `https://loremflickr.com/640/480?lock=${ Math.floor(Math.random() * 0xFFFFFF) }`
 
