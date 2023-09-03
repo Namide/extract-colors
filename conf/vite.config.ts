@@ -1,18 +1,18 @@
 import path from 'path';
 import { defineConfig } from 'vite';
 
+
 export default () => {
   return defineConfig({
     define: {
-      __DEV__: `process.env.NODE_ENV !== "production"`,
-      __BROWSER__: 'false'
+      __DEV__: `process.env.NODE_ENV !== "production"`
     },
     build: {
       sourcemap: true,
       lib: {
-        entry: path.resolve(__dirname, '../src/extractColors.node.ts'),
+        entry: path.resolve(__dirname, '../src/extractColors.ts'),
         name: 'ExtractColors',
-        fileName: (format) => `extract-colors.node.${format}.js`,
+        fileName: (format) => `extract-colors.${format}.js`,
         formats: ['cjs', 'es']
       },
       minify: "terser",
@@ -50,5 +50,5 @@ export default () => {
         },
       },
     },
-  })
+  });
 }
