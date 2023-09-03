@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "NODE_ENV=development node index.ts",
-    "prod": "NODE_ENV=production node index.ts"
+    "dev": "NODE_ENV=development tsc index.ts",
+    "prod": "NODE_ENV=production tsc index.ts"
   },
   "keywords": [],
   "author": "",
