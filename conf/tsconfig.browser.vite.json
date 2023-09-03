@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "lib": ["ESNext", "DOM"],
-    "noEmit": true
-  },
-  "files": ["../src/extractColors.browser.ts"]
-}

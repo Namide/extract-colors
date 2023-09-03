@@ -71,6 +71,15 @@ build:
 		node:slim \
 		npm run build
 
+pack:
+	docker run -ti --rm \
+		--user $(id -u):$(id -g) \
+		-v $(shell pwd):/usr/src/app \
+		-w /usr/src/app \
+		-u "node" \
+		node:slim \
+		npm pack
+
 lint:
 	docker run -ti --rm \
 		--user $(id -u):$(id -g) \

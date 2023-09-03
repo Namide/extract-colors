@@ -1,6 +1,6 @@
 
 import { describe, it, expect, vi } from 'vitest'
-import { extractColors, extractColorsFromImageData } from '../src/extractColors.browser'
+import { extractColors, extractColorsFromImageData } from '../src/extractColors'
 
 // Mock Image
 class Image {
@@ -56,6 +56,12 @@ const document = {
 }
 
 vi.stubGlobal('document', document)
+
+// Mock window
+const window = {}
+
+vi.stubGlobal('window', window)
+
 
 describe("Browser", () => {
 
