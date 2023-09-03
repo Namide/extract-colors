@@ -14,7 +14,7 @@
     "test": "vitest --config conf/vite.config.test.ts",
     "precoverage": "npm run build",
     "coverage": "vitest run --coverage --config conf/vite.config.test.ts",
-    "loop": "for file in lib/*/*/*.js; do terser $file --compress --mangle --mangle-props --source-map includeSources --output $file; done"
+    "loop": "for file in lib/*.js; do terser $file --compress --mangle --mangle-props --source-map includeSources --output $file; done"
   },
   "repository": {
     "type": "git",
