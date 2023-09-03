@@ -2,7 +2,7 @@
  * @vitest-environment node
  */
 import { describe, it, expect } from 'vitest'
-import { extractColors } from '../lib/extract-colors.node.cjs'
+import { extractColors } from '../lib/extract-colors.cjs'
 
 let seed = 654654331 % 2147483647
 const rand = () => ((seed = seed * 16807 % 2147483647) - 1) / 2147483646

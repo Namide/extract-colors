@@ -22,15 +22,6 @@ const _sortFinalColors = (_colors: Color[], _pixels: number, _hueDistance: numbe
 }
 
 /**
- * Extract colors from an ImageData object.
- */
-const _extractColorsFromImageData = (imageData: ImageData | { data: Uint8ClampedArray | number[], width?: number, height?: number }, options: NodeOptions | BrowserOptions = {}) => {
-  const [_pixels, _distance, _colorValidator, _hueDistance, _saturationDistance, _lightnessDistance] = cleanInputs(options)
-  const { colors, count } = extractor(imageData, _pixels, _distance, _colorValidator)
-  return _sortFinalColors(colors, count, _hueDistance, _saturationDistance, _lightnessDistance)
-}
-
-/**
  * Extract ImageData from image.
  * Reduce image to a pixel count.
  * Browser only
@@ -48,6 +39,15 @@ const _getImageData = (_image: HTMLImageElement, _pixels: number) => {
   context.drawImage(_image, 0, 0, _image.width, _image.height, 0, 0, width, height)
 
   return context.getImageData(0, 0, width, height)
+}
+
+/**
+ * Extract colors from an ImageData object.
+ */
+export const extractColorsFromImageData = (imageData: ImageData | ImageDataAlt, options: NodeOptions | BrowserOptions = {}) => {
+  const [_pixels, _distance, _colorValidator, _hueDistance, _saturationDistance, _lightnessDistance] = cleanInputs(options)
+  const { colors, count } = extractor(imageData, _pixels, _distance, _colorValidator)
+  return _sortFinalColors(colors, count, _hueDistance, _saturationDistance, _lightnessDistance)
 }
 
 /**
@@ -125,7 +125,7 @@ export const extractColors = (picture: string | HTMLImageElement | ImageData | I
   
     if (picture instanceof ImageData || (picture instanceof Object && picture.data)) {
       return new Promise((resolve: (value: FinalColor[]) => void) => {
-        resolve(_extractColorsFromImageData(picture, options))
+        resolve(extractColorsFromImageData(picture, options))
       })
     }
   
@@ -151,7 +151,7 @@ export const extractColors = (picture: string | HTMLImageElement | ImageData | I
     }
     
     return new Promise((resolve: (value: FinalColor[]) => void) => {
-      resolve(_extractColorsFromImageData(picture as ImageData | ImageDataAlt, options))
+      resolve(extractColorsFromImageData(picture as ImageData | ImageDataAlt, options))
     })
   }
 
