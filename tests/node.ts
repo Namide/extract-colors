@@ -2,7 +2,7 @@
  * @vitest-environment node
  */
 import { describe, it, expect, vi } from 'vitest'
-import { extractColors, extractColorsFromImage, extractColorsFromSrc } from '../src/extractColors.node'
+import { extractColors, extractColorsFromImage, extractColorsFromSrc } from '../src/extractColors'
 
 const warns: string[] = []
 
