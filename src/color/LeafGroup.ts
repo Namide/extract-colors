@@ -21,6 +21,12 @@ export default class LeafGroup {
 
   /**
    * Add color to the group.
+   * 
+   * @param _hex Hexadecimal value of the color
+   * @param _red Red chanel amount of the color
+   * @param _green Green chanel amount of the color
+   * @param _blue Blue chanel amount of the color
+   * @returns The color
    */
   addColor (_hex: number, _red: number, _green: number, _blue: number) {
     this._count++
@@ -34,6 +40,8 @@ export default class LeafGroup {
 
   /**
    * Get list of groups of list of colors.
+   * 
+   * @returns List of colors
    */
   getList () {
     return (Object.keys(this._children) as unknown[] as number[])
@@ -42,6 +50,8 @@ export default class LeafGroup {
 
   /**
    * Representative color of leaf.
+   * 
+   * @returns Main color of the leaf
    */
   createMainColor () {
     const list = this.getList()

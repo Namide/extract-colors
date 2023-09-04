@@ -5,8 +5,8 @@
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    // "outFile": "../lib/extractColors.browser.d.ts",
+    // "outFile": "../lib/extractColors.d.ts",
     "isolatedModules": false
   },
-  "files": ["../src/extractColors.browser.ts"]
+  "files": ["../src/extractColors.ts"]
 }
