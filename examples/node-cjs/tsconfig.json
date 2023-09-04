@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "module": "NodeNext",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true
-  },
-  "include": ["index.ts"]
-}
