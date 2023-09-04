@@ -12,7 +12,7 @@ export default () => {
       lib: {
         entry: path.resolve(__dirname, '../src/extractColors.ts'),
         name: 'ExtractColors',
-        fileName: (format) => `extract-colors.${format}.js`,
+        fileName: (format) => `extract-colors.${format === 'es' ? 'mjs' : format}`,
         formats: ['cjs', 'es']
       },
       minify: "terser",

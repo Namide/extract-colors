@@ -2,8 +2,8 @@
   "name": "extract-colors",
   "version": "4.0.0",
   "description": "Extract color palettes from images",
-  "main": "lib/extract-colors.cjs.js",
-  "module": "lib/extract-colors.es.js",
+  "main": "lib/extract-colors.cjs",
+  "module": "lib/extract-colors.mjs",
   "types": "lib/extract-colors.d.ts",
   "scripts": {
     "prebuild": "rm -rf ./lib",
