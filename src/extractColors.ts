@@ -11,7 +11,7 @@ type ImageDataAlt = { data: Uint8ClampedArray | number[], width?: number, height
 /**
  * Browser or Node.js context detection
  * 
- * @returns Is broswer context
+ * @returns Is a browser context
  */
 const _isBrowser = () => typeof window !== 'undefined'
 
