@@ -1,6 +1,11 @@
 # Changelog
 
 
+## v4.0.1 _(2023-09-05)_
+
+- Update filename version for better node.js module usage
+
+
 ## v4.0.0 _(2023-09-03)_
 
 - Remove errors and warnings from production build
