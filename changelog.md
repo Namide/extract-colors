@@ -1,6 +1,11 @@
 # Changelog
 
 
+## v4.0.2 _(2023-09-06)_
+
+- Improve bundle size
+
+
 ## v4.0.1 _(2023-09-05)_
 
 - Update filename version for better node.js module usage
