@@ -28,4 +28,17 @@ describe('Color', () => {
     expect(Color.distance(color1, color2)).toBe(0)
     expect(Color.distance(color2, color1)).toBe(0)
   })
+  
+  it('Get HSL', () => {
+    const color1 = new Color(0xFF, 0xFF, 0xFF)
+    const color2 = new Color(0x00, 0x00, 0x00)
+    expect(color1._saturation).toBe(0)
+    expect(color1._lightness).toBe(1)
+    expect(color2._lightness).toBe(0)
+  })
+  
+  it('Test blue color', () => {
+    const color1 = new Color(0x00, 0x00, 0xFF)
+    expect(color1._hue).toBe(240 / 360)
+  })
 })

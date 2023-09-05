@@ -85,27 +85,21 @@ export default ({
       return val
     }
 
-    return [
-      testUint('pixels', pixels || 0, 1),
-      testNumber('distance', distance, 0, 1),
-      testFunction('colorValidator', colorValidator),
-      testNumber('hueDistance', hueDistance, 0, 1),
-      testNumber('saturationDistance', saturationDistance, 0, 1),
-      testNumber('lightnessDistance', lightnessDistance, 0, 1),
-      crossOrigin
-    ]
+    testUint('pixels', pixels || 0, 1)
+    testNumber('distance', distance, 0, 1)
+    testFunction('colorValidator', colorValidator)
+    testNumber('hueDistance', hueDistance, 0, 1)
+    testNumber('saturationDistance', saturationDistance, 0, 1)
+    testNumber('lightnessDistance', lightnessDistance, 0, 1)
+  }
 
-  } else {
-
-    return [
-      Math.max(pixels, 1),
-      Math.min(Math.max(distance, 0), 1),
-      colorValidator,
-      Math.min(Math.max(hueDistance, 0), 1),
-      Math.min(Math.max(saturationDistance, 0), 1),
-      Math.min(Math.max(lightnessDistance, 0), 1),
-      crossOrigin
-    ]
-
-  }  
+  return [
+    Math.max(pixels, 1),
+    Math.min(Math.max(distance, 0), 1),
+    colorValidator,
+    Math.min(Math.max(hueDistance, 0), 1),
+    Math.min(Math.max(saturationDistance, 0), 1),
+    Math.min(Math.max(lightnessDistance, 0), 1),
+    crossOrigin
+  ] 
 }

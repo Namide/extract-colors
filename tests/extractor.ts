@@ -53,6 +53,18 @@ const testWarn = async (testName: string, options: ExtractorOptions, errorMessag
 }
 
 describe('Color', () => {
+  it('No width height ', () => {
+
+    const imageData = {
+      width: 0,
+      height: 0,
+      data: [0x00, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0x00, 0x00, 0xFF]
+    }
+
+    const [pixels, distance, colorValidator] = cleanInputs({})
+    expect(extractor(imageData, pixels, distance, colorValidator).colors.length).toBe(4)
+  })
+
   it('Reducer by 4', () => {
 
     const imageData = {
@@ -63,6 +75,22 @@ describe('Color', () => {
 
     const [pixels, distance, colorValidator] = cleanInputs({ pixels: 1 })
     expect(extractor(imageData, pixels, distance, colorValidator).colors.length).toBe(1)
+  })
+
+  it('Alpha reducer by 3', () => {
+
+    const imageData = {
+      width: 2,
+      height: 2,
+      data: [0x00, 0xFF, 0x00, 0xFF, 0xFF, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0xFF, 0x00, 0x00, 0x00, 0x00]
+    }
+
+    const [pixels, distance, colorValidator] = cleanInputs({
+      pixels: 4,
+      colorValidator: (r, g, b, a) => a > 0
+    })
+
+    expect(extractor(imageData, pixels, distance, colorValidator).colors.length).toBe(3)
   })
 
   it('No reducer', () => {
