@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rm -rf ./lib",
     "build": "vite build --config conf/vite.config.ts && tsc --project conf/tsconfig.type.json",
-    "postbuild": "mv lib/extractColors.d.ts lib/extract-colors.d.ts",
+    "postbuild": "mv lib/extractColors.d.ts lib/extract-colors.d.ts; sed -i 's/__DEV__/process.env.NODE_ENV !== \"production\"/g' lib/**.*",
     "lint": "eslint src --fix",
     "pretest": "npm run build",
     "test": "vitest --config conf/vite.config.test.ts",
@@ -46,8 +46,9 @@
     "@typescript-eslint/parser": "^5.42.0",
     "@vitest/coverage-v8": "^1.5.0",
     "eslint": "^8.27.0",
+    "terser": "^5.30.3",
     "typescript": "^4.8.4",
-    "vite": "^2.8.3",
+    "vite": "^5.2.10",
     "vitest": "^1.5.0"
   }
 }

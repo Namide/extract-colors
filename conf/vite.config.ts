@@ -5,7 +5,7 @@ import { defineConfig } from 'vite';
 export default () => {
   return defineConfig({
     define: {
-      __DEV__: `process.env.NODE_ENV !== "production"`
+      // __DEV__: JSON.stringify(`process.env.NODE_ENV !== "production"`)
     },
     build: {
       sourcemap: true,
