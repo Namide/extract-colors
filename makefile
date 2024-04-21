@@ -1,6 +1,6 @@
 install:
 	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
+		-u "node" \
 		-v $(shell pwd):/usr/src/app \
 		-w /usr/src/app \
 		node:slim \
@@ -8,7 +8,7 @@ install:
 
 code:
 	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
+		-u "node" \
 		-v $(shell pwd):/usr/src/app/extract-colors \
 		-w /usr/src/app/extract-colors \
 		-p 3001\:3001 \
@@ -18,7 +18,7 @@ code:
 
 rootcode:
 	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
+		-u "node" \
 		-v $(shell pwd):/usr/src/app/extract-colors \
 		-w /usr/src/app/extract-colors \
 		-p 3001\:3001 \
@@ -28,7 +28,7 @@ rootcode:
 
 build:
 	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
+		-u "node" \
 		-v $(shell pwd):/usr/src/app \
 		-w /usr/src/app \
 		-u "node" \
@@ -37,7 +37,7 @@ build:
 
 pack:
 	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
+		-u "node" \
 		-v $(shell pwd):/usr/src/app \
 		-w /usr/src/app \
 		-u "node" \
@@ -46,7 +46,7 @@ pack:
 
 lint:
 	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
+		-u "node" \
 		-v $(shell pwd):/usr/src/app \
 		-w /usr/src/app \
 		-u "node" \
@@ -55,7 +55,7 @@ lint:
 
 test:
 	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
+		-u "node" \
 		-v $(shell pwd):/usr/src/app \
 		-w /usr/src/app \
 		-u "node" \
@@ -64,7 +64,7 @@ test:
 
 cov:
 	docker run -ti --rm \
-		--user $(id -u):$(id -g) \
+		-u "node" \
 		-v $(shell pwd):/usr/src/app \
 		-w /usr/src/app \
 		-u "node" \
