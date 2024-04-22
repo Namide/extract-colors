@@ -30,7 +30,8 @@
     "rgb",
     "front-end",
     "back-end",
-    "node"
+    "node",
+    "hsl"
   ],
   "author": "damien@doussaud.fr",
   "license": "GPL-3.0",
