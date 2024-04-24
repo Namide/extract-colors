@@ -8,7 +8,7 @@
   "scripts": {
     "prebuild": "rm -rf ./lib",
     "build": "vite build --config conf/vite.config.ts && tsc --project conf/tsconfig.type.json",
-    "postbuild": "mv lib/extractColors.d.ts lib/extract-colors.d.ts; sed -i 's/__DEV__/process.env.NODE_ENV !== \"production\"/g' lib/**.*",
+    "postbuild": "mv lib/extractColors.d.ts lib/extract-colors.d.ts; sed -i 's/__DEV__/process.env.NODE_ENV !== \"production\"/g' lib/**.*js ; ",
     "lint": "eslint src --fix",
     "pretest": "npm run build",
     "test": "vitest --config conf/vite.config.test.ts",
