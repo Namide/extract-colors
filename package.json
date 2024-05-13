@@ -1,6 +1,6 @@
 {
   "name": "extract-colors",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Extract color palettes from images",
   "main": "lib/extract-colors.cjs",
   "module": "lib/extract-colors.mjs",
