@@ -86,28 +86,49 @@ getPixels(src, (err, pixels) => {
 > This example use `get-pixels` but you can change the lib.
 > Just send the ImageData object to `extractColors(imageData)`.
 
-### Node.js example using native `fetch`
+### Node.js example using Typescript and `get-pixels`
+
+```bash
+npm i -D @types/get-pixels
+```
 
 ```ts
 import { type FinalColor } from 'extract-colors/lib/types/Color';
 import { extractColors } from 'extract-colors';
+import getPixels from 'get-pixels';
 
 // ...
+async function getPixelsAsync(url: string) {
+    return new Promise(function (resolve, reject) {
+      getPixels(url, function (err, data) {
+        if (err !== null) reject(err);
+        else resolve(data);
+      });
+    });
+  }
 
-async function getImageColors(imgUrl: string): Promise<FinalColor[]> {
-  const width = 100; // optional
-  const height = 100; // optional
+
+async function getImageColors(imgUrl: string) {
   const options = {
     /* ... */
   };
   try {
-    // Fetch image data from URL
-    const res = await fetch(imgUrl);
-    const blob = await res.arrayBuffer();
-    const buffer = Buffer.from(blob);
-    const img = Uint8ClampedArray.from(buffer);
-    const colors = await extractColors({ data: img, width, height }, options);
-    return colors;
+    const pixels = (await getPixelsAsync(imgUrl)) as {
+        data: Uint8Array;
+        shape: [number, number];
+      };
+      if (!pixels) return undefined;
+
+      const data = [...pixels.data];
+      const [width, height] = pixels.shape;
+      const options {
+        /* config options */
+      }
+      const colors = await extractColors(
+        { data, width, height },
+        options
+      );
+      return colors;
   } catch (e) {
     console.error('Error extracting colors from image', e);
     return [];
