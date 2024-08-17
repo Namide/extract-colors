@@ -97,38 +97,33 @@ import { type FinalColor } from 'extract-colors/lib/types/Color';
 import { extractColors } from 'extract-colors';
 import getPixels from 'get-pixels';
 
+type Pixels = {
+  data: Uint8Array;
+  shape: [number, number];
+};
 // ...
-async function getPixelsAsync(url: string) {
-    return new Promise(function (resolve, reject) {
-      getPixels(url, function (err, data) {
-        if (err !== null) reject(err);
-        else resolve(data);
-      });
-    });
-  }
 
+async function getPixelsAsync(url: string) {
+  return new Promise(function (resolve, reject) {
+    getPixels(url, function (err, data) {
+      if (err !== null) reject(err);
+      else resolve(data as Pixels);
+    });
+  });
+}
 
 async function getImageColors(imgUrl: string) {
   const options = {
     /* ... */
   };
   try {
-    const pixels = (await getPixelsAsync(imgUrl)) as {
-        data: Uint8Array;
-        shape: [number, number];
-      };
-      if (!pixels) return undefined;
+    const pixels = await getPixelsAsync(imgUrl);
+    if (!pixels) return [];
 
-      const data = [...pixels.data];
-      const [width, height] = pixels.shape;
-      const options {
-        /* config options */
-      }
-      const colors = await extractColors(
-        { data, width, height },
-        options
-      );
-      return colors;
+    const data = [...pixels.data];
+    const [width, height] = pixels.shape;
+    const colors = await extractColors({ data, width, height }, options);
+    return colors;
   } catch (e) {
     console.error('Error extracting colors from image', e);
     return [];
