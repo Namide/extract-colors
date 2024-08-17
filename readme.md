@@ -93,7 +93,6 @@ npm i -D @types/get-pixels
 ```
 
 ```ts
-import { type FinalColor } from 'extract-colors/lib/types/Color';
 import { extractColors } from 'extract-colors';
 import getPixels from 'get-pixels';
 
