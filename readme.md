@@ -3,7 +3,7 @@
 [![package version](https://badge.fury.io/js/extract-colors.svg)](https://www.npmjs.com/package/extract-colors)
 [![npm min bundle size](https://img.shields.io/bundlephobia/min/extract-colors?style=flat&color=brightgreen)](https://bundlephobia.com/result?p=extract-colors)
 [![npm gzip bundle size](https://img.shields.io/bundlephobia/minzip/extract-colors?style=flat&color=brightgreen)](https://bundlephobia.com/result?p=extract-colors)
-![zero dependency](https://img.shields.io/badge/dependency-zero-brightgreen)
+[![zero dependency](https://img.shields.io/badge/dependency-zero-brightgreen)](https://www.npmjs.com/package/extract-colors?activeTab=dependencies)
 [![CI](https://github.com/Namide/extract-colors/workflows/CI/badge.svg)](https://github.com/Namide/extract-colors/actions)
 [![code coverage](https://codecov.io/gh/Namide/extract-colors/branch/master/graph/badge.svg?token=80PUQ24PW5)](https://codecov.io/gh/Namide/extract-colors)
 [![GNU GPL software License](https://img.shields.io/badge/license-GNU_GPL-brightgreen.svg)](#license)
@@ -30,11 +30,9 @@ Need image reader dependence for node.js
 - Samsung Internet: 2.0+
 - ~~Internet Explorer~~
 
-
 ### Node
 
 - Node.js: 6.0+
-
 
 ## Install
 
@@ -44,7 +42,6 @@ Need image reader dependence for node.js
 npm install --save extract-colors
 ```
 
-
 ### For node.js
 
 Need to install an ImageData extractor like `get-pixels`
@@ -53,48 +50,41 @@ Need to install an ImageData extractor like `get-pixels`
 npm install --save extract-colors get-pixels
 ```
 
-
 ## Usage
 
 ### Browser example
 
 ```js
-import { extractColors } from 'extract-colors'
+import { extractColors } from "extract-colors";
 
-const src = 'my-image.jpg'
+const src = "my-image.jpg";
 
-extractColors(src)
-  .then(console.log)
-  .catch(console.error)
+extractColors(src).then(console.log).catch(console.error);
 ```
 
 > You can use different types for `src` param (`String` for a path of image, `HTMLImageElement` or `ImageData`).
 
-
 ### Node.js example
 
 ```js
-const path = require('path')
-const getPixels = require("get-pixels")
-const { extractColors } = require('extract-colors')
+const path = require("path");
+const getPixels = require("get-pixels");
+const { extractColors } = require("extract-colors");
 
-const src = path.join(__dirname, './my-image.jpg')
+const src = path.join(__dirname, "./my-image.jpg");
 
 getPixels(src, (err, pixels) => {
-  if(!err) {
-    const data = [...pixels.data]
-    const [width, height] = pixels.shape
+  if (!err) {
+    const data = [...pixels.data];
+    const [width, height] = pixels.shape;
 
-    extractColors({ data, width, height })
-      .then(console.log)
-      .catch(console.log)
+    extractColors({ data, width, height }).then(console.log).catch(console.log);
   }
-})
+});
 ```
 
 > This example use `get-pixels` but you can change the lib.
 > Just send and ImageData object to `extractColors(imageData)`.
-
 
 ### ExtractorOptions
 
@@ -105,23 +95,21 @@ const options = {
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
   saturationDistance: 0.2,
   lightnessDistance: 0.2,
-  hueDistance: 0.083333333
-}
+  hueDistance: 0.083333333,
+};
 
-extractColors(src, options)
-  .then(console.log)
-  .catch(console.error)
+extractColors(src, options).then(console.log).catch(console.error);
 ```
 
 **pixels**  
 _Total pixel number of the resized picture for calculation_  
 Type: `Integer`  
-Default: `64000`  
+Default: `64000`
 
 **distance**  
 _From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)_  
 Type: `Number`  
-Default: `0.22`  
+Default: `0.22`
 
 **colorValidator**  
 _Test function to enable only some colors_  
@@ -149,7 +137,6 @@ _Minimum hue value between two colors otherwise the colors will be merged (from 
 Type: `String`  
 Default: `0.083333333`
 
-
 ## Return of the promise
 
 Array of colors with the followed properties:
@@ -171,22 +158,21 @@ Array of colors with the followed properties:
 ]
 ```
 
-| Field | Example | Type | Description |
-|---|---|---|---|
-| hex | #858409 | String | color in hexadecimal string |
-| red | 133 | Integer | red canal from 0 to 255 |
-| green | 132 | Integer | green canal from 0 to 255 |
-| blue | 9 | Integer | blue canal from 0 to 255 |
-| hue | 0.1653 | Number | color tone from 0 to 1 |
-| intensity | 0.4862 | Number | color intensity from 0 to 1 |
-| lightness | 0.2784 | Number | color lightness from 0 to 1 |
-| saturation | 0.8732 | Number | color saturation from 0 to 1 |
-| area | 0.0004 | Number | area of the color and his neighbouring colors from 0 to 1 |
-
+| Field      | Example | Type    | Description                                               |
+| ---------- | ------- | ------- | --------------------------------------------------------- |
+| hex        | #858409 | String  | color in hexadecimal string                               |
+| red        | 133     | Integer | red canal from 0 to 255                                   |
+| green      | 132     | Integer | green canal from 0 to 255                                 |
+| blue       | 9       | Integer | blue canal from 0 to 255                                  |
+| hue        | 0.1653  | Number  | color tone from 0 to 1                                    |
+| intensity  | 0.4862  | Number  | color intensity from 0 to 1                               |
+| lightness  | 0.2784  | Number  | color lightness from 0 to 1                               |
+| saturation | 0.8732  | Number  | color saturation from 0 to 1                              |
+| area       | 0.0004  | Number  | area of the color and his neighbouring colors from 0 to 1 |
 
 ## License
 
-Copyright (C) 2019  Damien Doussaud
+Copyright (C) 2019 Damien Doussaud
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -195,8 +181,8 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+along with this program. If not, see <https://www.gnu.org/licenses/>.
