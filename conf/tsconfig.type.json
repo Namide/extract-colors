@@ -5,7 +5,6 @@
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    // "outFile": "../lib/extractColors.d.ts",
     "isolatedModules": false
   },
   "files": ["../src/extractColors.ts"]

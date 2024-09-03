@@ -1,17 +1,22 @@
-export type SorterOptions = {
+export interface SorterOptions {
   saturationDistance?: number;
   lightnessDistance?: number;
   hueDistance?: number;
 }
 
-export type ExtractorOptions = {
+export interface ExtractorOptions {
   pixels?: number;
   distance?: number;
-  colorValidator?: (red: number, green: number, blue: number, alpha: number) => boolean;
+  colorValidator?: (
+    red: number,
+    green: number,
+    blue: number,
+    alpha: number
+  ) => boolean;
 }
 
 export type BrowserOptions = ExtractorOptions & {
   crossOrigin?: "anonymous" | "use-credentials" | "" | null;
-} & SorterOptions
+} & SorterOptions;
 
-export type NodeOptions = ExtractorOptions & SorterOptions
+export type NodeOptions = ExtractorOptions & SorterOptions;

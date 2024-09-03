@@ -1,6 +1,5 @@
-import path from 'path';
-import { defineConfig } from 'vite';
-
+import path from "path";
+import { defineConfig } from "vite";
 
 export default () => {
   return defineConfig({
@@ -10,10 +9,11 @@ export default () => {
     build: {
       sourcemap: true,
       lib: {
-        entry: path.resolve(__dirname, '../src/extractColors.ts'),
-        name: 'ExtractColors',
-        fileName: (format) => `extract-colors.${format === 'es' ? 'mjs' : format}`,
-        formats: ['cjs', 'es']
+        entry: path.resolve(__dirname, "../src/extractColors.ts"),
+        name: "ExtractColors",
+        fileName: (format) =>
+          `extract-colors.${format === "es" ? "mjs" : format}`,
+        formats: ["cjs", "es"],
       },
       minify: "terser",
       terserOptions: {
@@ -39,16 +39,16 @@ export default () => {
               "extractColors",
               "extractColorsFromImage",
               "extractColorsFromImageData",
-              "extractColorsFromSrc"
+              "extractColorsFromSrc",
             ],
-          }
-        }
+          },
+        },
       },
       rollupOptions: {
         output: {
-          dir: './lib'
+          dir: "./lib",
         },
       },
     },
   });
-}
+};

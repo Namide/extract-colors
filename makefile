@@ -51,7 +51,7 @@ lint:
 		-w /usr/src/app \
 		-u "node" \
 		node:slim \
-		npm run lint
+		npm run lint-fix
 
 test:
 	docker run -ti --rm \

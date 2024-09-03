@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "moduleResolution":"node",
+    "moduleResolution": "node",
     "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
@@ -13,8 +13,6 @@
     "declaration": true,
     "outDir": "../lib"
   },
-  "include": [
-    "../src/global.d.ts"
-  ],
+  "include": ["../src/global.d.ts"],
   "exclude": ["node_modules"]
 }

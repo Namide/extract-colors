@@ -4,5 +4,6 @@
     "lib": ["ESNext", "DOM"],
     "noEmit": true
   },
-  "files": ["../src/extractColors.ts"]
+  "files": ["../src/extractColors.ts"],
+  "include": ["../src/**/*", "../tests/**/*"]
 }

@@ -1,12 +1,15 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
 
-module.exports = defineConfig({
+export default defineConfig({
   define: {
-    __DEV__: `true`,
-    __BROWSER__: 'true'
+    __DEV__: "true",
+    __BROWSER__: "true",
   },
   test: {
-    include: ['tests/*.ts'],
-    environment: 'node',
+    include: ["tests/*.ts"],
+    environment: "node",
+    coverage: {
+      provider: "istanbul", // or 'v8'
+    },
   },
 });
