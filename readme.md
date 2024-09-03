@@ -13,7 +13,7 @@ Extract color palettes from images.
 Simple use, < 6kB minified, gzip ≈ 2kB, fast process and no dependencies for browser.  
 Need image reader dependence for node.js
 
-[Website](https://extract-colors.namide.com/) | [Demo](https://extract-colors.namide.com/demo/) | [Guide](https://extract-colors.namide.com/guide/)
+[Website](https://extract-colors.namide.com/) | [Demo](https://extract-colors.namide.com/demo) | [Guide](https://extract-colors.namide.com/guide)
 
 ![3 examples of colors extraction](./doc/colors-2.jpg)
 
