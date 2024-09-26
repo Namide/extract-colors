@@ -134,8 +134,8 @@ export const extractColorsFromImageData = (
  *
  * @param image HTML image element
  * @param options Process configuration
- * @param options.pixels The name of the user.
- * @param options.distance The email of the user.
+ * @param options.pixels Total pixel number of the resized picture for calculation
+ * @param options.distance From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
  * @param options.colorValidator Test function to enable only some colors
  * @param options.saturationDistance Minimum saturation value between two colors otherwise the colors will be merged (from 0 to 1)
  * @param options.lightnessDistance inimum lightness value between two colors otherwise the colors will be merged (from 0 to 1)
