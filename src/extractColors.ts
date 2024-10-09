@@ -65,8 +65,11 @@ const _getImageData = (_image: HTMLImageElement, _pixels: number) => {
     currentPixels < _pixels
       ? _image.height
       : Math.round(_image.height * Math.sqrt(_pixels / currentPixels));
-
-  const canvas = document.createElement("canvas");
+  const canvas = 
+    !("OffscreenCanvas" in window)
+      ? document.createElement("canvas")
+      : new OffscreenCanvas();
+  
   canvas.width = width;
   canvas.height = height;
 
