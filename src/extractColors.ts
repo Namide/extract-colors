@@ -1,16 +1,14 @@
 import Color from "./color/Color";
 import sortColors from "./sort/sortColors";
 import { createFinalColor } from "./color/FinalColor";
-import { BrowserOptions, NodeOptions } from "./types/Options";
+import type {
+  BrowserOptions,
+  ImageDataAlt,
+  NodeOptions,
+} from "./types/Options";
 import cleanInputs from "./extract/cleanInputs";
 import extractor from "./extract/extractor";
-import { FinalColor } from "./types/Color";
-
-interface ImageDataAlt {
-  data: Uint8ClampedArray | number[];
-  width?: number;
-  height?: number;
-}
+import type { FinalColor } from "./types/Color";
 
 /**
  * Browser context detection

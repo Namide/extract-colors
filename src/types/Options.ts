@@ -1,3 +1,9 @@
+export interface ImageDataAlt {
+  data: Uint8ClampedArray | number[];
+  width?: number;
+  height?: number;
+}
+
 export interface SorterOptions {
   saturationDistance?: number;
   lightnessDistance?: number;
