@@ -11,12 +11,13 @@ export interface ExtractorOptions {
     red: number,
     green: number,
     blue: number,
-    alpha: number
+    alpha: number,
   ) => boolean;
 }
 
 export type BrowserOptions = ExtractorOptions & {
   crossOrigin?: "anonymous" | "use-credentials" | "" | null;
+  requestMode?: RequestMode;
 } & SorterOptions;
 
 export type NodeOptions = ExtractorOptions & SorterOptions;

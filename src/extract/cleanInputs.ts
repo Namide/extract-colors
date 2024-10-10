@@ -20,12 +20,13 @@ export default ({
     _red: number,
     _green: number,
     _blue: number,
-    _alpha?: number
+    _alpha?: number,
   ) => (_alpha ?? 255) > 250,
   hueDistance = AVERAGE_HUE_DEFAULT,
   saturationDistance = AVERAGE_LIGHTNESS_DEFAULT,
   lightnessDistance = AVERAGE_SATURATION_DEFAULT,
   crossOrigin = null,
+  requestMode = "cors",
 }: BrowserOptions = {}): [
   number,
   number,
@@ -33,7 +34,8 @@ export default ({
   number,
   number,
   number,
-  "" | "anonymous" | "use-credentials" | null
+  "" | "anonymous" | "use-credentials" | null,
+  RequestMode,
 ] => {
   if (__DEV__) {
     /**
@@ -43,7 +45,7 @@ export default ({
       label: string,
       val: number,
       min = 0,
-      max = Number.MAX_SAFE_INTEGER
+      max = Number.MAX_SAFE_INTEGER,
     ) => {
       if (!Number.isInteger(val)) {
         throw new Error(`${label} is not a valid number (${val})`);
@@ -67,7 +69,7 @@ export default ({
       label: string,
       val: number,
       min = 0,
-      max = Number.MAX_VALUE
+      max = Number.MAX_VALUE,
     ) => {
       if (Number(val) !== val) {
         throw new Error(`${label} is not a valid number (${val})`);
@@ -111,5 +113,6 @@ export default ({
     Math.min(Math.max(saturationDistance, 0), 1),
     Math.min(Math.max(lightnessDistance, 0), 1),
     crossOrigin,
+    requestMode,
   ];
 };

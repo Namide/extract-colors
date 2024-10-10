@@ -122,6 +122,11 @@ _(the server side images need authorizations too)_
 Type: `String`  
 Default: `null`
 
+**requestMode**  
+_Only for Web Workers in browser: it's used to determine if cross-origin requests lead to valid responses, and which properties of the response are readable_  
+Type: `String`  
+Default: `cors`
+
 **saturationDistance**  
 _Minimum saturation value between two colors otherwise the colors will be merged (from 0 to 1)_
 Type: `String`  

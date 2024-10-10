@@ -32,7 +32,8 @@
     "front-end",
     "back-end",
     "node",
-    "hsl"
+    "hsl",
+    "web workers"
   ],
   "author": "damien@doussaud.fr",
   "license": "GPL-3.0",
