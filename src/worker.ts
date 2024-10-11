@@ -20,14 +20,14 @@ const _sortFinalColors = (
   _pixels: number,
   _hueDistance: number,
   _saturationDistance: number,
-  _lightnessDistance: number,
+  _lightnessDistance: number
 ) => {
   const list = sortColors(
     _colors,
     _pixels,
     _hueDistance,
     _saturationDistance,
-    _lightnessDistance,
+    _lightnessDistance
   );
   return list.map((color) => createFinalColor(color, _pixels));
 };
@@ -43,7 +43,7 @@ const _sortFinalColors = (
  */
 const _getImageData = (
   _image: HTMLImageElement | ImageBitmap,
-  _pixels: number,
+  _pixels: number
 ) => {
   const currentPixels = _image.width * _image.height;
   const width =
@@ -56,7 +56,7 @@ const _getImageData = (
       : Math.round(_image.height * Math.sqrt(_pixels / currentPixels));
 
   const canvas = new OffscreenCanvas(width, height);
-  const context = canvas.getContext("2d")!;
+  const context = canvas.getContext("2d") as OffscreenCanvasRenderingContext2D;
   context.drawImage(
     _image,
     0,
@@ -66,7 +66,7 @@ const _getImageData = (
     0,
     0,
     width,
-    height,
+    height
   );
 
   return context.getImageData(0, 0, width, height);
@@ -82,7 +82,7 @@ const _getImageData = (
  */
 const _extractColorsFromImageData = (
   imageData: ImageData | ImageDataAlt,
-  cleanOptions: OptionsCleaned,
+  cleanOptions: OptionsCleaned
 ) => {
   const [
     _pixels,
@@ -96,14 +96,14 @@ const _extractColorsFromImageData = (
     imageData,
     _pixels,
     _distance,
-    _colorValidator,
+    _colorValidator
   );
   return _sortFinalColors(
     colors,
     count,
     _hueDistance,
     _saturationDistance,
-    _lightnessDistance,
+    _lightnessDistance
   );
 };
 
@@ -117,7 +117,7 @@ const _extractColorsFromImageData = (
  */
 const _extractColorsFromImageBitmap = async (
   image: ImageBitmap,
-  cleanOptions: OptionsCleaned,
+  cleanOptions: OptionsCleaned
 ): Promise<FinalColor[]> => {
   const [
     _pixels,
@@ -133,7 +133,7 @@ const _extractColorsFromImageBitmap = async (
     imageData,
     _pixels,
     _distance,
-    _colorValidator,
+    _colorValidator
   );
 
   return _sortFinalColors(
@@ -141,7 +141,7 @@ const _extractColorsFromImageBitmap = async (
     count,
     _hueDistance,
     _saturationDistance,
-    _lightnessDistance,
+    _lightnessDistance
   );
 };
 
@@ -156,7 +156,7 @@ const _extractColorsFromImageBitmap = async (
  */
 const _extractColorsFromSrc = async (
   src: string,
-  cleanOptions: OptionsCleaned,
+  cleanOptions: OptionsCleaned
 ): Promise<FinalColor[]> => {
   const response = await fetch(src, { mode: cleanOptions[7] });
   const blob = await response.blob();
@@ -176,7 +176,7 @@ const _extractColorsFromSrc = async (
 const extractColors = async (
   picture: string | ImageData | ImageDataAlt,
   cleanOptions: OptionsCleaned,
-  callback: (list: FinalColor[]) => void,
+  callback: (list: FinalColor[]) => void
 ) => {
   if (
     picture instanceof ImageData ||
@@ -185,8 +185,8 @@ const extractColors = async (
     return callback(
       _extractColorsFromImageData(
         picture as ImageData | ImageDataAlt,
-        cleanOptions,
-      ),
+        cleanOptions
+      )
     );
   }
 
@@ -206,6 +206,6 @@ onmessage = (message) => {
   extractColors(
     picture,
     [_pixels, _distance, eval(`(${_colorValidatorStr})`), ..._cleanInputsRest],
-    postMessage,
+    postMessage
   );
 };

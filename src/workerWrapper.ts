@@ -1,5 +1,5 @@
 import WorkerWrapper from "./worker?worker&inline";
-import cleanInputs, { cleanInputsWarnings } from "./extract/cleanInputs";
+import cleanInputs, { testInputs } from "./extract/cleanInputs";
 import { BrowserOptions, ImageDataAlt } from "./types/Options";
 
 /**
@@ -19,16 +19,16 @@ import { BrowserOptions, ImageDataAlt } from "./types/Options";
  */
 export const extractColors = (
   picture: string | ImageData | ImageDataAlt,
-  options?: BrowserOptions,
+  options?: BrowserOptions
 ) => {
   if (__DEV__) {
-    cleanInputsWarnings(options);
+    testInputs(options);
   }
 
   if (picture instanceof HTMLImageElement) {
     if (__DEV__) {
       console.warn(
-        "HTMLImageElement not enable on worker, please send 'src' or image data instead HTMLImageElement",
+        "HTMLImageElement not enable on worker, please send 'src' or image data instead HTMLImageElement"
       );
     }
 

@@ -13,14 +13,14 @@ export const AVERAGE_HUE_DEFAULT = 1 / 12;
 export const AVERAGE_SATURATION_DEFAULT = 1 / 5;
 export const AVERAGE_LIGHTNESS_DEFAULT = 1 / 5;
 
-export function cleanInputsWarnings({
+export function testInputs({
   pixels = EXTRACTOR_PIXELS_DEFAULT,
   distance = EXTRACTOR_DISTANCE_DEFAULT,
   colorValidator = (
     _red: number,
     _green: number,
     _blue: number,
-    _alpha?: number,
+    _alpha?: number
   ) => (_alpha ?? 255) > 250,
   hueDistance = AVERAGE_HUE_DEFAULT,
   saturationDistance = AVERAGE_LIGHTNESS_DEFAULT,
@@ -35,7 +35,7 @@ export function cleanInputsWarnings({
     label: string,
     val: number,
     min = 0,
-    max = Number.MAX_SAFE_INTEGER,
+    max = Number.MAX_SAFE_INTEGER
   ) => {
     if (!Number.isInteger(val)) {
       throw new Error(`${label} is not a valid number (${val})`);
@@ -59,7 +59,7 @@ export function cleanInputsWarnings({
     label: string,
     val: number,
     min = 0,
-    max = Number.MAX_VALUE,
+    max = Number.MAX_VALUE
   ) => {
     if (Number(val) !== val) {
       throw new Error(`${label} is not a valid number (${val})`);
@@ -81,7 +81,7 @@ export function cleanInputsWarnings({
    */
   const testFunction = <T = () => void>(label: string, val: T) => {
     if (!val || {}.toString.call(val) !== "[object Function]") {
-      console.warn(`${label} is not a function (${val})`);
+      throw new Error(`${label} is not a function (${val})`);
     }
 
     return val;
@@ -93,7 +93,9 @@ export function cleanInputsWarnings({
   const testValueInList = <T>(label: string, val: T, list: T[]) => {
     if (list.indexOf(val) < 0) {
       console.warn(
-        `${label} can be one of this values ${list.map((v) => `"${v}"`).join(", ")} (it's "${val}")`,
+        `${label} can be one of this values ${list
+          .map((v) => `"${v}"`)
+          .join(", ")} (it's "${val}")`
       );
     }
   };
@@ -124,7 +126,7 @@ export default ({
     _red: number,
     _green: number,
     _blue: number,
-    _alpha?: number,
+    _alpha?: number
   ) => (_alpha ?? 255) > 250,
   hueDistance = AVERAGE_HUE_DEFAULT,
   saturationDistance = AVERAGE_LIGHTNESS_DEFAULT,

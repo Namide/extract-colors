@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import cleanInputs from "../src/extract/cleanInputs";
+import cleanInputs, { testInputs } from "../src/extract/cleanInputs";
 import extractor from "../src/extract/extractor";
 import { ExtractorOptions } from "../src/types/Options";
 
@@ -23,6 +23,7 @@ const throwTest = async (
       new Promise((done) => {
         return new Promise((resolve, reject) => {
           try {
+            testInputs(options);
             const [pixels, distance, colorValidator] = cleanInputs(options);
             const { colors } = extractor(
               imageData4,
@@ -58,6 +59,7 @@ const testWarn = async (
     () =>
       new Promise((done) => {
         return new Promise((resolve) => {
+          testInputs(options);
           const [pixels, distance, colorValidator] = cleanInputs(options);
           const { colors } = extractor(
             imageData4,

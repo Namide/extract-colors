@@ -1,4 +1,4 @@
-import cleanInputs, { cleanInputsWarnings } from "./extract/cleanInputs";
+import cleanInputs, { testInputs } from "./extract/cleanInputs";
 import extractor from "./extract/extractor";
 import {
   checkIsBrowser,
@@ -28,10 +28,10 @@ import { BrowserOptions, ImageDataAlt, NodeOptions } from "./types/Options";
  */
 export const extractColorsFromImageData = (
   imageData: ImageData | ImageDataAlt,
-  options: NodeOptions | BrowserOptions = {},
+  options: NodeOptions | BrowserOptions = {}
 ) => {
   if (__DEV__) {
-    cleanInputsWarnings(options);
+    testInputs(options);
   }
 
   const [
@@ -46,14 +46,14 @@ export const extractColorsFromImageData = (
     imageData,
     _pixels,
     _distance,
-    _colorValidator,
+    _colorValidator
   );
   return sortFinalColors(
     colors,
     count,
     _hueDistance,
     _saturationDistance,
-    _lightnessDistance,
+    _lightnessDistance
   );
 };
 
@@ -78,20 +78,20 @@ export const extractColorsFromImageData = (
 // @ts-ignore
 export const extractColorsFromImage = async (
   image: HTMLImageElement,
-  options: BrowserOptions = {},
+  options: BrowserOptions = {}
 ): Promise<FinalColor[]> => {
   // Node.js version
   if (checkIsNode()) {
     if (__DEV__) {
       throw new Error(
-        "Use extractColors instead extractColorsFromImage for Node.js",
+        "Use extractColors instead extractColorsFromImage for Node.js"
       );
     }
     return [];
   }
 
   if (__DEV__) {
-    cleanInputsWarnings(options);
+    testInputs(options);
   }
 
   // Browser version
@@ -112,7 +112,7 @@ export const extractColorsFromImage = async (
         imageData,
         _pixels,
         _distance,
-        _colorValidator,
+        _colorValidator
       );
       resolve(
         sortFinalColors(
@@ -120,8 +120,8 @@ export const extractColorsFromImage = async (
           count,
           _hueDistance,
           _saturationDistance,
-          _lightnessDistance,
-        ),
+          _lightnessDistance
+        )
       );
     };
 
@@ -139,20 +139,20 @@ export const extractColorsFromImage = async (
 
 export const extractColorsFromImageBitmap = async (
   image: ImageBitmap,
-  options: BrowserOptions = {},
+  options: BrowserOptions = {}
 ): Promise<FinalColor[]> => {
   // Node.js version
   if (checkIsNode()) {
     if (__DEV__) {
       throw new Error(
-        "Use extractColors instead extractColorsFromImageBitmap for Node.js",
+        "Use extractColors instead extractColorsFromImageBitmap for Node.js"
       );
     }
     return [];
   }
 
   if (__DEV__) {
-    cleanInputsWarnings(options);
+    testInputs(options);
   }
 
   const [
@@ -169,7 +169,7 @@ export const extractColorsFromImageBitmap = async (
     imageData,
     _pixels,
     _distance,
-    _colorValidator,
+    _colorValidator
   );
 
   return sortFinalColors(
@@ -177,7 +177,7 @@ export const extractColorsFromImageBitmap = async (
     count,
     _hueDistance,
     _saturationDistance,
-    _lightnessDistance,
+    _lightnessDistance
   );
 };
 
@@ -202,7 +202,7 @@ export const extractColorsFromImageBitmap = async (
 // @ts-ignore
 export const extractColorsFromSrc = async (
   src: string,
-  options: BrowserOptions = {},
+  options: BrowserOptions = {}
 ): Promise<FinalColor[]> => {
   // Node.js version
   if (checkIsNode()) {
@@ -213,7 +213,7 @@ export const extractColorsFromSrc = async (
   }
 
   if (__DEV__) {
-    cleanInputsWarnings(options);
+    testInputs(options);
   }
 
   // Web Worker version
@@ -251,14 +251,14 @@ export const extractColorsFromSrc = async (
  */
 export const extractColors = (
   picture: string | HTMLImageElement | ImageData | ImageDataAlt,
-  options?: BrowserOptions,
+  options?: BrowserOptions
 ) => {
   // Browser version
   if (checkIsBrowser()) {
     if (__DEV__) {
       if (options?.requestMode) {
         console.warn(
-          "options.requestMode not supported in Browser, use options.crossOrigin instead",
+          "options.requestMode not supported in Browser, use options.crossOrigin instead"
         );
       }
     }
@@ -286,7 +286,7 @@ export const extractColors = (
     if (__DEV__) {
       if (options?.crossOrigin) {
         console.warn(
-          "options.crossOrigin not supported in Web Worker, use options.requestMode instead",
+          "options.crossOrigin not supported in Web Worker, use options.requestMode instead"
         );
       }
     }
@@ -299,8 +299,8 @@ export const extractColors = (
         resolve(
           extractColorsFromImageData(
             picture as ImageData | ImageDataAlt,
-            options,
-          ),
+            options
+          )
         );
       });
     }
@@ -313,7 +313,7 @@ export const extractColors = (
     if ((picture as HTMLImageElement).src) {
       if (__DEV__) {
         console.warn(
-          "HTMLImageElement not enable on worker, a fallback is used to extract src from your HTMLImageElement, please send 'src' instead HTMLImageElement",
+          "HTMLImageElement not enable on worker, a fallback is used to extract src from your HTMLImageElement, please send 'src' instead HTMLImageElement"
         );
       }
       return extractColorsFromSrc((picture as HTMLImageElement).src, options);
@@ -325,7 +325,7 @@ export const extractColors = (
     if (__DEV__) {
       if (picture instanceof String) {
         throw new Error(
-          "Send imageData to extractColors (Image src or HTMLImageElement not supported in Nodejs)",
+          "Send imageData to extractColors (Image src or HTMLImageElement not supported in Nodejs)"
         );
       }
 
@@ -340,10 +340,7 @@ export const extractColors = (
 
     return new Promise((resolve: (value: FinalColor[]) => void) => {
       resolve(
-        extractColorsFromImageData(
-          picture as ImageData | ImageDataAlt,
-          options,
-        ),
+        extractColorsFromImageData(picture as ImageData | ImageDataAlt, options)
       );
     });
   }
