@@ -1,9 +1,9 @@
-import InlineWorker from "./worker?worker&inline";
-import type { BrowserOptions, ImageDataAlt } from "./types/Options";
-import { FinalColor } from "./types/Color";
+import WorkerWrapper from "./worker?worker&inline";
+import cleanInputs, { cleanInputsWarnings } from "./extract/cleanInputs";
+import { BrowserOptions, ImageDataAlt } from "./types/Options";
 
 /**
- * Extract colors from a picture.
+ * Extract colors from a picture with Web Worker support.
  *
  * @param picture image source or image data
  * @param options Process configuration
@@ -13,32 +13,40 @@ import { FinalColor } from "./types/Color";
  * @param options.saturationDistance Minimum saturation value between two colors otherwise the colors will be merged (from 0 to 1)
  * @param options.lightnessDistance inimum lightness value between two colors otherwise the colors will be merged (from 0 to 1)
  * @param options.hueDistance inimum hue value between two colors otherwise the colors will be merged (from 0 to 1)
- * @param options.crossOrigin support for CORS (only for browser)
  * @param options.requestMode support for CORS (only for Web Workers in browser)
  *
  * @returns List of extracted colors
  */
-export function extractColors(
-  ...params: [
-    picture: string | ImageData | ImageDataAlt,
-    options?: BrowserOptions,
-  ]
-): Promise<FinalColor[]> {
-  if (params[0] instanceof Image) {
+export const extractColors = (
+  picture: string | ImageData | ImageDataAlt,
+  options?: BrowserOptions,
+) => {
+  if (__DEV__) {
+    cleanInputsWarnings(options);
+  }
+
+  if (picture instanceof HTMLImageElement) {
     if (__DEV__) {
-      console.error(
+      console.warn(
         "HTMLImageElement not enable on worker, please send 'src' or image data instead HTMLImageElement",
       );
     }
 
-    // Replace Image by the source
-    params[0] = params[0].src;
+    // HTMLImageElement not enable on Worker, switch to src fallback
+    picture = picture.src;
   }
 
+  const [_pixels, _distance, _colorValidator, ..._cleanInputsRest] =
+    cleanInputs(options);
+
+  // Wrap worker inside Promise
   return new Promise((resolve, reject) => {
     try {
-      const worker: Worker = new InlineWorker();
-      worker.postMessage(params);
+      const worker: Worker = new WorkerWrapper();
+      worker.postMessage([
+        picture,
+        [_pixels, _distance, _colorValidator.toString(), ..._cleanInputsRest],
+      ]);
       worker.addEventListener("message", (message) => {
         resolve(message.data);
         worker.terminate();
@@ -51,4 +59,4 @@ export function extractColors(
       reject(error);
     }
   });
-}
+};

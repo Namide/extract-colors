@@ -84,7 +84,7 @@ getPixels(src, (err, pixels) => {
 ```
 
 > This example use `get-pixels` but you can change the lib.
-> Just send and ImageData object to `extractColors(imageData)`.
+> Just send the ImageData object to `extractColors(imageData)`.
 
 ### ExtractorOptions
 

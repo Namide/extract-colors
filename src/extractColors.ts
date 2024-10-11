@@ -1,127 +1,14 @@
-import Color from "./color/Color";
-import sortColors from "./sort/sortColors";
-import { createFinalColor } from "./color/FinalColor";
-import type {
-  BrowserOptions,
-  ImageDataAlt,
-  NodeOptions,
-} from "./types/Options";
-import cleanInputs from "./extract/cleanInputs";
+import cleanInputs, { cleanInputsWarnings } from "./extract/cleanInputs";
 import extractor from "./extract/extractor";
-import type { FinalColor } from "./types/Color";
-
-/**
- * Browser context detection
- *
- * @returns Is a browser context
- */
-const _isBrowser = () =>
-  typeof window !== "undefined" && typeof window.document !== "undefined";
-
-/**
- * Worker in Browser context detection
- *
- * @returns Is a worker browser context
- */
-const _isWorker = () =>
-  typeof self === "object" &&
-  self.constructor &&
-  self.constructor.name === "DedicatedWorkerGlobalScope";
-
-/**
- * Node.js context detection
- *
- * @returns Is Node.js context
- */
-const _isNode = () =>
-  typeof window === "undefined" &&
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  typeof process !== "undefined" &&
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  process.versions != null &&
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  process.versions.node != null;
-
-/**
- * Sort colors and generate standard list of colors.
- *
- * @param _colors List of colors
- * @param _pixels Count of pixels in the image
- * @param _hueDistance Maximal HUE distance between pixel before pixel merging
- * @param _saturationDistance Maximal saturation distance between pixel before pixel merging
- * @param _lightnessDistance Maximal lightness distance between pixel before pixel merging
- * @returns Sorted colors list
- */
-const _sortFinalColors = (
-  _colors: Color[],
-  _pixels: number,
-  _hueDistance: number,
-  _saturationDistance: number,
-  _lightnessDistance: number,
-) => {
-  const list = sortColors(
-    _colors,
-    _pixels,
-    _hueDistance,
-    _saturationDistance,
-    _lightnessDistance,
-  );
-  return list.map((color) => createFinalColor(color, _pixels));
-};
-
-/**
- * Extract ImageData from image.
- * Reduce image to a pixel count.
- * Browser only
- *
- * @param _image HTML image element or Image Bitmap
- * @param _pixels Count of maximum pixels accepted for the calculation
- * @returns Data of the reduced image
- */
-const _getImageData = (
-  _image: HTMLImageElement | ImageBitmap,
-  _pixels: number,
-) => {
-  const currentPixels = _image.width * _image.height;
-  const width =
-    currentPixels < _pixels
-      ? _image.width
-      : Math.round(_image.width * Math.sqrt(_pixels / currentPixels));
-  const height =
-    currentPixels < _pixels
-      ? _image.height
-      : Math.round(_image.height * Math.sqrt(_pixels / currentPixels));
-
-  const canvas = ((width: number, height: number) => {
-    if (_isWorker()) {
-      return new OffscreenCanvas(width, height);
-    }
-    const canvas = document.createElement("canvas");
-    canvas.width = width;
-    canvas.height = height;
-    return canvas;
-  })(width, height);
-
-  const context = canvas.getContext("2d") as
-    | CanvasRenderingContext2D
-    | OffscreenCanvasRenderingContext2D;
-  context.drawImage(
-    _image,
-    0,
-    0,
-    _image.width,
-    _image.height,
-    0,
-    0,
-    width,
-    height,
-  );
-
-  return context.getImageData(0, 0, width, height);
-};
+import {
+  checkIsBrowser,
+  checkIsNode,
+  checkIsWorker,
+  extractImageData,
+  sortFinalColors,
+} from "./helpers";
+import { FinalColor } from "./types/Color";
+import { BrowserOptions, ImageDataAlt, NodeOptions } from "./types/Options";
 
 /**
  * Extract colors from an ImageData object.
@@ -143,6 +30,10 @@ export const extractColorsFromImageData = (
   imageData: ImageData | ImageDataAlt,
   options: NodeOptions | BrowserOptions = {},
 ) => {
+  if (__DEV__) {
+    cleanInputsWarnings(options);
+  }
+
   const [
     _pixels,
     _distance,
@@ -157,7 +48,7 @@ export const extractColorsFromImageData = (
     _distance,
     _colorValidator,
   );
-  return _sortFinalColors(
+  return sortFinalColors(
     colors,
     count,
     _hueDistance,
@@ -190,13 +81,17 @@ export const extractColorsFromImage = async (
   options: BrowserOptions = {},
 ): Promise<FinalColor[]> => {
   // Node.js version
-  if (_isNode()) {
+  if (checkIsNode()) {
     if (__DEV__) {
       throw new Error(
         "Use extractColors instead extractColorsFromImage for Node.js",
       );
     }
     return [];
+  }
+
+  if (__DEV__) {
+    cleanInputsWarnings(options);
   }
 
   // Browser version
@@ -212,7 +107,7 @@ export const extractColorsFromImage = async (
   image.crossOrigin = _crossOrigin;
   return new Promise((resolve: (value: FinalColor[]) => void) => {
     const extract = (image: HTMLImageElement) => {
-      const imageData = _getImageData(image, _pixels);
+      const imageData = extractImageData(image, _pixels);
       const { colors, count } = extractor(
         imageData,
         _pixels,
@@ -220,7 +115,7 @@ export const extractColorsFromImage = async (
         _colorValidator,
       );
       resolve(
-        _sortFinalColors(
+        sortFinalColors(
           colors,
           count,
           _hueDistance,
@@ -247,13 +142,17 @@ export const extractColorsFromImageBitmap = async (
   options: BrowserOptions = {},
 ): Promise<FinalColor[]> => {
   // Node.js version
-  if (_isNode()) {
+  if (checkIsNode()) {
     if (__DEV__) {
       throw new Error(
         "Use extractColors instead extractColorsFromImageBitmap for Node.js",
       );
     }
     return [];
+  }
+
+  if (__DEV__) {
+    cleanInputsWarnings(options);
   }
 
   const [
@@ -265,7 +164,7 @@ export const extractColorsFromImageBitmap = async (
     _lightnessDistance,
   ] = cleanInputs(options);
 
-  const imageData = _getImageData(image, _pixels);
+  const imageData = extractImageData(image, _pixels);
   const { colors, count } = extractor(
     imageData,
     _pixels,
@@ -273,7 +172,7 @@ export const extractColorsFromImageBitmap = async (
     _colorValidator,
   );
 
-  return _sortFinalColors(
+  return sortFinalColors(
     colors,
     count,
     _hueDistance,
@@ -306,15 +205,19 @@ export const extractColorsFromSrc = async (
   options: BrowserOptions = {},
 ): Promise<FinalColor[]> => {
   // Node.js version
-  if (_isNode()) {
+  if (checkIsNode()) {
     if (__DEV__) {
       throw new Error("Can not use extractColorsFromSrc for Node.js");
     }
     return [];
   }
 
+  if (__DEV__) {
+    cleanInputsWarnings(options);
+  }
+
   // Web Worker version
-  if (_isWorker()) {
+  if (checkIsWorker()) {
     const inputs = cleanInputs(options);
     const response = await fetch(src, { mode: inputs[7] });
     const blob = await response.blob();
@@ -351,7 +254,7 @@ export const extractColors = (
   options?: BrowserOptions,
 ) => {
   // Browser version
-  if (_isBrowser()) {
+  if (checkIsBrowser()) {
     if (__DEV__) {
       if (options?.requestMode) {
         console.warn(
@@ -379,7 +282,7 @@ export const extractColors = (
   }
 
   // Worker version
-  if (_isWorker()) {
+  if (checkIsWorker()) {
     if (__DEV__) {
       if (options?.crossOrigin) {
         console.warn(
@@ -418,7 +321,7 @@ export const extractColors = (
   }
 
   // Node.js version
-  if (_isNode()) {
+  if (checkIsNode()) {
     if (__DEV__) {
       if (picture instanceof String) {
         throw new Error(

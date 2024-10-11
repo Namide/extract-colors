@@ -4,9 +4,9 @@ import conf from "./vite.config";
 
 export default {
   ...conf,
-  define: {
-    __DEV__: JSON.stringify(`process.env.NODE_ENV !== "production"`),
-  },
+  // define: {
+  //   __DEV__: JSON.stringify(`process.env.NODE_ENV !== "production"`),
+  // },
   build: {
     ...conf.build,
     emptyOutDir: false,
