@@ -27,3 +27,14 @@ export type BrowserOptions = ExtractorOptions & {
 } & SorterOptions;
 
 export type NodeOptions = ExtractorOptions & SorterOptions;
+
+export type OptionsCleaned = [
+  number,
+  number,
+  (red: number, green: number, blue: number, alpha: number) => boolean,
+  number,
+  number,
+  number,
+  "" | "anonymous" | "use-credentials" | null,
+  RequestMode,
+];

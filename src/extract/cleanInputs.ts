@@ -1,4 +1,4 @@
-import { BrowserOptions } from "../types/Options";
+import { BrowserOptions, OptionsCleaned } from "../types/Options";
 
 /**
  * Default extractor values
@@ -27,16 +27,7 @@ export default ({
   lightnessDistance = AVERAGE_SATURATION_DEFAULT,
   crossOrigin = null,
   requestMode = "cors",
-}: BrowserOptions = {}): [
-  number,
-  number,
-  (red: number, green: number, blue: number, alpha: number) => boolean,
-  number,
-  number,
-  number,
-  "" | "anonymous" | "use-credentials" | null,
-  RequestMode,
-] => {
+}: BrowserOptions = {}): OptionsCleaned => {
   if (__DEV__) {
     /**
      * Test if value is an integer.

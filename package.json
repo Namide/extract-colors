@@ -7,8 +7,8 @@
   "types": "lib/extract-colors.d.ts",
   "scripts": {
     "prebuild": "rm -rf ./lib",
-    "build": "vite build --config conf/vite.config.ts && vite build --config conf/vite.config.worker.ts && tsc --project conf/tsconfig.type.json",
-    "postbuild": "mv lib/extractColors.d.ts lib/extract-colors.d.ts; mv lib/workerWrapper.d.ts lib/worker-wrapper.d.ts; sed -i 's/__DEV__/process.env.NODE_ENV !== \"production\"/g' lib/**.*js ; ",
+    "build": "vite build --config conf/vite.config.ts && tsc --project conf/tsconfig.type.json",
+    "postbuild": "mv lib/extractColors.d.ts lib/extract-colors.d.ts; sed -i 's/__DEV__/process.env.NODE_ENV !== \"production\"/g' lib/**.*js ; ",
     "lint": "npx eslint --config conf/eslint.config.mjs",
     "lint-fix": "npx eslint --fix --config conf/eslint.config.mjs",
     "pretest": "npm run build",
