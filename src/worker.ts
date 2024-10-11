@@ -205,7 +205,12 @@ onmessage = (message) => {
   ] = message.data as Parameters<typeof extractColors>;
   extractColors(
     picture,
-    [_pixels, _distance, eval(`(${_colorValidatorStr})`), ..._cleanInputsRest],
+    [
+      _pixels,
+      _distance,
+      Function(`return ${_colorValidatorStr}`)(),
+      ..._cleanInputsRest,
+    ],
     postMessage
   );
 };
