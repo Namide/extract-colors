@@ -120,7 +120,7 @@ Default: `(red, green, blue, alpha = 255) => alpha > 250`
 _Only for browser, can be 'Anonymous' to avoid client side CORS_
 _(the server side images need authorizations too)_  
 Type: `String`  
-Default: `null`
+Default: `""`
 
 **requestMode**  
 _Only for Web Workers in browser: it's used to determine if cross-origin requests lead to valid responses, and which properties of the response are readable_  
