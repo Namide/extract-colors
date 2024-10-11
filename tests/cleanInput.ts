@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterAll } from "vitest";
 
-import cleanInputs from "../src/extract/cleanInputs";
+import cleanInputs, { testInputs } from "../src/extract/cleanInputs";
 
 describe("cleanInputs", () => {
   const consoleMock = vi.spyOn(console, "warn").mockImplementation(() => 1);
@@ -10,24 +10,24 @@ describe("cleanInputs", () => {
   });
 
   it("test errors", () => {
-    expect(() => cleanInputs({ pixels: 0.1 })).toThrowError(/.*/);
+    expect(() => testInputs({ pixels: 0.1 })).toThrowError(/.*/);
+    expect(() => testInputs({ pixels: "a" as unknown as number })).toThrowError(
+      /.*/
+    );
     expect(() =>
-      cleanInputs({ pixels: "a" as unknown as number })
+      testInputs({ hueDistance: "a" as unknown as number })
     ).toThrowError(/.*/);
     expect(() =>
-      cleanInputs({ hueDistance: "a" as unknown as number })
+      testInputs({ saturationDistance: "a" as unknown as number })
     ).toThrowError(/.*/);
     expect(() =>
-      cleanInputs({ saturationDistance: "a" as unknown as number })
+      testInputs({ distance: "a" as unknown as number })
     ).toThrowError(/.*/);
     expect(() =>
-      cleanInputs({ distance: "a" as unknown as number })
+      testInputs({ lightnessDistance: "a" as unknown as number })
     ).toThrowError(/.*/);
     expect(() =>
-      cleanInputs({ lightnessDistance: "a" as unknown as number })
-    ).toThrowError(/.*/);
-    expect(() =>
-      cleanInputs({
+      testInputs({
         colorValidator: "a" as unknown as (
           red: number,
           green: number,
@@ -39,16 +39,16 @@ describe("cleanInputs", () => {
   });
 
   it("test warnings", () => {
-    cleanInputs({ pixels: -1 });
-    cleanInputs({ pixels: Number.MAX_SAFE_INTEGER + 1 });
-    cleanInputs({ hueDistance: -1 });
-    cleanInputs({ saturationDistance: -1 });
-    cleanInputs({ distance: -1 });
-    cleanInputs({ lightnessDistance: -1 });
-    cleanInputs({ hueDistance: 2 });
-    cleanInputs({ saturationDistance: 2 });
-    cleanInputs({ distance: 2 });
-    cleanInputs({ lightnessDistance: 2 });
+    testInputs({ pixels: -1 });
+    testInputs({ pixels: Number.MAX_SAFE_INTEGER + 1 });
+    testInputs({ hueDistance: -1 });
+    testInputs({ saturationDistance: -1 });
+    testInputs({ distance: -1 });
+    testInputs({ lightnessDistance: -1 });
+    testInputs({ hueDistance: 2 });
+    testInputs({ saturationDistance: 2 });
+    testInputs({ distance: 2 });
+    testInputs({ lightnessDistance: 2 });
 
     expect(consoleMock).toHaveBeenCalledTimes(10);
   });

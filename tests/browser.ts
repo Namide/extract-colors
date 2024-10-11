@@ -63,15 +63,20 @@ const document = {
 vi.stubGlobal("document", document);
 
 // Mock window
-const window = {};
+const window = {
+  document,
+};
 
 vi.stubGlobal("window", window);
+
+// Disable Node.js context
+vi.stubGlobal("process.versions.node", undefined);
 
 describe("Browser", () => {
   it("Extract from imageData", () => {
     const imageData = new ImageData();
     return expect(extractColorsFromImageData(imageData).length).toBeGreaterThan(
-      0
+      0,
     );
   });
 
@@ -119,7 +124,7 @@ describe("Browser", () => {
       };
       extractColors(
         new ImageLoadable() as unknown as HTMLImageElement,
-        options
+        options,
       ).then((data) => {
         expect(data.length).toBeGreaterThan(0);
         done(undefined);

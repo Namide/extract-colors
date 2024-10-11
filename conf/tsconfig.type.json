@@ -5,7 +5,8 @@
     "allowJs": true,
     "declaration": true,
     "emitDeclarationOnly": true,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "types": ["vite/client"]
   },
-  "files": ["../src/extractColors.ts"]
+  "files": ["../src/extractColors.ts", "../src/workerWrapper.ts"]
 }
