@@ -1,6 +1,7 @@
 import WorkerWrapper from "./worker?worker&inline";
 import cleanInputs, { testInputs } from "./extract/cleanInputs";
-import { BrowserOptions, ImageDataAlt } from "./types/Options";
+import type { BrowserOptions, ImageDataAlt } from "./types/Options";
+import type { FinalColor } from "./types/Color";
 
 /**
  * Extract colors from a picture with Web Worker support.
@@ -40,7 +41,7 @@ export const extractColors = (
     cleanInputs(options);
 
   // Wrap worker inside Promise
-  return new Promise((resolve, reject) => {
+  return new Promise<FinalColor[]>((resolve, reject) => {
     try {
       const worker: Worker = new WorkerWrapper();
       worker.postMessage([
