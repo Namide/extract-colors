@@ -1,8 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import {
-  extractColors,
-  extractColorsFromImageData,
-} from "../src/extractColors";
+import { extractColors } from "../src/main";
 
 // Mock Image
 class Image {
@@ -73,18 +70,20 @@ vi.stubGlobal("window", window);
 vi.stubGlobal("process.versions.node", undefined);
 
 describe("Browser", () => {
-  it("Extract from imageData", () => {
-    const imageData = new ImageData();
-    return expect(extractColorsFromImageData(imageData).length).toBeGreaterThan(
-      0,
-    );
-  });
+  it("Extract from imageData", () =>
+    new Promise((done) => {
+      const imageData = new ImageData();
+      return extractColors(imageData).then((data) => {
+        expect(data.list.length).toBeGreaterThan(0);
+        done(undefined);
+      });
+    }));
 
   it("Extract from imageData 2", () =>
     new Promise((done) => {
       const imageData = new ImageData();
       return extractColors(imageData).then((data) => {
-        expect(data.length).toBeGreaterThan(0);
+        expect(data.list.length).toBeGreaterThan(0);
         done(undefined);
       });
     }));
@@ -93,7 +92,7 @@ describe("Browser", () => {
     new Promise((done) => {
       const image = new Image() as HTMLImageElement;
       extractColors(image).then((data) => {
-        expect(data.length).toBeGreaterThan(0);
+        expect(data.list.length).toBeGreaterThan(0);
         done(undefined);
       });
     }));
@@ -101,7 +100,7 @@ describe("Browser", () => {
   it("Extract from src", () =>
     new Promise((done) => {
       extractColors("fakesrc.jpg").then((data) => {
-        expect(data.length).toBeGreaterThan(0);
+        expect(data.list.length).toBeGreaterThan(0);
         done(undefined);
       });
     }));
@@ -112,7 +111,7 @@ describe("Browser", () => {
         pixels: 1,
       };
       extractColors(new Image() as HTMLImageElement, options).then((data) => {
-        expect(data.length).toBeGreaterThan(0);
+        expect(data.list.length).toBeGreaterThan(0);
         done(undefined);
       });
     }));
@@ -124,9 +123,9 @@ describe("Browser", () => {
       };
       extractColors(
         new ImageLoadable() as unknown as HTMLImageElement,
-        options,
+        options
       ).then((data) => {
-        expect(data.length).toBeGreaterThan(0);
+        expect(data.list.length).toBeGreaterThan(0);
         done(undefined);
       });
     }));

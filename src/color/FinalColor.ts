@@ -1,5 +1,5 @@
 import { FinalColor } from "../types/Color";
-import Color from "./Color";
+import HSLColor from "./HSLColor";
 
 /**
  * Normalize color
@@ -9,18 +9,20 @@ import Color from "./Color";
  *
  * @returns Normalized color
  */
-export const createFinalColor = (color: Color, pixels: number): FinalColor => {
+export const createFinalColor = (
+  color: HSLColor,
+  count: number
+): FinalColor => {
+  const hexStr = ((color.r << 16) | (color.g << 8) | color.b).toString(16);
   return {
-    hex: `#${"0".repeat(
-      6 - color._hex.toString(16).length
-    )}${color._hex.toString(16)}`,
-    red: color._red,
-    green: color._green,
-    blue: color._blue,
-    area: color._count / pixels,
-    hue: color._hue,
-    saturation: color._saturation,
-    lightness: color._lightness,
-    intensity: color._intensity,
+    hex: `#${"0".repeat(6 - hexStr.length)}${hexStr}`,
+    red: color.r,
+    green: color.g,
+    blue: color.b,
+    area: color.count / count,
+    hue: color.h,
+    saturation: color.s,
+    lightness: color.l,
+    intensity: color.i,
   };
 };

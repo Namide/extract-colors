@@ -8,7 +8,7 @@ export default {
   build: {
     sourcemap: true,
     lib: {
-      entry: path.resolve(__dirname, "../src/extractColors.ts"),
+      entry: path.resolve(__dirname, "../src/main.ts"),
       name: "ExtractColors",
       fileName: (format) =>
         `extract-colors.${format === "es" ? "mjs" : format}`,

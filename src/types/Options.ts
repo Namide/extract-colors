@@ -1,3 +1,10 @@
+import type { PartialClassified } from "./Classified";
+import type { ColorClassification } from "./Color";
+
+export type PartialRecord<K extends keyof any, T> = {
+  [P in K]?: T;
+};
+
 export interface ImageDataAlt {
   data: Uint8ClampedArray | number[];
   width?: number;
@@ -17,24 +24,83 @@ export interface ExtractorOptions {
     red: number,
     green: number,
     blue: number,
-    alpha: number,
+    alpha: number
   ) => boolean;
 }
 
-export type BrowserOptions = ExtractorOptions & {
+export type BrowserImageOptions = {
   crossOrigin?: "anonymous" | "use-credentials" | "";
+  requestMode?: never;
+};
+
+export type WorkerImageOptions = {
+  crossOrigin?: never;
   requestMode?: RequestMode;
-} & SorterOptions;
+};
 
-export type NodeOptions = ExtractorOptions & SorterOptions;
+export type ImageOptions = {
+  pixels?: number;
+};
 
-export type OptionsCleaned = [
-  number,
-  number,
-  (red: number, green: number, blue: number, alpha: number) => boolean,
-  number,
-  number,
-  number,
-  "" | "anonymous" | "use-credentials" | null,
-  RequestMode,
-];
+export type OptionsCleaned<Type extends ColorClassification> = {
+  pixels: number;
+  distance: number;
+  colorValidator: (
+    red: number,
+    green: number,
+    blue: number,
+    alpha: number
+  ) => boolean;
+  hueDistance: number;
+  saturationDistance: number;
+  lightnessDistance: number;
+  crossOrigin: "" | "anonymous" | "use-credentials" | null;
+  requestMode: RequestMode;
+  colorClassifications: Type[];
+  defaultColors:
+    | false
+    | PartialRecord<
+        Type,
+        | number
+        | false
+        | ((classifiedColorsPart: PartialClassified<Type>) => number)
+      >;
+};
+
+export type RefineOptions = {
+  pixels?: number;
+  hueDistance?: number;
+  saturationDistance?: number;
+  lightnessDistance?: number;
+};
+
+export type ClassifyOptions<Type extends ColorClassification> = {
+  colorClassifications?: Type[];
+};
+
+export type AddDefaultOptions<Type extends ColorClassification> = {
+  // classifiedColors: PartialClassified<Type>;
+  defaultColors?:
+    | false
+    | PartialRecord<
+        Type,
+        | number
+        | false
+        | ((classifiedColorsPart: PartialClassified<Type>) => number)
+      >;
+};
+
+export type NodeOptions<Type extends ColorClassification> = SorterOptions &
+  ExtractorOptions &
+  ImageOptions &
+  RefineOptions &
+  ClassifyOptions<Type> &
+  AddDefaultOptions<Type>;
+
+export type BrowserOptions<Type extends ColorClassification> =
+  NodeOptions<Type> & (BrowserImageOptions | WorkerImageOptions);
+
+// ExtractorOptions & {
+//   crossOrigin?: "anonymous" | "use-credentials" | "";
+//   requestMode?: RequestMode;
+// } & SorterOptions;

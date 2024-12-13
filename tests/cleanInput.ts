@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterAll } from "vitest";
 
-import cleanInputs, { testInputs } from "../src/extract/cleanInputs";
+import cleanInputs, { testInputs } from "../src/process/cleanInputs";
 
 describe("cleanInputs", () => {
   const consoleMock = vi.spyOn(console, "warn").mockImplementation(() => 1);

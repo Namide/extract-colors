@@ -8,5 +8,5 @@
     "isolatedModules": false,
     "types": ["vite/client"]
   },
-  "files": ["../src/extractColors.ts", "../src/workerWrapper.ts"]
+  "files": ["../src/main.ts", "../src/workerWrapper.ts"]
 }

@@ -1,4 +1,4 @@
-import Color from "./Color";
+import RGBColor from "./RGBColor";
 
 /**
  * Manage list of colors to optimize and merge neighbors colors.
@@ -7,34 +7,26 @@ import Color from "./Color";
  * @class LeafGroup
  */
 export default class LeafGroup {
-  _count: number;
-  _children: Record<number, Color>;
-
-  /**
-   * Store colors or groups and _count similiar groups in the image.
-   */
-  constructor() {
-    this._count = 0;
-    this._children = {};
-  }
+  count: number = 0;
+  children: Record<number, RGBColor> = {};
 
   /**
    * Add color to the group.
    *
-   * @param _hex Hexadecimal value of the color
-   * @param _red Red chanel amount of the color
-   * @param _green Green chanel amount of the color
-   * @param _blue Blue chanel amount of the color
+   * @param hex Hexadecimal color
+   * @param red Red chanel amount of the color
+   * @param green Green chanel amount of the color
+   * @param blue Blue chanel amount of the color
    * @returns The color
    */
-  addColor(_hex: number, _red: number, _green: number, _blue: number) {
-    this._count++;
-    if (this._children[_hex]) {
-      this._children[_hex]._count++;
+  addColor(hex: number, red: number, green: number, blue: number) {
+    this.count++;
+    if (this.children[hex]) {
+      this.children[hex].count++;
     } else {
-      this._children[_hex] = new Color(_red, _green, _blue, _hex);
+      this.children[hex] = new RGBColor(red, green, blue);
     }
-    return this._children[_hex];
+    return this.children[hex];
   }
 
   /**
@@ -43,8 +35,8 @@ export default class LeafGroup {
    * @returns List of colors
    */
   getList() {
-    return (Object.keys(this._children) as unknown[] as number[]).map(
-      (key) => this._children[key]
+    return (Object.keys(this.children) as unknown[] as number[]).map(
+      (key) => this.children[key]
     );
   }
 
@@ -55,9 +47,9 @@ export default class LeafGroup {
    */
   createMainColor() {
     const list = this.getList();
-    const biggest = list.reduce((a, b) => (a._count >= b._count ? a : b));
+    const biggest = list.reduce((a, b) => (a.count >= b.count ? a : b));
     const main = biggest.clone();
-    main._count = this._count;
+    main.count = this.count;
     return main;
   }
 }

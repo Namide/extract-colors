@@ -2,11 +2,7 @@
  * @vitest-environment node
  */
 import { describe, it, expect, vi } from "vitest";
-import {
-  extractColors,
-  extractColorsFromImage,
-  extractColorsFromSrc,
-} from "../src/extractColors";
+import { extractColors } from "../src/main";
 
 const warns: string[] = [];
 
@@ -27,7 +23,7 @@ describe("Node", () => {
       };
 
       return extractColors(imageData as unknown as ImageData).then((data) => {
-        expect(data.length).toBeGreaterThan(0);
+        expect(data.list.length).toBeGreaterThan(0);
         done(undefined);
       });
     }));
@@ -74,7 +70,7 @@ describe("Node", () => {
 
       return extractColors(imageData as unknown as ImageData, options).then(
         (data) => {
-          expect(data.length).toBe(1);
+          expect(data.list.length).toBe(1);
           done(undefined);
         }
       );
@@ -98,7 +94,7 @@ describe("Node", () => {
   it("Can not open extractColorsFromImage", () =>
     new Promise((done) => {
       return new Promise((resolve, reject) => {
-        return extractColorsFromImage({} as HTMLImageElement)
+        return extractColors({} as HTMLImageElement)
           .then(resolve)
           .catch(reject);
       }).catch((error) => {
@@ -112,7 +108,7 @@ describe("Node", () => {
   it("Can not open extractColorsFromSrc", () =>
     new Promise((done) => {
       return new Promise((resolve, reject) => {
-        return extractColorsFromSrc("").then(resolve).catch(reject);
+        return extractColors("").then(resolve).catch(reject);
       }).catch((error) => {
         expect(error.message).toBe(
           "Can not use extractColorsFromSrc for Node.js"

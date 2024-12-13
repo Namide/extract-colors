@@ -2,7 +2,7 @@
  * @vitest-environment node
  */
 import { describe, it, expect } from "vitest";
-import type { extractColors as extractColorsSrc } from "../src/extractColors";
+import type { extractColors as extractColorsSrc } from "../src/main";
 import { extractColors as extractColorsCjs } from "../lib/extract-colors.cjs";
 
 // For typing cjs source
@@ -52,7 +52,7 @@ describe("CJS", () => {
         lightnessDistance: 0,
         saturationDistance: 0,
       }).then((data) => {
-        expect(data.length).toBe(3 * 3);
+        expect(data.list.length).toBe(3 * 3);
         done(undefined);
       });
     }));
@@ -67,7 +67,7 @@ describe("CJS", () => {
         lightnessDistance: 0,
         saturationDistance: 0,
       }).then((data) => {
-        expect(data.length).toBe(1);
+        expect(data.list.length).toBe(1);
         done(undefined);
       });
     }));
@@ -82,7 +82,7 @@ describe("CJS", () => {
         lightnessDistance: 0,
         saturationDistance: 0,
       }).then((data) => {
-        expect(data.length).toBe(3 * 3);
+        expect(data.list.length).toBe(3 * 3);
         done(undefined);
       });
     }));
@@ -96,7 +96,7 @@ describe("CJS", () => {
         lightnessDistance: 0,
         saturationDistance: 0,
       }).then((data) => {
-        expect(data.length).toBe(2);
+        expect(data.list.length).toBe(2);
         done(undefined);
       });
     }));
@@ -110,7 +110,7 @@ describe("CJS", () => {
         lightnessDistance: 0,
         saturationDistance: 0,
       }).then((data) => {
-        expect(data.length).toBe(1);
+        expect(data.list.length).toBe(1);
         done(undefined);
       });
     }));
@@ -124,7 +124,7 @@ describe("CJS", () => {
         lightnessDistance: 0,
         saturationDistance: 0,
       }).then((data) => {
-        expect(data.length).toBe(1);
+        expect(data.list.length).toBe(1);
         done(undefined);
       });
     }));
@@ -138,7 +138,7 @@ describe("CJS", () => {
         lightnessDistance: 0,
         saturationDistance: 0,
       }).then((data) => {
-        expect(data.length).toBe(1);
+        expect(data.list.length).toBe(1);
         expect(data[0].hex).toBe("#ff00bb");
         done(undefined);
       });
@@ -153,7 +153,7 @@ describe("CJS", () => {
         lightnessDistance: 1,
         saturationDistance: 1,
       }).then((data) => {
-        expect(data.length).toBe(2);
+        expect(data.list.length).toBe(2);
         done(undefined);
       });
     }));
@@ -167,7 +167,7 @@ describe("CJS", () => {
         lightnessDistance: 1,
         saturationDistance: 1,
       }).then((data) => {
-        expect(data.length).toBe(1);
+        expect(data.list.length).toBe(1);
         done(undefined);
       });
     }));
@@ -181,7 +181,7 @@ describe("CJS", () => {
         lightnessDistance: 0,
         saturationDistance: 1,
       }).then((data) => {
-        expect(data.length).toBe(2);
+        expect(data.list.length).toBe(2);
         done(undefined);
       });
     }));
@@ -195,7 +195,7 @@ describe("CJS", () => {
         lightnessDistance: 0.1,
         saturationDistance: 1,
       }).then((data) => {
-        expect(data.length).toBe(1);
+        expect(data.list.length).toBe(1);
         done(undefined);
       });
     }));
@@ -209,7 +209,7 @@ describe("CJS", () => {
         lightnessDistance: 1,
         saturationDistance: 0,
       }).then((data) => {
-        expect(data.length).toBe(2);
+        expect(data.list.length).toBe(2);
         done(undefined);
       });
     }));
@@ -223,7 +223,7 @@ describe("CJS", () => {
         lightnessDistance: 1,
         saturationDistance: 0.1,
       }).then((data) => {
-        expect(data.length).toBe(1);
+        expect(data.list.length).toBe(1);
         done(undefined);
       });
     }));

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
-import cleanInputs, { testInputs } from "../src/extract/cleanInputs";
-import extractor from "../src/extract/extractor";
+import cleanInputs, { testInputs } from "../src/process/cleanInputs";
+import { extract } from "../src/process/extract";
 import { ExtractorOptions } from "../src/types/Options";
 
 const imageData4 = {
@@ -24,8 +24,8 @@ const throwTest = async (
         return new Promise((resolve, reject) => {
           try {
             testInputs(options);
-            const [pixels, distance, colorValidator] = cleanInputs(options);
-            const { colors } = extractor(
+            const { pixels, distance, colorValidator } = cleanInputs(options);
+            const { colors } = extract(
               imageData4,
               pixels,
               distance,
@@ -60,8 +60,8 @@ const testWarn = async (
       new Promise((done) => {
         return new Promise((resolve) => {
           testInputs(options);
-          const [pixels, distance, colorValidator] = cleanInputs(options);
-          const { colors } = extractor(
+          const { pixels, distance, colorValidator } = cleanInputs(options);
+          const { colors } = extract(
             imageData4,
             pixels,
             distance,
@@ -87,9 +87,9 @@ describe("Color", () => {
       ],
     };
 
-    const [pixels, distance, colorValidator] = cleanInputs({});
+    const { pixels, distance, colorValidator } = cleanInputs({});
     expect(
-      extractor(imageData, pixels, distance, colorValidator).colors.length
+      extract(imageData, pixels, distance, colorValidator).colors.length
     ).toBe(4);
   });
 
@@ -103,9 +103,9 @@ describe("Color", () => {
       ],
     };
 
-    const [pixels, distance, colorValidator] = cleanInputs({ pixels: 1 });
+    const { pixels, distance, colorValidator } = cleanInputs({ pixels: 1 });
     expect(
-      extractor(imageData, pixels, distance, colorValidator).colors.length
+      extract(imageData, pixels, distance, colorValidator).colors.length
     ).toBe(1);
   });
 
@@ -119,20 +119,20 @@ describe("Color", () => {
       ],
     };
 
-    const [pixels, distance, colorValidator] = cleanInputs({
+    const { pixels, distance, colorValidator } = cleanInputs({
       pixels: 4,
       colorValidator: (r, g, b, a) => a > 0,
     });
 
     expect(
-      extractor(imageData, pixels, distance, colorValidator).colors.length
+      extract(imageData, pixels, distance, colorValidator).colors.length
     ).toBe(3);
   });
 
   it("No reducer", () => {
-    const [pixels, distance, colorValidator] = cleanInputs({ pixels: 4 });
+    const { pixels, distance, colorValidator } = cleanInputs({ pixels: 4 });
     expect(
-      extractor(imageData4, pixels, distance, colorValidator).colors.length
+      extract(imageData4, pixels, distance, colorValidator).colors.length
     ).toBe(4);
   });
 
@@ -147,9 +147,9 @@ describe("Color", () => {
       ],
     };
 
-    const [pixels, distance, colorValidator] = cleanInputs({ pixels: 8 });
+    const { pixels, distance, colorValidator } = cleanInputs({ pixels: 8 });
     expect(
-      extractor(imageData, pixels, distance, colorValidator).colors.length
+      extract(imageData, pixels, distance, colorValidator).colors.length
     ).toBe(4);
   });
 

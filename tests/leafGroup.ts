@@ -5,8 +5,8 @@ import LeafGroup from "../src/color/LeafGroup";
 describe("LeafGroup", () => {
   it("Init", () => {
     const group = new LeafGroup();
-    expect(typeof group._children).toBe("object");
-    expect(group._count).toBe(0);
+    expect(typeof group.children).toBe("object");
+    expect(group.count).toBe(0);
   });
 
   it("Group colors", () => {
@@ -15,16 +15,16 @@ describe("LeafGroup", () => {
     group.addColor(0x777777, 0x77, 0x77, 0x77);
     group.addColor(0x777777, 0x77, 0x77, 0x77);
     expect(group.getList().length).toBe(2);
-    expect(group._count).toBe(3);
+    expect(group.count).toBe(3);
     // expect(group.getMaxWeightColor()._hex).toBe(0x777777)
   });
 
-  it("Get max _count color for 1 color", () => {
+  it("Get max count color for 1 color", () => {
     const group = new LeafGroup();
     group.addColor(0xffffff, 0xff, 0xff, 0xff);
     group.addColor(0xffffff, 0xff, 0xff, 0xff);
     group.addColor(0x000000, 0x00, 0x00, 0x00);
-    // expect(group.getMaxCountColor()._count).toBe(2)
+    // expect(group.getMaxCountColor().count).toBe(2)
     // expect(group.getMaxCountColor()._hex).toBe(0xFFFFFF)
   });
 
@@ -33,9 +33,9 @@ describe("LeafGroup", () => {
     const color1 = group.addColor(0xff0077, 0xff, 0x00, 0x77);
     group.addColor(0xff0077, 0xff, 0x00, 0x77);
     const color3 = group.addColor(0xff0000, 0xff, 0x00, 0x00);
-    expect(color1._count).toBe(2);
+    expect(color1.count).toBe(2);
     expect(group.getList().length).toBe(2);
-    expect(color3._count).toBe(1);
+    expect(color3.count).toBe(1);
     // expect(group.getMaxWeight()).toBeCloseTo(2 / 3, 5)
     // expect(group.getMaxWeightColor()._hex).toBe(0xFF0077)
   });

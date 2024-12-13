@@ -1,19 +1,21 @@
 import { describe, it, expect } from "vitest";
-import Color from "../src/color/Color";
-import {
-  AVERAGE_HUE_DEFAULT,
-  AVERAGE_SATURATION_DEFAULT,
-  AVERAGE_LIGHTNESS_DEFAULT,
-} from "../src/extract/cleanInputs";
-import sortColors from "../src/sort/sortColors";
+import HSLColor from "../src/color/HSLColor";
+import sortHSLColors from "../src/sort/sortHSLColors";
+
+/**
+ * Default average values
+ */
+export const AVERAGE_HUE_DEFAULT = 1 / 12;
+export const AVERAGE_SATURATION_DEFAULT = 1 / 5;
+export const AVERAGE_LIGHTNESS_DEFAULT = 1 / 5;
 
 describe("Sort color", () => {
   it("Sort by area", () => {
-    const colors = sortColors(
+    const colors = sortHSLColors(
       [
-        new Color(0xff, 0xff, 0xff),
-        new Color(0xff, 0xff, 0xff),
-        new Color(0x77, 0x77, 0x77),
+        new HSLColor(0xff, 0xff, 0xff, 1),
+        new HSLColor(0xff, 0xff, 0xff, 1),
+        new HSLColor(0x77, 0x77, 0x77, 1),
       ],
       10,
       AVERAGE_HUE_DEFAULT,
@@ -22,12 +24,12 @@ describe("Sort color", () => {
     );
 
     expect(colors.length).toBe(2);
-    expect(colors[0]._red).toBe(0x77);
+    expect(colors[0].r).toBe(0x77);
   });
 
   it("Sort by saturation", () => {
-    const colors = sortColors(
-      [new Color(0x73, 0x76, 0x72), new Color(0xff, 0x00, 0x77)],
+    const colors = sortHSLColors(
+      [new HSLColor(0x73, 0x76, 0x72, 1), new HSLColor(0xff, 0x00, 0x77, 1)],
       10,
       AVERAGE_HUE_DEFAULT,
       AVERAGE_SATURATION_DEFAULT,
@@ -35,6 +37,6 @@ describe("Sort color", () => {
     );
 
     expect(colors.length).toBe(2);
-    expect(colors[0]._red).toBe(0xff);
+    expect(colors[0].r).toBe(0xff);
   });
 });
