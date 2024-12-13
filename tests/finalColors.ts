@@ -7,7 +7,7 @@ describe("Final color", () => {
     const red = 0xf7;
     const green = 0x78;
     const blue = 0x01;
-    const color = createFinalColor(new HSLColor(red, green, blue, 0), 10);
+    const color = createFinalColor(new HSLColor(red, green, blue, 1), 10);
     expect(color.red).toBe(red);
     expect(color.green).toBe(green);
     expect(color.blue).toBe(blue);

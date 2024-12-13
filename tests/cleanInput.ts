@@ -54,21 +54,21 @@ describe("cleanInputs", () => {
   });
 
   it("test min", () => {
-    expect(cleanInputs({ pixels: -1 })[0]).toBe(1);
-    expect(cleanInputs({ hueDistance: -1 })[3]).toBe(0);
-    expect(cleanInputs({ saturationDistance: -1 })[4]).toBe(0);
-    expect(cleanInputs({ distance: -1 })[1]).toBe(0);
-    expect(cleanInputs({ lightnessDistance: -1 })[5]).toBe(0);
+    expect(cleanInputs({ pixels: -1 }).pixels).toBe(1);
+    expect(cleanInputs({ hueDistance: -1 }).hueDistance).toBe(0);
+    expect(cleanInputs({ saturationDistance: -1 }).saturationDistance).toBe(0);
+    expect(cleanInputs({ distance: -1 }).distance).toBe(0);
+    expect(cleanInputs({ lightnessDistance: -1 }).lightnessDistance).toBe(0);
   });
 
   it("test max", () => {
-    expect(cleanInputs({ hueDistance: 2 })[3]).toBe(1);
-    expect(cleanInputs({ saturationDistance: 2 })[4]).toBe(1);
-    expect(cleanInputs({ distance: 2 })[1]).toBe(1);
-    expect(cleanInputs({ lightnessDistance: 2 })[5]).toBe(1);
+    expect(cleanInputs({ hueDistance: 2 }).hueDistance).toBe(1);
+    expect(cleanInputs({ saturationDistance: 2 }).saturationDistance).toBe(1);
+    expect(cleanInputs({ distance: 2 }).distance).toBe(1);
+    expect(cleanInputs({ lightnessDistance: 2 }).lightnessDistance).toBe(1);
   });
 
   it("default", () => {
-    expect(cleanInputs({ pixels: null as unknown as number })[0]).toBe(1);
+    expect(cleanInputs({ pixels: null as unknown as number }).pixels).toBe(1);
   });
 });

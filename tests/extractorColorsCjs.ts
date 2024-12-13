@@ -139,7 +139,7 @@ describe("CJS", () => {
         saturationDistance: 0,
       }).then((data) => {
         expect(data.list.length).toBe(1);
-        expect(data[0].hex).toBe("#ff00bb");
+        expect(data.list[0].hex).toBe("#ff00bb");
         done(undefined);
       });
     }));
