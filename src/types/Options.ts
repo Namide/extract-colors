@@ -58,11 +58,11 @@ export type OptionsCleaned<Type extends ColorClassification> = {
   requestMode: RequestMode;
   colorClassifications: Type[];
   defaultColors:
-    | false
+    | boolean
     | PartialRecord<
         Type,
         | number
-        | false
+        | boolean
         | ((classifiedColorsPart: PartialClassified<Type>) => number)
       >;
 };
@@ -79,13 +79,12 @@ export type ClassifyOptions<Type extends ColorClassification> = {
 };
 
 export type AddDefaultOptions<Type extends ColorClassification> = {
-  // classifiedColors: PartialClassified<Type>;
   defaultColors?:
-    | false
+    | boolean
     | PartialRecord<
         Type,
         | number
-        | false
+        | boolean
         | ((classifiedColorsPart: PartialClassified<Type>) => number)
       >;
 };
@@ -99,8 +98,3 @@ export type NodeOptions<Type extends ColorClassification> = SorterOptions &
 
 export type BrowserOptions<Type extends ColorClassification> =
   NodeOptions<Type> & (BrowserImageOptions | WorkerImageOptions);
-
-// ExtractorOptions & {
-//   crossOrigin?: "anonymous" | "use-credentials" | "";
-//   requestMode?: RequestMode;
-// } & SorterOptions;

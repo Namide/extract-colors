@@ -127,20 +127,25 @@ export function testInputs<Type extends ColorClassification>({
     testValueInList("colorClassifications", type, colorClassificationFull);
   }
 
-  if (defaultColors !== false) {
-    for (const key of Object.keys(defaultColors) as Type[]) {
-      testValueInList(`defaultColors.${key}`, key, colorClassificationFull);
-      switch (true) {
-        case defaultColors[key] === false:
-        case defaultColors[key] instanceof Function:
-          break;
-        case Number(defaultColors[key]) === defaultColors[key]:
-          testUint(`defaultColors.${key}`, defaultColors[key], 0, 0xffffff);
-          break;
-        default:
-          console.warn(
-            `defaultColors.${key} can not be "${defaultColors[key]}", the value expected are false, an hexadecimal uint color or a function to generate an hexadecimal uint color`
-          );
+  if (defaultColors !== false && defaultColors !== true) {
+    if (!(defaultColors instanceof Object)) {
+      throw new Error(`defaultColors is not a Boolean or Object`);
+    } else {
+      for (const key of Object.keys(defaultColors) as Type[]) {
+        testValueInList(`defaultColors.${key}`, key, colorClassifications);
+        switch (true) {
+          case defaultColors[key] === false:
+          case defaultColors[key] === true:
+          case defaultColors[key] instanceof Function:
+            break;
+          case Number(defaultColors[key]) === defaultColors[key]:
+            testUint(`defaultColors.${key}`, defaultColors[key], 0, 0xffffff);
+            break;
+          default:
+            throw new Error(
+              `defaultColors.${key} can not be "${defaultColors[key]}", the value expected are boolean, hexadecimal uint color or a function to generate an hexadecimal uint color`
+            );
+        }
       }
     }
   }

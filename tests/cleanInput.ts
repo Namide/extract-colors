@@ -28,12 +28,27 @@ describe("cleanInputs", () => {
     ).toThrowError(/.*/);
     expect(() =>
       testInputs({
-        colorValidator: "a" as unknown as (
-          red: number,
-          green: number,
-          blue: number,
-          alpha: number
-        ) => boolean,
+        colorValidator: "a" as unknown as () => boolean,
+      })
+    ).toThrowError(/.*/);
+    expect(() =>
+      testInputs({
+        colorValidator: 1 as unknown as () => boolean,
+      })
+    ).toThrowError(/.*/);
+    expect(() =>
+      testInputs({
+        colorValidator: false as unknown as () => boolean,
+      })
+    ).toThrowError(/.*/);
+    expect(() =>
+      testInputs({
+        defaultColors: 1 as unknown as true,
+      })
+    ).toThrowError(/.*/);
+    expect(() =>
+      testInputs({
+        defaultColors: "a" as unknown as true,
       })
     ).toThrowError(/.*/);
   });
@@ -41,16 +56,29 @@ describe("cleanInputs", () => {
   it("test warnings", () => {
     testInputs({ pixels: -1 });
     testInputs({ pixels: Number.MAX_SAFE_INTEGER + 1 });
-    testInputs({ hueDistance: -1 });
-    testInputs({ saturationDistance: -1 });
     testInputs({ distance: -1 });
-    testInputs({ lightnessDistance: -1 });
-    testInputs({ hueDistance: 2 });
-    testInputs({ saturationDistance: 2 });
     testInputs({ distance: 2 });
+    testInputs({ hueDistance: -1 });
+    testInputs({ hueDistance: 2 });
+    testInputs({ lightnessDistance: -1 });
     testInputs({ lightnessDistance: 2 });
+    testInputs({ saturationDistance: -1 });
+    testInputs({ saturationDistance: 2 });
+    testInputs({ colorClassifications: ["toto" as "accents"] });
+    testInputs({
+      colorClassifications: ["dominants"],
+      defaultColors: { accents: false } as unknown as { dominants: false },
+    });
+    testInputs({
+      colorClassifications: ["dominants"],
+      defaultColors: { dominants: -1 },
+    });
+    testInputs({
+      colorClassifications: ["accents"],
+      defaultColors: { accents: 0xffffff + 1 },
+    });
 
-    expect(consoleMock).toHaveBeenCalledTimes(10);
+    expect(consoleMock).toHaveBeenCalledTimes(14);
   });
 
   it("test min", () => {
@@ -66,6 +94,10 @@ describe("cleanInputs", () => {
     expect(cleanInputs({ saturationDistance: 2 }).saturationDistance).toBe(1);
     expect(cleanInputs({ distance: 2 }).distance).toBe(1);
     expect(cleanInputs({ lightnessDistance: 2 }).lightnessDistance).toBe(1);
+  });
+
+  it("default", () => {
+    expect(cleanInputs({ pixels: null as unknown as number }).pixels).toBe(1);
   });
 
   it("default", () => {

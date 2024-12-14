@@ -14,13 +14,14 @@ export function addDefault<Type extends ColorClassification>(
 
   for (const type of Object.keys(classifiedColors) as Type[]) {
     if (!!classifiedColors[type] && classifiedColors[type].length < 1) {
-      const defaultValue = defaultColors && defaultColors[type];
+      const defaultValue =
+        defaultColors instanceof Object && defaultColors[type];
       if (defaultValue && Number(defaultValue) === defaultValue) {
         classifiedColors[type].push(hexToFinalColor(defaultValue));
       } else if (defaultValue && defaultValue instanceof Function) {
         const color: number = defaultValue(classifiedColors);
         classifiedColors[type].push(hexToFinalColor(color));
-      } else if (defaultValue !== false) {
+      } else if (defaultValue !== false || defaultColors === true) {
         classifiedColors[type].push(
           getDefaults(
             type,
@@ -38,10 +39,6 @@ function getDefaults(
   type: ColorClassification,
   classifiedColors: PartialClassified<ColorClassification>
 ) {
-  // const DEFAULT_COLORS: Record<
-  //   ColorClassification,
-  //   (ccp: PartialClassified<Type>) => HSLColor
-  // > =
   const DEFAULT = {
     dominants: (ccp: PartialClassified<ColorClassification>) => {
       const colors = [...ccp.list].sort((a, b) => b.area - a.area);
