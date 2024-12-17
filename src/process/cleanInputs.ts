@@ -4,36 +4,36 @@ import {
 } from "../types/Color";
 import type { BrowserOptions, OptionsCleaned } from "../types/Options";
 
-/**
- * Default extractor values
- */
 const EXTRACTOR_PIXELS_DEFAULT = 64000;
 const EXTRACTOR_DISTANCE_DEFAULT = 0.22;
-
-/**
- * Default average values
- */
-const AVERAGE_HUE_DEFAULT = 1 / 12;
-const AVERAGE_SATURATION_DEFAULT = 1 / 5;
-const AVERAGE_LIGHTNESS_DEFAULT = 1 / 5;
+const AVERAGE_DISTANCE_DEFAULT = 0.2;
 
 export function testInputs<Type extends ColorClassification>({
   pixels = EXTRACTOR_PIXELS_DEFAULT,
-  distance = EXTRACTOR_DISTANCE_DEFAULT,
+  distance,
+  fastDistance,
   colorValidator = (
     _red: number,
     _green: number,
     _blue: number,
     alpha?: number
   ) => (alpha ?? 255) > 250,
-  hueDistance = AVERAGE_HUE_DEFAULT,
-  saturationDistance = AVERAGE_LIGHTNESS_DEFAULT,
-  lightnessDistance = AVERAGE_SATURATION_DEFAULT,
   crossOrigin = "",
   requestMode = "cors",
   colorClassifications = colorClassificationFull as unknown as Type[],
   defaultColors = false,
 }: BrowserOptions<Type> = {}) {
+  distance =
+    distance ??
+    (fastDistance !== undefined && fastDistance >= 0 && fastDistance <= 1
+      ? fastDistance * 2
+      : AVERAGE_DISTANCE_DEFAULT);
+  fastDistance =
+    fastDistance ??
+    (distance !== undefined && distance >= 0 && distance <= 1
+      ? distance / 2
+      : EXTRACTOR_DISTANCE_DEFAULT);
+
   /**
    * Test if value is an integer.
    */
@@ -106,12 +106,23 @@ export function testInputs<Type extends ColorClassification>({
     }
   };
 
-  testUint("pixels", pixels || 0, 1);
+  testUint("pixels", pixels || 0, 1, Infinity);
   testNumber("distance", distance, 0, 1);
   testFunction("colorValidator", colorValidator);
-  testNumber("hueDistance", hueDistance, 0, 1);
-  testNumber("saturationDistance", saturationDistance, 0, 1);
-  testNumber("lightnessDistance", lightnessDistance, 0, 1);
+  testNumber("fastDistance", fastDistance, 0, 1);
+
+  if (
+    distance >= 0 &&
+    fastDistance >= 0 &&
+    distance <= 1 &&
+    fastDistance <= 1 &&
+    fastDistance > distance
+  ) {
+    console.warn(
+      `"fastDistance" is used before "distance", so it's better for "fastDistance" to be less than "distance"`
+    );
+  }
+
   testValueInList("crossOrigin", crossOrigin, [
     "",
     "anonymous",
@@ -153,28 +164,31 @@ export function testInputs<Type extends ColorClassification>({
 
 export default function cleanInputs<Type extends ColorClassification>({
   pixels = EXTRACTOR_PIXELS_DEFAULT,
-  distance = EXTRACTOR_DISTANCE_DEFAULT,
+  fastDistance,
   colorValidator = (
     _red: number,
     _green: number,
     _blue: number,
     alpha?: number
   ) => (alpha ?? 255) > 250,
-  hueDistance = AVERAGE_HUE_DEFAULT,
-  saturationDistance = AVERAGE_LIGHTNESS_DEFAULT,
-  lightnessDistance = AVERAGE_SATURATION_DEFAULT,
+  distance,
   crossOrigin = "",
   requestMode = "cors",
   colorClassifications = colorClassificationFull as unknown as Type[], // Remove readonly property of the array
   defaultColors = false,
 }: BrowserOptions<Type> = {}): OptionsCleaned<Type> {
+  distance =
+    distance ??
+    (fastDistance !== undefined ? fastDistance * 2 : AVERAGE_DISTANCE_DEFAULT);
+  fastDistance =
+    fastDistance ??
+    (distance !== undefined ? distance / 2 : EXTRACTOR_DISTANCE_DEFAULT);
+
   return {
     pixels: Math.max(pixels, 1),
-    distance: Math.min(Math.max(distance, 0), 1),
+    fastDistance: Math.min(Math.max(fastDistance, 0), 1),
     colorValidator,
-    hueDistance: Math.min(Math.max(hueDistance, 0), 1),
-    saturationDistance: Math.min(Math.max(saturationDistance, 0), 1),
-    lightnessDistance: Math.min(Math.max(lightnessDistance, 0), 1),
+    distance: Math.min(Math.max(distance, 0), 1),
     crossOrigin,
     requestMode,
     colorClassifications,

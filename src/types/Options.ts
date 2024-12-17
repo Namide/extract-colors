@@ -12,19 +12,17 @@ export interface ImageDataAlt {
 }
 
 export interface SorterOptions {
-  saturationDistance?: number;
-  lightnessDistance?: number;
-  hueDistance?: number;
+  distance?: number;
 }
 
 export interface ExtractorOptions {
   pixels?: number;
-  distance?: number;
+  fastDistance?: number;
   colorValidator?: (
     red: number,
     green: number,
     blue: number,
-    alpha: number
+    alpha?: number
   ) => boolean;
 }
 
@@ -44,16 +42,14 @@ export type ImageOptions = {
 
 export type OptionsCleaned<Type extends ColorClassification> = {
   pixels: number;
-  distance: number;
+  fastDistance: number;
   colorValidator: (
     red: number,
     green: number,
     blue: number,
-    alpha: number
+    alpha?: number
   ) => boolean;
-  hueDistance: number;
-  saturationDistance: number;
-  lightnessDistance: number;
+  distance: number;
   crossOrigin: "" | "anonymous" | "use-credentials" | null;
   requestMode: RequestMode;
   colorClassifications: Type[];
@@ -69,9 +65,7 @@ export type OptionsCleaned<Type extends ColorClassification> = {
 
 export type RefineOptions = {
   pixels?: number;
-  hueDistance?: number;
-  saturationDistance?: number;
-  lightnessDistance?: number;
+  distance?: number;
 };
 
 export type ClassifyOptions<Type extends ColorClassification> = {

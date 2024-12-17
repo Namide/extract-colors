@@ -1,5 +1,5 @@
-import { createFinalColor } from "../color/FinalColor";
-import HSLColor from "../color/HSLColor";
+import { createFinalColor, deltaE } from "../color/FinalColor";
+import RGBColor from "../color/RGBColor";
 import type { Classified, PartialClassified } from "../types/Classified";
 import type { ColorClassification, FinalColor } from "../types/Color";
 import type { AddDefaultOptions } from "../types/Options";
@@ -48,21 +48,21 @@ function getDefaults(
 
       const accent = ccp.accents && ccp.accents[0];
       if (accent) {
-        return RGBToFinalColor(1 - accent.hue, 0.3, 1 - accent.lightness);
+        return RGBToFinalColor(1 - accent.hsl[0], 0.3, 1 - accent.hsl[2]);
       }
 
       return colors[0] || hexToFinalColor(0x0077ff);
     },
 
     accents: (ccp: PartialClassified<ColorClassification>) => {
-      const colors = [...ccp.list].sort((a, b) => b.saturation - a.saturation);
+      const colors = [...ccp.list].sort((a, b) => b.hsl[1] - a.hsl[1]);
       if (colors[0]) {
         return colors[0];
       }
 
       const dominant = ccp.dominants && ccp.dominants[0];
       if (dominant) {
-        return RGBToFinalColor(1 - dominant.hue, 1, 0.5);
+        return RGBToFinalColor(1 - dominant.hsl[0], 1, 0.5);
       }
 
       return hexToFinalColor(0xff7700);
@@ -90,14 +90,14 @@ function getDefaults(
 
     dullests: (ccp: PartialClassified<ColorClassification>) => {
       const colors = [...ccp.list].sort(
-        (a, b) => a.saturation - b.saturation || b.area - a.area
+        (a, b) => a.hsl[1] - b.hsl[1] || b.area - a.area
       );
       return colors[0] || hexToFinalColor(0x777777);
     },
 
     vivids: (ccp: PartialClassified<ColorClassification>) => {
       const colors = [...ccp.list].sort(
-        (a, b) => b.saturation - a.saturation || b.area - a.area
+        (a, b) => b.hsl[1] - a.hsl[1] || b.area - a.area
       );
       return colors[0] || hexToFinalColor(0xff7700);
     },
@@ -124,14 +124,14 @@ function getDefaults(
 
     lightests: (ccp: PartialClassified<ColorClassification>) => {
       const colors = [...ccp.list].sort(
-        (a, b) => b.lightness - a.lightness || b.area - a.area
+        (a, b) => b.hsl[2] - a.hsl[2] || b.area - a.area
       );
       return colors[0] || hexToFinalColor(0xffffff);
     },
 
     darkests: (ccp: PartialClassified<ColorClassification>) => {
       const colors = [...ccp.list].sort(
-        (a, b) => a.lightness - b.lightness || b.area - a.area
+        (a, b) => a.hsl[2] - b.hsl[2] || b.area - a.area
       );
       return colors[0] || hexToFinalColor(0x000000);
     },
@@ -139,8 +139,7 @@ function getDefaults(
     warmest: (ccp: PartialClassified<ColorClassification>) => {
       const warmColor = hexToFinalColor(0xff7700);
       const colors = [...ccp.list].sort(
-        (a, b) =>
-          fastDist(a, warmColor) - fastDist(b, warmColor) || b.area - a.area
+        (a, b) => deltaE(a, warmColor) - deltaE(b, warmColor) || b.area - a.area
       );
       return colors[0] || warmColor;
     },
@@ -148,8 +147,7 @@ function getDefaults(
     coolest: (ccp: PartialClassified<ColorClassification>) => {
       const coolColor = hexToFinalColor(0x0077ff);
       const colors = [...ccp.list].sort(
-        (a, b) =>
-          fastDist(a, coolColor) - fastDist(b, coolColor) || b.area - a.area
+        (a, b) => deltaE(a, coolColor) - deltaE(b, coolColor) || b.area - a.area
       );
       return colors[0] || coolColor;
     },
@@ -180,37 +178,33 @@ function getDefaults(
 
 function getLighter(color: FinalColor, gap = 0.1) {
   return HSLToFinalColor(
-    color.hue,
-    color.saturation,
-    Math.min(1, Math.max(0.6, color.lightness + gap))
+    color.hsl[0],
+    color.hsl[1],
+    Math.min(1, Math.max(0.6, color.hsl[2] + gap))
   );
 }
 
 function getDarker(color: FinalColor, gap = 0.1) {
   return HSLToFinalColor(
-    color.hue,
-    color.saturation,
-    Math.min(0.4, Math.max(1, color.lightness - gap))
+    color.hsl[0],
+    color.hsl[1],
+    Math.min(0.4, Math.max(1, color.hsl[2] - gap))
   );
 }
-
-// function hexToRGB(hex: number) {
-//   return [(hex >> 16) & 255, (hex >> 8) & 255, hex & 255] as const;
-// }
 
 function hexToFinalColor(hex: number) {
   const r = (hex >> 16) & 255;
   const g = (hex >> 8) & 255;
   const b = hex & 255;
-  return createFinalColor(new HSLColor(r, g, b, 0), 1);
+  return createFinalColor(new RGBColor(r, g, b, 0), 1);
 }
 
 function RGBToFinalColor(r: number, g: number, b: number) {
-  return createFinalColor(new HSLColor(r, g, b, 0), 1);
+  return createFinalColor(new RGBColor(r, g, b, 0), 1);
 }
 
 function HSLToFinalColor(h: number, s: number, l: number) {
-  return createFinalColor(new HSLColor(...HSLToRGB(h, s, l), 0), 1);
+  return createFinalColor(new RGBColor(...HSLToRGB(h, s, l), 0), 1);
 }
 
 // https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
@@ -225,10 +219,10 @@ function HSLToRGB(h: number, s: number, l: number) {
   ] as const;
 }
 
-function fastDist(colorA: FinalColor, colorB: FinalColor) {
-  return (
-    Math.abs(colorB.red - colorA.red) +
-    Math.abs(colorB.green - colorA.green) +
-    Math.abs(colorB.blue - colorA.blue)
-  );
-}
+// function fastDist(colorA: FinalColor, colorB: FinalColor) {
+//   return (
+//     Math.abs(colorB.red - colorA.red) +
+//     Math.abs(colorB.green - colorA.green) +
+//     Math.abs(colorB.blue - colorA.blue)
+//   );
+// }

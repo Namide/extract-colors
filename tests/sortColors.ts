@@ -1,42 +1,36 @@
 import { describe, it, expect } from "vitest";
-import HSLColor from "../src/color/HSLColor";
-import sortHSLColors from "../src/sort/sortHSLColors";
+import sortColors from "../src/sort/sortColors";
+import { hexToFinalColor } from "./testHelpers";
 
 /**
  * Default average values
  */
-export const AVERAGE_HUE_DEFAULT = 1 / 12;
-export const AVERAGE_SATURATION_DEFAULT = 1 / 5;
-export const AVERAGE_LIGHTNESS_DEFAULT = 1 / 5;
+export const AVERAGE_DEFAULT = 1 / 5;
 
 describe("Sort color", () => {
   it("Sort by area", () => {
-    const colors = sortHSLColors(
+    const colors = sortColors(
       [
-        new HSLColor(0xff, 0xff, 0xff, 1),
-        new HSLColor(0xff, 0xff, 0xff, 1),
-        new HSLColor(0x77, 0x77, 0x77, 1),
+        hexToFinalColor(0xffffff),
+        hexToFinalColor(0xffffff),
+        hexToFinalColor(0x777777),
       ],
       10,
-      AVERAGE_HUE_DEFAULT,
-      AVERAGE_SATURATION_DEFAULT,
-      AVERAGE_LIGHTNESS_DEFAULT
+      AVERAGE_DEFAULT
     );
 
     expect(colors.length).toBe(2);
-    expect(colors[0].r).toBe(0x77);
+    expect(colors[0].rgb[0]).toBe(0x77);
   });
 
   it("Sort by saturation", () => {
-    const colors = sortHSLColors(
-      [new HSLColor(0x73, 0x76, 0x72, 1), new HSLColor(0xff, 0x00, 0x77, 1)],
+    const colors = sortColors(
+      [hexToFinalColor(0x737672), hexToFinalColor(0xff0077)],
       10,
-      AVERAGE_HUE_DEFAULT,
-      AVERAGE_SATURATION_DEFAULT,
-      AVERAGE_LIGHTNESS_DEFAULT
+      AVERAGE_DEFAULT
     );
 
     expect(colors.length).toBe(2);
-    expect(colors[0].r).toBe(0xff);
+    expect(colors[0].rgb[0]).toBe(0xff);
   });
 });

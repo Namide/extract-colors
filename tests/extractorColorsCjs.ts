@@ -144,84 +144,24 @@ describe("CJS", () => {
       });
     }));
 
-  it("Small hue distance", () =>
+  it("Small distance", () =>
     new Promise((done) => {
       const imageData = createCustomImageData([0xff0000, 0xff1100]);
       return extractColors(imageData, {
+        fastDistance: 0,
         distance: 0,
-        hueDistance: 0,
-        lightnessDistance: 1,
-        saturationDistance: 1,
       }).then((data) => {
         expect(data.list.length).toBe(2);
         done(undefined);
       });
     }));
 
-  it("Big hue distance", () =>
+  it("Big distance", () =>
     new Promise((done) => {
       const imageData = createCustomImageData([0xff0000, 0xff1100]);
       return extractColors(imageData, {
-        distance: 0,
-        hueDistance: 0.1,
-        lightnessDistance: 1,
-        saturationDistance: 1,
-      }).then((data) => {
-        expect(data.list.length).toBe(1);
-        done(undefined);
-      });
-    }));
-
-  it("Small lightness distance", () =>
-    new Promise((done) => {
-      const imageData = createCustomImageData([0xffffff, 0xeeeeee]);
-      return extractColors(imageData, {
-        distance: 0,
-        hueDistance: 1,
-        lightnessDistance: 0,
-        saturationDistance: 1,
-      }).then((data) => {
-        expect(data.list.length).toBe(2);
-        done(undefined);
-      });
-    }));
-
-  it("Big lightness distance", () =>
-    new Promise((done) => {
-      const imageData = createCustomImageData([0xffffff, 0xeeeeee]);
-      return extractColors(imageData, {
-        distance: 0,
-        hueDistance: 1,
-        lightnessDistance: 0.1,
-        saturationDistance: 1,
-      }).then((data) => {
-        expect(data.list.length).toBe(1);
-        done(undefined);
-      });
-    }));
-
-  it("Small saturation distance", () =>
-    new Promise((done) => {
-      const imageData = createCustomImageData([0x8b7476, 0x888888]);
-      return extractColors(imageData, {
-        distance: 0,
-        hueDistance: 1,
-        lightnessDistance: 1,
-        saturationDistance: 0,
-      }).then((data) => {
-        expect(data.list.length).toBe(2);
-        done(undefined);
-      });
-    }));
-
-  it("Big saturation distance", () =>
-    new Promise((done) => {
-      const imageData = createCustomImageData([0x8b7476, 0x888888]);
-      return extractColors(imageData, {
-        distance: 0,
-        hueDistance: 1,
-        lightnessDistance: 1,
-        saturationDistance: 0.1,
+        fastDistance: 0,
+        distance: 1,
       }).then((data) => {
         expect(data.list.length).toBe(1);
         done(undefined);

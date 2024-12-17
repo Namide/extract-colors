@@ -157,7 +157,7 @@ describe("Color", () => {
     red: number,
     green: number,
     blue: number,
-    alpha: number
+    alpha?: number
   ) => boolean;
 
   testWarn(
@@ -177,18 +177,18 @@ describe("Color", () => {
   );
   testWarn(
     "Little distance",
-    { distance: -0.1 },
-    "distance can not be less than 0 (it's -0.1)"
+    { fastDistance: -0.1 },
+    "fastDistance can not be less than 0 (it's -0.1)"
   );
   testWarn(
     "Bad distance",
-    { distance: 1.0001 },
-    "distance can not be more than 1 (it's 1.0001)"
+    { fastDistance: 1.0001 },
+    "fastDistance can not be more than 1 (it's 1.0001)"
   );
   testWarn(
     "Large distance",
-    { distance: 2 },
-    "distance can not be more than 1 (it's 2)"
+    { fastDistance: 2 },
+    "fastDistance can not be more than 1 (it's 2)"
   );
   throwTest(
     "Number colorValidator",

@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { defineConfig, configDefaults } from "vitest/config";
 
 export default defineConfig({
   define: {
@@ -11,5 +11,6 @@ export default defineConfig({
     coverage: {
       provider: "istanbul", // or 'v8'
     },
+    exclude: [...configDefaults.exclude, "tests/testHelpers.ts"],
   },
 });

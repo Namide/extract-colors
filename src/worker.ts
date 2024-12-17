@@ -2,10 +2,7 @@ import type { ImageDataAlt, OptionsCleaned } from "./types/Options";
 import type { ColorClassification } from "./types/Color";
 import { extract } from "./process/extract";
 import { refine } from "./process/refine";
-import {
-  WorkerQueryMessageOptions,
-  WorkerResponseMessageOptions,
-} from "./types/Worker";
+import type { WorkerQueryMessageOptions } from "./types/Worker";
 import { srcFetchImageData } from "./image";
 import { classify } from "./process/classify";
 import { addDefault } from "./process/addDefault";
@@ -35,16 +32,10 @@ async function extractColors<Type extends ColorClassification>(
     const { colors, count } = extract(
       imageData,
       inputs.pixels,
-      inputs.distance,
+      inputs.fastDistance,
       inputs.colorValidator
     );
-    const hslColors = refine(
-      colors,
-      count,
-      inputs.hueDistance,
-      inputs.saturationDistance,
-      inputs.lightnessDistance
-    );
+    const hslColors = refine(colors, count, inputs.distance);
     const classedColors = classify(hslColors, inputs.colorClassifications);
     return addDefault(classedColors, inputs.defaultColors);
   }

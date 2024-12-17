@@ -173,9 +173,9 @@ export function extract<Type extends ColorClassification>(
     testInputs(options);
   }
 
-  const { pixels, distance, colorValidator } = cleanInputs(options);
+  const { pixels, fastDistance, colorValidator } = cleanInputs(options);
 
-  return extractCore(imageData, pixels, distance, colorValidator);
+  return extractCore(imageData, pixels, fastDistance, colorValidator);
 }
 
 export function refine(
@@ -186,16 +186,9 @@ export function refine(
     testInputs(options);
   }
 
-  const { hueDistance, saturationDistance, lightnessDistance } =
-    cleanInputs(options);
+  const { distance } = cleanInputs(options);
 
-  return refineCore(
-    colors,
-    count,
-    hueDistance,
-    saturationDistance,
-    lightnessDistance
-  );
+  return refineCore(colors, count, distance);
 }
 
 export function classify<Type extends ColorClassification>(
@@ -326,16 +319,10 @@ export async function extractColors<Type extends ColorClassification>(
     const { colors, count } = extractCore(
       imageData,
       inputs.pixels,
-      inputs.distance,
+      inputs.fastDistance,
       inputs.colorValidator
     );
-    const hslColors = refineCore(
-      colors,
-      count,
-      inputs.hueDistance,
-      inputs.saturationDistance,
-      inputs.lightnessDistance
-    );
+    const hslColors = refineCore(colors, count, inputs.distance);
     const classedColors = classifyCore(hslColors, inputs.colorClassifications);
     return addDefaultCore(classedColors, inputs.defaultColors);
   }

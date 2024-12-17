@@ -6,13 +6,13 @@ import type { ImageDataAlt } from "../types/Options";
  *
  * @param imageData ImageData or same Object ({ data: Uint8ClampedArray | number[]; width?: number; height?: number })
  * @param pixels Max pixels for calculation
- * @param distance Distance used between pixels
+ * @param fastDistance Distance used between pixels
  * @param colorValidator Callback to validate if color is used for calculation
  */
 export function extract(
   { data, width, height }: ImageDataAlt, // ImageData
   pixels: number,
-  distance: number,
+  fastDistance: number,
   colorValidator: (
     red: number,
     green: number,
@@ -39,7 +39,7 @@ export function extract(
   }
 
   return {
-    colors: colorGroup.getColors(distance),
+    colors: colorGroup.getColors(fastDistance),
     count: colorGroup.count + ignoredColorsCount,
   };
 }
