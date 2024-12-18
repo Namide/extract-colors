@@ -55,21 +55,31 @@ const COLORS_LIST_TEST: { [color in ColorClassification]?: number[] }[] = [
     midtones: [0x1a65e8, 0xe81a51],
     darkests: [0x702539, 0x6410c4],
   },
-  // // {
-  // //   // Accent/dominant by saturation
-  // //   accents: [0xff0000, 0xff7700, 0xffff00],
-  // //   dominants: [0xcccccc, 0xdddddd, 0x333333, 0xccddbb, 0x221133],
-  // // },
-  // // {
-  // //   // Accent/dominant by hue
-  // //   accents: [0xff0000, 0xff2200, 0xcc0011],
-  // //   dominants: [0x0000ff, 0x1111aa, 0x1122dd, 0x2200ff, 0x0055ee],
-  // // },
-  // {
-  //   // Accent/dominant by lighness
-  //   accents: [0x550000, 0x005500, 0x000055],
-  //   dominants: [0xffffff, 0xddffff, 0xffff66, 0xff99ff, 0x66ffff],
-  // },
+  {
+    // Accent/dominant by saturation
+    accents: [0xff0000, 0xff7700, 0xffff00],
+    dominants: [0xcccccc, 0xddeedd, 0xeeffdd, 0xffeeff, 0xccddbb, 0xccddcc],
+  },
+  {
+    // Accent/dominant by hue
+    accents: [0x35872e, 0x628121, 0x3b864e],
+    dominants: [0xd7289f, 0xbc43bd, 0xbc4e97, 0xd43d6e, 0xbd3ad2],
+  },
+  {
+    // Accent/dominant by hue
+    accents: [0xff0000, 0xff2200, 0xcc0011],
+    dominants: [0x0000ff, 0x1111aa, 0x1122dd, 0x2200ff, 0x0055ee],
+  },
+  {
+    // Accent/dominant by hue
+    accents: [0x092b7b, 0x093b7b, 0x1063d1],
+    dominants: [0x64cc14, 0x4fa210, 0x8bec41, 0x58eb33, 0x3ca522],
+  },
+  {
+    // Accent/dominant by lighness
+    accents: [0x550000, 0x005500, 0x000055],
+    dominants: [0xffffff, 0xddffff, 0xffff66, 0xff99ff, 0x66ffff],
+  },
 ];
 
 describe("classify", () => {

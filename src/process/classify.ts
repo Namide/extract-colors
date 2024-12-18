@@ -405,9 +405,9 @@ function getDominantsAccents1(
 
   const choices: { key: 0 | 1 | 2; limit: number; power: number }[] = [];
   for (const [key, partCount] of [
-    [0, 10],
-    [1, 5],
-    [2, 5],
+    [0, 20], // 10
+    [1, 10], // 5
+    [2, 10], // 5
   ] as const) {
     const sortedColors = [...refinedColors].sort(
       (a, b) => a.ecHsl[key] - b.ecHsl[key]
@@ -422,45 +422,30 @@ function getDominantsAccents1(
 
     const blocksStats: {
       key: 0 | 1 | 2;
-      limit: number;
-      beforeCount: number;
-      afterCount: number;
-      currentCount: number;
       power: number;
+      limit: number;
     }[] = [];
-    for (let i = 0; i < blocks.length; i++) {
-      const data = {
-        beforeCount: blocks
-          .filter((_, index) =>
-            key === 0
-              ? (index < i && index > i - partCount / 2) ||
-                index > i + partCount / 2
-              : index < i
-          )
-          .reduce((total, blockCount) => total + blockCount, 0),
-        afterCount: blocks
-          .filter((_, index) =>
-            key === 0
-              ? (index > i && index < i + partCount / 2) ||
-                index < i - partCount / 2
-              : index > i
-          )
-          .reduce((total, blockCount) => total + blockCount, 0),
-        currentCount: blocks[i],
-      };
+    for (let i = 0; i < partCount; i++) {
+      const beforeCount =
+        key === 0
+          ? blocks[(i + partCount - 1) % partCount]
+          : blocks[i - 1] || 0;
+      const afterCount =
+        key === 0 ? blocks[(i + 1) % partCount] : blocks[i + 1] || 0;
+
       blocksStats.push({
-        ...data,
         key,
-        power: data.beforeCount + data.afterCount - data.currentCount,
+        power: blocks[i] - (beforeCount + afterCount),
         limit: (i + 0.5) / partCount,
       });
     }
 
-    const [limit] = blocksStats.sort((a, b) => b.power - a.power);
+    const [blockA, blockB] = blocksStats.sort((a, b) => b.power - a.power);
+
     choices.push({
-      key: limit.key,
-      limit: limit.limit,
-      power: limit.power,
+      key,
+      limit: (blockA.limit + blockB.limit) / 2,
+      power: blockA.power * blockB.power,
     });
   }
   const [choice] = choices.sort((a, b) => b.power - a.power);
