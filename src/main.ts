@@ -9,14 +9,14 @@ import type {
   RefineOptions,
   WorkerImageOptions,
 } from "./types/Options";
+import type RGBColor from "./color/RGBColor";
+import type { PartialClassified } from "./types/Classified";
 import cleanInputs, { testInputs } from "./process/cleanInputs";
 import { checkIsBrowser, checkIsNode, checkIsWorker } from "./context";
 import { extract as extractCore } from "./process/extract";
 import { refine as refineCore } from "./process/refine";
 import { classify as classifyCore } from "./process/classify";
 import { addDefault as addDefaultCore } from "./process/addDefault";
-import RGBColor from "./color/RGBColor";
-import { PartialClassified } from "./types/Classified";
 import {
   loadImageToImageData,
   srcFetchImageData,

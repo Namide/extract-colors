@@ -9,6 +9,7 @@ export interface FinalColor {
   area: number;
   rgb: [number, number, number];
   hsl: [number, number, number];
+  ecHsl: [number, number, number];
   lab: [number, number, number];
   count: number;
 }
@@ -21,22 +22,29 @@ export const colorClassificationFull = [
   "dominants",
   "accents",
   "dominantsLight",
+  "dominantsMidtone",
   "dominantsDark",
   "accentsLight",
+  "accentsMidtone",
   "accentsDark",
   "dullests",
   "vivids",
   "dullestsLight",
+  "dullestsMidtone",
   "dullestsDark",
   "vividsLight",
+  "vividsMidtone",
   "vividsDark",
   "lightests",
+  "midtones",
   "darkests",
   "warmest",
   "coolest",
   "warmestLight",
+  "warmestMidtone",
   "warmestDark",
   "coolestLight",
+  "coolestMidtone",
   "coolestDark",
 ] as const;
 

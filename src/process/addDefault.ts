@@ -73,6 +73,11 @@ function getDefaults(
       return getLighter(dominant || DEFAULT.dominants(ccp));
     },
 
+    dominantsMidtone: (ccp: PartialClassified<ColorClassification>) => {
+      const dominant = ccp.dominants && ccp.dominants[0];
+      return getMidtone(dominant || DEFAULT.dominants(ccp));
+    },
+
     dominantsDark: (ccp: PartialClassified<ColorClassification>) => {
       const dominant = ccp.dominants && ccp.dominants[0];
       return getDarker(dominant || DEFAULT.dominants(ccp));
@@ -81,6 +86,11 @@ function getDefaults(
     accentsLight: (ccp: PartialClassified<ColorClassification>) => {
       const accent = ccp.accents && ccp.accents[0];
       return getLighter(accent || DEFAULT.accents(ccp));
+    },
+
+    accentsMidtone: (ccp: PartialClassified<ColorClassification>) => {
+      const accent = ccp.accents && ccp.accents[0];
+      return getMidtone(accent || DEFAULT.accents(ccp));
     },
 
     accentsDark: (ccp: PartialClassified<ColorClassification>) => {
@@ -107,6 +117,11 @@ function getDefaults(
       return getLighter(dullest || DEFAULT.dullests(ccp));
     },
 
+    dullestsMidtone: (ccp: PartialClassified<ColorClassification>) => {
+      const dullest = ccp.dullests && ccp.dullests[0];
+      return getMidtone(dullest || DEFAULT.dullests(ccp));
+    },
+
     dullestsDark: (ccp: PartialClassified<ColorClassification>) => {
       const dullest = ccp.dullests && ccp.dullests[0];
       return getDarker(dullest || DEFAULT.dullests(ccp));
@@ -115,6 +130,11 @@ function getDefaults(
     vividsLight: (ccp: PartialClassified<ColorClassification>) => {
       const vivid = ccp.vivids && ccp.vivids[0];
       return getLighter(vivid || DEFAULT.vivids(ccp));
+    },
+
+    vividsMidtone: (ccp: PartialClassified<ColorClassification>) => {
+      const vivid = ccp.vivids && ccp.vivids[0];
+      return getMidtone(vivid || DEFAULT.vivids(ccp));
     },
 
     vividsDark: (ccp: PartialClassified<ColorClassification>) => {
@@ -127,6 +147,14 @@ function getDefaults(
         (a, b) => b.hsl[2] - a.hsl[2] || b.area - a.area
       );
       return colors[0] || hexToFinalColor(0xffffff);
+    },
+
+    midtones: (ccp: PartialClassified<ColorClassification>) => {
+      const colors = [...ccp.list].sort(
+        (a, b) =>
+          Math.abs(a.hsl[2] - 0.5) - Math.abs(b.hsl[2] - 0.5) || b.area - a.area
+      );
+      return colors[0] || hexToFinalColor(0x808080);
     },
 
     darkests: (ccp: PartialClassified<ColorClassification>) => {
@@ -157,6 +185,11 @@ function getDefaults(
       return getLighter(warm || DEFAULT.warmest(ccp));
     },
 
+    warmestMidtone: (ccp: PartialClassified<ColorClassification>) => {
+      const warm = ccp.warmest && ccp.warmest[0];
+      return getMidtone(warm || DEFAULT.warmest(ccp));
+    },
+
     warmestDark: (ccp: PartialClassified<ColorClassification>) => {
       const warm = ccp.warmest && ccp.warmest[0];
       return getDarker(warm || DEFAULT.warmest(ccp));
@@ -167,6 +200,11 @@ function getDefaults(
       return getLighter(cool || DEFAULT.coolest(ccp));
     },
 
+    coolestMidtone: (ccp: PartialClassified<ColorClassification>) => {
+      const cool = ccp.coolest && ccp.coolest[0];
+      return getMidtone(cool || DEFAULT.coolest(ccp));
+    },
+
     coolestDark: (ccp: PartialClassified<ColorClassification>) => {
       const cool = ccp.coolest && ccp.coolest[0];
       return getDarker(cool || DEFAULT.coolest(ccp));
@@ -174,6 +212,10 @@ function getDefaults(
   };
 
   return DEFAULT[type](classifiedColors);
+}
+
+function getMidtone(color: FinalColor) {
+  return HSLToFinalColor(color.hsl[0], color.hsl[1], 0.5);
 }
 
 function getLighter(color: FinalColor, gap = 0.1) {

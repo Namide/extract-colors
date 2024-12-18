@@ -11,12 +11,14 @@ import RGBColor from "./RGBColor";
  */
 export function createFinalColor(color: RGBColor, count: number): FinalColor {
   const hexStr = ((color.r << 16) | (color.g << 8) | color.b).toString(16);
+  const lab = getLAB(color.r, color.g, color.b);
   return {
     hex: `#${"0".repeat(6 - hexStr.length)}${hexStr}`,
     area: color.count / count,
     rgb: [color.r, color.g, color.b],
     hsl: getHSL(color.r, color.g, color.b),
-    lab: getLAB(color.r, color.g, color.b),
+    lab,
+    ecHsl: getPerceptiveHSL(lab),
     count: color.count,
   };
 }
@@ -58,7 +60,22 @@ function getHSL(
   return [hue, saturation, lightness];
 }
 
+export function getPerceptiveHSL(
+  lab: [number, number, number]
+): [number, number, number] {
+  const hue = (1 + Math.atan2(lab[2], lab[1]) / Math.PI) / 2; // PI * 2
+  const saturation = Math.min(
+    1,
+    Math.max(0, Math.sqrt(lab[1] ** 2 + lab[2] ** 2) / 100)
+  );
+  const lightness = Math.min(1, Math.max(0, lab[0] / 100));
+  return [hue, saturation, lightness];
+}
+
 // https://github.com/antimatter15/rgb-lab/blob/master/color.js
+// 0 -> 100
+// -100 -> 100
+// -100 -> 100
 function getLAB(
   red: number,
   green: number,
@@ -100,4 +117,50 @@ export function deltaE(a: FinalColor, b: FinalColor) {
   const i =
     deltaLKlsl * deltaLKlsl + deltaCkcsc * deltaCkcsc + deltaHkhsh * deltaHkhsh;
   return i < 0 ? 0 : Math.sqrt(i);
+}
+
+export function hslDist(
+  a: FinalColor,
+  b: FinalColor
+): [number, number, number] {
+  const lightnessIncreaseA = 1 - Math.abs(a.hsl[2] * 2 - 1);
+  const lightnessIncreaseB = 1 - Math.abs(b.hsl[2] * 2 - 1);
+
+  const saturationIncreaseA = a.hsl[1];
+  const saturationIncreaseB = b.hsl[1];
+
+  const lightnessDist = Math.abs(b.hsl[2] - a.hsl[2]);
+  const saturationDist =
+    (Math.abs(b.hsl[1] - a.hsl[1]) *
+      (lightnessIncreaseA + lightnessIncreaseB)) /
+    2;
+  const hueDist =
+    (((Math.min(
+      Math.abs(b.hsl[0] - a.hsl[0]),
+      b.hsl[0] > a.hsl[0]
+        ? Math.abs(a.hsl[0] + 1 - b.hsl[0])
+        : Math.abs(b.hsl[0] + 1 - a.hsl[0])
+    ) *
+      (lightnessIncreaseA + lightnessIncreaseB)) /
+      2) *
+      (saturationIncreaseA + saturationIncreaseB)) /
+    2;
+
+  // const dist = [
+  //   Math.min(
+  //     Math.abs(b.hsl[0] - a.hsl[0]),
+  //     b.hsl[0] > a.hsl[0]
+  //       ? Math.abs(a.hsl[0] + 1 - b.hsl[0])
+  //       : Math.abs(b.hsl[0] + 1 - a.hsl[0])
+  //   ),
+  //   Math.abs(b.hsl[1] - a.hsl[1]),
+  //   Math.abs(b.hsl[2] - a.hsl[2]),
+  // ];
+
+  // const minDist = Math.min(...dist);
+  // const maxDist = Math.max(...dist);
+
+  // return dist.reduce((total, value) => total + value);
+
+  return [hueDist, saturationDist, lightnessDist];
 }
