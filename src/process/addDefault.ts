@@ -1,7 +1,7 @@
 import { createFinalColor, deltaE } from "../color/FinalColor";
 import RGBColor from "../color/RGBColor";
 import type { Classified, PartialClassified } from "../types/Classified";
-import type { ColorClassification, FinalColor } from "../types/Color";
+import { type ColorClassification, type FinalColor } from "../types/Color";
 import type { AddDefaultOptions } from "../types/Options";
 
 export function addDefault<Type extends ColorClassification>(
@@ -39,7 +39,7 @@ function getDefaults(
   type: ColorClassification,
   classifiedColors: PartialClassified<ColorClassification>
 ) {
-  const DEFAULT = {
+  const BASE_DEFAULT = {
     dominants: (ccp: PartialClassified<ColorClassification>) => {
       const colors = [...ccp.list].sort((a, b) => b.area - a.area);
       if (colors[0]) {
@@ -48,7 +48,7 @@ function getDefaults(
 
       const accent = ccp.accents && ccp.accents[0];
       if (accent) {
-        return RGBToFinalColor(1 - accent.hsl[0], 0.3, 1 - accent.hsl[2]);
+        return HSLToFinalColor(1 - accent.hsl[0], 0.3, 1 - accent.hsl[2]);
       }
 
       return colors[0] || hexToFinalColor(0x0077ff);
@@ -68,36 +68,6 @@ function getDefaults(
       return hexToFinalColor(0xff7700);
     },
 
-    dominantsLight: (ccp: PartialClassified<ColorClassification>) => {
-      const dominant = ccp.dominants && ccp.dominants[0];
-      return getLighter(dominant || DEFAULT.dominants(ccp));
-    },
-
-    dominantsMidtone: (ccp: PartialClassified<ColorClassification>) => {
-      const dominant = ccp.dominants && ccp.dominants[0];
-      return getMidtone(dominant || DEFAULT.dominants(ccp));
-    },
-
-    dominantsDark: (ccp: PartialClassified<ColorClassification>) => {
-      const dominant = ccp.dominants && ccp.dominants[0];
-      return getDarker(dominant || DEFAULT.dominants(ccp));
-    },
-
-    accentsLight: (ccp: PartialClassified<ColorClassification>) => {
-      const accent = ccp.accents && ccp.accents[0];
-      return getLighter(accent || DEFAULT.accents(ccp));
-    },
-
-    accentsMidtone: (ccp: PartialClassified<ColorClassification>) => {
-      const accent = ccp.accents && ccp.accents[0];
-      return getMidtone(accent || DEFAULT.accents(ccp));
-    },
-
-    accentsDark: (ccp: PartialClassified<ColorClassification>) => {
-      const accent = ccp.accents && ccp.accents[0];
-      return getDarker(accent || DEFAULT.accents(ccp));
-    },
-
     dullests: (ccp: PartialClassified<ColorClassification>) => {
       const colors = [...ccp.list].sort(
         (a, b) => a.hsl[1] - b.hsl[1] || b.area - a.area
@@ -110,36 +80,6 @@ function getDefaults(
         (a, b) => b.hsl[1] - a.hsl[1] || b.area - a.area
       );
       return colors[0] || hexToFinalColor(0xff7700);
-    },
-
-    dullestsLight: (ccp: PartialClassified<ColorClassification>) => {
-      const dullest = ccp.dullests && ccp.dullests[0];
-      return getLighter(dullest || DEFAULT.dullests(ccp));
-    },
-
-    dullestsMidtone: (ccp: PartialClassified<ColorClassification>) => {
-      const dullest = ccp.dullests && ccp.dullests[0];
-      return getMidtone(dullest || DEFAULT.dullests(ccp));
-    },
-
-    dullestsDark: (ccp: PartialClassified<ColorClassification>) => {
-      const dullest = ccp.dullests && ccp.dullests[0];
-      return getDarker(dullest || DEFAULT.dullests(ccp));
-    },
-
-    vividsLight: (ccp: PartialClassified<ColorClassification>) => {
-      const vivid = ccp.vivids && ccp.vivids[0];
-      return getLighter(vivid || DEFAULT.vivids(ccp));
-    },
-
-    vividsMidtone: (ccp: PartialClassified<ColorClassification>) => {
-      const vivid = ccp.vivids && ccp.vivids[0];
-      return getMidtone(vivid || DEFAULT.vivids(ccp));
-    },
-
-    vividsDark: (ccp: PartialClassified<ColorClassification>) => {
-      const vivid = ccp.vivids && ccp.vivids[0];
-      return getDarker(vivid || DEFAULT.vivids(ccp));
     },
 
     lightests: (ccp: PartialClassified<ColorClassification>) => {
@@ -179,39 +119,41 @@ function getDefaults(
       );
       return colors[0] || coolColor;
     },
-
-    warmestLight: (ccp: PartialClassified<ColorClassification>) => {
-      const warm = ccp.warmest && ccp.warmest[0];
-      return getLighter(warm || DEFAULT.warmest(ccp));
-    },
-
-    warmestMidtone: (ccp: PartialClassified<ColorClassification>) => {
-      const warm = ccp.warmest && ccp.warmest[0];
-      return getMidtone(warm || DEFAULT.warmest(ccp));
-    },
-
-    warmestDark: (ccp: PartialClassified<ColorClassification>) => {
-      const warm = ccp.warmest && ccp.warmest[0];
-      return getDarker(warm || DEFAULT.warmest(ccp));
-    },
-
-    coolestLight: (ccp: PartialClassified<ColorClassification>) => {
-      const cool = ccp.coolest && ccp.coolest[0];
-      return getLighter(cool || DEFAULT.coolest(ccp));
-    },
-
-    coolestMidtone: (ccp: PartialClassified<ColorClassification>) => {
-      const cool = ccp.coolest && ccp.coolest[0];
-      return getMidtone(cool || DEFAULT.coolest(ccp));
-    },
-
-    coolestDark: (ccp: PartialClassified<ColorClassification>) => {
-      const cool = ccp.coolest && ccp.coolest[0];
-      return getDarker(cool || DEFAULT.coolest(ccp));
-    },
   };
 
-  return DEFAULT[type](classifiedColors);
+  const midTypes = [
+    "dominants",
+    "accents",
+    "dullests",
+    "vivids",
+    "warmest",
+    "coolest",
+  ] as const;
+
+  type AddedTypes =
+    | `${(typeof midTypes)[number]}Light`
+    | `${(typeof midTypes)[number]}Midtone`
+    | `${(typeof midTypes)[number]}Dark`;
+
+  const ADDED_DEFAULT = midTypes.reduce((obj, type) => {
+    return {
+      ...obj,
+      [`${type}Light`]: (ccp: PartialClassified<ColorClassification>) => {
+        const color = ccp[type] && ccp[type][0];
+        return getLighter(color || BASE_DEFAULT[type](ccp));
+      },
+      [`${type}Midtone`]: (ccp: PartialClassified<ColorClassification>) => {
+        const color = ccp[type] && ccp[type][0];
+        return getMidtone(color || BASE_DEFAULT[type](ccp));
+      },
+      [`${type}Dark`]: (ccp: PartialClassified<ColorClassification>) => {
+        const color = ccp[type] && ccp[type][0];
+        return getDarker(color || BASE_DEFAULT[type](ccp));
+      },
+    };
+  }, {} as { [type in AddedTypes]: (ccp: PartialClassified<ColorClassification>) => FinalColor });
+
+  return { ...BASE_DEFAULT, ...ADDED_DEFAULT }[type](classifiedColors);
 }
 
 function getMidtone(color: FinalColor) {
