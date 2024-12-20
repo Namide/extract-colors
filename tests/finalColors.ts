@@ -20,7 +20,7 @@ describe("Final color", () => {
     expect(color.hsl[0]).toBe(0.08062330623306234);
     expect(color.hsl[1]).toBe(0.9919354838709677);
     expect(color.hsl[2]).toBe(0.48627450980392156);
-    expect(color.hex).toBe("#f77801");
+    expect(color.hex).toBe(0xf77801);
     expect(color.area).toBe(0.1);
   });
 

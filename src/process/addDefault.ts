@@ -6,7 +6,11 @@ import {
 } from "../color/DetailledColor";
 import RGBColor from "../color/RGBColor";
 import type { Classified, PartialClassified } from "../types/Classified";
-import { type ColorClassification, type DetailledColor } from "../types/Color";
+import {
+  colorClassificationFull,
+  type ColorClassification,
+  type DetailledColor,
+} from "../types/Color";
 import type { AddDefaultOptions } from "../types/Options";
 
 /**
@@ -21,7 +25,9 @@ export function addDefault<Type extends ColorClassification>(
     return classifiedColors as Classified<Type>;
   }
 
-  for (const type of Object.keys(classifiedColors) as Type[]) {
+  for (const type of Object.keys(classifiedColors).filter(
+    (type) => colorClassificationFull.indexOf(type as Type) > -1
+  ) as Type[]) {
     if (!!classifiedColors[type] && classifiedColors[type].length < 1) {
       const defaultValue =
         defaultColors instanceof Object && defaultColors[type];
@@ -249,7 +255,7 @@ function getDefaults(
   return { ...BASE_DEFAULT, ...ADDED_DEFAULT }[type](classifiedColors);
 }
 
-function getMidtone([h, s, l]: [number, number, number]) {
+function getMidtone([h, s]: [number, number, number]) {
   return HSLToDetailledColor(h, s, 0.5);
 }
 

@@ -5,7 +5,7 @@ export interface RGB {
 }
 
 export interface DetailledColor {
-  hex: string;
+  hex: number;
   area: number;
   rgb: [number, number, number];
   hsl: [number, number, number];

@@ -22,7 +22,7 @@ export default class RGBColor {
   /**
    * Distance between two colors.
    * - Minimum is 0 (between two same colors)
-   * - Maximum is 1 (for example between black and white)
+   * - Maximum is 1 (between black and white)
    */
   static distance(colorA: RGBColor, colorB: RGBColor) {
     return (

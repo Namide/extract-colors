@@ -450,7 +450,7 @@ function getDominantsAccents1(
   }
   const [choice] = choices.sort((a, b) => b.power - a.power);
 
-  console.log(choices);
+  // console.log(choices);
 
   if (choice.key === 0) {
     const limits = [choice.limit, (choice.limit + 0.5) % 1].sort(

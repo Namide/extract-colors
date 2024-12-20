@@ -47,10 +47,8 @@ describe("CJS", () => {
     new Promise((done) => {
       const imageData = createImageData(3, 3);
       return extractColors(imageData, {
+        fastDistance: 0,
         distance: 0,
-        hueDistance: 0,
-        lightnessDistance: 0,
-        saturationDistance: 0,
       }).then((data) => {
         expect(data.list.length).toBe(3 * 3);
         done(undefined);
@@ -62,10 +60,8 @@ describe("CJS", () => {
       const imageData = createImageData(3, 3);
       return extractColors(imageData, {
         pixels: 1,
+        fastDistance: 0,
         distance: 0,
-        hueDistance: 0,
-        lightnessDistance: 0,
-        saturationDistance: 0,
       }).then((data) => {
         expect(data.list.length).toBe(1);
         done(undefined);
@@ -77,10 +73,8 @@ describe("CJS", () => {
       const imageData = createImageData(3, 3);
       return extractColors(imageData, {
         pixels: 1000,
+        fastDistance: 0,
         distance: 0,
-        hueDistance: 0,
-        lightnessDistance: 0,
-        saturationDistance: 0,
       }).then((data) => {
         expect(data.list.length).toBe(3 * 3);
         done(undefined);
@@ -91,10 +85,8 @@ describe("CJS", () => {
     new Promise((done) => {
       const imageData = createCustomImageData([0xffffff, 0xeeeeee]);
       return extractColors(imageData, {
+        fastDistance: 0,
         distance: 0,
-        hueDistance: 0,
-        lightnessDistance: 0,
-        saturationDistance: 0,
       }).then((data) => {
         expect(data.list.length).toBe(2);
         done(undefined);
@@ -103,12 +95,10 @@ describe("CJS", () => {
 
   it("Big distance", () =>
     new Promise((done) => {
-      const imageData = createCustomImageData([0xffffff, 0xeeeeee]);
+      const imageData = createCustomImageData([0xffffff, 0xcccccc]);
       return extractColors(imageData, {
-        distance: 0.25,
-        hueDistance: 0,
-        lightnessDistance: 0,
-        saturationDistance: 0,
+        fastDistance: 0.3,
+        distance: 0,
       }).then((data) => {
         expect(data.list.length).toBe(1);
         done(undefined);
@@ -119,12 +109,10 @@ describe("CJS", () => {
     new Promise((done) => {
       const imageData = createCustomImageData([0xffffff, 0xeeeeee]);
       return extractColors(imageData, {
-        distance: 0.25,
-        hueDistance: 0,
-        lightnessDistance: 0,
-        saturationDistance: 0,
+        fastDistance: 0.01,
+        distance: 0,
       }).then((data) => {
-        expect(data.list.length).toBe(1);
+        expect(data.list.length).toBe(2);
         done(undefined);
       });
     }));
@@ -134,12 +122,10 @@ describe("CJS", () => {
       const imageData = createCustomImageData([0xffffff, 0xff00bb]);
       return extractColors(imageData, {
         colorValidator: (r, g, b) => r === 0xff && g === 0x00 && b === 0xbb,
-        hueDistance: 0,
-        lightnessDistance: 0,
-        saturationDistance: 0,
+        distance: 0,
       }).then((data) => {
         expect(data.list.length).toBe(1);
-        expect(data.list[0].hex).toBe("#ff00bb");
+        expect(data.list[0].hex).toBe(0xff00bb);
         done(undefined);
       });
     }));

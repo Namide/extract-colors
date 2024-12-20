@@ -43,7 +43,7 @@ export default class RootGroup {
    * List of colors sorted by importance (neighboring hare calculated by distance and removed).
    * Importance is calculated with the saturation and count of neighboring colors.
    */
-  getColors(_distance: number) {
+  getColors(distance: number) {
     const list = this.getList().map((child) => child.createMainColor());
 
     list.sort((a, b) => b.count - a.count);
@@ -52,7 +52,7 @@ export default class RootGroup {
     while (list.length) {
       const current = list.shift() as RGBColor;
       list
-        .filter((color) => RGBColor.distance(current, color) < _distance)
+        .filter((color) => RGBColor.distance(current, color) < distance)
         .forEach((near) => {
           current.count += near.count;
           const i = list.findIndex((color) => color === near);

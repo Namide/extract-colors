@@ -14,34 +14,6 @@ export default {
         `extract-colors.${format === "es" ? "mjs" : format}`,
       formats: ["cjs", "es"],
     },
-    minify: "terser",
-    terserOptions: {
-      mangle: {
-        properties: {
-          reserved: [
-            "pixels",
-            "distance",
-            "colorValidator",
-            "crossOrigin",
-            "requestMode",
-            "hex",
-            "red",
-            "green",
-            "blue",
-            "area",
-            "hue",
-            "saturation",
-            "lightness",
-            "intensity",
-            "extractColors",
-            "extractColorsFromImage",
-            "extractColorsFromImageData",
-            "extractColorsFromImageBitmap",
-            "extractColorsFromSrc",
-          ],
-        },
-      },
-    },
     rollupOptions: {
       output: {
         dir: "./lib",

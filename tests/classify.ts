@@ -100,15 +100,15 @@ describe("classify", () => {
         const allTypes = colors.map(([type]) => type);
         const classified = classify(allFinals, allTypes);
 
-        console.log(
-          Object.keys(classified).reduce((obj, key) => {
-            obj[key] = classified[key].map((color) => [
-              color.hex,
-              // ...color.ecHsl,
-            ]);
-            return obj;
-          }, {})
-        );
+        // console.log(
+        //   Object.keys(classified).reduce((obj, key) => {
+        //     obj[key] = classified[key].map((color) => [
+        //       color.hex,
+        //       // ...color.ecHsl,
+        //     ]);
+        //     return obj;
+        //   }, {})
+        // );
 
         for (const color of list) {
           const mainFinal = hexToDetailledColor(color, 1, 2);
