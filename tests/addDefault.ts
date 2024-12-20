@@ -51,7 +51,8 @@ describe("addDefault", () => {
 
       const classifiedOutput = addDefault(
         classifiedInput,
-        colorsByTypes.default
+        colorsByTypes.default,
+        0x0077ff
       );
 
       (

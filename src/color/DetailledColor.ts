@@ -53,12 +53,15 @@ export function getPerceptiveHSL(
   return [hue, saturation, lightness];
 }
 
-export function deltaE(a: DetailledColor, b: DetailledColor) {
-  const deltaL = a.lab[0] - b.lab[0];
-  const deltaA = a.lab[1] - b.lab[1];
-  const deltaB = a.lab[2] - b.lab[2];
-  const c1 = Math.sqrt(a.lab[1] * a.lab[1] + a.lab[2] * a.lab[2]);
-  const c2 = Math.sqrt(b.lab[1] * b.lab[1] + b.lab[2] * b.lab[2]);
+export function deltaE(
+  lab1: [number, number, number],
+  lab2: [number, number, number]
+) {
+  const deltaL = lab1[0] - lab2[0];
+  const deltaA = lab1[1] - lab2[1];
+  const deltaB = lab1[2] - lab2[2];
+  const c1 = Math.sqrt(lab1[1] * lab1[1] + lab1[2] * lab1[2]);
+  const c2 = Math.sqrt(lab2[1] * lab2[1] + lab2[2] * lab2[2]);
   const deltaC = c1 - c2;
   let deltaH = deltaA * deltaA + deltaB * deltaB - deltaC * deltaC;
   deltaH = deltaH < 0 ? 0 : Math.sqrt(deltaH);
@@ -72,53 +75,37 @@ export function deltaE(a: DetailledColor, b: DetailledColor) {
   return i < 0 ? 0 : Math.sqrt(i);
 }
 
-export function hslDist(
-  a: DetailledColor,
-  b: DetailledColor
-): [number, number, number] {
-  const lightnessIncreaseA = 1 - Math.abs(a.hsl[2] * 2 - 1);
-  const lightnessIncreaseB = 1 - Math.abs(b.hsl[2] * 2 - 1);
+// export function hslDist(
+//   a: DetailledColor,
+//   b: DetailledColor
+// ): [number, number, number] {
+//   const lightnessIncreaseA = 1 - Math.abs(a.hsl[2] * 2 - 1);
+//   const lightnessIncreaseB = 1 - Math.abs(b.hsl[2] * 2 - 1);
 
-  const saturationIncreaseA = a.hsl[1];
-  const saturationIncreaseB = b.hsl[1];
+//   const saturationIncreaseA = a.hsl[1];
+//   const saturationIncreaseB = b.hsl[1];
 
-  const lightnessDist = Math.abs(b.hsl[2] - a.hsl[2]);
-  const saturationDist =
-    (Math.abs(b.hsl[1] - a.hsl[1]) *
-      (lightnessIncreaseA + lightnessIncreaseB)) /
-    2;
-  const hueDist =
-    (((Math.min(
-      Math.abs(b.hsl[0] - a.hsl[0]),
-      b.hsl[0] > a.hsl[0]
-        ? Math.abs(a.hsl[0] + 1 - b.hsl[0])
-        : Math.abs(b.hsl[0] + 1 - a.hsl[0])
-    ) *
-      (lightnessIncreaseA + lightnessIncreaseB)) /
-      2) *
-      (saturationIncreaseA + saturationIncreaseB)) /
-    2;
+//   const lightnessDist = Math.abs(b.hsl[2] - a.hsl[2]);
+//   const saturationDist =
+//     (Math.abs(b.hsl[1] - a.hsl[1]) *
+//       (lightnessIncreaseA + lightnessIncreaseB)) /
+//     2;
+//   const hueDist =
+//     (((Math.min(
+//       Math.abs(b.hsl[0] - a.hsl[0]),
+//       b.hsl[0] > a.hsl[0]
+//         ? Math.abs(a.hsl[0] + 1 - b.hsl[0])
+//         : Math.abs(b.hsl[0] + 1 - a.hsl[0])
+//     ) *
+//       (lightnessIncreaseA + lightnessIncreaseB)) /
+//       2) *
+//       (saturationIncreaseA + saturationIncreaseB)) /
+//     2;
 
-  // const dist = [
-  //   Math.min(
-  //     Math.abs(b.hsl[0] - a.hsl[0]),
-  //     b.hsl[0] > a.hsl[0]
-  //       ? Math.abs(a.hsl[0] + 1 - b.hsl[0])
-  //       : Math.abs(b.hsl[0] + 1 - a.hsl[0])
-  //   ),
-  //   Math.abs(b.hsl[1] - a.hsl[1]),
-  //   Math.abs(b.hsl[2] - a.hsl[2]),
-  // ];
+//   return [hueDist, saturationDist, lightnessDist];
+// }
 
-  // const minDist = Math.min(...dist);
-  // const maxDist = Math.max(...dist);
-
-  // return dist.reduce((total, value) => total + value);
-
-  return [hueDist, saturationDist, lightnessDist];
-}
-
-function getHSL(
+export function getHSL(
   red: number,
   green: number,
   blue: number
@@ -159,7 +146,7 @@ function getHSL(
 // 0 -> 100
 // -100 -> 100
 // -100 -> 100
-function getLAB(
+export function getLAB(
   red: number,
   green: number,
   blue: number

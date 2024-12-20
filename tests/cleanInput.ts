@@ -45,6 +45,11 @@ describe("cleanInputs", () => {
         defaultColors: "a" as unknown as true,
       })
     ).toThrowError(/.*/);
+    expect(() =>
+      testInputs({
+        defaultMainColor: "a" as unknown as number,
+      })
+    ).toThrowError(/.*/);
   });
 
   it("test warnings", () => {
@@ -66,19 +71,24 @@ describe("cleanInputs", () => {
       colorClassifications: ["accents"],
       defaultColors: { accents: 0xffffff + 1 },
     });
+    testInputs({ defaultMainColor: -1 });
 
-    expect(consoleMock).toHaveBeenCalledTimes(9);
+    expect(consoleMock).toHaveBeenCalledTimes(10);
   });
 
   it("test min", () => {
     expect(cleanInputs({ pixels: -1 }).pixels).toBe(1);
     expect(cleanInputs({ distance: -1 }).distance).toBe(0);
     expect(cleanInputs({ fastDistance: -1 }).fastDistance).toBe(0);
+    expect(cleanInputs({ defaultMainColor: -1 }).defaultMainColor).toBe(0);
   });
 
   it("test max", () => {
     expect(cleanInputs({ distance: 2 }).distance).toBe(1);
     expect(cleanInputs({ fastDistance: 2 }).fastDistance).toBe(1);
+    expect(
+      cleanInputs({ defaultMainColor: 0xffffff + 1 }).defaultMainColor
+    ).toBe(0xffffff);
   });
 
   it("default", () => {

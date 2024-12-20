@@ -13,7 +13,7 @@ export class AverageColorGroup {
 
   isSamePalette(color: DetailledColor, distance: number) {
     for (const currentColor of this.colors) {
-      const isSame = deltaE(currentColor, color) / 100 < distance;
+      const isSame = deltaE(currentColor.lab, color.lab) / 100 < distance;
       if (!isSame) {
         return false;
       }

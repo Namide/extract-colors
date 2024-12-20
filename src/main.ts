@@ -211,8 +211,8 @@ export function addDefault<Type extends ColorClassification>(
     testInputs(options);
   }
 
-  const { defaultColors } = cleanInputs(options);
-  return addDefaultCore(classified, defaultColors);
+  const { defaultColors, defaultMainColor } = cleanInputs(options);
+  return addDefaultCore(classified, defaultColors, defaultMainColor);
 }
 
 export async function extractColors<Type extends ColorClassification>(
@@ -324,7 +324,11 @@ export async function extractColors<Type extends ColorClassification>(
     );
     const hslColors = refineCore(colors, count, inputs.distance);
     const classedColors = classifyCore(hslColors, inputs.colorClassifications);
-    return addDefaultCore(classedColors, inputs.defaultColors);
+    return addDefaultCore(
+      classedColors,
+      inputs.defaultColors,
+      inputs.defaultMainColor
+    );
   }
 
   throw new Error(`Can not analyse picture`);

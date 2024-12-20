@@ -61,6 +61,7 @@ export type OptionsCleaned<Type extends ColorClassification> = {
         | boolean
         | ((classifiedColorsPart: PartialClassified<Type>) => number)
       >;
+  defaultMainColor: number;
 };
 
 export type RefineOptions = {
@@ -81,6 +82,7 @@ export type AddDefaultOptions<Type extends ColorClassification> = {
         | boolean
         | ((classifiedColorsPart: PartialClassified<Type>) => number)
       >;
+  defaultMainColor?: number;
 };
 
 export type NodeOptions<Type extends ColorClassification> = SorterOptions &

@@ -7,6 +7,7 @@ import type { BrowserOptions, OptionsCleaned } from "../types/Options";
 const EXTRACTOR_PIXELS_DEFAULT = 64000;
 const EXTRACTOR_DISTANCE_DEFAULT = 0.22;
 const AVERAGE_DISTANCE_DEFAULT = 0.2;
+const DEFAULT_MAIN_COLOR = 0x0077ff;
 
 export function testInputs<Type extends ColorClassification>({
   pixels = EXTRACTOR_PIXELS_DEFAULT,
@@ -22,6 +23,7 @@ export function testInputs<Type extends ColorClassification>({
   requestMode = "cors",
   colorClassifications = colorClassificationFull as unknown as Type[],
   defaultColors = false,
+  defaultMainColor = DEFAULT_MAIN_COLOR,
 }: BrowserOptions<Type> = {}) {
   distance =
     distance ??
@@ -160,6 +162,8 @@ export function testInputs<Type extends ColorClassification>({
       }
     }
   }
+
+  testUint("defaultMainColor", defaultMainColor, 0, 0xffffff);
 }
 
 export default function cleanInputs<Type extends ColorClassification>({
@@ -176,6 +180,7 @@ export default function cleanInputs<Type extends ColorClassification>({
   requestMode = "cors",
   colorClassifications = colorClassificationFull as unknown as Type[], // Remove readonly property of the array
   defaultColors = false,
+  defaultMainColor = DEFAULT_MAIN_COLOR,
 }: BrowserOptions<Type> = {}): OptionsCleaned<Type> {
   distance =
     distance ??
@@ -193,5 +198,6 @@ export default function cleanInputs<Type extends ColorClassification>({
     requestMode,
     colorClassifications,
     defaultColors,
+    defaultMainColor: Math.min(Math.max(defaultMainColor, 0), 0xffffff),
   };
 }
