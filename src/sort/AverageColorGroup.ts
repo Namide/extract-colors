@@ -1,17 +1,17 @@
-import { deltaE } from "../color/FinalColor";
+import { deltaE } from "../color/DetailledColor";
 import RGBColor from "../color/RGBColor";
-import { FinalColor } from "../types/Color";
+import { DetailledColor } from "../types/Color";
 
 export class AverageColorGroup {
-  colors: FinalColor[] = [];
+  colors: DetailledColor[] = [];
   private _average: RGBColor | null = null;
 
-  addColor(color: FinalColor) {
+  addColor(color: DetailledColor) {
     this.colors.push(color);
     this._average = null;
   }
 
-  isSamePalette(color: FinalColor, distance: number) {
+  isSamePalette(color: DetailledColor, distance: number) {
     for (const currentColor of this.colors) {
       const isSame = deltaE(currentColor, color) / 100 < distance;
       if (!isSame) {

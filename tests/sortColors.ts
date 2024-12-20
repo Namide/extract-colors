@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import sortColors from "../src/sort/sortColors";
-import { hexToFinalColor } from "./testHelpers";
+import { hexToDetailledColor } from "../src/color/DetailledColor";
 
 /**
  * Default average values
@@ -11,9 +11,9 @@ describe("Sort color", () => {
   it("Sort by area", () => {
     const colors = sortColors(
       [
-        hexToFinalColor(0xffffff),
-        hexToFinalColor(0xffffff),
-        hexToFinalColor(0x777777),
+        hexToDetailledColor(0xffffff, 1, 2),
+        hexToDetailledColor(0xffffff, 1, 2),
+        hexToDetailledColor(0x777777, 1, 2),
       ],
       10,
       AVERAGE_DEFAULT
@@ -25,7 +25,10 @@ describe("Sort color", () => {
 
   it("Sort by saturation", () => {
     const colors = sortColors(
-      [hexToFinalColor(0x737672), hexToFinalColor(0xff0077)],
+      [
+        hexToDetailledColor(0x737672, 1, 2),
+        hexToDetailledColor(0xff0077, 1, 2),
+      ],
       10,
       AVERAGE_DEFAULT
     );

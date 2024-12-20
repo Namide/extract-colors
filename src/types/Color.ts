@@ -4,7 +4,7 @@ export interface RGB {
   blue: number;
 }
 
-export interface FinalColor {
+export interface DetailledColor {
   hex: string;
   area: number;
   rgb: [number, number, number];

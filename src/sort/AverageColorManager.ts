@@ -1,4 +1,4 @@
-import { FinalColor } from "../types/Color";
+import { DetailledColor } from "../types/Color";
 import { AverageColorGroup } from "./AverageColorGroup";
 
 export class AverageColorManager {
@@ -9,7 +9,7 @@ export class AverageColorManager {
     this.distance = distance;
   }
 
-  addColor(color: FinalColor) {
+  addColor(color: DetailledColor) {
     const samePalette = this.groups.find((averageColorGroup) =>
       averageColorGroup.isSamePalette(color, this.distance)
     );

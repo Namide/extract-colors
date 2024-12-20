@@ -2,9 +2,11 @@ import { describe, it, expect } from "vitest";
 
 import { classify } from "../src/process/classify";
 import RGBColor from "../src/color/RGBColor";
-import { createFinalColor } from "../src/color/FinalColor";
+import {
+  hexToDetailledColor,
+  rgbColorToDetailledColor,
+} from "../src/color/DetailledColor";
 import { ColorClassification } from "../src/types/Color";
-import { hexToFinalColor } from "./testHelpers";
 
 /*
  0xFF0000
@@ -93,7 +95,7 @@ describe("classify", () => {
         const allFinals = colors
           .map(([_, hexadecimals]) => hexadecimals)
           .flat(2)
-          .map((hex) => hexToFinalColor(hex));
+          .map((hex) => hexToDetailledColor(hex, 1, 2));
 
         const allTypes = colors.map(([type]) => type);
         const classified = classify(allFinals, allTypes);
@@ -109,7 +111,7 @@ describe("classify", () => {
         );
 
         for (const color of list) {
-          const mainFinal = hexToFinalColor(color);
+          const mainFinal = hexToDetailledColor(color, 1, 2);
           expect(classified[type].length).toBe(colorsByTypes[type]?.length);
           expect(classified[type].map(({ hex }) => hex)).contain(mainFinal.hex);
         }

@@ -1,13 +1,13 @@
-import { ColorClassification, FinalColor } from "./Color";
+import { ColorClassification, DetailledColor } from "./Color";
 
 export type PartialClassified<Type extends ColorClassification> = {
-  [type in Type]: FinalColor[];
+  [type in Type]: DetailledColor[];
 } & {
-  list: FinalColor[];
+  list: DetailledColor[];
 };
 
 export type Classified<Type extends ColorClassification> = {
-  [type in Type]: [FinalColor, ...FinalColor[]];
+  [type in Type]: [DetailledColor, ...DetailledColor[]];
 } & {
-  list: FinalColor[];
+  list: DetailledColor[];
 };

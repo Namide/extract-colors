@@ -1,14 +1,19 @@
 import { describe, it, expect } from "vitest";
-import { createFinalColor } from "../src/color/FinalColor";
+import {
+  hexToDetailledColor,
+  rgbColorToDetailledColor,
+} from "../src/color/DetailledColor";
 import RGBColor from "../src/color/RGBColor";
-import { hexToFinalColor } from "./testHelpers";
 
 describe("Final color", () => {
   it("create", () => {
     const red = 0xf7;
     const green = 0x78;
     const blue = 0x01;
-    const color = createFinalColor(new RGBColor(red, green, blue, 1), 10);
+    const color = rgbColorToDetailledColor(
+      new RGBColor(red, green, blue, 1),
+      10
+    );
     expect(color.rgb[0]).toBe(red);
     expect(color.rgb[1]).toBe(green);
     expect(color.rgb[2]).toBe(blue);
@@ -20,7 +25,7 @@ describe("Final color", () => {
   });
 
   it("Test white conversion", () => {
-    const color = hexToFinalColor(0xffffff);
+    const color = hexToDetailledColor(0xffffff, 1, 2);
 
     expect(color.rgb[0]).toBe(0xff);
     expect(color.rgb[1]).toBe(0xff);
@@ -36,7 +41,7 @@ describe("Final color", () => {
   });
 
   it("Test black conversion", () => {
-    const color = hexToFinalColor(0x000000);
+    const color = hexToDetailledColor(0x000000, 1, 2);
 
     expect(color.rgb[0]).toBe(0x00);
     expect(color.rgb[1]).toBe(0x00);
@@ -52,7 +57,7 @@ describe("Final color", () => {
   });
 
   it("Test blue conversion", () => {
-    const color = hexToFinalColor(0x0000ff);
+    const color = hexToDetailledColor(0x0000ff, 1, 2);
 
     expect(color.rgb[0]).toBe(0x00);
     expect(color.rgb[1]).toBe(0x00);
@@ -68,7 +73,7 @@ describe("Final color", () => {
   });
 
   it("Test blue conversion", () => {
-    const color = hexToFinalColor(0x0000ff);
+    const color = hexToDetailledColor(0x0000ff, 1, 2);
 
     expect(color.rgb[0]).toBe(0x00);
     expect(color.rgb[1]).toBe(0x00);
@@ -84,7 +89,7 @@ describe("Final color", () => {
   });
 
   it("Test pink conversion", () => {
-    const color = hexToFinalColor(0xff0077);
+    const color = hexToDetailledColor(0xff0077, 1, 2);
 
     expect(color.rgb[0]).toBe(0xff);
     expect(color.rgb[1]).toBe(0x00);
@@ -100,7 +105,7 @@ describe("Final color", () => {
   });
 
   it("Test lavand color conversion", () => {
-    const color = hexToFinalColor(0xaf95e3);
+    const color = hexToDetailledColor(0xaf95e3, 1, 2);
 
     expect(color.rgb[0]).toBe(0xaf);
     expect(color.rgb[1]).toBe(0x95);

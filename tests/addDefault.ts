@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { ColorClassification } from "../src/types/Color";
-import { hexToFinalColor } from "./testHelpers";
 import type { AddDefaultOptions } from "../src/types/Options";
 import { addDefault } from "../src/process/addDefault";
+import { hexToDetailledColor } from "../src/color/DetailledColor";
 
 type Example<Type extends ColorClassification> = {
   name: string;
@@ -46,7 +46,7 @@ describe("addDefault", () => {
     it(colorsByTypes.name, () => {
       const classifiedInput = {
         ...types.reduce((obj, type) => ({ ...obj, [type]: [] }), {} as any),
-        list: colorsByTypes.input.list.map((hex) => hexToFinalColor(hex)),
+        list: colorsByTypes.input.list.map((hex) => hexToDetailledColor(hex)),
       };
 
       const classifiedOutput = addDefault(
@@ -64,7 +64,7 @@ describe("addDefault", () => {
         );
 
         const outputColors = (colorsByTypes.output[type] || []).map(
-          (hex) => hexToFinalColor(hex).hex
+          (hex) => hexToDetailledColor(hex).hex
         );
         classifiedOutput[type].map(({ hex }) =>
           expect(outputColors).contain(hex)

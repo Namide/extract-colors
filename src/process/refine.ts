@@ -1,4 +1,4 @@
-import { createFinalColor } from "../color/FinalColor";
+import { rgbColorToDetailledColor } from "../color/DetailledColor";
 import RGBColor from "../color/RGBColor";
 import sortColors from "../sort/sortColors";
 
@@ -13,6 +13,8 @@ import sortColors from "../sort/sortColors";
  * @returns Sorted colors list
  */
 export const refine = (colors: RGBColor[], count: number, distance: number) => {
-  const fullColors = colors.map((color) => createFinalColor(color, count));
+  const fullColors = colors.map((color) =>
+    rgbColorToDetailledColor(color, count)
+  );
   return sortColors(fullColors, count, distance);
 };

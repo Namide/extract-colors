@@ -1,17 +1,17 @@
-// import { deltaE, hslDist } from "../color/FinalColor";
+// import { deltaE, hslDist } from "../color/DetailledColor";
 import type { PartialClassified } from "../types/Classified";
-import { ColorClassification, FinalColor } from "../types/Color";
+import { ColorClassification, DetailledColor } from "../types/Color";
 
-type OptionalFinalColor<Type extends ColorClassification> = {
-  [type in Type]?: FinalColor[];
+type OptionalDetailledColor<Type extends ColorClassification> = {
+  [type in Type]?: DetailledColor[];
 };
 
-type FullFinalColor<Type extends ColorClassification> = {
-  [type in Type]: FinalColor[];
+type FullDetailledColor<Type extends ColorClassification> = {
+  [type in Type]: DetailledColor[];
 };
 
 export function classify<Type extends ColorClassification>(
-  refinedColors: FinalColor[],
+  refinedColors: DetailledColor[],
   colorClassifications: Type[]
 ): PartialClassified<Type> {
   const COOLWARM_LIMITS = [0.2, 0.944] as const;
@@ -22,7 +22,7 @@ export function classify<Type extends ColorClassification>(
     ...(colorClassifications.reduce((obj, type) => {
       obj[type] = [];
       return obj;
-    }, {} as OptionalFinalColor<ColorClassification>) as FullFinalColor<ColorClassification>),
+    }, {} as OptionalDetailledColor<ColorClassification>) as FullDetailledColor<ColorClassification>),
   };
 
   const dominantsAccents = getDominantsAccents1(
@@ -254,9 +254,9 @@ export function classify<Type extends ColorClassification>(
 }
 
 // function getDominantsAccents1(
-//   refinedColors: FinalColor[],
+//   refinedColors: DetailledColor[],
 //   types: ColorClassification[]
-// ): [FinalColor[], FinalColor[]] {
+// ): [DetailledColor[], DetailledColor[]] {
 //   if (
 //     !types.reduce(
 //       (isFound, type) =>
@@ -281,8 +281,8 @@ export function classify<Type extends ColorClassification>(
 //   }
 
 //   const flatDistances: {
-//     a: FinalColor;
-//     b: FinalColor;
+//     a: DetailledColor;
+//     b: DetailledColor;
 //     dist1: number;
 //     dist2: [number, number, number];
 //   }[] = [];
@@ -299,7 +299,7 @@ export function classify<Type extends ColorClassification>(
 //     }
 //   }
 
-//   // const groups: [FinalColor[], FinalColor[]][] = [];
+//   // const groups: [DetailledColor[], DetailledColor[]][] = [];
 //   // for (const key of [0, 1, 2]) {
 //   //   groups[key] = [[], []];
 //   //   const min = Math.min(...refinedColors.map((color) => color.ecHsl[key]));
@@ -329,7 +329,7 @@ export function classify<Type extends ColorClassification>(
 //   // console.log("- BASES -------------------");
 //   // console.log(aBase, bBase);
 
-//   const list: [FinalColor[], FinalColor[]] = [[], []];
+//   const list: [DetailledColor[], DetailledColor[]] = [[], []];
 //   for (const color of refinedColors) {
 //     const distA = deltaE(color, aBase); //, key);
 //     const distB = deltaE(color, bBase); //, key);
@@ -349,9 +349,9 @@ export function classify<Type extends ColorClassification>(
 // }
 
 // function getDominantsAccents3(
-//   refinedColors: FinalColor[],
+//   refinedColors: DetailledColor[],
 //   types: ColorClassification[]
-// ): [FinalColor[], FinalColor[]] {
+// ): [DetailledColor[], DetailledColor[]] {
 //   if (
 //     !types.reduce(
 //       (isFound, type) =>
@@ -377,9 +377,9 @@ export function classify<Type extends ColorClassification>(
 // }
 
 function getDominantsAccents1(
-  refinedColors: FinalColor[],
+  refinedColors: DetailledColor[],
   types: ColorClassification[]
-): [FinalColor[], FinalColor[]] {
+): [DetailledColor[], DetailledColor[]] {
   if (
     !types.reduce(
       (isFound, type) =>
@@ -471,7 +471,7 @@ function getDominantsAccents1(
       (listA, listB) =>
         listB.reduce((total, color) => total + color.area, 0) -
         listA.reduce((total, color) => total + color.area, 0)
-    ) as [FinalColor[], FinalColor[]];
+    ) as [DetailledColor[], DetailledColor[]];
   }
 
   return [
@@ -481,5 +481,5 @@ function getDominantsAccents1(
     (listA, listB) =>
       listB.reduce((total, color) => total + color.area, 0) -
       listA.reduce((total, color) => total + color.area, 0)
-  ) as [FinalColor[], FinalColor[]];
+  ) as [DetailledColor[], DetailledColor[]];
 }

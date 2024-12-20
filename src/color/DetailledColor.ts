@@ -1,63 +1,44 @@
-import type { FinalColor } from "../types/Color";
+import type { DetailledColor } from "../types/Color";
 import RGBColor from "./RGBColor";
 
 /**
  * Normalize color
  *
- * @param color Initial color
- * @param pixels Pixel count of this color
+ * @param color RGB color
+ * @param pixels Pixel count inside all the image
  *
- * @returns Normalized color
+ * @returns Detailed color
  */
-export function createFinalColor(color: RGBColor, count: number): FinalColor {
-  const hexStr = ((color.r << 16) | (color.g << 8) | color.b).toString(16);
-  const lab = getLAB(color.r, color.g, color.b);
-  return {
-    hex: `#${"0".repeat(6 - hexStr.length)}${hexStr}`,
-    area: color.count / count,
-    rgb: [color.r, color.g, color.b],
-    hsl: getHSL(color.r, color.g, color.b),
-    lab,
-    ecHsl: getPerceptiveHSL(lab),
-    count: color.count,
-  };
+export function rgbColorToDetailledColor(
+  color: RGBColor,
+  count: number
+): DetailledColor {
+  return hexToDetailledColor(
+    (color.r << 16) | (color.g << 8) | color.b,
+    color.count,
+    count
+  );
 }
 
-function getHSL(
-  red: number,
-  green: number,
-  blue: number
-): [number, number, number] {
-  const r = red / 255;
-  const g = green / 255;
-  const b = blue / 255;
-
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-
-  let hue = 0;
-  let saturation = 0;
-  let lightness = (max + min) / 2;
-
-  if (max === min) {
-    hue = saturation = 0;
-  } else {
-    const dist = max - min;
-    saturation = lightness > 0.5 ? dist / (2 - max - min) : dist / (max + min);
-    switch (max) {
-      case r:
-        hue = (g - b) / dist + (g < b ? 6 : 0);
-        break;
-      case g:
-        hue = (b - r) / dist + 2;
-        break;
-      case b:
-        hue = (r - g) / dist + 4;
-    }
-    hue /= 6;
-  }
-
-  return [hue, saturation, lightness];
+export function hexToDetailledColor(
+  hex: number,
+  count = 0,
+  total = 1
+): DetailledColor {
+  const r = (hex >> 16) & 255;
+  const g = (hex >> 8) & 255;
+  const b = hex & 255;
+  const hexStr = hex.toString(16);
+  const lab = getLAB(r, g, b);
+  return {
+    hex: `#${"0".repeat(6 - hexStr.length)}${hexStr}`,
+    area: count / total,
+    rgb: [r, g, b],
+    hsl: getHSL(r, g, b),
+    lab,
+    ecHsl: getPerceptiveHSL(lab),
+    count,
+  };
 }
 
 export function getPerceptiveHSL(
@@ -72,35 +53,7 @@ export function getPerceptiveHSL(
   return [hue, saturation, lightness];
 }
 
-// https://github.com/antimatter15/rgb-lab/blob/master/color.js
-// 0 -> 100
-// -100 -> 100
-// -100 -> 100
-function getLAB(
-  red: number,
-  green: number,
-  blue: number
-): [number, number, number] {
-  let r = red / 255;
-  let g = green / 255;
-  let b = blue / 255;
-
-  r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
-  g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
-  b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
-
-  let x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047;
-  let y = (r * 0.2126 + g * 0.7152 + b * 0.0722) / 1.0;
-  let z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883;
-
-  x = x > 0.008856 ? Math.pow(x, 1 / 3) : 7.787 * x + 16 / 116;
-  y = y > 0.008856 ? Math.pow(y, 1 / 3) : 7.787 * y + 16 / 116;
-  z = z > 0.008856 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
-
-  return [116 * y - 16, 500 * (x - y), 200 * (y - z)];
-}
-
-export function deltaE(a: FinalColor, b: FinalColor) {
+export function deltaE(a: DetailledColor, b: DetailledColor) {
   const deltaL = a.lab[0] - b.lab[0];
   const deltaA = a.lab[1] - b.lab[1];
   const deltaB = a.lab[2] - b.lab[2];
@@ -120,8 +73,8 @@ export function deltaE(a: FinalColor, b: FinalColor) {
 }
 
 export function hslDist(
-  a: FinalColor,
-  b: FinalColor
+  a: DetailledColor,
+  b: DetailledColor
 ): [number, number, number] {
   const lightnessIncreaseA = 1 - Math.abs(a.hsl[2] * 2 - 1);
   const lightnessIncreaseB = 1 - Math.abs(b.hsl[2] * 2 - 1);
@@ -163,4 +116,69 @@ export function hslDist(
   // return dist.reduce((total, value) => total + value);
 
   return [hueDist, saturationDist, lightnessDist];
+}
+
+function getHSL(
+  red: number,
+  green: number,
+  blue: number
+): [number, number, number] {
+  const r = red / 255;
+  const g = green / 255;
+  const b = blue / 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+
+  let hue = 0;
+  let saturation = 0;
+  let lightness = (max + min) / 2;
+
+  if (max === min) {
+    hue = saturation = 0;
+  } else {
+    const dist = max - min;
+    saturation = lightness > 0.5 ? dist / (2 - max - min) : dist / (max + min);
+    switch (max) {
+      case r:
+        hue = (g - b) / dist + (g < b ? 6 : 0);
+        break;
+      case g:
+        hue = (b - r) / dist + 2;
+        break;
+      case b:
+        hue = (r - g) / dist + 4;
+    }
+    hue /= 6;
+  }
+
+  return [hue, saturation, lightness];
+}
+
+// https://github.com/antimatter15/rgb-lab/blob/master/color.js
+// 0 -> 100
+// -100 -> 100
+// -100 -> 100
+function getLAB(
+  red: number,
+  green: number,
+  blue: number
+): [number, number, number] {
+  let r = red / 255;
+  let g = green / 255;
+  let b = blue / 255;
+
+  r = r > 0.04045 ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+  g = g > 0.04045 ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+  b = b > 0.04045 ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+  let x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047;
+  let y = (r * 0.2126 + g * 0.7152 + b * 0.0722) / 1.0;
+  let z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883;
+
+  x = x > 0.008856 ? Math.pow(x, 1 / 3) : 7.787 * x + 16 / 116;
+  y = y > 0.008856 ? Math.pow(y, 1 / 3) : 7.787 * y + 16 / 116;
+  z = z > 0.008856 ? Math.pow(z, 1 / 3) : 7.787 * z + 16 / 116;
+
+  return [116 * y - 16, 500 * (x - y), 200 * (y - z)];
 }

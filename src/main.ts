@@ -1,4 +1,4 @@
-import type { ColorClassification, FinalColor } from "./types/Color";
+import type { ColorClassification, DetailledColor } from "./types/Color";
 import type {
   AddDefaultOptions,
   BrowserImageOptions,
@@ -181,7 +181,7 @@ export function extract<Type extends ColorClassification>(
 export function refine(
   { colors, count }: { colors: RGBColor[]; count: number },
   options: RefineOptions = {}
-): FinalColor[] {
+): DetailledColor[] {
   if (__DEV__) {
     testInputs(options);
   }
@@ -192,7 +192,7 @@ export function refine(
 }
 
 export function classify<Type extends ColorClassification>(
-  colors: FinalColor[],
+  colors: DetailledColor[],
   options: ClassifyOptions<Type> = {}
 ) {
   if (__DEV__) {
