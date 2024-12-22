@@ -7,7 +7,7 @@ import RGBColor from "./RGBColor";
  * @class LeafGroup
  */
 export default class LeafGroup {
-  count: number = 0;
+  count = 0;
   children: Record<number, RGBColor> = {};
 
   /**

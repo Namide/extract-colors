@@ -8,7 +8,7 @@ import LeafGroup from "./LeafGroup";
  * @classdesc Manage list of colors or groups.
  */
 export default class RootGroup {
-  count: number = 0;
+  count = 0;
   children: Record<number, LeafGroup> = {};
 
   /**

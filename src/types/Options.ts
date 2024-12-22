@@ -1,9 +1,8 @@
 import type { PartialClassified } from "./Classified";
 import type { ColorClassification } from "./Color";
 
-export type PartialRecord<K extends keyof any, T> = {
-  [P in K]?: T;
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PartialRecord<K extends keyof any, T> = Partial<Record<K, T>>;
 
 export interface ImageDataAlt {
   data: Uint8ClampedArray | number[];
@@ -26,21 +25,21 @@ export interface ExtractorOptions {
   ) => boolean;
 }
 
-export type BrowserImageOptions = {
+export interface BrowserImageOptions {
   crossOrigin?: "anonymous" | "use-credentials" | "";
   requestMode?: never;
-};
+}
 
-export type WorkerImageOptions = {
+export interface WorkerImageOptions {
   crossOrigin?: never;
   requestMode?: RequestMode;
-};
+}
 
-export type ImageOptions = {
+export interface ImageOptions {
   pixels?: number;
-};
+}
 
-export type OptionsCleaned<Type extends ColorClassification> = {
+export interface OptionsCleaned<Type extends ColorClassification> {
   pixels: number;
   fastDistance: number;
   colorValidator: (
@@ -62,18 +61,18 @@ export type OptionsCleaned<Type extends ColorClassification> = {
         | ((classifiedColorsPart: PartialClassified<Type>) => number)
       >;
   defaultMainColor: number;
-};
+}
 
-export type RefineOptions = {
+export interface RefineOptions {
   pixels?: number;
   distance?: number;
-};
+}
 
-export type ClassifyOptions<Type extends ColorClassification> = {
+export interface ClassifyOptions<Type extends ColorClassification> {
   colorClassifications?: Type[];
-};
+}
 
-export type AddDefaultOptions<Type extends ColorClassification> = {
+export interface AddDefaultOptions<Type extends ColorClassification> {
   defaultColors?:
     | boolean
     | PartialRecord<
@@ -83,7 +82,7 @@ export type AddDefaultOptions<Type extends ColorClassification> = {
         | ((classifiedColorsPart: PartialClassified<Type>) => number)
       >;
   defaultMainColor?: number;
-};
+}
 
 export type NodeOptions<Type extends ColorClassification> = SorterOptions &
   ExtractorOptions &

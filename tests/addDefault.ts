@@ -11,16 +11,14 @@ import {
   rgbColorToDetailledColor,
 } from "../src/color/DetailledColor";
 import RGBColor from "../src/color/RGBColor";
-import { Classified } from "../src/types/Classified";
+import { Classified, PartialClassified } from "../src/types/Classified";
 
 const PINK = hexToDetailledColor(0xff0077);
 const ORANGE = hexToDetailledColor(0xff7700);
 
-type Example<Type extends ColorClassification> = {
+interface Example<Type extends ColorClassification> {
   name: string;
-  input: {
-    [type in Type]?: number[];
-  } & {
+  input: Partial<Record<Type, number[]>> & {
     list: number[];
   };
   default: AddDefaultOptions<Type>["defaultColors"];
@@ -28,7 +26,7 @@ type Example<Type extends ColorClassification> = {
   // output: {
   //   [type in Type]?: number[];
   // };
-};
+}
 
 const COLORS_LIST_TEST: Example<ColorClassification>[] = [
   // {
@@ -121,7 +119,7 @@ describe("addDefault", () => {
               hexToDetailledColor(hex)
             ),
           }),
-          {} as any
+          {} as PartialClassified<ColorClassification>
         ),
         list: colorsByTypes.input.list.map((hex) => hexToDetailledColor(hex)),
       };
@@ -229,12 +227,12 @@ describe("addDefault", () => {
         ...obj,
         [key]: Math.round(Math.random() * 0xffffff),
       }),
-      {} as { [key in ColorClassification]: number }
+      {} as Record<ColorClassification, number>
     );
 
-    const defaultColorsCallbacks: {
-      [key in ColorClassification]?: () => number;
-    } = {};
+    const defaultColorsCallbacks: Partial<
+      Record<ColorClassification, () => number>
+    > = {};
     for (const key of colorClassificationFull) {
       defaultColorsCallbacks[key] = () => defaultColors1[key];
     }
@@ -257,7 +255,7 @@ describe("addDefault", () => {
         ...obj,
         [key]: Math.round(Math.random() * 0xffffff),
       }),
-      {} as { [key in ColorClassification]?: number }
+      {} as Partial<Record<ColorClassification, number>>
     );
 
     const out = addDefault(getFullEmptyList(), defaultColors, PINK.hex);
@@ -273,7 +271,7 @@ describe("addDefault", () => {
         ...obj,
         [key]: true,
       }),
-      {} as { [key in ColorClassification]: true }
+      {} as Record<ColorClassification, true>
     );
 
     const out = addDefault(getFullEmptyList(), defaultColors, PINK.hex);

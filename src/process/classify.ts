@@ -2,13 +2,9 @@
 import type { PartialClassified } from "../types/Classified";
 import { ColorClassification, DetailledColor } from "../types/Color";
 
-type OptionalDetailledColor<Type extends ColorClassification> = {
-  [type in Type]?: DetailledColor[];
-};
+type OptionalDetailledColor<Type extends ColorClassification> = Partial<Record<Type, DetailledColor[]>>;
 
-type FullDetailledColor<Type extends ColorClassification> = {
-  [type in Type]: DetailledColor[];
-};
+type FullDetailledColor<Type extends ColorClassification> = Record<Type, DetailledColor[]>;
 
 export function classify<Type extends ColorClassification>(
   refinedColors: DetailledColor[],

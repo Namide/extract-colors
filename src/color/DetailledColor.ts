@@ -120,7 +120,7 @@ export function getHSL(
 
   let hue = 0;
   let saturation = 0;
-  let lightness = (max + min) / 2;
+  const lightness = (max + min) / 2;
 
   if (max === min) {
     hue = saturation = 0;

@@ -99,7 +99,7 @@ function getDefaults(
       );
 
       const {
-        hsl: [h, _, l],
+        hsl: [h, , l],
       } =
         color ||
         (ccp.dominants && ccp.dominants[0]) ||
@@ -114,7 +114,7 @@ function getDefaults(
       );
 
       const {
-        hsl: [h, _, l],
+        hsl: [h, , l],
       } =
         color ||
         (ccp.dominants && ccp.dominants[0]) ||
@@ -165,7 +165,7 @@ function getDefaults(
 
     warmest: (ccp: PartialClassified<ColorClassification>) => {
       const {
-        hsl: [_, s, l],
+        hsl: [, s, l],
       } = (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
 
       return HSLToDetailledColor(
@@ -177,7 +177,7 @@ function getDefaults(
 
     coolest: (ccp: PartialClassified<ColorClassification>) => {
       const {
-        hsl: [_, s, l],
+        hsl: [, s, l],
       } = (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
 
       return HSLToDetailledColor(
@@ -221,7 +221,7 @@ function getDefaults(
         return getDarker((color || BASE_DEFAULT[type](ccp)).hsl);
       },
     };
-  }, {} as { [type in AddedTypes]: (ccp: PartialClassified<ColorClassification>) => DetailledColor });
+  }, {} as Record<AddedTypes, (ccp: PartialClassified<ColorClassification>) => DetailledColor>);
 
   return { ...BASE_DEFAULT, ...ADDED_DEFAULT }[type](classifiedColors);
 }
