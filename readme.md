@@ -10,30 +10,12 @@
 [![Downloaded](https://img.shields.io/npm/dt/extract-colors)](https://www.npmjs.com/package/extract-colors)
 
 Extract color palettes from images.  
-Simple use, < 20kB minified, gzip ≈ 8kB, fast process and no dependencies for browser.
-Can be tree shakabled.  
+Simple use, tree shaking, fast process and no dependencies for browser.
 Need image reader dependence for node.js
 
 [Website](https://extract-colors.namide.com/) | [Demo](https://extract-colors.namide.com/demo) | [Guide](https://extract-colors.namide.com/guide)
 
 ![3 examples of colors extraction](./doc/colors-2.jpg)
-
-## Requirements
-
-### Browsers
-
-- Firefox: 29+
-- Chrome: 33+
-- Edge: 12+
-- Opera: 19+
-- Safari: 8+
-- Webview Android: 4.4.3+
-- Samsung Internet: 2.0+
-- ~~Internet Explorer~~
-
-### Node
-
-- Node.js: 6.0+
 
 ## Install
 
@@ -150,10 +132,11 @@ Default: `0x0077ff`
 
 ## Return of the promise
 
-Array of colors with the followed properties:
+List colors and colors classified with the followed properties:
 
 ```js
 {
+  // List of cleaned colors
   list: [
     {
       hex: number,​​ // from 0x000000 to 0xFFFFFF
@@ -167,13 +150,15 @@ Array of colors with the followed properties:
     },
     ...
   ],
-  dominants: [...],
-  accents: [...],
+  dominants: [...], // List of dominants colors
+  accents: [...], // List of accents colors
   ...
 }
 ```
 
-| Field     | Example                   | Type                     | Description                                                                                  |
+**Colors details**
+
+| Property  | Example                   | Type                     | Description                                                                                  |
 | --------- | ------------------------- | ------------------------ | -------------------------------------------------------------------------------------------- |
 | hex       | 0x858409                  | String                   | color in hexadecimal number                                                                  |
 | hexString | #858409                   | String                   | color in hexadecimal string with `#` at start                                                |
