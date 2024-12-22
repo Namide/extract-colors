@@ -173,16 +173,16 @@ Array of colors with the followed properties:
 }
 ```
 
-| Field     | Example                   | Type                     | Description                                               |
-| --------- | ------------------------- | ------------------------ | --------------------------------------------------------- |
-| hex       | 0x858409                  | String                   | color in hexadecimal string                               |
-| hexString | #858409                   | String                   | color in hexadecimal string                               |
-| area      | 0.0004                    | Number                   | area of the color and his neighbouring colors from 0 to 1 |
-| rgb       | [133, 132, 9]             | [uint, uint, uint]       | red, green, blue canals from 0 to 255                     |
-| hsl       | [0.16532 0.87323 0.27843] | [Number, Number, Number] | hue, saturation, lighness values from 0 to 1              |
-| ecHsl     | [todo]                    | [Number, Number, Number] | hue, saturation, lighness values from 0 to 1              |
-| lab       | [53.503, -12.585, 56.463] | [Number, Number, Number] | hue, saturation, lighness values from 0 to 1              |
-| count     | 1337                      | Number                   | number of pixel near of this color or near colors         |
+| Field     | Example                   | Type                     | Description                                                                                  |
+| --------- | ------------------------- | ------------------------ | -------------------------------------------------------------------------------------------- |
+| hex       | 0x858409                  | String                   | color in hexadecimal number                                                                  |
+| hexString | #858409                   | String                   | color in hexadecimal string with `#` at start                                                |
+| area      | 0.0004                    | Number                   | area of the color and his neighbouring colors from 0 to 1                                    |
+| rgb       | [133, 132, 9]             | [uint, uint, uint]       | red, green and blue canals from 0 to 255                                                     |
+| hsl       | [0.165 0.873 0.278]       | [Number, Number, Number] | [hue, saturation and lighness](https://en.wikipedia.org/wiki/HSL_and_HSV) values from 0 to 1 |
+| lab       | [53.503, -12.585, 56.463] | [Number, Number, Number] | [CIELAB color space](https://en.wikipedia.org/wiki/CIELAB_color_space)                       |
+| ecHsl     | [0.785, 0.457, 0.535]     | [Number, Number, Number] | custom values HSL like with more human perceptual space than real HSL                        |
+| count     | 1337                      | uint                     | number of pixel near of this color or near colors                                            |
 
 ## License
 
