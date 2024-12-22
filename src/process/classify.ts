@@ -2,9 +2,14 @@
 import type { PartialClassified } from "../types/Classified";
 import { ColorClassification, DetailledColor } from "../types/Color";
 
-type OptionalDetailledColor<Type extends ColorClassification> = Partial<Record<Type, DetailledColor[]>>;
+type OptionalDetailledColor<Type extends ColorClassification> = Partial<
+  Record<Type, DetailledColor[]>
+>;
 
-type FullDetailledColor<Type extends ColorClassification> = Record<Type, DetailledColor[]>;
+type FullDetailledColor<Type extends ColorClassification> = Record<
+  Type,
+  DetailledColor[]
+>;
 
 export function classify<Type extends ColorClassification>(
   refinedColors: DetailledColor[],
@@ -21,7 +26,7 @@ export function classify<Type extends ColorClassification>(
     }, {} as OptionalDetailledColor<ColorClassification>) as FullDetailledColor<ColorClassification>),
   };
 
-  const dominantsAccents = getDominantsAccents1(
+  const dominantsAccents = getDominantsAccents(
     refinedColors,
     colorClassifications
   );
@@ -82,14 +87,14 @@ export function classify<Type extends ColorClassification>(
         break;
       case "dullests":
         classified[type].push(
-          ...refinedColors.filter((color) => color.ecHsl[1] < 0.35)
+          ...refinedColors.filter((color) => color.ecHsl[1] < 0.3)
         );
         break;
       case "dullestsLight":
         classified[type].push(
           ...refinedColors.filter(
             (color) =>
-              color.ecHsl[1] < 0.35 && color.lab[0] > DARKLIGHT_LIMITS[1]
+              color.ecHsl[1] < 0.3 && color.lab[0] > DARKLIGHT_LIMITS[1]
           )
         );
         break;
@@ -97,7 +102,7 @@ export function classify<Type extends ColorClassification>(
         classified[type].push(
           ...refinedColors.filter(
             (color) =>
-              color.ecHsl[1] < 0.35 &&
+              color.ecHsl[1] < 0.3 &&
               color.lab[0] >= DARKLIGHT_LIMITS[0] &&
               color.lab[0] <= DARKLIGHT_LIMITS[1]
           )
@@ -107,7 +112,7 @@ export function classify<Type extends ColorClassification>(
         classified[type].push(
           ...refinedColors.filter(
             (color) =>
-              color.ecHsl[1] < 0.35 && color.lab[0] < DARKLIGHT_LIMITS[0]
+              color.ecHsl[1] < 0.3 && color.lab[0] < DARKLIGHT_LIMITS[0]
           )
         );
         break;
@@ -249,130 +254,102 @@ export function classify<Type extends ColorClassification>(
   return classified as PartialClassified<Type>;
 }
 
-// function getDominantsAccents1(
-//   refinedColors: DetailledColor[],
-//   types: ColorClassification[]
-// ): [DetailledColor[], DetailledColor[]] {
-//   if (
-//     !types.reduce(
-//       (isFound, type) =>
-//         isFound ||
-//         [
-//           "dominants",
-//           "accents",
-//           "dominantsLight",
-//           "dominantsDark",
-//           "accentsLight",
-//           "accentsDark",
-//         ].indexOf(type) > -1,
-//       false
-//     )
-//   ) {
-//     return [[], []] as const;
-//   }
+function distanceByType(a: DetailledColor, b: DetailledColor, key: 0 | 1 | 2) {
+  if (key === 0) {
+    const dist = Math.abs(a.ecHsl[key] - b.ecHsl[key]);
+    return dist <= 0.5
+      ? dist
+      : a.ecHsl[key] < b.ecHsl[key]
+      ? a.ecHsl[key] + 1 - b.ecHsl[key]
+      : b.ecHsl[key] + 1 - a.ecHsl[key];
+  }
 
-//   // Avoid calculation if 0 or 1 color
-//   if (refinedColors.length < 2) {
-//     return [[], []] as const;
-//   }
+  return Math.abs(a.ecHsl[key] - b.ecHsl[key]);
+}
 
-//   const flatDistances: {
-//     a: DetailledColor;
-//     b: DetailledColor;
-//     dist1: number;
-//     dist2: [number, number, number];
-//   }[] = [];
-//   for (let i = 0; i < refinedColors.length; i++) {
-//     for (let j = i + 1; j < refinedColors.length; j++) {
-//       const a = refinedColors[i];
-//       const b = refinedColors[j];
-//       flatDistances.push({
-//         a,
-//         b,
-//         dist1: deltaE(a, b),
-//         dist2: hslDist(a, b),
-//       });
-//     }
-//   }
+function getBestKeyLimit(colors: DetailledColor[]) {
+  const groups: {
+    list: DetailledColor[];
+    average: number;
+    score: number;
+    key: 0 | 1 | 2;
+  }[][] = [[], [], []];
 
-//   // const groups: [DetailledColor[], DetailledColor[]][] = [];
-//   // for (const key of [0, 1, 2]) {
-//   //   groups[key] = [[], []];
-//   //   const min = Math.min(...refinedColors.map((color) => color.ecHsl[key]));
-//   //   const max = Math.max(...refinedColors.map((color) => color.ecHsl[key]));
-//   //   const limit = (max - min) / 2;
+  for (const key of [0, 1, 2] as const) {
+    const distance = key === 0 ? 0.1 : 0.25;
+    const colorList = [...colors];
+    while (colorList.length > 0) {
+      const color = colorList.sort((a, b) => b.count - a.count).shift()!;
 
-//   //   for (const color of refinedColors) {
-//   //     // ...
-//   //   }
-//   // }
+      const group = {
+        key,
+        list: [color],
+        average: color.ecHsl[key],
+        score: color.area,
+      };
 
-//   const { a: aBase, b: bBase } = flatDistances.sort(
-//     (a, b) => b.dist1 - a.dist1
-//   )[0];
+      const nears = colorList.filter(
+        (c) => distanceByType(c, color, key) <= distance
+      );
 
-//   // console.log("----------------------------");
+      for (const near of nears) {
+        colorList.splice(colorList.indexOf(near), 1);
+        group.list.push(near);
+        group.score += near.area;
+      }
 
-//   // console.log(
-//   //   flatDistances.map((fd) => ({
-//   //     a: fd.a.hex,
-//   //     b: fd.b.hex,
-//   //     dist1: fd.dist1,
-//   //     dist2: fd.dist2,
-//   //   }))
-//   // );
+      groups[key].push(group);
+    }
+  }
 
-//   // console.log("- BASES -------------------");
-//   // console.log(aBase, bBase);
+  groups.sort((a, b) => {
+    if (a.length === 2 && b.length !== 2) {
+      return -1;
+    }
+    if (b.length === 2 && a.length !== 2) {
+      return 1;
+    }
+    if (a.length > 1 && b.length < 2) {
+      return -1;
+    }
+    if (b.length > 1 && a.length < 2) {
+      return 1;
+    }
 
-//   const list: [DetailledColor[], DetailledColor[]] = [[], []];
-//   for (const color of refinedColors) {
-//     const distA = deltaE(color, aBase); //, key);
-//     const distB = deltaE(color, bBase); //, key);
+    // Priorize hue
+    if (
+      a[0].key === 0 ||
+      b[0].key === 0 ||
+      (a.length === 2 && b.length === 2)
+    ) {
+      return a[0].key === 0 ? -1 : 1;
+    }
 
-//     if (distA > distB) {
-//       list[1].push(color);
-//     } else {
-//       list[0].push(color);
-//     }
-//   }
+    if (a.length > 1 && b.length > 1) {
+      return (
+        Math.abs(b[0].average - b[1].average) -
+        Math.abs(a[0].average - a[1].average)
+      );
+    }
 
-//   if (list[0].length > list[1].length) {
-//     return list;
-//   }
+    return (
+      b.reduce((total, item) => Math.abs(total - item.score), 0) -
+      a.reduce((total, item) => Math.abs(total - item.score), 0)
+    );
+  });
 
-//   return [list[1], list[0]];
-// }
+  const pos1 = groups[0][0].average;
+  const pos2 = groups[0][1]?.average || groups[0][0].average;
 
-// function getDominantsAccents3(
-//   refinedColors: DetailledColor[],
-//   types: ColorClassification[]
-// ): [DetailledColor[], DetailledColor[]] {
-//   if (
-//     !types.reduce(
-//       (isFound, type) =>
-//         isFound ||
-//         [
-//           "dominants",
-//           "accents",
-//           "dominantsLight",
-//           "dominantsDark",
-//           "accentsLight",
-//           "accentsDark",
-//         ].indexOf(type) > -1,
-//       false
-//     )
-//   ) {
-//     return [[], []] as const;
-//   }
+  const limit = (pos1 + pos2) / 2;
 
-//   // Avoid calculation if 0 or 1 color
-//   if (refinedColors.length < 2) {
-//     return [[], []] as const;
-//   }
-// }
+  return {
+    key: groups[0][0].key,
+    limit,
+  };
+}
 
-function getDominantsAccents1(
+function getDominantsAccents(
   refinedColors: DetailledColor[],
   types: ColorClassification[]
 ): [DetailledColor[], DetailledColor[]] {
@@ -399,54 +376,7 @@ function getDominantsAccents1(
     return [[], []] as const;
   }
 
-  const choices: { key: 0 | 1 | 2; limit: number; power: number }[] = [];
-  for (const [key, partCount] of [
-    [0, 20], // 10
-    [1, 10], // 5
-    [2, 10], // 5
-  ] as const) {
-    const sortedColors = [...refinedColors].sort(
-      (a, b) => a.ecHsl[key] - b.ecHsl[key]
-    );
-
-    const blocks = new Array(partCount).fill(0);
-    for (const color of sortedColors) {
-      blocks[
-        Math.min(Math.floor(color.ecHsl[key] * partCount), partCount - 1)
-      ] += color.count;
-    }
-
-    const blocksStats: {
-      key: 0 | 1 | 2;
-      power: number;
-      limit: number;
-    }[] = [];
-    for (let i = 0; i < partCount; i++) {
-      const beforeCount =
-        key === 0
-          ? blocks[(i + partCount - 1) % partCount]
-          : blocks[i - 1] || 0;
-      const afterCount =
-        key === 0 ? blocks[(i + 1) % partCount] : blocks[i + 1] || 0;
-
-      blocksStats.push({
-        key,
-        power: blocks[i] - (beforeCount + afterCount),
-        limit: (i + 0.5) / partCount,
-      });
-    }
-
-    const [blockA, blockB] = blocksStats.sort((a, b) => b.power - a.power);
-
-    choices.push({
-      key,
-      limit: (blockA.limit + blockB.limit) / 2,
-      power: blockA.power * blockB.power,
-    });
-  }
-  const [choice] = choices.sort((a, b) => b.power - a.power);
-
-  // console.log(choices);
+  const choice = getBestKeyLimit(refinedColors);
 
   if (choice.key === 0) {
     const limits = [choice.limit, (choice.limit + 0.5) % 1].sort(

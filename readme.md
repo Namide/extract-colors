@@ -10,7 +10,8 @@
 [![Downloaded](https://img.shields.io/npm/dt/extract-colors)](https://www.npmjs.com/package/extract-colors)
 
 Extract color palettes from images.  
-Simple use, < 6kB minified, gzip ≈ 2kB, fast process and no dependencies for browser.  
+Simple use, < 20kB minified, gzip ≈ 8kB, fast process and no dependencies for browser.
+Can be tree shakabled.  
 Need image reader dependence for node.js
 
 [Website](https://extract-colors.namide.com/) | [Demo](https://extract-colors.namide.com/demo) | [Guide](https://extract-colors.namide.com/guide)
@@ -91,11 +92,9 @@ getPixels(src, (err, pixels) => {
 ```js
 const options = {
   pixels: 64000,
-  distance: 0.22,
+  distance: 0.2,
   colorValidator: (red, green, blue, alpha = 255) => alpha > 250,
-  saturationDistance: 0.2,
-  lightnessDistance: 0.2,
-  hueDistance: 0.083333333,
+  defaultColors: ["dominants", "accents"],
 };
 
 extractColors(src, options).then(console.log).catch(console.error);
@@ -106,10 +105,15 @@ _Total pixel number of the resized picture for calculation_
 Type: `Integer`  
 Default: `64000`
 
-**distance**  
-_From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)_  
+**fastDistance**  
+_From 0 to 1 is the RGB color distance to not have near colors (1 distance is between white and black). Increase the value accelerate the calculation and reduce the output list of colors._  
 Type: `Number`  
-Default: `0.22`
+Default: `distance / 2` or `0.2`
+
+**distance**  
+_Minimum distance between two colors otherwise the colors will be merged (from 0 to 1). Calculation with the L*a*b\* CIE deltaE color distance._  
+Type: `Number`  
+Default: `fastDistance * 2` or `0.22`
 
 **colorValidator**  
 _Test function to enable only some colors_  
@@ -127,53 +131,58 @@ _Only for Web Workers in browser: it's used to determine if cross-origin request
 Type: `String`  
 Default: `cors`
 
-**saturationDistance**  
-_Minimum saturation value between two colors otherwise the colors will be merged (from 0 to 1)_
-Type: `String`  
-Default: `0.2`
+**colorClassifications**  
+_List of classified types of colors_  
+Type: `String[]`  
+Default: `[ "dominants", "accents", "dominantsLight", "dominantsMidtone", "dominantsDark", "accentsLight", "accentsMidtone", "accentsDark", "dullests", "vivids", "dullestsLight", "dullestsMidtone", "dullestsDark", "vividsLight", "vividsMidtone", "vividsDark", "lightests", "midtones", "darkests", "warmest", "coolest", "warmestLight", "warmestMidtone", "warmestDark", "coolestLight", "coolestMidtone", "coolestDark" ]`
 
-**lightnessDistance**  
-_Minimum lightness value between two colors otherwise the colors will be merged (from 0 to 1)_
-Type: `String`  
-Default: `0.2`
+**defaultColors**  
+_Default classified colors if no colors founds in the image_  
+Type: `Boolean` or `{ [colorClassifications]?: Boolean, Number or () => Number }`
+Default: `false`
 
-**hueDistance**  
-_Minimum hue value between two colors otherwise the colors will be merged (from 0 to 1)_
-Type: `String`  
-Default: `0.083333333`
+**defaultMainColor**
+_Default classified color if no colors found in the image and if `defaultColors` is not `false`_  
+Type: `Number`  
+Default: `0x0077ff`
+
+---
 
 ## Return of the promise
 
 Array of colors with the followed properties:
 
 ```js
-[
-  {
-    hex: "#858409",​​
-    red: 133,​​
-    green: 132,​​
-    blue: 9,​​
-    hue: 0.16532258064516128,​​
-    intensity: 0.4862745098039216,​​
-    lightness: 0.2784313725490196,​​
-    saturation: 0.8732394366197184,
-    area: 0.0004
-  },
+{
+  list: [
+    {
+      hex: number,​​ // from 0x000000 to 0xFFFFFF
+      hexString: "#858409", // from "#000000" to "#FFFFFF"
+      area: number, // from 0 to 1
+      rgb: [number, number, number], // RGB colors (from 0 to 255 by chanel)
+      hsl: [number, number, number], // HSL colors (from 0 to 1 by chanel)
+      ecHsl: [number, number, number], // Fake HSL calculated from CIELAB colors (from 0 to 1 by chanel)
+      lab: [number, number, number], // CIELAB colors
+      count: number // number of pixel near of this color or near colors (determined with distance and fastDistance)
+    },
+    ...
+  ],
+  dominants: [...],
+  accents: [...],
   ...
-]
+}
 ```
 
-| Field      | Example | Type    | Description                                               |
-| ---------- | ------- | ------- | --------------------------------------------------------- |
-| hex        | #858409 | String  | color in hexadecimal string                               |
-| red        | 133     | Integer | red canal from 0 to 255                                   |
-| green      | 132     | Integer | green canal from 0 to 255                                 |
-| blue       | 9       | Integer | blue canal from 0 to 255                                  |
-| hue        | 0.1653  | Number  | color tone from 0 to 1                                    |
-| intensity  | 0.4862  | Number  | color intensity from 0 to 1                               |
-| lightness  | 0.2784  | Number  | color lightness from 0 to 1                               |
-| saturation | 0.8732  | Number  | color saturation from 0 to 1                              |
-| area       | 0.0004  | Number  | area of the color and his neighbouring colors from 0 to 1 |
+| Field     | Example                   | Type                     | Description                                               |
+| --------- | ------------------------- | ------------------------ | --------------------------------------------------------- |
+| hex       | 0x858409                  | String                   | color in hexadecimal string                               |
+| hexString | #858409                   | String                   | color in hexadecimal string                               |
+| area      | 0.0004                    | Number                   | area of the color and his neighbouring colors from 0 to 1 |
+| rgb       | [133, 132, 9]             | [uint, uint, uint]       | red, green, blue canals from 0 to 255                     |
+| hsl       | [0.16532 0.87323 0.27843] | [Number, Number, Number] | hue, saturation, lighness values from 0 to 1              |
+| ecHsl     | [todo]                    | [Number, Number, Number] | hue, saturation, lighness values from 0 to 1              |
+| lab       | [53.503, -12.585, 56.463] | [Number, Number, Number] | hue, saturation, lighness values from 0 to 1              |
+| count     | 1337                      | Number                   | number of pixel near of this color or near colors         |
 
 ## License
 

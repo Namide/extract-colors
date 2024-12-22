@@ -48,7 +48,7 @@ export function getPerceptiveHSL(
   const hue = (1 + Math.atan2(lab[2], lab[1]) / Math.PI) / 2; // PI * 2
   const saturation = Math.min(
     1,
-    Math.max(0, Math.sqrt(lab[1] ** 2 + lab[2] ** 2) / 100)
+    Math.max(0, Math.sqrt((lab[1] + 0.5) ** 2 + (lab[2] + 0.5) ** 2) / 127.5)
   );
   const lightness = Math.min(1, Math.max(0, lab[0] / 100));
   return [hue, saturation, lightness];
@@ -145,8 +145,8 @@ export function getHSL(
 
 // https://github.com/antimatter15/rgb-lab/blob/master/color.js
 // 0 -> 100
-// -100 -> 100
-// -100 -> 100
+// -128 -> 127
+// -128 -> 127
 function getLAB(
   red: number,
   green: number,

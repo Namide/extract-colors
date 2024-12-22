@@ -23,9 +23,6 @@ interface Example<Type extends ColorClassification> {
   };
   default: AddDefaultOptions<Type>["defaultColors"];
   mainColor: number;
-  // output: {
-  //   [type in Type]?: number[];
-  // };
 }
 
 const COLORS_LIST_TEST: Example<ColorClassification>[] = [
@@ -311,9 +308,6 @@ function isMidtone(color: DetailledColor) {
 
 function isVivid(color: DetailledColor) {
   expect(color.hsl[1]).toBeGreaterThanOrEqual(0.6);
-  if (color.hsl[1] < 0.6) {
-    console.log(color.hexString, ...color.hsl);
-  }
 }
 
 function isDullest(color: DetailledColor) {

@@ -18,14 +18,14 @@ const COLORS_LIST_TEST: Partial<Record<ColorClassification, number[]>>[] = [
     coolestDark: [0x1b4f6d, 0x003319, 0x9f239b],
   },
   {
-    vivids: [0xff0000, 0xffff00, 0x00ff00, 0x00ffff, 0xff00ff],
+    vivids: [0xff0000, 0xffff00, 0x00ff00, 0xff00ff],
     dullests: [0x888888, 0x000000, 0xffffff, 0xf0d0e0],
   },
   {
-    vividsLight: [0xf6e440, 0x01fc12, 0xead53e, 0x26edce],
+    vividsLight: [0xf6e440, 0x01fc12],
     vividsMidtone: [0xd42192, 0x8f5eff, 0xfc010a],
-    vividsDark: [0x0046d0, 0x9d107a, 0x006800],
-    dullestsLight: [0xb4b7d0, 0xffffff, 0xc5d0b4, 0xf4c5f5],
+    vividsDark: [0x0046d0, 0x9d107a],
+    dullestsLight: [0xb4b7d0, 0xffffff, 0xc5d0b4],
     dullestsMidtone: [0x968d73, 0x789673, 0x9b6f93],
     dullestsDark: [0x514651, 0x4e4c3a, 0x201020, 0x152103, 0x240017],
   },
@@ -36,18 +36,27 @@ const COLORS_LIST_TEST: Partial<Record<ColorClassification, number[]>>[] = [
   },
   {
     // Accent/dominant by saturation
-    accents: [0xff0000, 0xff7700, 0xffff00],
-    dominants: [0xcccccc, 0xddeedd, 0xeeffdd, 0xffeeff, 0xccddbb, 0xccddcc],
+    accents: [0xff0000, 0xff7700, 0xffff00, 0xff0077, 0x00ff44],
+    dominants: [
+      0xcccccc, 0xddeedd, 0xeeffdd, 0xffeeff, 0xccddbb, 0xccddcc, 0xffffff,
+      0x322515, 0x232a1d, 0x5d6a53, 0x9b95ac,
+    ],
   },
   {
     // Accent/dominant by hue
-    accents: [0x35872e, 0x628121, 0x3b864e],
-    dominants: [0xd7289f, 0xbc43bd, 0xbc4e97, 0xd43d6e, 0xbd3ad2],
+    accents: [0x35872e, 0x628121, 0x3b864e, 0x3db724, 0x4b915e],
+    dominants: [
+      0xd7289f, 0xbc43bd, 0xbc4e97, 0xd43d6e, 0xbd3ad2, 0xe061ba, 0xb7248b,
+      0xc186b6,
+    ],
   },
   {
     // Accent/dominant by hue
-    accents: [0xff0000, 0xff2200, 0xcc0011],
-    dominants: [0x0000ff, 0x1111aa, 0x1122dd, 0x2200ff, 0x0055ee],
+    accents: [0xff0000, 0xc65d58, 0xff4747, 0xb30000, 0x850000, 0xed8282],
+    dominants: [
+      0x0000ff, 0x1111aa, 0x4763ff, 0x0055ee, 0x0a0061, 0x0e008f, 0x351fff,
+      0x1f26ff, 0x4b4eaa, 0x4f53c9, 0x41437c, 0xa1a3ce,
+    ],
   },
   {
     // Accent/dominant by hue
@@ -56,7 +65,7 @@ const COLORS_LIST_TEST: Partial<Record<ColorClassification, number[]>>[] = [
   },
   {
     // Accent/dominant by lighness
-    accents: [0x550000, 0x005500, 0x000055],
+    accents: [0x440000, 0x003300, 0x000055, 0x000000],
     dominants: [0xffffff, 0xddffff, 0xffff66, 0xff99ff, 0x66ffff],
   },
 ];
@@ -68,15 +77,15 @@ describe("classify", () => {
       number[]
     ][];
     it(colors.map(([type]) => type).join(" "), () => {
+      const allFinals = colors
+        .map(([, hexadecimals]) => hexadecimals)
+        .flat(2)
+        .map((hex) => hexToDetailledColor(hex, 1, 2));
+
+      const allTypes = colors.map(([type]) => type);
+      const classified = classify(allFinals, allTypes);
+
       for (const [type, list] of colors) {
-        const allFinals = colors
-          .map(([, hexadecimals]) => hexadecimals)
-          .flat(2)
-          .map((hex) => hexToDetailledColor(hex, 1, 2));
-
-        const allTypes = colors.map(([type]) => type);
-        const classified = classify(allFinals, allTypes);
-
         for (const color of list) {
           const mainFinal = hexToDetailledColor(color, 1, 2);
           expect(classified[type].length).toBe(colorsByTypes[type]?.length);
