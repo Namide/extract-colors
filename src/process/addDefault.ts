@@ -1,8 +1,6 @@
 import {
   rgbColorToDetailledColor,
-  deltaE,
   hexToDetailledColor,
-  getLAB,
 } from "../color/DetailledColor";
 import RGBColor from "../color/RGBColor";
 import type { Classified, PartialClassified } from "../types/Classified";
@@ -36,7 +34,7 @@ export function addDefault<Type extends ColorClassification>(
       } else if (defaultValue && defaultValue instanceof Function) {
         const color: number = defaultValue(classifiedColors);
         classifiedColors[type].push(hexToDetailledColor(color));
-      } else if (defaultValue !== false || defaultColors === true) {
+      } else if (defaultColors === true || defaultValue !== false) {
         classifiedColors[type].push(
           getDefaults(
             type,
@@ -68,11 +66,14 @@ function getDefaults(
         return HSLToDetailledColor(1 - accent.hsl[0], 0.3, 1 - accent.hsl[2]);
       }
 
-      return color || hexToDetailledColor(defaultMainColor);
+      return hexToDetailledColor(defaultMainColor);
     },
 
     accents: (ccp: PartialClassified<ColorClassification>) => {
-      const colors = [...ccp.list].sort((a, b) => b.hsl[1] - a.hsl[1]);
+      const dominantHex = BASE_DEFAULT.dominants(ccp).hex;
+      const colors = [...ccp.list]
+        .filter((c) => c.hex !== dominantHex)
+        .sort((a, b) => b.hsl[1] - a.hsl[1]);
       if (colors[0]) {
         return colors[0];
       }
@@ -97,13 +98,12 @@ function getDefaults(
         (a, b) => a.hsl[1] - b.hsl[1] || b.area - a.area
       );
 
-      if (color) {
-        return color;
-      }
-
       const {
         hsl: [h, _, l],
-      } = (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
+      } =
+        color ||
+        (ccp.dominants && ccp.dominants[0]) ||
+        BASE_DEFAULT.dominants(ccp);
 
       return HSLToDetailledColor(h, 0, l);
     },
@@ -113,15 +113,14 @@ function getDefaults(
         (a, b) => b.hsl[1] - a.hsl[1] || b.area - a.area
       );
 
-      if (color) {
-        return color;
-      }
-
       const {
         hsl: [h, _, l],
-      } = (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
+      } =
+        color ||
+        (ccp.dominants && ccp.dominants[0]) ||
+        BASE_DEFAULT.dominants(ccp);
 
-      return HSLToDetailledColor(h, 1, l);
+      return HSLToDetailledColor(h, 1, Math.max(0.25, Math.min(0.75, l)));
     },
 
     lightests: (ccp: PartialClassified<ColorClassification>) => {
@@ -129,12 +128,10 @@ function getDefaults(
         (a, b) => b.hsl[2] - a.hsl[2] || b.area - a.area
       );
 
-      if (color) {
-        return color;
-      }
-
       const { hsl } =
-        (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
+        color ||
+        (ccp.dominants && ccp.dominants[0]) ||
+        BASE_DEFAULT.dominants(ccp);
 
       return getLighter(hsl);
     },
@@ -145,12 +142,10 @@ function getDefaults(
           Math.abs(a.hsl[2] - 0.5) - Math.abs(b.hsl[2] - 0.5) || b.area - a.area
       );
 
-      if (color) {
-        return color;
-      }
-
       const { hsl } =
-        (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
+        color ||
+        (ccp.dominants && ccp.dominants[0]) ||
+        BASE_DEFAULT.dominants(ccp);
 
       return getMidtone(hsl);
     },
@@ -160,60 +155,36 @@ function getDefaults(
         (a, b) => a.hsl[2] - b.hsl[2] || b.area - a.area
       );
 
-      if (color) {
-        return color;
-      }
-
       const { hsl } =
-        (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
+        color ||
+        (ccp.dominants && ccp.dominants[0]) ||
+        BASE_DEFAULT.dominants(ccp);
 
       return getDarker(hsl);
     },
 
     warmest: (ccp: PartialClassified<ColorClassification>) => {
-      const warmColorHex = 0xff7700;
-      const red = (warmColorHex >> 16) & 255;
-      const green = (warmColorHex >> 8) & 255;
-      const blue = warmColorHex & 255;
-      const warmHsl = getLAB(red, green, blue);
-
-      const [color] = [...ccp.list].sort(
-        (a, b) =>
-          deltaE(a.lab, warmHsl) - deltaE(b.lab, warmHsl) || b.area - a.area
-      );
-
-      if (color) {
-        return color;
-      }
-
       const {
         hsl: [_, s, l],
       } = (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
 
-      return HSLToDetailledColor(0.04, s, l);
+      return HSLToDetailledColor(
+        0.04,
+        Math.max(0.3, s),
+        Math.min(0.7, Math.max(0.3, l))
+      );
     },
 
     coolest: (ccp: PartialClassified<ColorClassification>) => {
-      const coolColorHex = 0x0077ff;
-      const red = (coolColorHex >> 16) & 255;
-      const green = (coolColorHex >> 8) & 255;
-      const blue = coolColorHex & 255;
-      const coolHsl = getLAB(red, green, blue);
-
-      const [color] = [...ccp.list].sort(
-        (a, b) =>
-          deltaE(a.lab, coolHsl) - deltaE(b.lab, coolHsl) || b.area - a.area
-      );
-
-      if (color) {
-        return color;
-      }
-
       const {
         hsl: [_, s, l],
       } = (ccp.dominants && ccp.dominants[0]) || BASE_DEFAULT.dominants(ccp);
 
-      return HSLToDetailledColor(0.26, s, l);
+      return HSLToDetailledColor(
+        0.26,
+        Math.max(0.3, s),
+        Math.min(0.7, Math.max(0.3, l))
+      );
     },
   };
 

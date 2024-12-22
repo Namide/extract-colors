@@ -28,10 +28,11 @@ export function hexToDetailledColor(
   const r = (hex >> 16) & 255;
   const g = (hex >> 8) & 255;
   const b = hex & 255;
-  // const hexStr = hex.toString(16);
+  const hexStringPart = hex.toString(16);
   const lab = getLAB(r, g, b);
   return {
-    hex, // `#${"0".repeat(6 - hexStr.length)}${hexStr}`,
+    hex,
+    hexString: `#${"0".repeat(6 - hexStringPart.length)}${hexStringPart}`,
     area: count / total,
     rgb: [r, g, b],
     hsl: getHSL(r, g, b),
@@ -146,7 +147,7 @@ export function getHSL(
 // 0 -> 100
 // -100 -> 100
 // -100 -> 100
-export function getLAB(
+function getLAB(
   red: number,
   green: number,
   blue: number
