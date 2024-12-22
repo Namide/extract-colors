@@ -37,7 +37,11 @@ async function extractColors<Type extends ColorClassification>(
     );
     const hslColors = refine(colors, count, inputs.distance);
     const classedColors = classify(hslColors, inputs.colorClassifications);
-    return addDefault(classedColors, inputs.defaultColors);
+    return addDefault(
+      classedColors,
+      inputs.defaultColors,
+      inputs.defaultMainColor
+    );
   }
 
   throw new Error(`Can not analyse picture`);
