@@ -7,10 +7,10 @@ export default (list: DetailledColor[], count: number, distance: number) => {
   list.forEach((color) => averageHSLManager.addColor(color));
   return averageHSLManager
     .getGroups()
-    .map((rgb) => rgbColorToDetailledColor(rgb, rgb.count))
+    .map((rgb) => rgbColorToDetailledColor(rgb, count))
     .sort((a, b) => {
-      const bPower = (b.hsl[1] + 0.1) * (0.9 - b.count / count);
-      const aPower = (a.hsl[1] + 0.1) * (0.9 - a.count / count);
+      const bPower = (b.hsl[1] + 0.1) * (0.9 - b.area);
+      const aPower = (a.hsl[1] + 0.1) * (0.9 - a.area);
       return bPower - aPower;
     });
 };

@@ -11,7 +11,7 @@ const COLORS_LIST_TEST: Partial<Record<ColorClassification, number[]>>[] = [
   },
   {
     warmestLight: [0xdc753a, 0xe4d06b, 0xff9100, 0xff7700, 0xffff00, 0xd2f010],
-    warmestMidtone: [0xff0000, 0x7a721c],
+    warmestMidtone: [0xff0000, 0x7a721c], // 0xA1B430
     warmestDark: [0x6c3f13, 0x8e3025],
     coolestLight: [0x8b8be4, 0xabb9ff, 0x5acd2d, 0xf285f2],
     coolestMidtone: [0x4582f3, 0x469f23],
