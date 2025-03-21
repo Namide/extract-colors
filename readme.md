@@ -6,7 +6,7 @@
 [![zero dependency](https://img.shields.io/badge/dependency-zero-brightgreen)](https://www.npmjs.com/package/extract-colors?activeTab=dependencies)
 [![CI](https://github.com/Namide/extract-colors/workflows/CI/badge.svg)](https://github.com/Namide/extract-colors/actions)
 [![code coverage](https://codecov.io/gh/Namide/extract-colors/branch/master/graph/badge.svg?token=80PUQ24PW5)](https://codecov.io/gh/Namide/extract-colors)
-[![GNU GPL software License](https://img.shields.io/badge/license-GNU_GPL-brightgreen.svg)](#license)
+[![MIT License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](#license)
 [![Downloaded](https://img.shields.io/npm/dt/extract-colors)](https://www.npmjs.com/package/extract-colors)
 
 Extract color palettes from images.  
@@ -177,17 +177,6 @@ Array of colors with the followed properties:
 
 ## License
 
-Copyright (C) 2019-present Damien Doussaud
+[MIT](https://opensource.org/licenses/MIT)
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
+Copyright (c) 2025-present, Damien Doussaud
