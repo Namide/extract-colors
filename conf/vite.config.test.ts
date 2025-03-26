@@ -11,6 +11,9 @@ export default defineConfig({
     coverage: {
       provider: "istanbul", // or 'v8'
     },
-    exclude: [...configDefaults.exclude, "tests/testHelpers.ts"],
+    exclude:[
+      ...configDefaults.exclude, 
+      'tests/_image.ts' // exclude helper file
+    ]
   },
 });
