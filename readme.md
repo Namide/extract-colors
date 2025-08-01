@@ -150,8 +150,8 @@ List colors and colors classified with the followed properties:
     },
     ...
   ],
-  dominants: [...], // List of dominants colors
-  accents: [...], // List of accents colors
+  dominants: [...], // List of dominants cleaned colors
+  accents: [...], // List of accents cleaned colors
   ...
 }
 ```
