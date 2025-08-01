@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Display classify tests</title>
+</head>
+
+<body>
+  <h1>Display classify tests</h1>
+  <main></main>
+  <script type="module" src="/display.ts"></script>
+</body>
+
+<style>
+  html,
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .color-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .color {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+  }
+
+  [data-tooltip]:hover::after {
+    display: block;
+    position: absolute;
+    content: attr(data-tooltip);
+    border: 1px solid black;
+    background: #eee;
+    padding: .25em;
+  }
+</style>
+
+</html>

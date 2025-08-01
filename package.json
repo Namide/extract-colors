@@ -13,6 +13,7 @@
     "lint-fix": "npx eslint --fix --config conf/eslint.config.mjs",
     "pretest": "npm run build",
     "test": "vitest --config conf/vite.config.test.ts",
+    "display": "vite --config conf/vite.config.display.ts",
     "precoverage": "npm run build",
     "coverage": "vitest run --coverage --config conf/vite.config.test.ts",
     "loop": "for file in lib/*.js; do terser $file --compress --mangle --mangle-props --source-map includeSources --output $file; done"
@@ -52,7 +53,7 @@
     "eslint-config-prettier": "^9.1.0",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.1",
-    "vite": "^5.4.11",
+    "vite": "^5.4.19",
     "vitest": "^2.1.8"
   }
 }

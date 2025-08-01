@@ -64,3 +64,13 @@ cov:
 		-w /usr/src/app \
 		node:slim \
 		npm run coverage
+
+# Display test at http://localhost:3002/
+display:
+	docker run -ti --rm \
+		-u "node" \
+		-v $(shell pwd):/usr/src/app \
+		-w /usr/src/app \
+		-p 3002\:3002 \
+		node:slim \
+		npm run display
