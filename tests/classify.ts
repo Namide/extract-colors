@@ -10,8 +10,10 @@ const COLORS_LIST_TEST: Partial<Record<ColorClassification, number[]>>[] = [
     coolest: [0x00ffff, 0x11ff00, 0xff77ff],
   },
   {
-    warmestLight: [0xdc753a, 0xe4d06b, 0xff9100, 0xff7700, 0xffff00, 0xd2f010],
-    warmestMidtone: [0xff0000, 0x7a721c], // 0xA1B430
+    warmestLight: [
+      0xdc753a, 0xe4d06b, 0xff9100, 0xff7700, 0xffff00, 0xd2f010, 0xa1b430,
+    ],
+    warmestMidtone: [0xff0000, 0x7a721c],
     warmestDark: [0x6c3f13, 0x8e3025],
     coolestLight: [0x8b8be4, 0xabb9ff, 0x5acd2d, 0xf285f2],
     coolestMidtone: [0x4582f3, 0x469f23],
@@ -43,19 +45,29 @@ const COLORS_LIST_TEST: Partial<Record<ColorClassification, number[]>>[] = [
     ],
   },
   {
+    // Accent/dominant by saturation
+    accents: [0xff5d12, 0xfe6615, 0xeb7822],
+    dominants: [0xfefefe, 0x6c6c6d, 0x4e4d49, 0x505050, 0x302d28],
+  },
+  {
+    // Accent/dominant by saturation
+    accents: [0xde2734, 0xbe3a40, 0x7bfc24, 0x2470fc],
+    dominants: [0x484849, 0x9c9790, 0xbdb8b5, 0xfefefe],
+  },
+  {
     // Accent/dominant by hue
-    accents: [0x35872e, 0x628121, 0x3b864e, 0x3db724, 0x4b915e],
+    accents: [0x3db724, 0x3db724, 0x35872e, 0x628121, 0x3b864e, 0x4b915e],
     dominants: [
-      0xd7289f, 0xbc43bd, 0xbc4e97, 0xd43d6e, 0xbd3ad2, 0xe061ba, 0xb7248b,
-      0xc186b6,
+      0xd7289f, 0xd7289f, 0xbc43bd, 0xbc4e97, 0xd43d6e, 0xbd3ad2, 0xe061ba,
+      0xb7248b, 0xc186b6,
     ],
   },
   {
     // Accent/dominant by hue
-    accents: [0xff0000, 0xc65d58, 0xff4747, 0xb30000, 0x850000, 0xed8282],
+    accents: [0xff0000, 0xff0000, 0xc65d58, 0xff4747, 0xb30000, 0xed8282],
     dominants: [
-      0x0000ff, 0x1111aa, 0x4763ff, 0x0055ee, 0x0a0061, 0x0e008f, 0x351fff,
-      0x1f26ff, 0x4b4eaa, 0x4f53c9, 0x41437c, 0xa1a3ce,
+      0x0000ff, 0x0000ff, 0x4763ff, 0x0055ee, 0x351fff, 0x1f26ff, 0x4b4eaa,
+      0x4f53c9, 0x41437c, 0xa1a3ce,
     ],
   },
   {
@@ -77,10 +89,20 @@ describe("classify", () => {
       number[]
     ][];
     it(colors.map(([type]) => type).join(" "), () => {
-      const allFinals = colors
-        .map(([, hexadecimals]) => hexadecimals)
-        .flat(2)
-        .map((hex) => hexToDetailledColor(hex, 1, 2));
+      const allColors = colors.map(([, hexadecimals]) => hexadecimals).flat(2);
+
+      const colorsData = [...new Set(allColors)].map((hex) => ({
+        hex,
+        count: allColors.filter((c) => c === hex).length,
+      }));
+      const totalColors = colorsData.reduce(
+        (total, colorData) => total + colorData.count,
+        0
+      );
+
+      const allFinals = colorsData.map(({ hex, count }) =>
+        hexToDetailledColor(hex, count, totalColors)
+      );
 
       const allTypes = colors.map(([type]) => type);
       const classified = classify(allFinals, allTypes);
@@ -88,7 +110,9 @@ describe("classify", () => {
       for (const [type, list] of colors) {
         for (const color of list) {
           const mainFinal = hexToDetailledColor(color, 1, 2);
-          expect(classified[type].length).toBe(colorsByTypes[type]?.length);
+          expect(classified[type].length).toBe(
+            [...new Set(colorsByTypes[type])].length
+          );
           expect(classified[type].map(({ hex }) => hex)).contain(mainFinal.hex);
         }
       }

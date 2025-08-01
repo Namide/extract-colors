@@ -13,9 +13,6 @@ import type { PartialClassified } from "./types/Classified";
  * @param options.pixels Total pixel number of the resized picture for calculation
  * @param options.distance From 0 to 1 is the color distance to not have near colors (1 distance is between white and black)
  * @param options.colorValidator Test function to enable only some colors
- * @param options.saturationDistance Minimum saturation value between two colors otherwise the colors will be merged (from 0 to 1)
- * @param options.lightnessDistance inimum lightness value between two colors otherwise the colors will be merged (from 0 to 1)
- * @param options.hueDistance inimum hue value between two colors otherwise the colors will be merged (from 0 to 1)
  * @param options.requestMode support for CORS (only for Web Workers in browser)
  *
  * @returns List of extracted colors

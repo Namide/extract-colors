@@ -1,4 +1,5 @@
-// import { deltaE, hslDist } from "../color/DetailledColor";
+import { deltaE } from "../color/DetailledColor";
+import RGBColor from "../color/RGBColor";
 import type { PartialClassified } from "../types/Classified";
 import { ColorClassification, DetailledColor } from "../types/Color";
 
@@ -10,6 +11,12 @@ type FullDetailledColor<Type extends ColorClassification> = Record<
   Type,
   DetailledColor[]
 >;
+
+const enum ClassificationType {
+  Hue = 0,
+  Saturation = 1,
+  Lightness = 2,
+}
 
 export function classify<Type extends ColorClassification>(
   refinedColors: DetailledColor[],
@@ -254,48 +261,69 @@ export function classify<Type extends ColorClassification>(
   return classified as PartialClassified<Type>;
 }
 
-function distanceByType(a: DetailledColor, b: DetailledColor, key: 0 | 1 | 2) {
-  if (key === 0) {
-    const dist = Math.abs(a.ecHsl[key] - b.ecHsl[key]);
-    return dist <= 0.5
-      ? dist
-      : a.ecHsl[key] < b.ecHsl[key]
-      ? a.ecHsl[key] + 1 - b.ecHsl[key]
-      : b.ecHsl[key] + 1 - a.ecHsl[key];
+function distanceByType(
+  a: DetailledColor,
+  b: DetailledColor,
+  key: ClassificationType
+) {
+  if (key === ClassificationType.Hue) {
+    return deltaE(a.lab, b.lab);
+    // const hueNonModDist = Math.abs(a.ecHsl[key] - b.ecHsl[key]);
+    // const hueDist =
+    //   hueNonModDist <= 0.5
+    //     ? hueNonModDist
+    //     : a.ecHsl[key] < b.ecHsl[key]
+    //     ? a.ecHsl[key] + 1 - b.ecHsl[key]
+    //     : b.ecHsl[key] + 1 - a.ecHsl[key];
+    // return hueDist;
   }
 
   return Math.abs(a.ecHsl[key] - b.ecHsl[key]);
 }
 
-function getBestKeyLimit(colors: DetailledColor[]) {
+/**
+ * Keys:
+ * - 0: Hue
+ * - 1: Saturation
+ * - 2: Lightness
+ */
+function getBestKeyLimit(
+  colors: DetailledColor[],
+  keys = [0, 1, 2] as ClassificationType[]
+) {
+  // Each group is create from each color
+  // each area is the cumulative area of each colors in the group
   const groups: {
     list: DetailledColor[];
     average: number;
-    score: number;
-    key: 0 | 1 | 2;
+    area: number;
+    // score: number;
+    key: ClassificationType;
   }[][] = [[], [], []];
 
-  for (const key of [0, 1, 2] as const) {
-    const distance = key === 0 ? 0.1 : 0.25;
+  for (const key of keys) {
+    const distance = key === ClassificationType.Hue ? 0.1 : 0.25;
     const colorList = [...colors];
     while (colorList.length > 0) {
-      const color = colorList.sort((a, b) => b.count - a.count).shift()!;
+      const color = colorList
+        .sort((a, b) => b.count - a.count)
+        .shift() as DetailledColor;
 
       const group = {
         key,
         list: [color],
         average: color.ecHsl[key],
-        score: color.area,
+        area: color.area,
       };
 
       const nears = colorList.filter(
-        (c) => distanceByType(c, color, key) <= distance
+        (c) => c.hex !== color.hex && distanceByType(c, color, key) <= distance
       );
 
       for (const near of nears) {
         colorList.splice(colorList.indexOf(near), 1);
         group.list.push(near);
-        group.score += near.area;
+        group.area += near.area;
       }
 
       groups[key].push(group);
@@ -303,6 +331,8 @@ function getBestKeyLimit(colors: DetailledColor[]) {
   }
 
   groups.sort((a, b) => {
+    // Best is have 2 lists for the key
+    // It's mean 2 groups of colors are splitted for the ClassificationType
     if (a.length === 2 && b.length !== 2) {
       return -1;
     }
@@ -318,11 +348,16 @@ function getBestKeyLimit(colors: DetailledColor[]) {
 
     // Priorize hue
     if (
-      a[0].key === 0 ||
-      b[0].key === 0 ||
-      (a.length === 2 && b.length === 2)
+      a.length > 0 &&
+      b.length > 0 &&
+      ((a[0].key === ClassificationType.Hue &&
+        b[0].key !== ClassificationType.Hue &&
+        a.length === 2) ||
+        (b[0].key === ClassificationType.Hue &&
+          a[0].key !== ClassificationType.Hue &&
+          b.length === 2))
     ) {
-      return a[0].key === 0 ? -1 : 1;
+      return a[0].key === ClassificationType.Hue ? -1 : 1;
     }
 
     if (a.length > 1 && b.length > 1) {
@@ -333,8 +368,8 @@ function getBestKeyLimit(colors: DetailledColor[]) {
     }
 
     return (
-      b.reduce((total, item) => Math.abs(total - item.score), 0) -
-      a.reduce((total, item) => Math.abs(total - item.score), 0)
+      Math.abs(b.reduce((total, item) => total - item.area, 0)) -
+      Math.abs(a.reduce((total, item) => total - item.area, 0))
     );
   });
 
@@ -376,13 +411,32 @@ function getDominantsAccents(
     return [[], []] as const;
   }
 
-  const choice = getBestKeyLimit(refinedColors);
+  let choice = getBestKeyLimit(refinedColors);
+
+  // Retry if accents is grey colors
+  if (
+    choice.key === ClassificationType.Saturation &&
+    refinedColors
+      .filter((color) => color.ecHsl[choice.key] < choice.limit)
+      .reduce((total, color) => total + color.count, 0) <
+      refinedColors.reduce((total, color) => total + color.count, 0) / 2
+  ) {
+    choice = getBestKeyLimit(refinedColors, [
+      ClassificationType.Hue,
+      ClassificationType.Lightness,
+    ]);
+  }
+
+  let dominant: DetailledColor[];
+  let accent: DetailledColor[];
 
   if (choice.key === 0) {
+    // Determined by hue
     const limits = [choice.limit, (choice.limit + 0.5) % 1].sort(
       (a, b) => a - b
     );
-    return [
+
+    [dominant, accent] = [
       refinedColors.filter(
         (color) =>
           color.ecHsl[choice.key] >= limits[0] &&
@@ -398,14 +452,41 @@ function getDominantsAccents(
         listB.reduce((total, color) => total + color.area, 0) -
         listA.reduce((total, color) => total + color.area, 0)
     ) as [DetailledColor[], DetailledColor[]];
+  } else {
+    [dominant, accent] = [
+      refinedColors.filter((color) => color.ecHsl[choice.key] <= choice.limit),
+      refinedColors.filter((color) => color.ecHsl[choice.key] > choice.limit),
+    ].sort(
+      (listA, listB) =>
+        listB.reduce((total, color) => total + color.area, 0) -
+        listA.reduce((total, color) => total + color.area, 0)
+    ) as [DetailledColor[], DetailledColor[]];
   }
 
-  return [
-    refinedColors.filter((color) => color.ecHsl[choice.key] <= choice.limit),
-    refinedColors.filter((color) => color.ecHsl[choice.key] > choice.limit),
-  ].sort(
-    (listA, listB) =>
-      listB.reduce((total, color) => total + color.area, 0) -
-      listA.reduce((total, color) => total + color.area, 0)
-  ) as [DetailledColor[], DetailledColor[]];
+  dominant = dominant.sort((a, b) => b.count - a.count);
+
+  if (choice.key === 0) {
+    accent.sort(
+      (a, b) =>
+        b.ecHsl[1] - a.ecHsl[1] - (Math.abs(b.ecHsl[0] - a.ecHsl[0]) % 0.5)
+    );
+  } else if (choice.key === 1) {
+    accent.sort((a, b) => b.ecHsl[choice.key] - a.ecHsl[choice.key]);
+  } else {
+    const dominantRGB = {
+      r: dominant[0].rgb[0],
+      g: dominant[0].rgb[0],
+      b: dominant[0].rgb[0],
+    };
+
+    accent.sort((a, b) => {
+      const a2 = { r: a.rgb[0], g: a.rgb[0], b: a.rgb[0] };
+      const b2 = { r: b.rgb[0], g: b.rgb[0], b: b.rgb[0] };
+      return (
+        RGBColor.distance(b2, dominantRGB) - RGBColor.distance(a2, dominantRGB)
+      );
+    });
+  }
+
+  return [dominant, accent];
 }

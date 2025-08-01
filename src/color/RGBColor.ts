@@ -24,7 +24,7 @@ export default class RGBColor {
    * - Minimum is 0 (between two same colors)
    * - Maximum is 1 (between black and white)
    */
-  static distance(colorA: RGBColor, colorB: RGBColor) {
+  static distance(colorA: { r: number, g: number, b: number }, colorB: { r: number, g: number, b: number }) {
     return (
       (Math.abs(colorB.r - colorA.r) +
         Math.abs(colorB.g - colorA.g) +

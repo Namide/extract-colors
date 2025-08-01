@@ -7,9 +7,7 @@ import sortColors from "../sort/sortColors";
  *
  * @param colors List of colors
  * @param pixels Count of pixels in the image
- * @param hueDistance Maximal HUE distance between pixel before pixel merging
- * @param saturationDistance Maximal saturation distance between pixel before pixel merging
- * @param lightnessDistance Maximal lightness distance between pixel before pixel merging
+ * @param distance Maximal distance between colors before colors merging
  * @returns Sorted colors list
  */
 export const refine = (colors: RGBColor[], count: number, distance: number) => {

@@ -5,8 +5,8 @@ import {
 import type { BrowserOptions, OptionsCleaned } from "../types/Options";
 
 const EXTRACTOR_PIXELS_DEFAULT = 64000;
-const EXTRACTOR_DISTANCE_DEFAULT = 0.22;
-const AVERAGE_DISTANCE_DEFAULT = 0.2;
+const EXTRACTOR_DISTANCE_DEFAULT = 0.125;
+const AVERAGE_DISTANCE_DEFAULT = 0.25;
 const DEFAULT_MAIN_COLOR = 0x0077ff;
 
 export function testInputs<Type extends ColorClassification>({

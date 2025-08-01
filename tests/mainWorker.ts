@@ -6,7 +6,9 @@ class ImageBitmap {
   complete = true;
   width = 2;
   height = 2;
-  close() {}
+  close() {
+    return 0;
+  }
 }
 
 // Mock ImageData
@@ -107,7 +109,6 @@ describe("Browser", () => {
   it("Extract from src", () =>
     new Promise((done) => {
       extractColors("fakesrc.jpg").then((data) => {
-        console.log("data", data);
         expect(data.list.length).toBeGreaterThan(0);
         done(undefined);
       });
