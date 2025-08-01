@@ -64,3 +64,16 @@ cov:
 		-w /usr/src/app \
 		node:slim \
 		npm run coverage
+
+# Publish package
+publish:
+	$(MAKE) lint
+	$(MAKE) cov
+	$(MAKE) build
+	docker run -ti --rm \
+		-u "node" \
+		-v $(shell pwd):/usr/src/app \
+		-w /usr/src/app \
+		-u "node" \
+		node:slim \
+		bash -c "npm adduser; npm publish"
