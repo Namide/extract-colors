@@ -24,12 +24,29 @@ export function testInputs<Type extends ColorClassification>({
   colorClassifications = colorClassificationFull as unknown as Type[],
   defaultColors = false,
   defaultMainColor = DEFAULT_MAIN_COLOR,
+  ...rest
 }: BrowserOptions<Type> = {}) {
+  for (const key of Object.keys(rest)) {
+    switch (key) {
+      case "saturationDistance":
+      case "lightnessDistance":
+      case "hueDistance":
+        console.warn(
+          `The "${key}" option is removed from the "extract-color" v4 version. A more precise solution is used with the "distance" option.`
+        );
+        break;
+      default:
+        console.warn(`The "${key}" option don't exist on "extract-color"`);
+        break;
+    }
+  }
+
   distance =
     distance ??
     (fastDistance !== undefined && fastDistance >= 0 && fastDistance <= 1
       ? fastDistance * 2
       : AVERAGE_DISTANCE_DEFAULT);
+
   fastDistance =
     fastDistance ??
     (distance !== undefined && distance >= 0 && distance <= 1
