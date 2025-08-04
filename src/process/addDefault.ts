@@ -243,7 +243,7 @@ function HSLToDetailledColor(h: number, s: number, l: number) {
 }
 
 // https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
-function HSLToRGB(h: number, s: number, l: number) {
+function HSLToRGB(h: number, s: number, l: number): [number, number, number] {
   const a = s * Math.min(l, 1 - l);
   const func = (n: number, k = (n + h * 12) % 12) =>
     l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
@@ -251,13 +251,5 @@ function HSLToRGB(h: number, s: number, l: number) {
     Math.round(func(0) * 255),
     Math.round(func(8) * 255),
     Math.round(func(4) * 255),
-  ] as const;
+  ];
 }
-
-// function fastDist(colorA: DetailledColor, colorB: DetailledColor) {
-//   return (
-//     Math.abs(colorB.red - colorA.red) +
-//     Math.abs(colorB.green - colorA.green) +
-//     Math.abs(colorB.blue - colorA.blue)
-//   );
-// }
