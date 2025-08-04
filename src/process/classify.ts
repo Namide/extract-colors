@@ -94,165 +94,203 @@ export function classify<Type extends ColorClassification>(
         break;
       case "dullests":
         classified[type].push(
-          ...refinedColors.filter((color) => color.ecHsl[1] < 0.3)
+          ...refinedColors
+            .filter((color) => color.ecHsl[1] < 0.3)
+            .sort((a, b) => a.ecHsl[1] - b.ecHsl[1])
         );
         break;
       case "dullestsLight":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.ecHsl[1] < 0.3 && color.lab[0] > DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.ecHsl[1] < 0.3 && color.lab[0] > DARKLIGHT_LIMITS[1]
+            )
+            .sort((a, b) => a.ecHsl[1] - b.ecHsl[1])
         );
         break;
       case "dullestsMidtone":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.ecHsl[1] < 0.3 &&
-              color.lab[0] >= DARKLIGHT_LIMITS[0] &&
-              color.lab[0] <= DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.ecHsl[1] < 0.3 &&
+                color.lab[0] >= DARKLIGHT_LIMITS[0] &&
+                color.lab[0] <= DARKLIGHT_LIMITS[1]
+            )
+            .sort((a, b) => a.ecHsl[1] - b.ecHsl[1])
         );
         break;
       case "dullestsDark":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.ecHsl[1] < 0.3 && color.lab[0] < DARKLIGHT_LIMITS[0]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.ecHsl[1] < 0.3 && color.lab[0] < DARKLIGHT_LIMITS[0]
+            )
+            .sort((a, b) => a.ecHsl[1] - b.ecHsl[1])
         );
         break;
       case "vivids":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) => color.ecHsl[1] > 0.5 && color.ecHsl[2] > 0.35
-          )
+          ...refinedColors
+            .filter((color) => color.ecHsl[1] > 0.5 && color.ecHsl[2] > 0.35)
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "vividsLight":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.ecHsl[1] > 0.5 && color.lab[0] > DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.ecHsl[1] > 0.5 && color.lab[0] > DARKLIGHT_LIMITS[1]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "vividsMidtone":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.ecHsl[1] > 0.5 &&
-              color.lab[0] >= DARKLIGHT_LIMITS[0] &&
-              color.lab[0] <= DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.ecHsl[1] > 0.5 &&
+                color.lab[0] >= DARKLIGHT_LIMITS[0] &&
+                color.lab[0] <= DARKLIGHT_LIMITS[1]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "vividsDark":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.ecHsl[1] > 0.5 && color.lab[0] < DARKLIGHT_LIMITS[0]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.ecHsl[1] > 0.5 && color.lab[0] < DARKLIGHT_LIMITS[0]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "lightests":
         classified[type].push(
-          ...refinedColors.filter((color) => color.lab[0] > DARKLIGHT_LIMITS[1])
+          ...refinedColors
+            .filter((color) => color.lab[0] > DARKLIGHT_LIMITS[1])
+            .sort((a, b) => b.ecHsl[2] - a.ecHsl[2])
         );
         break;
       case "midtones":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.lab[0] >= DARKLIGHT_LIMITS[0] &&
-              color.lab[0] <= DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.lab[0] >= DARKLIGHT_LIMITS[0] &&
+                color.lab[0] <= DARKLIGHT_LIMITS[1]
+            )
+            .sort(
+              (a, b) => Math.abs(a.ecHsl[2] - 0.5) - Math.abs(b.ecHsl[2] - 0.5)
+            )
         );
         break;
       case "darkests":
         classified[type].push(
-          ...refinedColors.filter((color) => color.lab[0] < DARKLIGHT_LIMITS[0])
+          ...refinedColors
+            .filter((color) => color.lab[0] < DARKLIGHT_LIMITS[0])
+            .sort((a, b) => a.ecHsl[2] - b.ecHsl[2])
         );
         break;
       case "warmest":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.hsl[0] < COOLWARM_LIMITS[0] ||
-              color.hsl[0] > COOLWARM_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.hsl[0] < COOLWARM_LIMITS[0] ||
+                color.hsl[0] > COOLWARM_LIMITS[1]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "warmestLight":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              (color.hsl[0] < COOLWARM_LIMITS[0] ||
-                color.hsl[0] > COOLWARM_LIMITS[1]) &&
-              color.lab[0] > DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                (color.hsl[0] < COOLWARM_LIMITS[0] ||
+                  color.hsl[0] > COOLWARM_LIMITS[1]) &&
+                color.lab[0] > DARKLIGHT_LIMITS[1]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "warmestMidtone":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              (color.hsl[0] < COOLWARM_LIMITS[0] ||
-                color.hsl[0] > COOLWARM_LIMITS[1]) &&
-              color.lab[0] >= DARKLIGHT_LIMITS[0] &&
-              color.lab[0] <= DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                (color.hsl[0] < COOLWARM_LIMITS[0] ||
+                  color.hsl[0] > COOLWARM_LIMITS[1]) &&
+                color.lab[0] >= DARKLIGHT_LIMITS[0] &&
+                color.lab[0] <= DARKLIGHT_LIMITS[1]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "warmestDark":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              (color.hsl[0] < COOLWARM_LIMITS[0] ||
-                color.hsl[0] > COOLWARM_LIMITS[1]) &&
-              color.lab[0] < DARKLIGHT_LIMITS[0]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                (color.hsl[0] < COOLWARM_LIMITS[0] ||
+                  color.hsl[0] > COOLWARM_LIMITS[1]) &&
+                color.lab[0] < DARKLIGHT_LIMITS[0]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "coolest":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              color.hsl[0] > COOLWARM_LIMITS[0] &&
-              color.hsl[0] < COOLWARM_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                color.hsl[0] > COOLWARM_LIMITS[0] &&
+                color.hsl[0] < COOLWARM_LIMITS[1]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "coolestLight":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              (color.hsl[0] > COOLWARM_LIMITS[0] ||
-                color.hsl[0] > COOLWARM_LIMITS[1]) &&
-              color.lab[0] > DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                (color.hsl[0] > COOLWARM_LIMITS[0] ||
+                  color.hsl[0] > COOLWARM_LIMITS[1]) &&
+                color.lab[0] > DARKLIGHT_LIMITS[1]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "coolestMidtone":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              (color.hsl[0] > COOLWARM_LIMITS[0] ||
-                color.hsl[0] > COOLWARM_LIMITS[1]) &&
-              color.lab[0] >= DARKLIGHT_LIMITS[0] &&
-              color.lab[0] <= DARKLIGHT_LIMITS[1]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                (color.hsl[0] > COOLWARM_LIMITS[0] ||
+                  color.hsl[0] > COOLWARM_LIMITS[1]) &&
+                color.lab[0] >= DARKLIGHT_LIMITS[0] &&
+                color.lab[0] <= DARKLIGHT_LIMITS[1]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
       case "coolestDark":
         classified[type].push(
-          ...refinedColors.filter(
-            (color) =>
-              (color.hsl[0] > COOLWARM_LIMITS[0] ||
-                color.hsl[0] > COOLWARM_LIMITS[1]) &&
-              color.lab[0] < DARKLIGHT_LIMITS[0]
-          )
+          ...refinedColors
+            .filter(
+              (color) =>
+                (color.hsl[0] > COOLWARM_LIMITS[0] ||
+                  color.hsl[0] > COOLWARM_LIMITS[1]) &&
+                color.lab[0] < DARKLIGHT_LIMITS[0]
+            )
+            .sort((a, b) => b.ecHsl[1] - a.ecHsl[1])
         );
         break;
     }
